@@ -1,0 +1,9 @@
+package com.roomorder.model;
+
+public class RoomOrderService {
+	private RoomOrderDAO_Interface dao;
+	
+	public RoomOrderService() {
+		dao = new RoomOrderDAO();
+	}
+}

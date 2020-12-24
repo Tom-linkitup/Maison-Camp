@@ -1,0 +1,64 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ page import="java.util.*" %>
+<%@ page import="com.roomorder.model.*" %>
+
+<%
+	RoomOrderService roomOrderSvc = new RoomOrderService();
+	List<RoomOrderVO> list = roomOrderSvc.getAllRO();
+	pageContext.setAttribute("list", list);
+%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/css/back-end/room-order.css" />
+<link rel="stylesheet" href="<%=request.getContextPath()%>/bootstrap/bootstrap.min.css">
+<link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" />
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script src="http://code.jquery.com/jquery-1.12.4.min.js"></script>
+<title>Insert title here</title>
+</head>
+<body>
+	<header>
+		
+	</header>
+	<div>
+		<table id="myTable">
+			<tr class="header">
+				<th>訂單編號</th>
+				<th>會員編號</th>
+				<th>訂單創建日期</th>
+				<th>訂單金額</th>
+				<th>訂單狀態</th>
+				<th></th>
+			</tr>
+					
+			<tr>
+			
+				<td>${roomTypeVO.room_category_id}</td>
+				<td>${roomTypeVO.room_name}</td>
+				<td>${roomTypeVO.room_type}</td>
+				<td>${roomTypeVO.room_price}</td>
+				<td>${roomTypeVO.area}</td>
+				<td></td>
+				
+				<td>${roomTypeVO.room_info}</td>
+				<td>
+				<input type="hidden" name="room_category_id" value="${roomTypeVO.room_category_id}">
+				<input type="hidden" name="action" value="getOne_For_Update">	
+			    <button class="edit btn btn-info" type="submit">修改</button>
+				</td>
+				<td>
+				<form method="post" action="${pageContext.request.contextPath}/RoomType.do">
+					<input type="hidden" name="action" value="delete">
+					<input type="hidden" name="room_category_id" value="${roomTypeVO.room_category_id}">
+				    <button class="delete btn btn-danger" type="submit">刪除</button>
+				</form>
+				</td>
+			</tr>
+		</table>
+	</div>
+	
+</body>
+</html>

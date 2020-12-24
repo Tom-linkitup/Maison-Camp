@@ -1,0 +1,5 @@
+package com.roomorder.model;
+
+public class RoomOrderDAO {
+
+}

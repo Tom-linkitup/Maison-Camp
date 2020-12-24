@@ -1,0 +1,43 @@
+package com.member.filter;
+
+import java.io.IOException;
+import java.util.LinkedList;
+import java.util.List;
+
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import com.member.model.MemberService;
+import com.member.model.MemberVO;
+
+@WebServlet("/MemberLoginHandler")
+public class MemberLoginHandler extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+       
+	protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+		
+		doPost(req,res);
+	}
+	protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+		req.setCharacterEncoding("utf-8");
+		res.setContentType("text/html;charset=utf-8");
+		
+		HttpSession session = req.getSession();
+		
+		List<String> errorMsgs = new LinkedList<>();
+		session.setAttribute("errorMsgs", errorMsgs);
+		
+		//錯誤驗證
+		String mem_email = req.getParameter("mem_email");
+		String mem_user_pwd = req.getParameter("mem_user_pwd");
+		
+		MemberService memSvc = new MemberService();
+		MemberVO memVO = memSvc.isUser(mem_email, mem_user_pwd);
+		
+	}
+
+}
