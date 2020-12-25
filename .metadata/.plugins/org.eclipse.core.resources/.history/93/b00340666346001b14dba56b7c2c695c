@@ -1,0 +1,79 @@
+
+.input-beautify{
+    outline-style: none ;
+    border: 1px solid #ccc; 
+    border-radius: 3px;
+    padding: 8px 8px;
+    width: 620px;
+    font-size: 16px;
+    font-weight: 400;
+    font-family: "Tahoma";
+    margin-left:-20px;
+}
+
+.input-beautify:hover{
+    border-color: #66afe9;
+    outline: 0;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075),0 0 8px rgba(102,175,233,.6);
+    box-shadow: inset 0 1px 1px rgba(0,0,0,.075),0 0 8px rgba(102,175,233,.6)
+}
+
+/*light box*/
+#lightBox{
+    position: fixed;
+    left:0;
+    top:0;
+    width: 100%;
+    height: 100%;
+    background: rgba(66,66,66,.6);
+}
+#tableLogin{
+    position: absolute;
+    width: 750px;
+    height:350px;
+   	top: 25%;
+    right: 20%;
+    bottom: 30%;
+/*    left: 0;*/
+    margin:auto;
+    background-color:#f9f9f9;
+    border-radius: 10px;
+}
+
+  #tableLogin td{
+    padding-left:20px;
+    height:15px;
+    border-style:none;
+  }
+  
+/* show order detail*/
+
+#showBox {
+	position: fixed;
+    left:0;
+    top:0;
+    width: 100%;
+    height: 100%;
+    background: rgba(66,66,66,.6);
+}
+
+#show {
+	position: absolute;
+	left:43%;
+   	top: 22%;
+    bottom: 30%;
+    margin:auto;
+    border-radius:20px;
+    border:none;
+}
+
+.cancel {
+	position:absolute;
+	top:23%;
+	left:80%;
+	z-index:999;
+}
+  
+
+
+  

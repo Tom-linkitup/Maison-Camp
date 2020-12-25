@@ -1,0 +1,19 @@
+package com.roomorderdetail.model;
+
+import java.io.Serializable;
+
+public class RoomOrderDetailVO implements Serializable {
+	private String room_order_id;
+	private String room_category_id;
+	private String room_promotion_id;
+	private int quantity;
+	private int room_order_price;
+	private String note;
+	
+	public RoomOrderDetailVO () {
+		
+	}
+
+	
+
+}

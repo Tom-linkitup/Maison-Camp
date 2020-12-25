@@ -5,9 +5,8 @@ import java.io.Serializable;
 public class RoomOrderVO implements Serializable {
 	private String room_order_id;
 	private String mem_id;	
-	private String payment;	
-	private java.sql.Date time;	
-	private int room_total_amount;	
+	private java.sql.Date check_in_date;
+	private java.sql.Date check_out_date;
 	private int status;	
 	
 	public RoomOrderVO(){
@@ -30,28 +29,20 @@ public class RoomOrderVO implements Serializable {
 		this.mem_id = mem_id;
 	}
 
-	public String getPayment() {
-		return payment;
+	public java.sql.Date getCheck_in_date() {
+		return check_in_date;
 	}
 
-	public void setPayment(String payment) {
-		this.payment = payment;
+	public void setCheck_in_date(java.sql.Date check_in_date) {
+		this.check_in_date = check_in_date;
 	}
 
-	public java.sql.Date getTime() {
-		return time;
+	public java.sql.Date getCheck_out_date() {
+		return check_out_date;
 	}
 
-	public void setTime(java.sql.Date time) {
-		this.time = time;
-	}
-
-	public int getRoom_total_amount() {
-		return room_total_amount;
-	}
-
-	public void setRoom_total_amount(int room_total_amount) {
-		this.room_total_amount = room_total_amount;
+	public void setCheck_out_date(java.sql.Date check_out_date) {
+		this.check_out_date = check_out_date;
 	}
 
 	public int getStatus() {

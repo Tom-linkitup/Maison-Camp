@@ -293,8 +293,6 @@
     </form>
   </div>
   	<script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
-  	<script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.1/dist/jquery.validate.js"></script>
-	<script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.1/dist/additional-methods.js"></script>
   	<script src="https://unpkg.com/imask"></script>
     <script type="text/javascript" src="<%=request.getContextPath()%>/js/front-end/signup.js"></script>
 	<script src="<%=request.getContextPath()%>/datetimepicker/jquery.js"></script>

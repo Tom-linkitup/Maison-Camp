@@ -65,7 +65,7 @@
 		</table>
 		<%@ include file="page2.file"%>
 		<div id="lightBox" style="display:none;">
-			<form method="post" action="${pageContext.request.contextPath}/RoomType.do">
+			<form method="post" action="${pageContext.request.contextPath}/RoomOrder.do">
 				<table align="center" id="tableLogin">
 					<tr style="font-size:20px; color:#c15c61;"><td>房型修改</td></tr>
 					<tr><td>房型編號：</td><td><input style="background-color:#f9f9f9; border:none;" id="room_category_id" class="input-noEdit" type="text" name="room_category_id" readonly></td></tr>			

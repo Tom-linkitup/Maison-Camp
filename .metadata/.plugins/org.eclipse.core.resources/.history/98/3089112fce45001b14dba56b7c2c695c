@@ -1,0 +1,94 @@
+package com.roomorderdetail.model;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.util.List;
+
+import javax.naming.Context;
+import javax.naming.NamingException;
+import javax.sql.DataSource;
+
+public class RoomOrderDetailDAO implements RoomOrderDetailDAO_Interface{
+		//連線池
+		private static DataSource ds = null;
+		static {
+			try {
+				Context ctx = new javax.naming.InitialContext();
+				ds = (DataSource) ctx.lookup("java:comp/env/jdbc/GDB");
+			} catch (NamingException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		private static final String Add_Stmt = "INSERT INTO ROOM_ORDER_DETAIL (ROOM_ORDER_ID, ROOM_CATEGORY_ID, ROOM_PROMOTION_ID, QUANTITY, ROOM_ORDER_PRICE, ORDER_TIME, NOTE) VALUES (?,?,?,?,?,?,?)";
+		
+		
+		@Override
+		public void addRoomOrderDetail(RoomOrderDetailVO roomOrderDetail) {
+			// TODO Auto-generated method stub
+			
+		}
+		@Override
+		public void updateRoomOrderDetail(RoomOrderDetailVO roomOrderDetail) {
+			// TODO Auto-generated method stub
+			
+		}
+		@Override
+		public void deleteRoomOrderDetail(String room_order_id) {
+			// TODO Auto-generated method stub
+			
+		}
+		@Override
+		public RoomOrderDetailVO findByRoomOrderId(String room_order_id) {
+			// TODO Auto-generated method stub
+			return null;
+		}
+		@Override
+		public List<RoomOrderDetailVO> getAllRoomOrderDetail() {
+			// TODO Auto-generated method stub
+			return null;
+		}
+		@Override
+		public void addRoomOrderAndDetail(RoomOrderDetailVO roomOrderDetailVO, Connection con) {
+			PreparedStatement pstmt = null;
+
+			try {
+	     		pstmt = con.prepareStatement(Add_Stmt);
+
+				pstmt.setString(1, empVO.getEname());
+				pstmt.setString(2, empVO.getJob());
+				pstmt.setDate(3, empVO.getHiredate());
+				pstmt.setDouble(4, empVO.getSal());
+				pstmt.setDouble(5, empVO.getComm());
+				pstmt.setInt(6, empVO.getDeptno());
+
+				pstmt.executeUpdate();
+
+				// Handle any SQL errors
+			} catch (SQLException se) {
+				if (con != null) {
+					try {
+						// 3●設定於當有exception發生時之catch區塊內
+						System.err.print("Transaction is being ");
+						System.err.println("rolled back-由-emp");
+						con.rollback();
+					} catch (SQLException excep) {
+						throw new RuntimeException("rollback error occured. "
+								+ excep.getMessage());
+					}
+				}
+				throw new RuntimeException("A database error occured. "
+						+ se.getMessage());
+				// Clean up JDBC resources
+			} finally {
+				if (pstmt != null) {
+					try {
+						pstmt.close();
+					} catch (SQLException se) {
+						se.printStackTrace(System.err);
+					}
+				}
+			}
+			
+		}
+}

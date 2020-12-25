@@ -1,0 +1,5 @@
+package com.roomorderdetail.model;
+
+public class RoomOrderDetailService {
+
+}

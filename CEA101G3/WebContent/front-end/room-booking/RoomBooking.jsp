@@ -38,10 +38,8 @@
         </div>
         <!-- booking calendar -->
         <div class="news-title">
-
+			
         </div>
-
-
 
         <footer class="site-footer">
             <div class="container">

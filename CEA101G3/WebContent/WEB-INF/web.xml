@@ -74,6 +74,15 @@
 		<url-pattern>/PhotoList.do</url-pattern>
 	</servlet-mapping>
 	
+	<servlet>
+		<servlet-name>RoomOrderServlet</servlet-name>
+		<servlet-class>com.roomorder.controller.RoomOrderServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>RoomOrderServlet</servlet-name>
+		<url-pattern>/RoomOrder.do</url-pattern>
+	</servlet-mapping>
+	
 	<filter>
 		<filter-name>MemberLoginFilter</filter-name>
 		<filter-class>com.member.filter.MemberLoginFilter</filter-class>
