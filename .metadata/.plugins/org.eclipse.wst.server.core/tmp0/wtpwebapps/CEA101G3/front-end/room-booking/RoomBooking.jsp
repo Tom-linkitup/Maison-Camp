@@ -5,6 +5,8 @@
 <meta charset="UTF-8">
 <link href="https://fonts.googleapis.com/css?family=Lato:100,300,400,700,900" rel="stylesheet">
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" />
+<!-- <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css"> -->
 <link rel="stylesheet" href="<%=request.getContextPath()%>/css/front-end/room-booking.css">
 <link rel="shortcut icon" type="image/png" href="<%=request.getContextPath()%>/img/logo.png">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
@@ -38,9 +40,93 @@
         </div>
         <!-- booking calendar -->
         <div class="news-title">
-			
+			<div class="container content-xs">
+				<div class="row">
+					<div class="picknight">
+						<div class="form-group">
+							<div class="row">
+								<form class="sky-form" action="">
+									<div class="col-sm-5" style="display:inline-flex;">
+										<label class="col-sm-3 text-right control-label">選擇類型:</label>
+										<div class="col-sm-9">
+											<section>
+												<label class="select">
+													<select class="change-room">
+														<option value="">兩人帳</option>
+														<option value="">兩床帳</option>
+														<option value="">四床帳</option>
+													</select>
+												</label>
+											</section>
+										</div>
+									</div>
+									<div class="col-sm-4" style="display:inline-flex; margin-left:-10px;">
+										<label class="col-sm-6 text-right control-label">使用天數:</label>
+										<div class="col-sm-6">
+											<section>
+												<label class="select">
+													<select class="change-room">
+														<option value="">1</option>
+														<option value="">2</option>
+														<option value="">3</option>
+														<option value="">4</option>
+														<option value="">5</option>
+														<option value="">6</option>
+														<option value="">7</option>
+													</select>
+												</label>
+											</section>
+										</div>
+									</div>
+									<div class="col-sm-3" style="display:inline-flex;">
+										<label class="col-sm-4 text-right control-label">數量:</label>
+										<div class="col-sm-8">
+											<section>
+												<label class="select">
+													<select class="change-room">
+														<option value="">1</option>
+														<option value="">2</option>
+														<option value="">3</option>
+													</select>
+												</label>
+											</section>
+										</div>
+									</div>							
+								</form>
+							</div>
+						</div>
+					</div>
+				</div>
+				<section>
+					<div class="table-responsive">
+						<div class="ui-datepicker-inline ui-datepicker">
+							<div class="card">
+					            <div style="display:inline-flex; justify-content: space-between; background-color:#eeeeee;">
+					                <a class="" id="prev" onclick="prev()"><i class="fas fa-less-than fa-1x"></i></a>
+					            	<h4 class="card-title" id="mmYY" style="margin-top:10px; color:#666666;">月/年</h4>
+					                <a class="" id="next" onclick="next()"><i class="fas fa-greater-than fa-1x"></i></a>
+					            </div>
+					            <table class="table table-bordered" id="dateDetail" style="text-align:center;">
+					                <thead>
+					                    <tr>
+					                        <th class="holiday">日</th>
+					                        <th>一</th>
+					                        <th>二</th>
+					                        <th>三</th>
+					                        <th>四</th>
+					                        <th>五</th>
+					                        <th class="holiday">六</th>
+					                    </tr>
+					                </thead>
+					                <tbody id="body">			
+					                </tbody>
+					            </table>				            
+					        </div>
+						</div>
+					</div>		
+				</section>
+			</div>
         </div>
-
         <footer class="site-footer">
             <div class="container">
                 <div class="row">
@@ -73,10 +159,10 @@
                 </div>
                 <div class="col-md-4 col-sm-6 col-xs-12">
                     <ul class="social-icons">
-                    <li><a class="facebook" href="#"><i class="fa fa-facebook"></i></a></li>
-                    <li><a class="twitter" href="#"><i class="fa fa-twitter"></i></a></li>
-                    <li><a class="dribbble" href="#"><i class="fa fa-dribbble"></i></a></li>
-                    <li><a class="linkedin" href="#"><i class="fa fa-linkedin"></i></a></li>   
+                    <li><a class="facebook" href="#"><i class="fab fa-facebook-f"></i></a></li>
+                    <li><a class="twitter" href="#"><i class="fab fa-twitter"></i></a></li>
+                    <li><a class="dribbble" href="#"><i class="fab fa-dribbble"></i></a></li>
+                    <li><a class="linkedin" href="#"><i class="fab fa-linkedin"></i></a></li>   
                     </ul>
                 </div>
                 </div>
@@ -86,8 +172,8 @@
 
       <!-- footer -->
         <script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
+     <!--    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.9.2/jquery.ui.datepicker.min.js"></script> -->
         <script src="<%=request.getContextPath()%>/js/front-end/room-booking.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
-
 </body>
 </html>
