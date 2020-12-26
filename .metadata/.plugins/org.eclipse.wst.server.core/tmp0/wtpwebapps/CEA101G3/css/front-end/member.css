@@ -219,7 +219,20 @@ body {
       top: 0;
     }
   }
-
+  .panel-title {
+  	font-size:1.4em !important;
+  }
+  
+  .table-user-information > tbody > tr {
+  	border-top: 1px dotted #dddddd;
+	}
+	.table-user-information > tbody > tr:first-child {
+	  border-top: 0 !important;
+	}
+	.table-user-information > tbody > tr > td {
+	  border-top: 0 !important;
+	  font-size:1.3em;
+	}
 
   .title {
     font-size: 25px;

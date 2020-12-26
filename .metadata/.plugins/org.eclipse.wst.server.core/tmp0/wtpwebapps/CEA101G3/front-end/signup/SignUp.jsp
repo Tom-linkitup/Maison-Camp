@@ -87,19 +87,19 @@
         <h3>基本資料</h3>
         <div class="input-group input-group-icon">
         		<div class="input-name">姓名：</div>
-          <input type="text" placeholder="姓名 (長度6-12字)" name="name" minlength="6" maxlength="12"/>
+          <input type="text" placeholder="姓名 (長度6-12字)" name="name" minlength="1" maxlength="12"/>
           <div class="input-icon"><i class="fa fa-user"></i></div>
           	<p id="errorMsgName" style="font-size:2px; color:red; margin-left:105px;"></p>
         </div>
         <div class="input-group input-group-icon">
         		<div class="input-name">帳號：</div>
-          <input type="text" placeholder="帳號 (長度8-12字 )" name="user_id" minlength="8" maxlength="12"/>
+          <input type="text" placeholder="帳號 (長度8-12字 )" name="user_id" minlength="1" maxlength="12"/>
           <div class="input-icon"><i class="far fa-user-circle"></i></div>
           	<p id="errorMsgUserId" style="font-size:2px; color:red; margin-left:105px;"></p>
         </div>
         <div class="input-group input-group-icon">
         		<div class="input-name">密碼：</div>
-          <input type="password" placeholder="密碼 (長度8-12字且不包含特殊符號)" name="user_pwd" minlength="8" maxlength="12"/>
+          <input type="password" placeholder="密碼 (長度8-12字且不包含特殊符號)" name="user_pwd" minlength="1" maxlength="12"/>
           <div class="input-icon"><i class="fa fa-key"></i></div>
           	<p id="errorMsgUserPwd" style="font-size:2px; color:red; margin-left:105px;"></p>
         </div>
@@ -268,7 +268,7 @@
 	        </div>
 	        <div class="field-container">
 	            <label for="cardnumber">卡號</label><span id="generatecard">generate random</span>
-	            <input class="credit-input" id="cardnumber" name="payment" type="text" pattern="^[1-9]\d{3}([\ \-]?)\d{4}\1\d{4}\1\d{4}$">
+	            <input class="credit-input" id="cardnumber" name="payment" type="text">
 	            <svg id="ccicon" class="ccicon" width="750" height="471" viewBox="0 0 750 471" version="1.1" xmlns="http://www.w3.org/2000/svg"
 	                xmlns:xlink="http://www.w3.org/1999/xlink">
 	
@@ -364,7 +364,7 @@
 	   				if(emailArr[i] === email){
 		   				$("#errorMsgEmail").text("＊此電子信箱已被註冊")
 		   				$("input[name=email]").focus()
-	        				$("input[name=email]").addClass("errormsg")
+	        			$("input[name=email]").addClass("errormsg")
 	   				}
 	   			}  		
         	}

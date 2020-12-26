@@ -90,6 +90,7 @@
 	<filter-mapping>
 		<filter-name>MemberLoginFilter</filter-name>
 		<url-pattern>/front-end/front-index.jsp</url-pattern>
+		<url-pattern>/front-end/member/Member.jsp</url-pattern>
 		<dispatcher>REQUEST</dispatcher>
 		<dispatcher>FORWARD</dispatcher>
 		<dispatcher>INCLUDE</dispatcher>

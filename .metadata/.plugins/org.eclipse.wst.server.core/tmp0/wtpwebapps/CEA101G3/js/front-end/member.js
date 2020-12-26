@@ -4,20 +4,30 @@ $(document).ready(function() {
     lis.removeClass("active");
     $(this).addClass("active");
   })
+  
+  $("#information").click(function(){
+	$("#password-show").css("display","none");
+    $("#credit-show").css("display","none");
+    $("#info-show").css("display","none");
+    $("#info").css("display","");
+  })
     
   $("#info-edit").click(function(){
+	$("#info").css("display","none");
     $("#password-show").css("display","none");
     $("#credit-show").css("display","none");
     $("#info-show").css("display","");
   })
 
   $("#password-edit").click(function(){
+	$("#info").css("display","none");
     $("#info-show").css("display","none");
     $("#credit-show").css("display","none");
     $("#password-show").css("display","");
   })
 
   $("#payment").click(function(){
+	$("#info").css("display","none");
     $("#info-show").css("display","none");
     $("#password-show").css("display","none");
     $("#credit-show").css("display","");
