@@ -42,8 +42,12 @@ let today = new Date()
                     let priceline = document.createElement("span")
                     let columnText = document.createTextNode(date)
                     let columnVolumn = document.createTextNode("剩餘 " + volumn)
-                    let columnPrice = document.createTextNode("特價" + price)
+                    let columnPrice = document.createTextNode("價格" + price)
                     
+                    column.classList.add("tdClass")
+                    column.addEventListener("click", function(){
+                    	column.classList.add("active")
+                    })
                     // 設定文字顏色
                     dateline.appendChild(columnText)
                     dateline.style.color = '#acacac'
@@ -64,8 +68,17 @@ let today = new Date()
                     date++
                 }
             }
-            content.appendChild(weekRow)
+            content.appendChild(weekRow)        
         }
+        //選擇單格及滑過顏色
+        let tds = $(".tdClass")
+	    tds.hover(function(){
+	    	$(this).toggleClass("hoverme")
+	    })
+	    tds.click(function(){
+	    	tds.removeClass("active");
+	    	$(this).addClass("active");
+	    })
     }
 
     function prev(){

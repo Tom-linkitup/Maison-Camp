@@ -1,0 +1,21 @@
+* {
+	margin:0;
+	padding:0;
+}
+
+/*side-left*/
+
+
+.navbar-default {
+	width:270px;
+}
+
+.navbar-default .logo img{
+	text-align:center;
+	height:150px; 
+	margin-left:35px;
+}
+
+.navbar-nav li a {
+	font-size:1.6em;
+}

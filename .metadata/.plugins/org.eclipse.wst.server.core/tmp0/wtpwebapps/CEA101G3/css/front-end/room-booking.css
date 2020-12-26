@@ -257,8 +257,25 @@ label {
 	height:90px;
 }
 
+.hoverme {
+	background-color:#fcf3cf;
+	cursor:grab;
+}
+
+.tdClass:active {
+	cursor:grabbing;
+}
+
+.active {
+	background-color:#edbb99;
+}
+
 .gray {
 	background-color:#f2f2f2;
+}
+
+.gray:hover {
+	cursor: no-drop;
 }
 
 .price {

@@ -28,7 +28,6 @@
   }
 </style>
 </head>
-
 <body>
 <div class="container">
 	<section id="Steps" class="steps-section">

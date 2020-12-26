@@ -15,7 +15,7 @@
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 <link rel="stylesheet" href="<%=request.getContextPath()%>/css/front-end/style.css">
 <link rel="stylesheet" href="<%=request.getContextPath()%>/css/front-end/login.css">
-<link rel="shortcut icon" type="image/png" href="<%=request.getContextPath()%>/img/homelogo.png">
+<link rel="shortcut icon" type="image/png" href="<%=request.getContextPath()%>/img/logo.png">
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css">
 <title>Maison Camp | 露營家</title>
@@ -34,7 +34,7 @@
                     <ul id="menu">
                         <a href="<%=request.getContextPath()%>/front-end/front-index.jsp"><li>首頁</li></a>
                         <a href="<%=request.getContextPath()%>/front-end/news/News.jsp"><li>最新消息</li></a>
-                        <a href="#"><li>會員登入</li></a>
+                        <a href="<%=request.getContextPath()%>/front-end/member/Member.jsp"><li>會員中心</li></a>
                         <a href="<%=request.getContextPath()%>/front-end/room-type/RoomType.jsp"><li>帳型介紹</li></a>
                         <a href="<%=request.getContextPath()%>/front-end/room-booking/RoomBooking.jsp"><li>立即訂房</li></a>
                         <a href="#"><li>精選商城</li></a>
