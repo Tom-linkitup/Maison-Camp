@@ -14,6 +14,8 @@
 <link rel="stylesheet" href="<%=request.getContextPath()%>/css/front-end/member.css">
 <link rel="shortcut icon" type="image/png" href="<%=request.getContextPath()%>/img/logo.png">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+<link rel="stylesheet" href="<%=request.getContextPath()%>/build/css/countrySelect.css">
+<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/datetimepicker/jquery.datetimepicker.css" />
 <title>Maison Camp | 會員中心</title>
 </head>
 <body>
@@ -59,7 +61,7 @@
       </div>
       <div id="main">
       		<div id="info" class="row info-form">
-	          <form method="POST" action="">
+	          <form>
 	              <fieldset>
 	                  <legend><i class="fas fa-user-circle"></i> 會員基本資料</legend>
 	                  <div class="panel panel-warning" style="width:90%; margin-left:50px;">
@@ -74,6 +76,10 @@
 			                            <tr>
 				                            <td>會員編號:</td>
 				                            <td>${memVO.mem_id}</td>
+			                            </tr>
+			                            <tr>
+				                            <td>會員帳號:</td>
+				                            <td>${memVO.user_id}</td>
 			                            </tr>
 			                            <tr>
 				                            <td>會員狀態:</td>
@@ -128,42 +134,37 @@
 	          </form>
 	      </div>
 	      <div id="info-show" class="row info-form" style="display:none;">
-	          <form method="POST" action="">
+	          <form method="post" action="<%=request.getContextPath()%>/Member.do">
 	              <fieldset>
 	                  <legend><i class="fa fa-edit"></i> 修改基本資料</legend>
+	                  <input type="hidden" name="mem_id" value="${memVO.mem_id}">
 	                  <div class="input-group input-group-icon">
-	                          <div class="input-name">姓名：</div>
-	                  <input type="text" placeholder="姓名 (長度6-12字)" name="name" minlength="6" maxlength="12"/>
+	                  <div class="input-name">姓名：</div>
+	                  <input type="text" placeholder="姓名 (長度6-12字)" name="name" minlength="1" maxlength="12" value="${memVO.name}"/>
 	                  <div class="input-icon"><i class="fa fa-user"></i></div>
-	                      <p id="errorMsgName" style="font-size:2px; color:red; margin-left:105px;"></p>
+	                  <p id="errorMsgName" style="font-size:2px; color:red; margin-left:160px;"></p>
 	                  </div>
 	                  <div class="input-group input-group-icon">
-	                          <div class="input-name">帳號：</div>
-	                  <input type="text" placeholder="帳號 (長度8-12字 )" name="user_id" minlength="8" maxlength="12"/>
+	                  <div class="input-name">帳號：</div>
+	                  <input type="text" placeholder="帳號 (長度8-12字 )" name="user_id" minlength="1" maxlength="12" value="${memVO.user_id}"/>
 	                  <div class="input-icon"><i class="far fa-user-circle"></i></div>
-	                      <p id="errorMsgUserId" style="font-size:2px; color:red; margin-left:105px;"></p>
-	                  </div>
-	                  <div class="input-group input-group-icon">
-	                          <div class="input-name">電子信箱：</div>
-	                  <input id="check-repeat-email" type="email" placeholder="電子信箱" name="email"/>
-	                  <div class="input-icon"><i class="fa fa-envelope"></i></div>
-	                      <p id="errorMsgEmail" style="font-size:2px; color:red; margin-left:105px;"></p>
+	                      <p id="errorMsgUserId" style="font-size:2px; color:red; margin-left:160px;"></p>
 	                  </div>
 	                  <div class="input-group input-group-icon">
 	                          <div class="input-name">手機號碼：</div>
-	                  <input type="text" placeholder="手機號碼" name="phone"/>
+	                  <input type="text" placeholder="手機號碼" name="phone" value="${memVO.phone}"/>
 	                  <div class="input-icon"><i class="far fa-phone-alt"></i></div>
 	                  </div>
 	                  <div class="input-group input-group-icon">
 	                          <div class="input-name">出生年月日：</div>
-	                  <input id="birthday" type="text" placeholder="生日" name="birthday"/>
+	                  <input id="birthday" type="text" placeholder="生日" name="birthday" value="${memVO.birthday }"/>
 	                  <div class="input-icon"><i class="far fa-birthday-cake"></i></div>
 	                  </div>
 	                  <div class="input-group input-group-icon">
 	                          <div class="input-name">身分證字號：</div>
-	                  <input type="text" placeholder="身分證字號" name="personal_id"/>
+	                  <input type="text" placeholder="身分證字號" name="personal_id" value="${memVO.personal_id}"/>
 	                  <div class="input-icon"><i class="far fa-user-circle"></i></div>
-	                  <p id="errorMsgID" style="font-size:2px; color:red; margin-left:105px;"></p>
+	                  <p id="errorMsgID" style="font-size:2px; color:red; margin-left:160px;"></p>
 	                  </div>
 	                  <div class="input-group input-group-icon">
 	                          <div class="input-name">國籍：</div>
@@ -174,7 +175,7 @@
 	                  <div class="col-half">
 	                      <div class="input-name">性別：</div>
 	                      <div class="input-group">           
-	                      <input type="radio" name="gender" value="male" id="gender-male"/>
+	                      <input type="radio" name="gender" value="male" id="gender-male" checked/>
 	                      <label for="gender-male">男</label>
 	                      <input type="radio" name="gender" value="female" id="gender-female"/>
 	                      <label for="gender-female">女</label>
@@ -182,33 +183,35 @@
 	                  </div>
 	                  <br>
 	              </fieldset>
+	              <input type="hidden" name="action" value="frontUpdate">
 	              <button type="submit" class="form-submit">送出申請</button>
 	          </form>
 	      </div>
           <div id="password-show" class="row info-form" style="display: none;">
-              <form method="POST" action="">
+              <form method="post" action="<%=request.getContextPath()%>/Member.do">
                   <fieldset>
                       <legend><i class="fa fa-key"></i> 變更密碼</legend>
+                      <input type="hidden" name="mem_id" value="${memVO.mem_id}">
                       <div class="input-group input-group-icon">
                           <div class="input-name">舊密碼：</div>
-                              <input type="password" placeholder="舊密碼 (長度8-12字且不包含特殊符號)" name="user_pwd" minlength="8" maxlength="12"/>
+                          <input type="password" placeholder="舊密碼" name="user_old_pwd" maxlength="12"/>
                           <div class="input-icon"><i class="fa fa-key"></i></div>
-                          <p id="errorMsgUserPwd" style="font-size:2px; color:red; margin-left:105px;"></p>
+                          <p id="errorMsgUserOldPwd" style="font-size:2px; color:red; margin-left:160px;"></p>
                       </div>
                       <div class="input-group input-group-icon">
                           <div class="input-name">新密碼：</div>
-                              <input type="password" placeholder="新密碼 (長度8-12字且不包含特殊符號)" name="user_pwd" minlength="8" maxlength="12"/>
+                          <input type="password" placeholder="新密碼 (長度8-12字且不包含特殊符號)" name="user_new_pwd" maxlength="12"/>
                           <div class="input-icon"><i class="fa fa-key"></i></div>
-                          <p id="errorMsgUserPwd" style="font-size:2px; color:red; margin-left:105px;"></p>
                       </div>
                       <div class="input-group input-group-icon">
                           <div class="input-name">新密碼確認：</div>
-                              <input id="check-repeat-pwd" type="password" placeholder="再次輸入新密碼" name="re_enter_pwd"/>
+                          <input id="check-repeat-pwd" type="password" placeholder="再次輸入新密碼" name="user_re_enter_new_pwd"/>
                           <div class="input-icon"><i class="fa fa-key"></i></div>
-                          <p id="errorMsgUserRePwd" style="font-size:2px; color:red; margin-left:105px;"></p>
+                          <p id="errorMsgUserRePwd" style="font-size:2px; color:red; margin-left:160px;"></p>
                       </div>
                       <br>
                   </fieldset>
+                  <input type="hidden" name="action" value="updatePwd">
                   <button type="submit" class="form-submit">送出申請</button>
               </form>
           </div>
@@ -216,27 +219,24 @@
               <form>
                   <fieldset>
                       <legend><i class="far fa-credit-card"></i> 變更付款方式</legend>
-                      <div class="creditcard" style="display: none;">
-                          <h4 class="cardnumber">5148 6934 2929 2746</h4>
+                      <div class="creditcardcurrent">
+                          <h4 class="cardnumber">${memVO.payment}</h4>
                           <h6>CARDHOLDER NAME</h6>
                           <p class="cardholder">JOHN DOE</p>
                           <p class="exp">04/22</p>
-                          <i class="fas fa-minus-circle delete-creditcard"></i>
+                          <i class="far fa-edit fa-2x delete-creditcard"></i>
                           <div class="creditcard-logo">
                               <img style="width: 70px; height: 70px;" src="<%=request.getContextPath()%>/img/Affinity-Partnership_VISA_600x600 LOGO-01.png" alt="" />
                           </div>
                       </div>
-                      <div class="creditcardplus">
-                          <i class="plus-card fas fa-plus fa-3x"></i>         
-                      </div>
-                      <br>
                   </fieldset>
               </form>
               <div class="credit-lightBox" style="display: none;">
-                  <form id="credit" action="#">
+                  <form id="credit" method="post" action="<%=request.getContextPath()%>/Member.do">
+                  	<input type="hidden" name="mem_id" value="${memVO.mem_id}">
                       <div class="container-fluid grid">              
                         <div class="row pull-center">
-                          <div class="position-card col-md-4">            
+                          <div class="position-card col-md-4">         
                             <div class="well">         
                               <div class="row card">
                               </div>
@@ -259,7 +259,7 @@
                                 <div class="col-md-8">
                                   <div class="form-group">
                                     <label>持卡人</label>
-                                    <input type="text" name="name" class="form-control" />
+                                    <input type="text" name="holder" class="form-control" />
                                   </div>
                                 </div>           
                                 <div class="col-md-4">
@@ -271,6 +271,7 @@
                               </div>
                               <div class="row ">
                                 <div class="col-md-12 text-right">
+                                <input type="hidden" name="action" value="updateCredit">
                                   <button type="submit" class="btn btn-success">提交</button>
                                   <button id="cancel-plus" type="button" class="btn btn-info">取消</button>
                                 </div>     
@@ -328,6 +329,143 @@
 <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/card/2.5.0/jquery.card.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<script src="<%=request.getContextPath()%>/datetimepicker/jquery.js"></script>
+<script src="<%=request.getContextPath()%>/datetimepicker/jquery.datetimepicker.full.js"></script>
+<script src="<%=request.getContextPath()%>/build/js/countrySelect.min.js"></script>
 <script src="<%=request.getContextPath()%>/js/front-end/member.js"></script>
+
+ <!-- password error -->
+<c:if test="${not empty errorPwdMsgs}">
+	<script>
+		$("#info").css("display","none");
+		$("#password-show").css("display","");
+		let lists = $(".click-me");
+		lists.removeClass("active");
+		lists.eq(2).addClass("active");
+		$("#errorMsgUserOldPwd").text("${errorPwdMsgs.errorOldPwd}");
+		$("#errorMsgUserRePwd").text("${errorPwdMsgs.errorReEnterNewPwd}");
+	</script>		
+</c:if>
+
+<script>
+$.datetimepicker.setLocale('zh');
+$('#birthday').datetimepicker({
+    theme: '',              //theme: 'dark',
+   timepicker:false,       //timepicker:true,
+   step: 1,                //step: 60 (這是timepicker的預設間隔60分鐘)
+   format:'Y-m-d',         //format:'Y-m-d H:i:s',
+	value: '${memVO.birthday}', // value:   new Date(),
+   //disabledDates:        ['2017/06/08','2017/06/09','2017/06/10'], // 去除特定不含
+   //startDate:	            '2017/07/10',  // 起始日
+   //minDate:               '-1970-01-01', // 去除今日(不含)之前
+   //maxDate:               '+1970-01-01'  // 去除今日(不含)之後
+});
+
+$("#country").countrySelect({
+		defaultCountry:"${memVO.nation}"
+});
+
+$("input[name=name]").blur(function(){
+	let name = $("input[name=name]").val();
+	if(name.trim() === ""){
+		$("#errorMsgName").text("＊此欄位不得為空")
+		$("input[name=name]").focus()
+		$("input[name=name]").addClass("errormsg")
+	}
+})
+
+$("input[name=user_id]").blur(function(){
+	let user_id = $("input[name=user_id]").val();
+	if(user_id.trim() === ""){
+		$("#errorMsgUserId").text("＊此欄位不得為空")
+		$("input[name=user_id]").focus()
+		$("input[name=user_id]").addClass("errormsg")
+	}
+})
+
+$("input[name=personal_id]").blur(function(){
+	let personal_id= $("input[name=personal_id]").val();
+	if(isValidID(personal_id.trim()) === false){
+		$("#errorMsgID").text("＊身分證資料有誤")
+		$("input[name=personal_id]").focus()
+		$("input[name=personal_id]").addClass("errormsg")
+	}
+})
+
+
+$("#credit").submit(function(){
+	console.log($("input[name=payment]").val())
+})
+
+// personal-id valid or not    	
+function isValidID(str){
+  if (str === "Y10000001") return true
+  if (str.length !== 10) return false
+  if (!(str[0] >= "A" && "Z" >= str[0])) return false
+  
+  let n = alphaToNumber(str[0])
+  let n1 = Math.floor(n / 10)
+  let n2 = n % 10
+  
+  let sum = n1*1 + n2*9
+  for (i = 1; i < str.length - 1; i++){
+   sum += str[i] * (9 - i)
+  }
+  sum += Number(str[9])
+  
+  return sum % 10 === 0
+}
+	
+function alphaToNumber(s){
+  let scope = {
+    A : 10, B : 11, C : 12, D : 13, E : 14, F : 15,
+    G : 16, H : 17, I : 34, J : 18, K : 19, M : 21,
+    N : 22, O : 35, P : 23, Q : 24, T : 27, U : 28,
+    V : 29, W : 32, X : 30, Z : 33, L : 20, R : 25,
+    S : 26, Y : 31
+  }
+  return scope[s] // scope["A"] = 10
+}
+    	
+//input detect typing to remove the error class
+$("input[name=name]").keydown(function (){
+	$("#errorMsgName").text("")
+$("input[name=name]").removeClass("errormsg")
+})
+
+$("input[name=user_id]").keydown(function (){
+	$("#errorMsgUserId").text("")
+$("input[name=user_id]").removeClass("errormsg")
+})
+
+$("input[name=user_pwd]").keydown(function (){
+	$("#errorMsgUserPwd").text("")
+$("input[name=user_pwd]").removeClass("errormsg")
+})
+
+$("input[name=re_enter_pwd]").keydown(function (){
+	$("#errorMsgUserRePwd").text("")
+$("input[name=re_enter_pwd]").removeClass("errormsg")
+})
+
+$("input[name=email]").keydown(function (){
+	$("#errorMsgEmail").text("")
+$("input[name=email]").removeClass("errormsg")
+})
+
+$("input[name=personal_id]").keydown(function (){
+	$("#errorMsgID").text("")
+$("input[name=personal_id]").removeClass("errormsg")
+})
+
+$("input[name=user_old_pwd]").keydown(function(){
+	$("#errorMsgUserOldPwd").text("")
+})
+
+$("input[name=user_re_enter_new_pwd]").keydown(function(){
+	$("#errorMsgUserRePwd").text("")
+})
+
+</script>
 </body>
 </html>

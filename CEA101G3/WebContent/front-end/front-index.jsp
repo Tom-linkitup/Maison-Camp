@@ -3,7 +3,7 @@
 <%@ page import="java.util.*" %>
 <%@ page import="com.member.model.*" %>
 <%
-	MemberVO memVO = (MemberVO) session.getAttribute("memVO");	
+	MemberVO memVO = (MemberVO) session.getAttribute("memVO");
 	List<String> errorMsgs = (List<String>) request.getAttribute("errorMsgs");
 %>
 <!DOCTYPE html>

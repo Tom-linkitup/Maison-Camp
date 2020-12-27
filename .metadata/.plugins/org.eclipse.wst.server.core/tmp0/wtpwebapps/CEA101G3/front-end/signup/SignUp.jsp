@@ -80,7 +80,7 @@
       </div>
     </div>
   </section>
-    <form name="memberForm" method="post" action="${pageContext.request.contextPath}/Member.do">
+    <form name="memberForm" method="post" action="<%=request.getContextPath()%>/Member.do">
       <div class="title">
       </div>
       <div class="row info-form">

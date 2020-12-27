@@ -55,11 +55,11 @@ $(document).ready(function() {
     }
   })
 
-  $(".plus-card").click(function(){
+  $(".delete-creditcard").click(function(){
     $(".credit-lightBox").css("display","");
   })
 
   $("#cancel-plus").click(function(){
     $(".credit-lightBox").css("display","none");
-  })
+  }) 
 });

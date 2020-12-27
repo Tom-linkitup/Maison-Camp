@@ -20,6 +20,9 @@ public class MemberJDBCDAO implements MemberDAO_Interface {
 	
 	private static final String Add_Stmt = "INSERT INTO MEMBER (MEM_ID, USER_ID, USER_PWD, NAME, PHONE, NATION, EMAIL, SEXUAL, NOTE, BIRTHDAY, PERSONAL_ID, STATUS, PAYMENT) VALUES('M' || mem_id_seq.NEXTVAL,?,?,?,?,?,?,?,?,?,?,?,?)";
 	private static final String Update_Stmt = "UPDATE MEMBER SET USER_ID=?, USER_PWD=?, NAME=?, PHONE=?, NATION=?, EMAIL=?, SEXUAL=?, NOTE=?, BIRTHDAY=?, PERSONAL_ID=?, STATUS=?, PAYMENT=? WHERE MEM_ID=?";
+	private static final String Update_Front_Stmt = "UPDATE MEMBER SET USER_ID=?, NAME=?, PHONE=?, BIRTHDAY=?, PERSONAL_ID=?, NATION=?, SEXUAL=? WHERE MEM_ID=?";
+	private static final String Update_Pwd = "UPDATE MEMBER SET USER_PWD=? WHERE MEM_ID=?";
+	private static final String Update_Credit = "UPDATE MEMBER SET PAYMENT=? WHERE MEM_ID=?";
 	private static final String Get_All_Stmt = "SELECT MEM_ID, USER_ID, USER_PWD, NAME, PHONE, NATION, EMAIL, SEXUAL, NOTE, BIRTHDAY, PERSONAL_ID, STATUS, PAYMENT FROM MEMBER ORDER BY MEM_ID";
 	private static final String Get_One_Stmt = "SELECT MEM_ID, USER_ID, USER_PWD, NAME, PHONE, NATION, EMAIL, SEXUAL, NOTE, BIRTHDAY, PERSONAL_ID, STATUS, PAYMENT FROM MEMBER WHERE MEM_ID=?";
 	private static final String GetUser = "SELECT * FROM MEMBER WHERE EMAIL=? AND USER_PWD=?";
@@ -305,6 +308,140 @@ public class MemberJDBCDAO implements MemberDAO_Interface {
 			}
 		}	
 		return memberVO;
+	}
+
+	@Override
+	public void updateFrontMember(MemberVO memberVO) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		
+		try {
+			Class.forName(driver);
+			con = DriverManager.getConnection(url, userid, passwd);
+			pstmt = con.prepareStatement(Update_Front_Stmt);
+			
+			pstmt.setString(1, memberVO.getUser_id());
+			pstmt.setString(2, memberVO.getName());
+			pstmt.setString(3, memberVO.getPhone());
+			pstmt.setDate(4, memberVO.getBirthday());
+			pstmt.setString(5, memberVO.getPersonal_id());
+			pstmt.setString(6, memberVO.getNation());
+			pstmt.setString(7, memberVO.getSexual());
+			pstmt.setString(8, memberVO.getMem_id());
+			
+			int updateFrontMem = pstmt.executeUpdate();
+			System.out.println("更新"+ updateFrontMem + "筆前台會員資料");
+	
+		}catch (ClassNotFoundException e) {
+			throw new RuntimeException("Couldn't load database driver. "
+					+ e.getMessage());
+			// Handle any SQL errors
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}		
+	}
+
+	@Override
+	public void updatePwd(MemberVO memberVO) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		
+		try {
+			Class.forName(driver);
+			con = DriverManager.getConnection(url, userid, passwd);
+			pstmt = con.prepareStatement(Update_Pwd);
+			
+			pstmt.setString(1, memberVO.getUser_pwd());
+			pstmt.setString(2, memberVO.getMem_id());
+			
+			int updatePwd = pstmt.executeUpdate();
+			System.out.println("更新"+ updatePwd + "筆前台會員密碼");
+	
+		}catch (ClassNotFoundException e) {
+			throw new RuntimeException("Couldn't load database driver. "
+					+ e.getMessage());
+			// Handle any SQL errors
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}		
+		
+	}
+
+	@Override
+	public void updateCredit(MemberVO memberVO) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		
+		try {
+			Class.forName(driver);
+			con = DriverManager.getConnection(url, userid, passwd);
+			pstmt = con.prepareStatement(Update_Credit);
+			
+			pstmt.setString(1, memberVO.getPayment());
+			pstmt.setString(2, memberVO.getMem_id());
+			
+			int updateCredit = pstmt.executeUpdate();
+			System.out.println("更新"+ updateCredit + "筆前台會員卡號");
+	
+		}catch (ClassNotFoundException e) {
+			throw new RuntimeException("Couldn't load database driver. "
+					+ e.getMessage());
+			// Handle any SQL errors
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}		
+		
 	}
 	
 }

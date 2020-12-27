@@ -553,7 +553,7 @@ legend {
     position: absolute;
     right: -40px;
     font-size: 24px;
-    color: crimson;
+    color: #333;
     top: 50%;
     transform: translateY(-50%);
 }
