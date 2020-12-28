@@ -61,7 +61,7 @@
       </div>
       <div id="main">
       		<div id="info" class="row info-form">
-	          <form>
+	          
 	              <fieldset>
 	                  <legend><i class="fas fa-user-circle"></i> 會員基本資料</legend>
 	                  <div class="panel panel-warning" style="width:90%; margin-left:50px;">
@@ -86,9 +86,18 @@
 				                            <td><c:choose>
 												<c:when test="${memVO.status == '0'}">
 													未驗證
+													<form method="post" action="<%=request.getContextPath()%>/Member.do">
+														<input type="hidden" name="mem_id" value="${memVO.mem_id}">
+														<input type="hidden" name="email" value="${memVO.email}">
+														<input type="hidden" name="action" value="resendAuth">
+														<button class="btn btn-primary" type="submit">重發驗證碼</button>
+													</form>
+												</c:when>
+												<c:when test="${memVO.status == '1'}">
+													已驗證
 												</c:when>
 												<c:otherwise>
-													已驗證
+													你是會員嗎？
 												</c:otherwise>
 												</c:choose>
 											</td>
@@ -131,7 +140,7 @@
 			            </div>
 			        </div>      
 	              </fieldset>
-	          </form>
+	          
 	      </div>
 	      <div id="info-show" class="row info-form" style="display:none;">
 	          <form method="post" action="<%=request.getContextPath()%>/Member.do">

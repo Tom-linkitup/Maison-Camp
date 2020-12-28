@@ -15,6 +15,8 @@ import javax.servlet.http.HttpSession;
 import com.member.model.MemberService;
 import com.member.model.MemberVO;
 
+import mail.MailService;
+
 public class MemberServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
@@ -44,13 +46,52 @@ public class MemberServlet extends HttpServlet {
 				int status = 0;
 				String note = "Welcome to Maison Camp";
 				
+				HttpSession session  = req.getSession();
+				
 				MemberService memSvc = new MemberService();
 				memSvc.addMEM(user_id, user_pwd, name, phone, nation, email, sexual, note, birthday, personal_id, status, payment);
 				
-				String url = "/front-end/signup/SignUp.jsp";
-				req.setAttribute("insertSuccess", "yes");
-				RequestDispatcher successView = req.getRequestDispatcher(url);
-				successView.forward(req, res);		
+				String new_mem_id = memSvc.getOneMEMByEmail(email).getMem_id();
+				MailService mail = new MailService();
+				String authCode = mail.getRandom();
+				String subject = "Maison Camp 會員驗證碼";
+				String message = "感謝您註冊本網站會員，請輸入以下驗證碼完成註冊:" + authCode;
+				
+				try {
+					mail.sendMail(email, subject, message);
+					session.setAttribute("new_mem_id", new_mem_id);
+		            session.setAttribute("authCode", authCode);
+		            res.sendRedirect(req.getContextPath() + "/front-end/signup/Verify.jsp");
+				}catch(Exception e) {
+					e.printStackTrace();
+				}
+					
+			}catch(Exception e) {
+				e.printStackTrace();
+			}
+		}
+		
+		if("resendAuth".equals(action)) {
+			try {
+				String mem_id = req.getParameter("mem_id");
+				String email = req.getParameter("email");
+				
+				HttpSession session  = req.getSession();
+				
+				MailService mail = new MailService();
+				String authCode = mail.getRandom();
+				String subject = "Maison Camp 重發會員驗證碼";
+				String message = "感謝您註冊本網站會員，請輸入以下驗證碼完成註冊:" + authCode;
+				
+				try {
+					mail.sendMail(email, subject, message);
+					session.setAttribute("resendAuth_mem_id", mem_id);
+		            session.setAttribute("authCode", authCode);
+		            res.sendRedirect(req.getContextPath() + "/front-end/signup/ResendVerify.jsp");
+				}catch(Exception e) {
+					e.printStackTrace();
+				}
+				
 			}catch(Exception e) {
 				e.printStackTrace();
 			}
@@ -236,7 +277,7 @@ public class MemberServlet extends HttpServlet {
 			session.invalidate();
 			RequestDispatcher tologin = req.getRequestDispatcher("/front-end/front-index.jsp");
 			tologin.forward(req, res);
-		}	
+		}
 	}
 
 }

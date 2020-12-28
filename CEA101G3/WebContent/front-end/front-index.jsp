@@ -4,6 +4,7 @@
 <%@ page import="com.member.model.*" %>
 <%
 	MemberVO memVO = (MemberVO) session.getAttribute("memVO");
+	String pleaseLogin = (String)request.getAttribute("pleaseLogin");
 	List<String> errorMsgs = (List<String>) request.getAttribute("errorMsgs");
 %>
 <!DOCTYPE html>
@@ -34,7 +35,7 @@
                     <ul id="menu">
                         <a href="<%=request.getContextPath()%>/front-end/front-index.jsp"><li>首頁</li></a>
                         <a href="<%=request.getContextPath()%>/front-end/news/News.jsp"><li>最新消息</li></a>
-                        <a href="<%=request.getContextPath()%>/front-end/member/Member.jsp"><li>會員中心</li></a>
+                        <a class="listener" href="<%=request.getContextPath()%>/front-end/member/Member.jsp"><li>會員中心</li></a>
                         <a href="<%=request.getContextPath()%>/front-end/room-type/RoomType.jsp"><li>帳型介紹</li></a>
                         <a href="<%=request.getContextPath()%>/front-end/room-booking/RoomBooking.jsp"><li>立即訂房</li></a>
                         <a href="#"><li>精選商城</li></a>
@@ -55,7 +56,7 @@
             	</c:when>
             	<c:otherwise>
             		<ul class="signin-links">
-	        			<li><i style="margin-right:7px; color:#c15c16;" class="fas fa-child fa-1x"></i>${memVO.name} 歡迎回來<i style="color:#496b6b; margin: 0 10px 0 5px;" class="fas fa-exclamation"></i><a class="signin" href="<%=request.getContextPath()%>/Member.do?action=logout"><i class="fas fa-sign-out-alt"></i></a></li>
+	        			<li><i style="margin-right:7px; color:#c15c16;" class="fas fa-child fa-1x"></i>${memVO.name} 您好<i style="color:#496b6b; margin: 0 10px 0 5px;" class="fas fa-exclamation"></i><a class="signin" href="<%=request.getContextPath()%>/Member.do?action=logout"><i class="fas fa-sign-out-alt"></i></a></li>
 	      			</ul>
             	</c:otherwise>
             </c:choose>
@@ -295,6 +296,6 @@
 				swal("帳密錯誤","請重新輸入","error");
 				$("#lightBox").css("display","");
 			</script>
-		</c:if>
+		</c:if>	
 </body>
 </html>

@@ -91,8 +91,23 @@ private MemberDAO_Interface dao;
 		return memberVO;
 	}
 	
+	public MemberVO updateMemStatus(int status, String mem_id) {
+		MemberVO memberVO = new MemberVO();
+		
+		memberVO.setStatus(status);
+		memberVO.setMem_id(mem_id);
+		
+		dao.updateStatus(memberVO);
+		
+		return memberVO;
+	}
+	
 	public MemberVO getOneMEM(String mem_id) {
 		return dao.findByMemberId(mem_id);
+	}
+	
+	public MemberVO getOneMEMByEmail(String email) {
+		return dao.findByEmail(email);
 	}
 	
 	public List<MemberVO> getAllMEM(){
