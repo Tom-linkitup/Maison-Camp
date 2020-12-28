@@ -1,4 +1,4 @@
-let today = new Date()
+	let today = new Date()
     let curMonth = today.getMonth()
     let curYear = today.getFullYear()
 

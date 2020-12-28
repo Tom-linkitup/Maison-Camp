@@ -3,8 +3,6 @@
 <fullyQualifiedTypeName name="javax.servlet.Filter"/>
 <fullyQualifiedTypeName name="javax.servlet.http.HttpServletRequest"/>
 <fullyQualifiedTypeName name="java.util.LinkedList"/>
-<fullyQualifiedTypeName name="com.member.model.MemberService"/>
-<fullyQualifiedTypeName name="com.member.model.MemberVO"/>
 <fullyQualifiedTypeName name="javax.servlet.http.Cookie"/>
 <fullyQualifiedTypeName name="javax.servlet.FilterConfig"/>
 <fullyQualifiedTypeName name="javax.sql.DataSource"/>
@@ -31,4 +29,6 @@
 <fullyQualifiedTypeName name="mail.MailService"/>
 <fullyQualifiedTypeName name="javax.servlet.http.HttpSession"/>
 <fullyQualifiedTypeName name="javax.security.auth.message.callback.PrivateKeyCallback.Request"/>
+<fullyQualifiedTypeName name="com.member.model.MemberVO"/>
+<fullyQualifiedTypeName name="com.member.model.MemberService"/>
 </qualifiedTypeNameHistroy>

@@ -1,4 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ page import="java.util.*" %>
+<%@ page import="com.member.model.*" %>
+<%@ page import="com.roomtype.model.*" %>
+<%@ page import="com.room.model.*" %>
+
+<%
+	RoomTypeService roomTypeSvc = new RoomTypeService();
+	List<RoomTypeVO> rtList = roomTypeSvc.getAllRT();
+	pageContext.setAttribute("rtList", rtList);
+%>
 
 <!DOCTYPE html>
 <html>
@@ -51,9 +62,11 @@
 											<section>
 												<label class="select">
 													<select class="change-room">
-														<option value="">兩人帳</option>
-														<option value="">兩床帳</option>
-														<option value="">四床帳</option>
+													<c:forEach var="rt" items="${rtList}">
+														<c:if test="${rt.room_category_status == '0'}">
+															<option value="${rt.room_category_id}">${rt.room_name}</option>											
+														</c:if>
+													</c:forEach>
 													</select>
 												</label>
 											</section>
