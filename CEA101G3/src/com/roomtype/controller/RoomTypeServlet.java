@@ -69,6 +69,18 @@ public class RoomTypeServlet extends HttpServlet {
 				}catch(NumberFormatException e) {
 					errorMsgs.put("area", "*請輸入整數");
 				}
+				Integer room_guest = null;
+				try {
+					room_guest = new Integer(req.getParameter("room_guest").trim());	
+				}catch(NumberFormatException e) {
+					errorMsgs.put("room_guest", "*請輸入整數");
+				}
+				Integer room_quantity = null;
+				try {
+					room_quantity = new Integer(req.getParameter("room_quantity").trim());	
+				}catch(NumberFormatException e) {
+					errorMsgs.put("room_quantity", "*請輸入整數");
+				}
 				Integer room_category_status = null;
 				try {
 					room_category_status = new Integer(req.getParameter("room_category_status").trim());		
@@ -86,6 +98,8 @@ public class RoomTypeServlet extends HttpServlet {
 				roomTypeVO.setRoom_type(room_type);
 				roomTypeVO.setRoom_price(room_price);
 				roomTypeVO.setArea(area);
+				roomTypeVO.setRoom_guest(room_guest);
+				roomTypeVO.setRoom_quantity(room_quantity);
 				roomTypeVO.setRoom_category_status(room_category_status);
 				roomTypeVO.setRoom_info(room_info);
 				req.setAttribute("roomTypeVO", roomTypeVO);
@@ -96,7 +110,7 @@ public class RoomTypeServlet extends HttpServlet {
 				}
 				
 				RoomTypeService roomTypeSvc = new RoomTypeService();			
-				roomTypeSvc.addRT(room_category_id, room_name, room_type, room_price, area, room_category_status, room_info);
+				roomTypeSvc.addRT(room_category_id, room_name, room_type, room_price, area, room_guest, room_quantity, room_category_status, room_info);
 				
 				String url = "/back-end/room-type/RoomTypeInfo.jsp";
 				req.setAttribute("insertSuccess", "yes");
@@ -138,6 +152,8 @@ public class RoomTypeServlet extends HttpServlet {
 				String room_type = req.getParameter("room_type");
 				Integer room_price = new Integer(req.getParameter("room_price"));
 				Integer area = new Integer(req.getParameter("area"));
+				Integer room_guest = new Integer(req.getParameter("room_guest"));
+				Integer room_quantity = new Integer(req.getParameter("room_quantity"));
 				Integer room_category_status = new Integer(req.getParameter("room_category_status"));
 				String room_info = req.getParameter("room_info");
 				
@@ -152,7 +168,7 @@ public class RoomTypeServlet extends HttpServlet {
 				roomTypeVO.setRoom_info(room_info);
 				
 				RoomTypeService roomTypeSvc = new RoomTypeService();
-				roomTypeVO = roomTypeSvc.updateRT(room_category_id, room_name, room_type, room_price, area, room_category_status, room_info);
+				roomTypeVO = roomTypeSvc.updateRT(room_category_id, room_name, room_type, room_price, area, room_guest, room_quantity, room_category_status, room_info);
 				
 				String url = "/back-end/room-type/RoomTypeInfo.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url);

@@ -25,17 +25,17 @@
 		<input class="title" id="tab-2" type="radio" name="tab-group"/> 
 		<label for="tab-2">新增房間</label> 
 		
-		<input class="title" id="tab-3" type="radio" name="tab-group"/> 
+		<!-- <input class="title" id="tab-3" type="radio" name="tab-group"/> 
 		<label for="tab-3">預設空白</label>
 		
 		<input class="title" id="tab-4" type="radio" name="tab-group"/> 
-		<label for="tab-4">等我想到再說</label>
+		<label for="tab-4">等我想到再說</label> -->
 		
 		<div id="content">
 			<jsp:include page="CheckRoom.jsp" />
 			<jsp:include page="AddRoom.jsp" />
-			<jsp:include page="default1.jsp" />
-			<jsp:include page="default2.jsp" />
+			<%-- <jsp:include page="default1.jsp" />
+			<jsp:include page="default2.jsp" /> --%>
 		</div>
 	</div>
 	<%@ include file="backIndex2.file"%>

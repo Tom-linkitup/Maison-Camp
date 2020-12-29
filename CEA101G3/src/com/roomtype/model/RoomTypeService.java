@@ -6,10 +6,10 @@ public class RoomTypeService {
 	private RoomTypeDAO_Interface dao;
 	
 	public RoomTypeService() {
-		dao = new RoomTypeJDBCDAO();
+		dao = new RoomTypeDAO();
 	}
 	
-	public RoomTypeVO addRT(String room_category_id, String room_name, String room_type, int room_price, int area, int room_category_status, String room_info) {
+	public RoomTypeVO addRT(String room_category_id, String room_name, String room_type, int room_price, int area, int room_guest, int room_quantity, int room_category_status, String room_info) {
 		
 		RoomTypeVO roomTypeVO = new RoomTypeVO();
 		
@@ -18,6 +18,8 @@ public class RoomTypeService {
 		roomTypeVO.setRoom_type(room_type);
 		roomTypeVO.setRoom_price(room_price);
 		roomTypeVO.setArea(area);
+		roomTypeVO.setRoom_guest(room_guest);
+		roomTypeVO.setRoom_quantity(room_quantity);
 		roomTypeVO.setRoom_category_status(room_category_status);
 		roomTypeVO.setRoom_info(room_info);
 		dao.addRoomType(roomTypeVO);
@@ -25,7 +27,7 @@ public class RoomTypeService {
 		return roomTypeVO;
 	}
 	
-	public RoomTypeVO updateRT(String room_category_id, String room_name, String room_type, int room_price, int area, int room_category_status, String room_info) {
+	public RoomTypeVO updateRT(String room_category_id, String room_name, String room_type, int room_price, int area, int room_guest, int room_quantity, int room_category_status, String room_info) {
 		
 		RoomTypeVO roomTypeVO = new RoomTypeVO();
 		
@@ -34,6 +36,8 @@ public class RoomTypeService {
 		roomTypeVO.setRoom_type(room_type);
 		roomTypeVO.setRoom_price(room_price);
 		roomTypeVO.setArea(area);
+		roomTypeVO.setRoom_guest(room_guest);
+		roomTypeVO.setRoom_quantity(room_quantity);
 		roomTypeVO.setRoom_category_status(room_category_status);
 		roomTypeVO.setRoom_info(room_info);
 		dao.updateRoomType(roomTypeVO);

@@ -17,12 +17,12 @@ public class RoomJDBCDAO implements RoomDAO_Interface {
 	String userid = "CEA101G3";
 	String passwd = "123456";
 
-	private static final String Add_Stmt = "INSERT INTO ROOM (ROOM_ID, ROOM_CATEGORY_ID, PEOPLE, STATUS) VALUES('RM' || room_id_seq.NEXTVAL,?,?,?)";
-	private static final String Update_Stmt = "UPDATE ROOM SET ROOM_CATEGORY_ID=?, PEOPLE=?, STATUS=? WHERE ROOM_ID=?";
+	private static final String Add_Stmt = "INSERT INTO ROOM (ROOM_ID, ROOM_CATEGORY_ID, STATUS) VALUES('RM' || ROOM_ID_seq.NEXTVAL,?,?)";
+	private static final String Update_Stmt = "UPDATE ROOM SET ROOM_CATEGORY_ID=?, STATUS=? WHERE ROOM_ID=?";
 	private static final String Delete_Stmt = "DELETE FROM ROOM WHERE ROOM_ID=?";
-	private static final String Get_All_Stmt = "SELECT ROOM_ID, ROOM_CATEGORY_ID, PEOPLE, STATUS FROM ROOM ORDER BY ROOM_ID";
-	private static final String Get_By_RCT = "SELECT ROOM_ID, ROOM_CATEGORY_ID, PEOPLE, STATUS FROM ROOM WHERE ROOM_CATEGORY_ID=?";
-	private static final String Get_One_Stmt = "SELECT ROOM_ID, ROOM_CATEGORY_ID, PEOPLE, STATUS FROM ROOM WHERE ROOM_ID=?";
+	private static final String Get_All_Stmt = "SELECT ROOM_ID, ROOM_CATEGORY_ID, STATUS FROM ROOM ORDER BY ROOM_ID";
+	private static final String Get_By_RCT = "SELECT ROOM_ID, ROOM_CATEGORY_ID, STATUS FROM ROOM WHERE ROOM_CATEGORY_ID=? ORDER BY STATUS";
+	private static final String Get_One_Stmt = "SELECT ROOM_ID, ROOM_CATEGORY_ID, STATUS FROM ROOM WHERE ROOM_ID=?";
 
 	@Override
 	public void addRoom(RoomVO roomVO) {
@@ -35,8 +35,7 @@ public class RoomJDBCDAO implements RoomDAO_Interface {
 			pstmt = con.prepareStatement(Add_Stmt);
 			
 			pstmt.setString(1, roomVO.getRoom_category_id());
-			pstmt.setInt(2, roomVO.getPeople());
-			pstmt.setInt(3, roomVO.getStatus());
+			pstmt.setInt(2, roomVO.getStatus());
 			
 			int addRoom = pstmt.executeUpdate();
 			System.out.println("新增"+ addRoom + "筆房間資料");
@@ -78,9 +77,8 @@ public class RoomJDBCDAO implements RoomDAO_Interface {
 			pstmt = con.prepareStatement(Update_Stmt);
 			
 			pstmt.setString(1, roomVO.getRoom_category_id());
-			pstmt.setInt(2, roomVO.getPeople());
-			pstmt.setInt(3, roomVO.getStatus());
-			pstmt.setString(4, roomVO.getRoom_id());
+			pstmt.setInt(2, roomVO.getStatus());
+			pstmt.setString(3, roomVO.getRoom_id());
 			
 			int updateRoom = pstmt.executeUpdate();
 			System.out.println("更新"+  updateRoom + "筆房間資料");
@@ -124,7 +122,7 @@ public class RoomJDBCDAO implements RoomDAO_Interface {
 			pstmt.setString(1, room_id);
 			
 			int deleteRoom = pstmt.executeUpdate();
-			System.out.println("刪除"+  deleteRoom + "筆圖片資料");
+			System.out.println("刪除"+  deleteRoom + "筆房間資料");
 	
 		}catch (ClassNotFoundException e) {
 			throw new RuntimeException("Couldn't load database driver. "
@@ -172,7 +170,6 @@ public class RoomJDBCDAO implements RoomDAO_Interface {
 				roomVO = new RoomVO();
 				roomVO.setRoom_id(rs.getString("ROOM_ID"));
 				roomVO.setRoom_category_id(rs.getString("ROOM_CATEGORY_ID"));
-				roomVO.setPeople(rs.getInt("PEOPLE"));
 				roomVO.setStatus(rs.getInt("STATUS"));
 			}
 	
@@ -223,7 +220,6 @@ public class RoomJDBCDAO implements RoomDAO_Interface {
 				roomVO = new RoomVO();
 				roomVO.setRoom_id(rs.getString("ROOM_ID"));
 				roomVO.setRoom_category_id(rs.getString("ROOM_CATEGORY_ID"));
-				roomVO.setPeople(rs.getInt("PEOPLE"));
 				roomVO.setStatus(rs.getInt("STATUS"));
 				roomList.add(roomVO);
 			}
@@ -273,7 +269,6 @@ public class RoomJDBCDAO implements RoomDAO_Interface {
 				roomVO = new RoomVO();
 				roomVO.setRoom_id(rs.getString("ROOM_ID"));
 				roomVO.setRoom_category_id(rs.getString("ROOM_CATEGORY_ID"));
-				roomVO.setPeople(rs.getInt("PEOPLE"));
 				roomVO.setStatus(rs.getInt("STATUS"));
 				roomList.add(roomVO);
 			}

@@ -52,6 +52,12 @@
 				
 			房間坪數：<input class="input-beautify" type="text" name="area" value="">
 			<p class="error" style="color:red; font-size:8px;">${errorMsgs.area}</p>
+			
+			可住人數：<input class="input-beautify" type="text" name="room_guest" value="">
+			<p class="error" style="color:red; font-size:8px;">${errorMsgs.room_guest}</p>
+			
+			房間數量：<input class="input-beautify" type="text" name="room_quantity" value="">
+			<p class="error" style="color:red; font-size:8px;">${errorMsgs.room_quantity}</p>
 					
 			房型狀態：<input class="input-beautify" type="text" name="room_category_status" value="">
 			<p class="error" style="color:red; font-size:8px;">${errorMsgs.room_category_status}</p>

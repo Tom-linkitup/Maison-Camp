@@ -7,14 +7,13 @@ public class RoomService {
 private RoomDAO_Interface dao;
 	
 	public RoomService() {
-		dao = new RoomJDBCDAO();
+		dao = new RoomDAO();
 	}
 	
-	public RoomVO addRM(String room_category_id, int people, int status) {
+	public RoomVO addRM(String room_category_id, int status) {
 		RoomVO roomVO = new RoomVO();
 		
 		roomVO.setRoom_category_id(room_category_id);
-		roomVO.setPeople(people);
 		roomVO.setStatus(status);
 		
 		dao.addRoom(roomVO);
@@ -22,11 +21,10 @@ private RoomDAO_Interface dao;
 		return roomVO;
 	}
 	
-	public RoomVO updateRM(String room_category_id, int people, int status, String room_id) {
+	public RoomVO updateRM(String room_category_id, int status, String room_id) {
 		RoomVO roomVO = new RoomVO();
 		
 		roomVO.setRoom_category_id(room_category_id);
-		roomVO.setPeople(people);
 		roomVO.setStatus(status);
 		roomVO.setRoom_id(room_id);
 		

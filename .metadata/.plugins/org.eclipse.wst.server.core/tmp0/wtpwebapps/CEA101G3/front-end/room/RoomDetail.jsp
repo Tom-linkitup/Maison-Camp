@@ -142,7 +142,7 @@
                           <td>${roomTypeVO.room_name}</td>
                           <td>NT$${roomTypeVO.room_price}</td>
                           <td>${roomTypeVO.area}坪</td>
-                          <td>${roomVO.people}人</td>
+                          <td>${roomTypeVO.room_guest}人</td>
                           <td>可</td>
                         </tr>
                       </table>
@@ -157,9 +157,9 @@
                       <br>
                       1. 入帳時間：15:00後，離帳時間：11:00前。
                       <br>
-                      2. 此帳型價格內含提供至多${roomVO.people}人早餐；如有超過之使用人數，需依現場收費公告為主，收取相關費用。
+                      2. 此帳型價格內含提供至多${roomTypeVO.room_guest}人早餐；如有超過之使用人數，需依現場收費公告為主，收取相關費用。
                       <br>
-                      3. 此帳型限加一床；至多${roomVO.people+1}人入住。
+                      3. 此帳型限加一床；至多${roomTypeVO.room_guest+1}人入住。
                       <br>
                       4. 如您實際入住人數(包含大人+小孩)，超過上述之人數規定，本莊園將有權利取消您的訂位，並依取消規定，收取相關費用。
                       <br>
@@ -200,7 +200,7 @@
                     </div>                                 
                   </div> 
                   <div class="reserve">
-                    <button class="btn btn-danger" type="submit">立即預約</button>
+                    <a href="<%=request.getContextPath()%>/front-end/room-booking/RoomBooking.jsp"><button class="btn btn-danger" type="submit">立即預約</button></a>
                   </div>                
                 </div>                      
               </div>

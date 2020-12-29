@@ -8,12 +8,35 @@ public class RoomTypeVO implements Serializable{
 	private String room_type;
 	private Integer room_price;
 	private Integer area;
+	private Integer room_guest;
+	private Integer room_quantity;
 	private Integer room_category_status;
 	private String room_info;
 	
 	public RoomTypeVO(){
 		
 	}
+	
+
+	public Integer getRoom_guest() {
+		return room_guest;
+	}
+
+
+	public void setRoom_guest(Integer room_guest) {
+		this.room_guest = room_guest;
+	}
+
+
+	public Integer getRoom_quantity() {
+		return room_quantity;
+	}
+
+
+	public void setRoom_quantity(Integer room_quantity) {
+		this.room_quantity = room_quantity;
+	}
+
 
 	public String getRoom_category_id() {
 		return room_category_id;

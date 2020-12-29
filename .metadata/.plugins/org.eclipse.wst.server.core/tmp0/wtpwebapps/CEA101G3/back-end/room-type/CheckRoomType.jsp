@@ -20,15 +20,17 @@
 		<h2 style="text-align:center; margin-bottom:20px;">房型資訊</h2>
 		<table id="myTable" border="1px solid #000">
 			<tr class="header">
-				<th>房型編號</th>
-				<th>房型名稱</th>
-				<th>房型類型</th>
-				<th>房型價格</th>
-				<th>房型坪數</th>
-				<th>房型狀態</th>
-				<th>房型訊息</th>
-				<th>房型修改</th>
-				<th>房型刪除</th>
+				<th>編號</th>
+				<th>名稱</th>
+				<th>類型</th>
+				<th>價格</th>
+				<th>坪數</th>
+				<th>可住人數</th>
+				<th>數量</th>
+				<th>狀態</th>
+				<th>訊息</th>
+				<th>修改</th>
+				<th>刪除</th>
 			</tr>
 			<%@ include file="page1.file"%>
 			<c:forEach var="roomTypeVO" items="${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">			
@@ -38,6 +40,8 @@
 				<td>${roomTypeVO.room_type}</td>
 				<td>${roomTypeVO.room_price}</td>
 				<td>${roomTypeVO.area}</td>
+				<td>${roomTypeVO.room_guest}</td>
+				<td>${roomTypeVO.room_quantity}</td>
 				<td><c:choose>
 					<c:when test="${roomTypeVO.room_category_status == '0'}">
 						上架
@@ -65,7 +69,7 @@
 		</table>
 		<%@ include file="page2.file"%>
 		<div id="lightBox" style="display:none;">
-			<form method="post" action="${pageContext.request.contextPath}/RoomOrder.do">
+			<form method="post" action="${pageContext.request.contextPath}/RoomType.do">
 				<table align="center" id="tableLogin">
 					<tr style="font-size:20px; color:#c15c61;"><td>房型修改</td></tr>
 					<tr><td>房型編號：</td><td><input style="background-color:#f9f9f9; border:none;" id="room_category_id" class="input-noEdit" type="text" name="room_category_id" readonly></td></tr>			
@@ -73,6 +77,8 @@
 					<tr><td>房型類型：</td><td><input id="room_type" class="input-beautify" type="text" name="room_type" required></td></tr>
 					<tr><td>房型價格：</td><td><input id="room_price" class="input-beautify" type="number" name="room_price" required></td></tr>
 					<tr><td>房型坪數：</td><td><input id="area" class="input-beautify" type="number" name="area" required></td></tr>
+					<tr><td>可住人數：</td><td><input id="room_guest" class="input-beautify" type="number" name="room_guest" required></td></tr>
+					<tr><td>房型數量：</td><td><input id="room_quantity" class="input-beautify" type="number" name="room_quantity" required></td></tr>
 					<tr><td>房型狀態：</td>
 						<td>
 						<select id="room_category_status" class="input-beautify" type="text" name="room_category_status" required>
@@ -102,8 +108,10 @@
 			$("#room_type").val(children.eq(2).text());
 			$("#room_price").val(children.eq(3).text());
 			$("#area").val(children.eq(4).text());
+			$("#room_guest").val(children.eq(5).text());
+			$("#room_quantity").val(children.eq(6).text());
 			$("#room_category_status").val("請選擇狀態");
-			$("#room_info").val(children.eq(6).text());
+			$("#room_info").val(children.eq(8).text());
 		})
 		
 		$("#btnEditCancel").click(function() {

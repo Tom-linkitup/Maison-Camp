@@ -110,12 +110,19 @@ a .login-icon {
   list-style:none;
 }
 
+div.loginTop {
+	position:relative;
+}
+
+div.loginTop *{
+	display:inline-block;
+}
+
 #cancelLogin {
-  position: fixed;
-  right: 34%;
-  top: 18%;
-  z-index: 9999;
+  right: 0%;
+  top: -10%;
   color:#666;
+  position:absolute;
 }
 
 #cancelLogin:hover{

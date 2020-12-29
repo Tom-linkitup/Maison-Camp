@@ -41,20 +41,13 @@
 					<option value="${room.room_category_id}">${room.room_category_id}</option>
 				</c:forEach>
 			</select>	
-			<p style="font-size:8px; color:red;">${errorMsgs.room_category_id}</p>		
-			<span>容納人數：</span>
-			<select class="input-beautify" name="people">
-				<option value="99">請選擇</option>
-				<option value="2">2人</option>
-				<option value="4">4人</option>
-			</select>	
-			<p style="font-size:8px; color:red;">${errorMsgs.people}</p>
+			<p style="font-size:8px; color:red;">${errorMsgs.room_category_id}</p>
 			
 			<span>房間狀態：</span>
 			<select class="input-beautify" name="status">
 				<option value="99">請選擇</option>
-				<option value="0">check in unavailable</option>
-				<option value="1">check in available</option>
+				<option value="0">可入住</option>
+				<option value="1">修繕中</option>
 				<option value="2">in入住中</option>
 			</select>	
 			<p style="font-size:8px; color:red;">${errorMsgs.status}</p>	

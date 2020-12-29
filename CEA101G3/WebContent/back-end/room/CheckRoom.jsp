@@ -64,7 +64,6 @@
 			<tr class="header">
 				<th>房間編號</th>
 				<th style="width:162px;">房型編號</th>
-				<th>容納人數</th>
 				<th>房間狀態</th>
 				<th>修改房間</th>
 				<th>刪除房間</th>
@@ -88,15 +87,14 @@
 			
 			<tr>
 				<td>${roomVO.room_id}</td>
-				<td style="width:162px;">${roomVO.room_category_id}</td>
-				<td style="text-align:center;">${roomVO.people}</td>			
+				<td style="width:162px;">${roomVO.room_category_id}</td>			
 				<td style="text-align:center;">
 				<c:choose>
 					<c:when test="${roomVO.status == '0'}">
-						<i style="color:red;" class="fa fa-circle"></i>
+						<i style="color:green;" class="fa fa-circle"></i>
 					</c:when>
 					<c:when test="${roomVO.status == '1'}">
-						<i style="color:green;" class="fa fa-circle"></i>
+						<i style="color:red;" class="fa fa-circle"></i>
 					</c:when>
 					<c:otherwise>
 						<i style="color:orange;" class="fa fa-circle"></i>
@@ -131,22 +129,13 @@
 						</select>
 						</td>
 					</tr>
-					<tr><td>容納人數：</td>
-						<td>
-						<select class="input-beautify" name="people" required>
-							<option value="99">請選擇人數</option>
-							<option value="2">2人</option>
-							<option value="4">4人</option>		
-						</select>
-						</td>
-					</tr>
 					<tr><td>房間狀態：</td>
 						<td>
 						<select class="input-beautify" name="status" required>
 							<option value="99">請選擇狀態</option>
-							<option value="0">check in unavailable</option>
-							<option value="1">check in available</option>
-							<option value="2">in 入住中</option>		
+							<option value="0">可入住</option>
+							<option value="1">修繕中</option>
+							<option value="2">入住中</option>		
 						</select>
 						</td>
 					</tr>		

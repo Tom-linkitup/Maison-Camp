@@ -6,6 +6,8 @@
 		<item key="isRegEx" value="false"/>
 		<item key="selection" value="&lt;p&gt;"/>
 		<list key="findhistory">
+			<item value="insert"/>
+			<item value="insert_n"/>
 			<item value="submoit"/>
 			<item value="&lt;p&gt;"/>
 			<item value="h3"/>

@@ -56,20 +56,22 @@
             	</c:when>
             	<c:otherwise>
             		<ul class="signin-links">
-	        			<li><i style="margin-right:7px; color:#c15c16;" class="fas fa-child fa-1x"></i>${memVO.name} 您好<i style="color:#496b6b; margin: 0 10px 0 5px;" class="fas fa-exclamation"></i><a class="signin" href="<%=request.getContextPath()%>/Member.do?action=logout"><i class="fas fa-sign-out-alt"></i></a></li>
+	        			<li><i style="margin-right:7px; color:#c15c16;" class="fas fa-child fa-1x"></i>${memVO.name} 歡迎回來<i style="color:#496b6b; margin: 0 10px 0 5px;" class="fas fa-exclamation"></i><a class="signin" href="<%=request.getContextPath()%>/Member.do?action=logout"><i class="fas fa-sign-out-alt"></i></a></li>
 	      			</ul>
             	</c:otherwise>
             </c:choose>
         </header>
         <div id="lightBox" style="display: none;">
-          <div id="cancelLogin">
-            <i class="fas fa-times fa-2x"></i>
-          </div> 
            <div class="loginpanel">
             <div class="content-1" style="display: block;">
+            <div class="loginTop">
                 <div>
                     <h2 class="title">會員登入</h2>
                 </div>
+                <div id="cancelLogin">
+           			<i class="fas fa-times fa-2x"></i>
+          		</div> 
+            </div>
                 <form method="post" action="<%=request.getContextPath()%>/MemberLoginHandler">
                 <div class="txt">
                   <input id="user" type="text" placeholder="請輸入Email" name="mem_email"/>

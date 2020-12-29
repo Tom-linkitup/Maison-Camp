@@ -5,7 +5,6 @@ import java.io.Serializable;
 public class RoomVO implements Serializable {
 	private String room_id;
 	private String room_category_id;
-	private int people;
 	private int status;
 	
 	public RoomVO() {
@@ -26,14 +25,6 @@ public class RoomVO implements Serializable {
 
 	public void setRoom_category_id(String room_category_id) {
 		this.room_category_id = room_category_id;
-	}
-
-	public int getPeople() {
-		return people;
-	}
-
-	public void setPeople(int people) {
-		this.people = people;
 	}
 
 	public int getStatus() {

@@ -1,0 +1,65 @@
+package com.room.model;
+
+import java.util.List;
+
+import javax.naming.Context;
+import javax.naming.NamingException;
+import javax.sql.DataSource;
+
+public class RoomDAO implements RoomDAO_Interface{
+	
+	//連線池
+	private static DataSource ds = null;
+	static {
+		try {
+			Context ctx = new javax.naming.InitialContext();
+			ds = (DataSource) ctx.lookup("java:comp/env/jdbc/GDB");
+		} catch (NamingException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	private static final String Add_Stmt = "INSERT INTO ROOM (ROOM_ID, ROOM_CATEGORY_ID, STATUS) VALUES('RM' || ROOM_ID_seq.NEXTVAL,?,?)";
+	private static final String Update_Stmt = "UPDATE ROOM SET ROOM_CATEGORY_ID=?, STATUS=? WHERE ROOM_ID=?";
+	private static final String Delete_Stmt = "DELETE FROM ROOM WHERE ROOM_ID=?";
+	private static final String Get_All_Stmt = "SELECT ROOM_ID, ROOM_CATEGORY_ID, STATUS FROM ROOM ORDER BY ROOM_ID";
+	private static final String Get_By_RCT = "SELECT ROOM_ID, ROOM_CATEGORY_ID, STATUS FROM ROOM WHERE ROOM_CATEGORY_ID=? ORDER BY STATUS";
+	private static final String Get_One_Stmt = "SELECT ROOM_ID, ROOM_CATEGORY_ID, STATUS FROM ROOM WHERE ROOM_ID=?";
+
+	@Override
+	public void addRoom(RoomVO roomVO) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void updateRoom(RoomVO roomVO) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void deleteRoom(String room_id) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public RoomVO findByRoomId(String room_id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<RoomVO> getByRoomCategoryId(String room_category_id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<RoomVO> getAllRoom() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+}

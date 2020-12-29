@@ -37,11 +37,6 @@ public class RoomServlet extends HttpServlet {
 					errorMsgs.put("room_category_id", "*請選擇房型編號");
 				}
 				
-				Integer people = new Integer(req.getParameter("people"));
-				if(people == 99) {
-					errorMsgs.put("people", "*請選擇容納人數");
-				}
-				
 				Integer status = new Integer(req.getParameter("status"));
 				if(status == 99) {
 					errorMsgs.put("status", "*請選擇房間狀態");
@@ -49,7 +44,6 @@ public class RoomServlet extends HttpServlet {
 				
 				RoomVO roomVO = new RoomVO();
 				roomVO.setRoom_category_id(room_category_id);
-				roomVO.setPeople(people);
 				roomVO.setStatus(status);
 				
 				if(!errorMsgs.isEmpty()) {			
@@ -58,7 +52,7 @@ public class RoomServlet extends HttpServlet {
 				}
 				
 				RoomService roomSvc = new RoomService();
-				roomVO = roomSvc.addRM(room_category_id, people, status);
+				roomVO = roomSvc.addRM(room_category_id, status);
 				
 				String url = "/back-end/room/RoomInfo.jsp";
 				req.setAttribute("insertSuccess", "yes");
@@ -86,11 +80,6 @@ public class RoomServlet extends HttpServlet {
 					errorUpdateMsgs.put("room_category_id", "*請選擇房型編號");
 				}
 				
-				Integer people = new Integer(req.getParameter("people"));
-				if(people == 99) {
-					errorUpdateMsgs.put("people", "*請選擇容納人數");
-				}
-				
 				Integer status = new Integer(req.getParameter("status"));
 				if(status == 99) {
 					errorUpdateMsgs.put("status", "*請選擇房間狀態");
@@ -98,7 +87,6 @@ public class RoomServlet extends HttpServlet {
 				
 				RoomVO roomVO = new RoomVO();
 				roomVO.setRoom_category_id(room_category_id);
-				roomVO.setPeople(people);
 				roomVO.setStatus(status);
 				
 				if(!errorUpdateMsgs.isEmpty()) {			
@@ -107,7 +95,7 @@ public class RoomServlet extends HttpServlet {
 				}
 				
 				RoomService roomSvc = new RoomService();
-				roomVO = roomSvc.updateRM(room_category_id, people, status, room_id);
+				roomVO = roomSvc.updateRM(room_category_id, status, room_id);
 				
 				String url = "/back-end/room/RoomInfo.jsp";
 				req.setAttribute("updateSuccess", "yes");
