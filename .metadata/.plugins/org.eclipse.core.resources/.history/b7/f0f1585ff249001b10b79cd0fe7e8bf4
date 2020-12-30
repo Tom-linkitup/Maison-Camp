@@ -1,0 +1,5 @@
+package com.currentroom.model;
+
+public interface CurrentRoomDAO_Interface {
+
+}

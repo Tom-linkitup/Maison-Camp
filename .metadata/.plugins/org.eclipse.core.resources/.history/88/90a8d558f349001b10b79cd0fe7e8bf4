@@ -1,0 +1,11 @@
+package com.currentroom.model;
+
+public class CurrentRoomDAO implements CurrentRoomDAO_Interface{
+
+	@Override
+	public Integer getCurrentRoomQtyByRoomCategoryId(String room_category_id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+}

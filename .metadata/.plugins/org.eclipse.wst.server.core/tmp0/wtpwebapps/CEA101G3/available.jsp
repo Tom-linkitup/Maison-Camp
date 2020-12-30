@@ -9,14 +9,12 @@
 RoomRsvService rsvService = new RoomRsvService();
 List<RoomRsvVO> rsvList = rsvService.getAll();
 pageContext.setAttribute("rsvList", rsvList);
-
 %>
 <!DOCTYPE html>
 <html>
 <head>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" />
-<link rel="stylesheet" href="<%=request.getContextPath()%>/css/bootstrap.min.css" />
-<link rel="stylesheet" href="<%=request.getContextPath()%>/css/front/available.css" />
+
 <title>Availability 空房狀況</title>
 </head>
 <body>
@@ -283,7 +281,7 @@ pageContext.setAttribute("rsvList", rsvList);
         							}
         						}
         						currentDate.addClass("calendar-isEmpty");
-        						let length = currentDate.attr("href").length;
+        				
         						let href = currentDate.attr("href").split("stay")[0] 
         									+ "stay=" + $("#stay").val() 
         									+ "&guest=" + $("#guest").val();

@@ -1,0 +1,29 @@
+package com.currentroom.model;
+
+import javax.naming.Context;
+import javax.naming.NamingException;
+import javax.sql.DataSource;
+
+public class CurrentRoomDAO implements CurrentRoomDAO_Interface{
+	
+	private static DataSource ds = null;
+
+	static {
+		try {
+			Context ctx = new javax.naming.InitialContext();
+			ds = (DataSource) ctx.lookup("java:comp/env/jdbc/GDB");
+		} catch (NamingException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	private static final String Get_Qty_By_Room_Category_Id = "SELECT ROOM_CURRENT_LEFT FROM CURRENT_ROOM WHERE ROOM_CATEGORY_ID = ?";
+	
+
+	@Override
+	public Integer getCurrentRoomQtyByRoomCategoryId(String room_category_id) {
+		
+		return null;
+	}
+
+}

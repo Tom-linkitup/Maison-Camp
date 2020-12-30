@@ -13,39 +13,39 @@ public class RoomRsvService {
 		dao = new RoomRsvDAO();
 	}
 	
-	public void insertRsvDate(LocalDate rsvDate) {
-		dao.insert(rsvDate);
+	public void insertRsvDate(LocalDate rsv_date) {
+		dao.insert(rsv_date);
 	}
 	
-	public RoomRsvVO updateRmLeft(LocalDate rsvDate, String rmType, Integer rmLeft) {
-		RoomRsvVO rsvo = new RoomRsvVO();
-		rsvo.setRsv_date(rsvDate);
-		rsvo.setRm_type(rmType);
-		rsvo.setRm_left(rmLeft);
-		return rsvo;
+	public RoomRsvVO updateRmLeft(LocalDate rsv_date, String room_category_id, Integer room_left) {
+		RoomRsvVO rsvVO = new RoomRsvVO();
+		rsvVO.setRsv_date(rsv_date);
+		rsvVO.setRoom_category_id(room_category_id);
+		rsvVO.setRoom_left(room_left);
+		return rsvVO;
 	}
 	
-	public void deleteRsvDate(LocalDate rsvDate) {
-		dao.delete(rsvDate);
+	public void deleteRsvDate(LocalDate rsv_date) {
+		dao.delete(rsv_date);
 	}
 	
-	public Integer roomCheck(LocalDate rsvDate, Integer stay, String rmType) {
-		return dao.roomCheck(rsvDate, stay, rmType);
+	public Integer roomCheck(LocalDate rsv_date, Integer stay, String room_category_id) {
+		return dao.roomCheck(rsv_date, stay, room_category_id);
 	}
 	
-	public RoomRsvVO getOneByDateNRmType(LocalDate rsvDate, String rm_type) {
-		return dao.getOneByDateNRmType(rsvDate, rm_type);
+	public RoomRsvVO getOneByDateNRmType(LocalDate rsv_date, String room_category_id) {
+		return dao.getOneByDateNRmType(rsv_date, room_category_id);
 	}
 	
-	public List<RoomRsvVO> getOneByDate(LocalDate rsvDate) {
-		return dao.getOneDayByDate(rsvDate);
+	public List<RoomRsvVO> getOneByDate(LocalDate rsv_date) {
+		return dao.getOneDayByDate(rsv_date);
 	}
 	
 	public List<RoomRsvVO> getAll() {
 		return dao.getAll();
 	}
 	
-	public List<RoomRsvVO> getAllByRmType(String rmType) {
-		return dao.getAllByRmType(rmType);
+	public List<RoomRsvVO> getAllByRmType(String room_category_id) {
+		return dao.getAllByRoomCategoryId(room_category_id);
 	}
 }

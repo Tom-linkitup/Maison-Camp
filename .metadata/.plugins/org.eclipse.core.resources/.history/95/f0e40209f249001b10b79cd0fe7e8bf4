@@ -1,0 +1,5 @@
+package com.currentroom.model;
+
+public class CurrentRoomVO {
+
+}

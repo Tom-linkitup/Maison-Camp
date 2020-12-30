@@ -83,6 +83,15 @@
 		<url-pattern>/RoomOrder.do</url-pattern>
 	</servlet-mapping>
 	
+	<servlet>
+		<servlet-name>RoomRsvServlet</servlet-name>
+		<servlet-class>com.roomrsv.controller.RoomRsvServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>RoomRsvServlet</servlet-name>
+		<url-pattern>/RoomRsv.do</url-pattern>
+	</servlet-mapping>
+	
 	<filter>
 		<filter-name>MemberLoginFilter</filter-name>
 		<filter-class>com.member.filter.MemberLoginFilter</filter-class>

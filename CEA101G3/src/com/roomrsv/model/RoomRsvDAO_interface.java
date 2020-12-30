@@ -2,17 +2,14 @@ package com.roomrsv.model;
 
 import java.time.LocalDate;
 import java.util.List;
-import java.util.Map;
-
-import org.json.JSONObject;
 
 public interface RoomRsvDAO_interface {
-	public void insert(LocalDate rsvDate);
-	public void update(LocalDate rsvDate, String rmType ,Integer rmLeft);
-	public void delete(LocalDate rsvDate);
-	public Integer roomCheck(LocalDate rsvDate, Integer stay, String rmType);
-	public RoomRsvVO getOneByDateNRmType(LocalDate rsvDate, String rm_ype);
-	public List<RoomRsvVO> getOneDayByDate(LocalDate rsvDate);
+	public void insert(LocalDate rsv_date);
+	public void update(LocalDate rsv_date, String room_category_id ,Integer room_left);
+	public void delete(LocalDate rsv_date);
+	public Integer roomCheck(LocalDate rsv_date, Integer stay, String room_category_id);
+	public RoomRsvVO getOneByDateNRmType(LocalDate rsv_date, String room_category_id);
+	public List<RoomRsvVO> getOneDayByDate(LocalDate rsv_date);
 	public List<RoomRsvVO> getAll();
-	public List<RoomRsvVO> getAllByRmType(String rmType);
+	public List<RoomRsvVO> getAllByRoomCategoryId(String room_category_id);
 }

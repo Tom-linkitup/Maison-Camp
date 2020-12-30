@@ -5,16 +5,34 @@ import java.time.LocalDate;
 
 public class RoomRsvVO implements Serializable {
 	private LocalDate rsv_date;
-	private String rm_type;
-	private Integer rm_left;
+	private String room_category_id;
+	private Integer room_left;
 	
 	public RoomRsvVO() {};
 	
-	public RoomRsvVO(LocalDate rsv_date, String rm_type, Integer rm_left) {
+	public RoomRsvVO(LocalDate rsv_date, String room_category_id, Integer room_left) {
 		super();
-		this.rsv_date = rsv_date;
-		this.rm_type = rm_type;
-		this.rm_left = rm_left;
+		this.setRsv_date(rsv_date);
+		this.room_category_id = room_category_id;
+		this.room_left = room_left;
+	}
+
+	
+
+	public String getRoom_category_id() {
+		return room_category_id;
+	}
+
+	public void setRoom_category_id(String room_category_id) {
+		this.room_category_id = room_category_id;
+	}
+
+	public Integer getRoom_left() {
+		return room_left;
+	}
+
+	public void setRoom_left(Integer room_left) {
+		this.room_left = room_left;
 	}
 
 	public LocalDate getRsv_date() {
@@ -25,21 +43,6 @@ public class RoomRsvVO implements Serializable {
 		this.rsv_date = rsv_date;
 	}
 
-	public String getRm_type() {
-		return rm_type;
-	}
-
-	public void setRm_type(String rm_type) {
-		this.rm_type = rm_type;
-	}
-
-	public Integer getRm_left() {
-		return rm_left;
-	}
-
-	public void setRm_left(Integer rm_left) {
-		this.rm_left = rm_left;
-	}
 	
 	
 	
