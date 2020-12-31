@@ -24,6 +24,7 @@
 <link href="https://fonts.googleapis.com/css?family=Lato:100,300,400,700,900" rel="stylesheet">
 <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" />
 <link rel="stylesheet" href="<%=request.getContextPath()%>/css/front-end/room-booking.css">
+<link rel="stylesheet" href="<%=request.getContextPath()%>/css/front-end/available.css">
 <link rel="shortcut icon" type="image/png" href="<%=request.getContextPath()%>/img/logo.png">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css">
 <title>Maison Camp | 訂房系統</title>
@@ -67,7 +68,8 @@
 										<div class="col-sm-9">
 											<section>
 												<label class="select">
-													<select id="room-type" class="change-room">
+													<select name="room-type" id="room-type" class="change-room">
+															
 													<c:forEach var="rt" items="${rtList}">
 														<c:if test="${rt.room_category_status == '0'}">
 															<option value="${rt.room_category_id}">${rt.room_name}</option>											
@@ -101,7 +103,7 @@
 										<div class="col-sm-8">
 											<section>
 												<label class="select">
-													<select id="volumn" class="change-room">
+													<select name="qty" id="qty" class="change-room">
 														<option value="1">1間</option>
 														<option value="2">2間</option>
 														<option value="3">3間</option>
@@ -116,32 +118,15 @@
 					</div>
 				</div>
 				<section>
-					<div class="table-responsive">
-						<div class="ui-datepicker-inline ui-datepicker">
-							<div class="card">
-					            <div style="display:inline-flex; justify-content: space-between; background-color:#eeeeee;">
-					                <a class="" id="prev" onclick="prev()"><i class="fas fa-less-than fa-1x"></i></a>
-					            	<h4 class="card-title" id="mmYY" style="margin-top:10px; color:#666666;">月/年</h4>
-					                <a class="" id="next" onclick="next()"><i class="fas fa-greater-than fa-1x"></i></a>
-					            </div>
-					            <table class="table table-bordered" id="dateDetail" style="text-align:center;">
-					                <thead>
-					                    <tr>
-					                        <th class="holiday">日</th>
-					                        <th>一</th>
-					                        <th>二</th>
-					                        <th>三</th>
-					                        <th>四</th>
-					                        <th>五</th>
-					                        <th class="holiday">六</th>
-					                    </tr>
-					                </thead>
-					                <tbody id="body">			
-					                </tbody>
-					            </table>				            
-					        </div>
-						</div>
-					</div>		
+					<div class="view">
+			            <div id="display"></div>
+			             <div class="calendar-backward arrow">
+			            	<i class="fas fa-chevron-left"></i>
+			        	</div>
+				        <div class="calendar-forward arrow">
+				            <i class="fas fa-chevron-right"></i>
+				        </div>
+			        </div>
 				</section>
 			</div>
         </div>
@@ -191,141 +176,264 @@
         <script src="<%=request.getContextPath()%>/js/front-end/room-booking.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"></script>
 	<script type="text/javascript">
-		$(document).ready(function(){
-			let content = document.getElementById("body");
-			let today = new Date();
-	        let curYear = today.getFullYear();
-	        let curMonth = today.getMonth();
-	        let curDate = today.getDate();
-	        let todayStr = curYear + "-" + (curMonth + 1) + "-" + curDate
-	        let current = 0; //當月
-	        var loaded = [0, 1]
-	        
-	        getCalendars(12);
-	        fetchAvailable(current);
-	        
-	        function showCalendar(year, month) {
-	        	let feb = leapYear(year);
-	        	let monthOfDay = [31, feb, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
-	        	
-	        }
-
-	        let months = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"]
-	        let title = document.getElementById("mmYY")
-	        
-		});
-		
-		
+	
+	$(document).ready(function () {
+        let display = document.getElementById("display");
+        let weeks = ["ㄧ", "二", "三", "四", "五", "六", "日"];
         let today = new Date();
-        let curMonth = today.getMonth();
-        let curYear = today.getFullYear();
-        let curDate = today.getDate();
-        let todayStr = curYear + "-" + (curMonth + 1) + "-" + curDate
-
-        let months = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"]
-        let title = document.getElementById("mmYY")
-
-        showCalendar(curMonth, curYear)
-
-        function howManyDaysInMonth(mm, yy){
-            //pass 32 in the third parameter will return the subtract day of the next month
-            //for example: pass (Feb, 2020, 32) will return the 4th March, because Feb only have 28 days
-            return 32 - new Date(yy, mm, 32).getDate()
-        }
+        let thisYear = today.getFullYear();
+        let thisMonth = today.getMonth();
+        let todayDate = today.getDate();
+        let todayStr = thisYear + "-" + (thisMonth+1) + "-" + todayDate
+        console.log(todayStr);
+        let current = 0;
+        var loaded = [0, 1]
+        getCalendars(12); //拿一年份的月曆！
+        fetchAvalibility(current);
+        fetchAvalibility(current+1);
         
-        function showCalendar(month, year){
-            let firstDayOfMonth = (new Date(year, month)).getDay()
-            let content = document.getElementById("body")
-            content.innerHTML = ""
-            title.innerHTML = `${curYear} / ${months[curMonth]}`
-            
-            let date = 1
-            for(let i = 0; i < 6; i++){
-                let weekRow = document.createElement("tr")
-                for(let j = 0; j < 7; j++){
-                    if(i === 0 && j < firstDayOfMonth){
-                        let column = document.createElement("td");
-                        let columnText = document.createTextNode("")
-                        column.appendChild(columnText)
-                        column.classList.add("gray")
-                        weekRow.appendChild(column)
-                    }else if(date > howManyDaysInMonth(curMonth, curYear)){
-                        break;
-                    }else {
-                        let column = document.createElement("td")
-                        let breakline = document.createElement("br")
-                        let breakline2 = document.createElement("br")
-                        let anchor = document.createElement("a")
-                        let dateline = document.createElement("span")
-                        let volumnline = document.createElement("span")
-                        let priceline = document.createElement("span")
-                        let columnText = document.createTextNode(date)
-                        let id = 
-                        		year.toString() + "-" 
-                        		+ (month + 1).toString().padStart(2,"0") + "-" 
-                        		+ date.toString().padStart(2,"0");
-                        
-                        column.classList.add("tdClass")
-                        column.addEventListener("click", function(){
-                        	column.classList.add("active")
-                        })
-                        // 設定文字顏色
-                        dateline.appendChild(columnText)
-                        dateline.style.color = '#acacac'
-                        
-                        volumnline.appendChild(columnVolumn)
-                        volumnline.style.color = '#666666'
-                        
-                        priceline.appendChild(columnPrice)
-                        priceline.style.color = '#c15c61'
-                        
-                        // 將資料放入單格內
-                        column.appendChild(dateline)
-                        column.appendChild(breakline)
-                        column.appendChild(volumnline)
-                        column.appendChild(breakline2)
-                        column.appendChild(priceline)
-                        weekRow.appendChild(column)
-                        date++
-                    }
-                }
-                content.appendChild(weekRow)        
+        function createCalendar(year, month) {
+            let feb = leapYear(year);
+            let monthOfDay = [31, feb, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+            let wrapper = document.createElement("div"); //包住個別日曆
+            wrapper.classList.add("calendar-wrapper");
+            let title = document.createElement("div"); //產生日曆標頭
+            title.classList.add("title");
+            title.innerHTML = "<b>" + (month + 1) + "月</b><p>" + "," + year + "年</p>";
+            let table = document.createElement("table"); //產生日曆表格
+            table.classList.add("calendar");
+            let firstTr = document.createElement("tr"); //產生標頭列
+            firstTr.classList.add("week-title");
+
+            table.append(firstTr);
+            wrapper.append(title);
+            wrapper.append(table);
+            //建立抬頭
+            for (let i = 0; i < 7; i++) {
+                let th = document.createElement("th");
+                th.innerText = weeks[i];
+                firstTr.append(th);
             }
-            //選擇單格及滑過顏色
-            let tds = $(".tdClass")
-    	    tds.hover(function(){
-    	    	$(this).toggleClass("hoverme")
-    	    })
-    	    tds.click(function(){
-    	    	tds.removeClass("active");
-    	    	$(this).addClass("active");
-    	    })
+            //找出該月第一天是禮拜幾
+            let firstDayOfWeek = new Date(year, month, 1).getDay();
+            if (firstDayOfWeek == 0) firstDayOfWeek = 7;
+            //確認月曆行數
+            let rows = (monthOfDay[month] + firstDayOfWeek - 1) / 7;
+            //產生月曆行數
+            for (let i = 0; i < rows; i++) {
+                let tr = document.createElement("tr");
+                for (let j = 1; j <= 7; j++) {
+                    let td = document.createElement("td");
+                    let a = document.createElement("a");
+                    let img = document.createElement("img");
+                    img.setAttribute("src", "<%=request.getContextPath()%>/img/loader.gif");
+                    img.setAttribute("style", "display:none; width:100%")
+                    td.classList.add("calendar-td");
+                    a.classList.add("calendar-box");
+                    let id =
+                        year.toString() + "-"
+                        + (month + 1).toString().padStart(2, "0") + "-"
+                        + (i * 7 + j - firstDayOfWeek + 1).toString().padStart(2, "0");
+                    if (i === 0 && j >= firstDayOfWeek) {
+                        a.setAttribute("data-year", year);
+                        a.setAttribute("data-month", month + 1);
+                        a.setAttribute("data-date", j + i * 7 - firstDayOfWeek + 1);
+                        a.setAttribute("id", id);
+                    } else if (i * 7 + j - firstDayOfWeek + 1 <= monthOfDay[month]) {
+                        a.setAttribute("data-year", year);
+                        a.setAttribute("data-month", month + 1);
+                        a.setAttribute("data-date", j + i * 7 - firstDayOfWeek + 1);
+                        a.setAttribute("id", id);
+                    }
+                    a.append(img);
+                    td.append(a);
+                    tr.append(td);
+                }
+                table.append(tr);
+            }
+            return wrapper;
+        }
+
+        function leapYear(year) {
+            let feb = (year % 4 == 0 && year % 100 != 0) || year % 400 == 0 ? 29 : 28;
+            return feb;
+        }
+        //填充日期資訊
+        function fillUpDates(year, month, thisMonthDate) {
+            let feb = leapYear(year);
+            let monthOfDay = [31, feb, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+            for (let i = thisMonthDate; i <= monthOfDay[month]; i++) {
+                let celldate = document.createElement("div");
+                let cellqty = document.createElement("div");
+                let cellprice = document.createElement("div");
+                cellqty.classList.add("calendar-qty");
+                cellprice.classList.add("calendar-price");
+                celldate.classList.add("calendar-date");
+                let id = year.toString() + "-" + (month + 1).toString().padStart(2, "0") + "-" + i.toString().padStart(2, "0");
+                let hrefstr =
+                    "<%=request.getContextPath()%>/RoomRsv.do?action=booking" 
+                    + "&date=" + id
+                    + "&stay=0";
+                let box = document.getElementById(id);
+                box.setAttribute("href", hrefstr);
+                box.classList.add("calendar-default");
+                celldate.innerText = i;
+                box.append(celldate);
+                box.append(cellqty);
+                box.append(cellprice);
+            }
         }
         
-        var room_price = {
-        		<c:forEach var="roomTypeVO" items="${rtList}">
-        			${roomTypeVO.room_category_id}:${roomTypeVO.room_price},
+        function getCalendars(number) {
+            for (i = 0; i < number; i++) {
+                let thisMonthDate = 1;
+                let year = thisYear + Math.floor(thisMonth / 12);
+                let month = thisMonth % 12;
+                let calendar = createCalendar(year, month);
+                display.append(calendar);
+                if (i == 0){
+                    thisMonthDate = todayDate;
+                } 
+                fillUpDates(year, month, thisMonthDate);
+                thisMonth++;
+            }
+            thisMonth = today.getMonth();
+            let todaybox = document.getElementById(
+                       thisYear.toString() + "-" 
+                    + (thisMonth + 1).toString().padStart(2, "0") + "-"
+                    + today.getDate().toString().padStart(2, "0")
+            );
+            todaybox.classList.add("calendar-today");
+
+            let position = 0;
+            let forward = $(".calendar-forward");
+            let backward = $(".calendar-backward");
+            let calendars = $(".calendar-wrapper");
+            calendars.eq(0).css("opacity", "1");
+            calendars.eq(1).css("opacity", "1");
+            backward.fadeOut();
+            //導覽
+            forward.click(function () {
+                current += 1;
+                let calendarWidth = parseInt($(".calendar-wrapper").css("width").split("px")[0]);
+                calendars.css("opacity", "0");
+                if (0 < number - current) {
+                    backward.fadeIn(0);
+                    $("#display").css("transform", "translateX(-" + (position += calendarWidth) + "px)");
+                }
+                if (1 === number - current) {
+                    forward.fadeOut(0);
+                }
+                calendars.eq(current).css("opacity", "1");
+                calendars.eq(current + 1).css("opacity", "1");
+                if (loaded.indexOf(current+1) < 0){
+                	fetchAvalibility(current + 1);
+                    loaded.push(current+1);
+                }
+            });
+            backward.click(function () {
+                current -= 1;
+                let calendarWidth = parseInt($(".calendar-wrapper").css("width").split("px")[0]);
+                calendars.css("opacity", "0");
+                if (number - current > 0) {
+                    forward.fadeIn(0);
+                    $("#display").css("transform", "translateX(-" + (position -= calendarWidth) + "px)");
+                }
+                if (number - current === 12) {
+                    backward.fadeOut(0);
+                }
+                calendars.eq(current).css("opacity", "1");
+                calendars.eq(current + 1).css("opacity", "1");
+                if (loaded.indexOf(current) < 0){
+                	fetchAvalibility(current);
+                    loaded.push(current+1);
+                }
+            });
+            $(window).resize(function () {
+                let CalendarWidth = parseInt($(".calendar-wrapper").css("width").split("px")[0]);
+                let reposition = CalendarWidth * current;
+                position = reposition;
+                $("#display").css("transform", "translateX(-" + reposition + "px)");
+            });
+        }
+        var rm_price = {
+        		<c:forEach var="roomtypevo" items="${rtList}">
+        			${roomtypevo.room_category_id}:${roomtypevo.room_price},
         		</c:forEach>
         }
         
-        function fetchAvailable(curCal){
-        	let allDays = 0;
-        	let stayDays = $("#stay").val();
-        	let roomType = $("#room-type").val();
-        	let volumn = $("#volumn").val();
+        function fetchAvalibility(currentCal){
+            let allDays = $(".calendar-wrapper").eq(currentCal).find(".calendar-default");
+            let stayDays = $("#stay").val();
+            let roomType = $("#room-type").val();
+            let qty = $("#qty").val();
+            for (let i = 0 ; i < allDays.length; i++){
+            	let currentDate = allDays.eq(i);
+                $.ajax({
+                     url: "<%=request.getContextPath()%>/RoomRsv.do",
+                     data:{
+                         date: currentDate.attr("id"),
+                         stay: stayDays,
+                         rmtype: roomType,
+                         qty: qty,
+                         action:"roomCheck"
+                     },
+                     type: 'POST',
+                     beforeSend: function() {
+                    	 currentDate.children("img").show();
+                      },
+                     success: function(str){
+                        var data = JSON.parse(str)
+                        let rmType = Object.keys(data)[0];
+                        let roomLeft = Object.values(data)[0]
+            
+    					if(data.isFull == "true"){
+    						currentDate.addClass("calendar-isFull");
+    						/* currentDate.attr("href",""); */
+    					} else {
+    						
+   							if (data != null){
+   								currentDate.children(".calendar-price").text("$" + rm_price[rmType]);
+   								currentDate.children(".calendar-qty").text("剩" + roomLeft);
+   							}
+    				
+    						currentDate.addClass("calendar-isEmpty");
+    				
+    						let href = currentDate.attr("href").split("stay")[0] 
+    									+ "stay=" + $("#stay").val() 
+    									+ "&qty=" + $("#qty").val();
+    					   						
+    						currentDate.attr("href", href);
+    					}
+                        currentDate.children("img").hide();
+                     }
+                })
+            } 
         }
-
-        function prev(){
-            curYear = (curMonth === 0) ? curYear - 1 : curYear
-            curMonth = (curMonth === 0) ? 11 : curMonth - 1
-            showCalendar(curMonth, curYear)
-        }
-
-        function next(){
-            curYear = (curMonth === 11) ? curYear + 1 : curYear
-            curMonth = (curMonth + 1) % 12
-            showCalendar(curMonth, curYear)
-        }
+        $("#stay").change(function(){
+        	loaded = [current, current+1];
+        	fetchAvalibility(current)
+        	fetchAvalibility(current+1)
+        	 $(".calendar-price").text("");
+        	 $(".calendar-default").removeClass("calendar-isFull calendar-isEmpty");
+        })
+        
+        $("#qty").change(function(){
+        	loaded = [current, current+1];
+        	fetchAvalibility(current)
+        	fetchAvalibility(current+1)
+        	 $(".calendar-price").text("");
+        	 $(".calendar-default").removeClass("calendar-isFull calendar-isEmpty");
+        })
+        
+        $("#room-type").change(function(){
+        	loaded = [current, current+1];
+        	fetchAvalibility(current)
+        	fetchAvalibility(current+1)
+        	 $(".calendar-price").text("");
+        	 $(".calendar-default").removeClass("calendar-isFull calendar-isEmpty");
+        })
+    });
             
 	</script>
 </body>

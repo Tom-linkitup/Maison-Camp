@@ -56,14 +56,11 @@ pageContext.setAttribute("rsvList", rsvList);
         <div class="view">
             <div id="display"></div>
              <div class="calendar-backward arrow">
-            <i class="fas fa-chevron-left"></i>
-        </div>
-        <div class="calendar-forward arrow">
-            <i class="fas fa-chevron-right"></i>
-        </div>
-        </div>
-        <div class="logo">
-            <img src="<%=request.getContextPath()%>/img/logo.png" alt="" />
+            	<i class="fas fa-chevron-left"></i>
+        	</div>
+	        <div class="calendar-forward arrow">
+	            <i class="fas fa-chevron-right"></i>
+	        </div>
         </div>
         <script src="<%=request.getContextPath()%>/js/jquery-3.5.1.min.js"></script>
         <script>

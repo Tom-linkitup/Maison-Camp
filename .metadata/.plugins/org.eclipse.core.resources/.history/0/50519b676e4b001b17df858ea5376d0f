@@ -1,0 +1,55 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page import="java.util.*" %>
+<%@ page import="com.member.model.*" %>
+<%@ page import="com.roomtype.model.*" %>
+<%@ page import="com.room.model.*" %>
+<%@ page import="com.roomrsv.model.*"%>
+
+<%
+	
+	
+%>
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	  <div class="accordin">
+      <input type="checkbox" name="tab-1" id="tab-1" />
+      <label for="tab-1" class="accordin_title">類型說明</label>
+      <p class="accordin_detail">
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Recusandae
+        perspiciatis velit, esse laboriosam ipsam unde assumenda? Earum eum eos
+        sequi quidem minima adipisci voluptate dolore fugiat quos, quam rem
+        cupiditate.
+      </p>
+    </div>
+
+    <div class="accordin">
+      <input type="checkbox" name="tab-2" id="tab-2" />
+      <label for="tab-2" class="accordin_title">Content Title 2</label>
+      <p class="accordin_detail">
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Recusandae
+        perspiciatis velit, esse laboriosam ipsam unde assumenda? Earum eum eos
+        sequi quidem minima adipisci voluptate dolore fugiat quos, quam rem
+        cupiditate.
+      </p>
+    </div>
+
+    <div class="accordin">
+      <input type="checkbox" name="tab-3" id="tab-3" />
+      <label for="tab-3" class="accordin_title">Content Title 3</label>
+      <p class="accordin_detail">
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Recusandae
+        perspiciatis velit, esse laboriosam ipsam unde assumenda? Earum eum eos
+        sequi quidem minima adipisci voluptate dolore fugiat quos, quam rem
+        cupiditate.
+      </p>
+    </div>
+	
+	
+</body>
+</html>
