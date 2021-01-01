@@ -1,13 +1,42 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="java.util.*" %>
+<%@ page import="org.json.*" %>
+<%@ page import="java.time.LocalDate" %>
 <%@ page import="com.member.model.*" %>
 <%@ page import="com.roomtype.model.*" %>
+<%@ page import="com.roomphoto.model.*" %>
 <%@ page import="com.room.model.*" %>
 <%@ page import="com.roomrsv.model.*"%>
 
+<!-- 取得會員資料 -->
 <%
 	MemberVO memVO = (MemberVO) session.getAttribute("memVO");
 %>
+<!-- 取得預訂的房型資料 -->
+<%
+	String room_category_id = (String) session.getAttribute("room_category_id");
+	RoomTypeService roomTypeSvc = new RoomTypeService();
+	RoomTypeVO roomTypeVO = roomTypeSvc.getOneRT(room_category_id);
+	pageContext.setAttribute("roomTypeVO", roomTypeVO);
+	
+	RoomPhotoService roomPhotoSvc = new RoomPhotoService();
+	List<RoomPhotoVO> rphList = roomPhotoSvc.getAllRPH(room_category_id);
+	pageContext.setAttribute("rphList", rphList);
+%>
+<!-- 取得預訂資料 -->
+<%
+	JSONObject jsonObj = (JSONObject) session.getAttribute("infoJson");
+	Integer stay = new Integer(jsonObj.getString("stay"));
+	pageContext.setAttribute("stay", stay);
+	String startDate = jsonObj.getString("startDate");
+	pageContext.setAttribute("startDate", startDate);
+	String leaveDate = jsonObj.getString("leaveDate");
+	pageContext.setAttribute("leaveDate", leaveDate);
+	Integer qty = jsonObj.getInt("qty");
+	pageContext.setAttribute("qty", qty);
+%>
+
 
 <!DOCTYPE html>
 <html>
@@ -65,31 +94,24 @@
 				      	<div class="col-sm-4">
 				      		<div class="flexslider">
 							  <ul class="slides">
-							    <li>
-							      <img src="<%=request.getContextPath()%>/img/double1.jpg" />
-							    </li>
-							    <li>
-							      <img src="<%=request.getContextPath()%>/img/double3.jpg" />
-							    </li>
-							    <li>
-							      <img src="<%=request.getContextPath()%>/img/double4.jpg" />
-							    </li>
-							    <li>
-							      <img src="<%=request.getContextPath()%>/img/double5.jpg" />
-							    </li>
+							  	<c:forEach var="photo" items="${rphList}">
+                          			<li>
+                            			<img src="<%=request.getContextPath()%>/PhotoList.do?room_photo_id=${photo.room_photo_id}" />
+                          			</li> 
+                        		</c:forEach>
 							  </ul>
 							</div>
 				      	</div>
 				      	<div class="col-sm-8">
 							<ul style="list-style:none; padding:5px 0; line-height:1.7em;">
-				      			<li>名稱: 兩人帳</li>
-				      			<li>型態: 一張大床</li>
-				      			<li>說明:<p> 1.此帳型價格內含提供至多2人早餐；如有超過之使用人數，需依現場收費公告為主，收取相關費用。<br>		      			
+				      			<li>名稱: ${roomTypeVO.room_name}</li>
+				      			<li>型態: ${roomTypeVO.room_type}</li>
+				      			<li>說明:<p> 1.此帳型價格內含提供至多${roomTypeVO.room_guest}人早餐；如有超過之使用人數，需依現場收費公告為主，收取相關費用。<br>		      			
 											2.此帳型可提供加人加床服務；煩請來信或來電告知，以便安排;每帳限加一床；加人、加床費用另計。</p>
 								</li>
-								<li>入住日期: 2021-01-06</li>
-								<li>退房日期: 2021-01-07</li>
-								<li>數量: 1間</li>
+								<li>入住日期: ${startDate}</li>
+								<li>退房日期: ${leaveDate}</li>
+								<li>數量: ${qty} 間</li>
 							</ul>
 				      	</div>
 				      </div>
@@ -103,33 +125,29 @@
 			        <table class="table table-striped table-bordered margin-top-20">
 			        	<thead>
 			        		<tr style="color:#e67e22;">
-			        			<th>使用日</th>
-			        			<th>單價</th>
-			        			<th>數量</th>
-			        			<th>單日小計</th>
+			        			<th>入住日</th>
+			        			<th>房間單價</th>
+			        			<th>訂購數量</th>
+			        			<th>使用天數</th>
+			        			<th>金額小計</th>
 			        		</tr>
 			        	</thead>
 			        	<tbody>
 			        		<tr>
-			        			<td>2021-01-06</td>
-			        			<td>11000</td>
-			        			<td>3</td>
-			        			<td>33000</td>
+			        			<td>${startDate}</td>
+			        			<td>${roomTypeVO.room_price}</td>
+			        			<td>${qty}</td>
+			        			<td>${stay}</td>
+			        			<td>${roomTypeVO.room_price * qty * stay}</td>
 			        		</tr>
 			        		<tr>
-			        			<td>2021-01-07</td>
-			        			<td>11000</td>
-			        			<td>3</td>
-			        			<td>33000</td>
+			        			<td colspan="5" class="align-rt" style="text-align:end;"><span style="color:#c15c61;">價格：</span> ${roomTypeVO.room_price * qty * stay}</td>	        			
 			        		</tr>
 			        		<tr>
-			        			<td colspan="4" class="align-rt" style="text-align:end;"><span style="color:#c15c61;">價格：</span> $66000</td>	        			
+			        			<td colspan="5" class="align-rt" style="text-align:end;"><span style="color:#c15c61;">優惠折數：</span> 0.8</td>
 			        		</tr>
 			        		<tr>
-			        			<td colspan="4" class="align-rt" style="text-align:end;"><span style="color:#c15c61;">優惠折數：</span> 0.8</td>
-			        		</tr>
-			        		<tr>
-			        			<td colspan="4" class="align-rt" style="text-align:end;"><span style="color:#c15c61;">總計：</span> $52800</td>
+			        			<td colspan="5" class="align-rt" style="text-align:end;"><span style="color:#c15c61;">總計：</span>$ ${roomTypeVO.room_price * qty * stay * 0.8}</td>
 			        		</tr>
 			        	</tbody>
 			        </table>
@@ -144,15 +162,15 @@
 		        		<tbody>
 		        			<tr>
 		        				<td>姓名：</td>
-		        				<td>麥森</td>
+		        				<td>${memVO.name}</td>
 		        			</tr>
 		        			<tr>
 		        				<td>Email：</td>
-		        				<td>maisoncamp@gmail.com</td>
+		        				<td>${memVO.email}</td>
 		        			</tr>
 		        			<tr>
 		        				<td>生日：</td>
-		        				<td>1992-05-29</td>
+		        				<td>${memVO.birthday}</td>
 		        			</tr>        		
 		        		</tbody>
 		        	</table>
@@ -226,7 +244,7 @@
                     <li><a class="facebook" href="#"><i class="fab fa-facebook-f"></i></a></li>
                     <li><a class="twitter" href="#"><i class="fab fa-twitter"></i></a></li>
                     <li><a class="dribbble" href="#"><i class="fab fa-dribbble"></i></a></li>
-                    <li><a class="linkedin" href="#"><i class="fab fa-linkedin"></i></a></li>   
+                    <li><a class="linkedin" href="#"><i class="fab fa-linkedin"></i></a></li> 
                     </ul>
                 </div>
                 </div>

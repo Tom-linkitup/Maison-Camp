@@ -15,6 +15,8 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
 import org.json.JSONObject;
 
 import com.currentroom.model.CurrentRoomService;
@@ -137,6 +139,7 @@ public class RoomRsvServlet extends HttpServlet {
 		
 		if("booking".equals(action)) {
 			try {
+				String room_category_id = req.getParameter("rmType");
 				String date = req.getParameter("date");
 				String stay = req.getParameter("stay");
 				Integer qty = Integer.parseInt(req.getParameter("qty"));
@@ -156,14 +159,15 @@ public class RoomRsvServlet extends HttpServlet {
 						rsvvoList.add(rsvvo);
 					}
 				}
+				HttpSession session = req.getSession();
 				jsonObj.put("stay", stay); //回傳額外訊息
-				jsonObj.put("guest", qty);
+				jsonObj.put("qty", qty);
 				jsonObj.put("startDate", date);
 				jsonObj.put("leaveDate", rsv_date.plusDays(Integer.parseInt(stay)).toString());
-				req.setAttribute("rsvvoList", rsvvoList);
-				req.setAttribute("infoJson", jsonObj);
-				RequestDispatcher dispatcher = req.getRequestDispatcher("/front-end/order/Order.jsp");
-				dispatcher.forward(req, res);
+				session.setAttribute("room_category_id", room_category_id);
+				session.setAttribute("rsvvoList", rsvvoList);
+				session.setAttribute("infoJson", jsonObj);
+				res.sendRedirect(req.getContextPath() + "/front-end/order/Order.jsp");
 				return;
 			} catch (Exception e) {
 				e.printStackTrace();

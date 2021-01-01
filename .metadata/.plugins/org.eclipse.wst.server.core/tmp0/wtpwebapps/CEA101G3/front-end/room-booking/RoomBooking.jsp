@@ -385,7 +385,7 @@
                      success: function(str){
                         var data = JSON.parse(str)
                         let rmType = Object.keys(data)[0];
-                        let roomLeft = Object.values(data)[0]
+                        let roomLeft = Object.values(data)[0];
             
     					if(data.isFull == "true"){
     						currentDate.addClass("calendar-isFull");
@@ -401,7 +401,8 @@
     				
     						let href = currentDate.attr("href").split("stay")[0] 
     									+ "stay=" + $("#stay").val() 
-    									+ "&qty=" + $("#qty").val();
+    									+ "&qty=" + $("#qty").val()
+    									+ "&rmType=" + rmType;
     					   						
     						currentDate.attr("href", href);
     					}
