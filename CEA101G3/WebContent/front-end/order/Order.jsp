@@ -6,8 +6,7 @@
 <%@ page import="com.roomrsv.model.*"%>
 
 <%
-	
-	
+	MemberVO memVO = (MemberVO) session.getAttribute("memVO");
 %>
 
 <!DOCTYPE html>
@@ -31,18 +30,21 @@
                     <span></span>
                     <span></span>
                     <ul id="menu">
-                        <a href="<%=request.getContextPath()%>/front-end/front-index.jsp"><li>首頁</li></a>
-                        <a href="<%=request.getContextPath()%>/front-end/news/News.jsp"><li>最新消息</li></a>
-                        <a href="#"><li>會員登入</li></a>
-                        <a href="<%=request.getContextPath()%>/front-end/room-type/RoomType.jsp"><li>帳型介紹</li></a>
-                        <a href="<%=request.getContextPath()%>/front-end/room-booking/RoomBooking.jsp"><li>立即訂房</li></a>
-                        <a href="#"><li>精選商城</li></a>
-                        <a href="#"><li>活動預約</li></a>
-                        <a href="#"><li>聯絡我們</li></a>
+                         <a href="<%=request.getContextPath()%>/front-end/front-index.jsp"><li>首頁</li></a>
+                    	<a href="<%=request.getContextPath()%>/front-end/news/News.jsp"><li>最新消息</li></a>
+                   	 	<a href="<%=request.getContextPath()%>/front-end/member/Member.jsp"><li>會員中心</li></a>
+                    	<a href="<%=request.getContextPath()%>/front-end/room-type/RoomType.jsp"><li>帳型介紹</li></a>
+                    	<a href="<%=request.getContextPath()%>/front-end/room-booking/RoomBooking.jsp"><li>立即訂房</li></a>
+                    	<a href="#"><li>精選商城</li></a>
+                    	<a href="#"><li>活動預約</li></a>
+                    	<a href="#"><li>聯絡我們</li></a>
                     </ul>
                 </div>
             </nav>          
-            <a href="#"><img id="logoo" class="img-logo" src="<%=request.getContextPath()%>/img/logo.png" alt=""></a>         
+            <a href="#"><img id="logoo" class="img-logo" src="<%=request.getContextPath()%>/img/logo.png" alt=""></a>
+            <ul class="signin-links">
+	        	<li><i style="margin-right:7px; color:#c15c16;" class="fas fa-child fa-1x"></i>${memVO.name} 您好<i style="color:#496b6b; margin: 0 10px 0 5px;" class="fas fa-exclamation"></i><a class="signin" href="<%=request.getContextPath()%>/Member.do?action=logout"><i class="fas fa-sign-out-alt"></i></a></li>
+	      	</ul>      
         </header>
         <!-- content header -->
         <div class="title-text">
@@ -79,14 +81,14 @@
 							</div>
 				      	</div>
 				      	<div class="col-sm-8">
-							<ul style="list-style:none; padding:5px 0;">
+							<ul style="list-style:none; padding:5px 0; line-height:1.7em;">
 				      			<li>名稱: 兩人帳</li>
 				      			<li>型態: 一張大床</li>
 				      			<li>說明:<p> 1.此帳型價格內含提供至多2人早餐；如有超過之使用人數，需依現場收費公告為主，收取相關費用。<br>		      			
 											2.此帳型可提供加人加床服務；煩請來信或來電告知，以便安排;每帳限加一床；加人、加床費用另計。</p>
 								</li>
-								<li>入住日期: 2021/01/06</li>
-								<li>退房日期: 2021/01/07</li>
+								<li>入住日期: 2021-01-06</li>
+								<li>退房日期: 2021-01-07</li>
 								<li>數量: 1間</li>
 							</ul>
 				      	</div>
@@ -98,7 +100,39 @@
 		      <input type="checkbox" name="tab-2" id="tab-2" />
 		      <label for="tab-2" class="accordin_title"><i style="margin-right:5px;" class="fa fa-paperclip"></i>價格資訊</label>
 			      <div class="accordin_detail">
-			        
+			        <table class="table table-striped table-bordered margin-top-20">
+			        	<thead>
+			        		<tr style="color:#e67e22;">
+			        			<th>使用日</th>
+			        			<th>單價</th>
+			        			<th>數量</th>
+			        			<th>單日小計</th>
+			        		</tr>
+			        	</thead>
+			        	<tbody>
+			        		<tr>
+			        			<td>2021-01-06</td>
+			        			<td>11000</td>
+			        			<td>3</td>
+			        			<td>33000</td>
+			        		</tr>
+			        		<tr>
+			        			<td>2021-01-07</td>
+			        			<td>11000</td>
+			        			<td>3</td>
+			        			<td>33000</td>
+			        		</tr>
+			        		<tr>
+			        			<td colspan="4" class="align-rt" style="text-align:end;"><span style="color:#c15c61;">價格：</span> $66000</td>	        			
+			        		</tr>
+			        		<tr>
+			        			<td colspan="4" class="align-rt" style="text-align:end;"><span style="color:#c15c61;">優惠折數：</span> 0.8</td>
+			        		</tr>
+			        		<tr>
+			        			<td colspan="4" class="align-rt" style="text-align:end;"><span style="color:#c15c61;">總計：</span> $52800</td>
+			        		</tr>
+			        	</tbody>
+			        </table>
 			      </div>
 		    </div>
 		
@@ -106,8 +140,55 @@
 		      <input type="checkbox" name="tab-3" id="tab-3" />
 		      <label for="tab-3" class="accordin_title"><i style="margin-right:5px;" class="fa fa-user"></i>訂購人資料</label>
 		      <div class="accordin_detail">
-		        
+		        	<table class="table table-striped margin-top-20">
+		        		<tbody>
+		        			<tr>
+		        				<td>姓名：</td>
+		        				<td>麥森</td>
+		        			</tr>
+		        			<tr>
+		        				<td>Email：</td>
+		        				<td>maisoncamp@gmail.com</td>
+		        			</tr>
+		        			<tr>
+		        				<td>生日：</td>
+		        				<td>1992-05-29</td>
+		        			</tr>        		
+		        		</tbody>
+		        	</table>
 		      </div>
+		    </div>
+		    
+		    <div class="accordin">
+		      <input type="checkbox" name="tab-4" id="tab-4" />
+		      <label for="tab-4" class="accordin_title"><i style="margin-right:5px;" class="far fa-info-circle"></i>取消預定須知</label>
+		      <div class="accordin_detail">
+		        	<div class="alert alert-warning">
+		        		<ul class="list-unstyled" style="line-height:1.7; padding-top:10px;">
+		        			<li><i class="fa fa-chevron-circle-right color-green margin-right-5" style="color:#e67e22;"></i> 顧客於使用日當日取消預訂扣總價總金額 100%。</li>
+		        			<li><i class="fa fa-chevron-circle-right color-green margin-right-5" style="color:#e67e22;"></i> 顧客於使用日前 7-9 日內取消預訂扣總價總金額 50%。</li>  
+		        			<li><i class="fa fa-chevron-circle-right color-green margin-right-5" style="color:#e67e22;"></i> 顧客於使用日前 14日(含14 日)取消預訂扣總價總金額 0%。</li>           		
+		        		</ul>      	
+		        	</div>
+		      </div>
+		    </div>	    
+		    <div class="accordin">
+		      <input type="checkbox" name="tab-5" id="tab-5" />
+		      <label for="tab-5" class="accordin_title"><i style="margin-right:5px;" class="far fa-money-bill-alt"></i>選擇付款方式</label>
+		      <div class="accordin_detail">
+		        <div class="creditcard">
+		        	<label class="radio">
+		        		<input type="radio" name="payment" checked>
+		        		<i class="fal fa-credit-card fa-2x"></i><span style="margin-left: 10px;">信用卡</span>
+		        	</label>
+		        </div>
+		      </div>
+		    </div>
+		    <div class="steps-control">
+		    	<div class="text-center">
+			    	<a href=""><button type="button">返回</button></a>
+			    	<button type="submit">付款</button>  	
+		    	</div>
 		    </div>
 	    </div>
         <footer class="site-footer">

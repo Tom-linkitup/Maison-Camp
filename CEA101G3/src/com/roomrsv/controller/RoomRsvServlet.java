@@ -116,11 +116,9 @@ public class RoomRsvServlet extends HttpServlet {
 				String rmType = req.getParameter("rmtype");
 				LocalDate rsv_date = LocalDate.parse(date);
 				RoomRsvService rsvSvc = new RoomRsvService();
-				RoomTypeService rmtypeSvc = new RoomTypeService();
 				JSONObject jsonObj = new JSONObject();
 				
 				Integer rmLeft = rsvSvc.roomCheck(rsv_date, stay, rmType);
-				CurrentRoomService curRoomSvc = new CurrentRoomService();
 				if (rmLeft >= qty) {
 					jsonObj.put(rmType, rmLeft);
 					jsonObj.put("Zext", rsv_date.plusDays(1L));
@@ -141,7 +139,7 @@ public class RoomRsvServlet extends HttpServlet {
 			try {
 				String date = req.getParameter("date");
 				String stay = req.getParameter("stay");
-				String guest = req.getParameter("guest");
+				Integer qty = Integer.parseInt(req.getParameter("qty"));
 				LocalDate rsv_date = LocalDate.parse(date);
 				RoomRsvService rsvSvc = new RoomRsvService();
 				RoomTypeService rmtypeSvc = new RoomTypeService();
@@ -151,7 +149,7 @@ public class RoomRsvServlet extends HttpServlet {
 				for (RoomTypeVO rmtypevo : rmtypeList) {
 					RoomRsvVO rsvvo = new RoomRsvVO();
 					Integer rmLeft = rsvSvc.roomCheck(rsv_date, Integer.parseInt(stay), rmtypevo.getRoom_category_id());
-					if (rmLeft > 0 && rmtypevo.getRoom_guest() >= Integer.parseInt(guest)) { //只放有空房且人數符合的房型
+					if (rmLeft >= qty) { //只放有足夠數量的房間
 						rsvvo.setRoom_left(rmLeft);
 						rsvvo.setRoom_category_id(rmtypevo.getRoom_category_id());
 						rsvvo.setRsv_date(rsv_date);
@@ -159,12 +157,12 @@ public class RoomRsvServlet extends HttpServlet {
 					}
 				}
 				jsonObj.put("stay", stay); //回傳額外訊息
-				jsonObj.put("guest", guest);
+				jsonObj.put("guest", qty);
 				jsonObj.put("startDate", date);
 				jsonObj.put("leaveDate", rsv_date.plusDays(Integer.parseInt(stay)).toString());
 				req.setAttribute("rsvvoList", rsvvoList);
 				req.setAttribute("infoJson", jsonObj);
-				RequestDispatcher dispatcher = req.getRequestDispatcher("/frontend/roomrsv/booking.jsp");
+				RequestDispatcher dispatcher = req.getRequestDispatcher("/front-end/order/Order.jsp");
 				dispatcher.forward(req, res);
 				return;
 			} catch (Exception e) {
