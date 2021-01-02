@@ -4,12 +4,17 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.naming.Context;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
+
+import org.json.JSONObject;
+
+import com.roomrsv.model.RoomRsvDAO;
 
 public class RoomOrderDetailDAO implements RoomOrderDetailDAO_Interface{
 		//連線池
@@ -256,12 +261,12 @@ public class RoomOrderDetailDAO implements RoomOrderDetailDAO_Interface{
 				pstmt.setDate(6, roomOrderDetailVO.getOrder_time());
 				pstmt.setString(7, roomOrderDetailVO.getNote());
 				pstmt.executeUpdate();
-
+				
 				// Handle any SQL errors
 			} catch (SQLException se) {
 				if (con != null) {
 					try {
-						// 3●設定於當有exception發生時之catch區塊內
+						// 3.設定於當有exception發生時之catch區塊內
 						System.err.print("Transaction is being ");
 						System.err.println("rolled back-由-order-detail");
 						con.rollback();

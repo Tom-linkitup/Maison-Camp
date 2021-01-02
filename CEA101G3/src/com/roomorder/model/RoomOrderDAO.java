@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -12,8 +13,11 @@ import javax.naming.Context;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
 
+import org.json.JSONObject;
+
 import com.roomorderdetail.model.RoomOrderDetailDAO;
 import com.roomorderdetail.model.RoomOrderDetailVO;
+import com.roomrsv.model.RoomRsvDAO;
 
 public class RoomOrderDAO implements RoomOrderDAO_Interface {
 	//連線池
@@ -30,6 +34,7 @@ public class RoomOrderDAO implements RoomOrderDAO_Interface {
 	private static final String Add_Stmt = "INSERT INTO ROOM_ORDER (ROOM_ORDER_ID, MEM_ID, CHECK_IN_DATE, CHECK_OUT_DATE, STATUS) VALUES ('RD' || room_order_id_seq.NEXTVAL,?,?,?,?)";
 	private static final String Update_Stmt = "UPDATE ROOM_ORDER SET MEM_ID=?, CHECK_IN_DATE=?, CHECK_OUT_DATE=?, STATUS=? WHERE ROOM_ORDER_ID=?";
 	private static final String Delete_Stmt = "DELETE FROM ROOM_ORDER WHERE ROOM_ORDER_ID=?";
+	private static final String Get_Rods_ByRoid = "SELECT ROOM_ORDER_ID, ROOM_CATEGORY_ID, ROOM_PROMOTION_ID, QUANTITY, ROOM_ORDER_PRICE, ORDER_TIME, NOTE FROM ROOM_ORDER_DETAIL WHERE ROOM_ORDER_ID=? ORDER BY ROOM_ORDER_ID";
 	private static final String Get_One_Stmt = "SELECT ROOM_ORDER_ID, MEM_ID, CHECK_IN_DATE, CHECK_OUT_DATE, STATUS FROM ROOM_ORDER WHERE ROOM_ORDER_ID=?";
 	private static final String Get_All_Stmt = "SELECT ROOM_ORDER_ID, MEM_ID, CHECK_IN_DATE, CHECK_OUT_DATE, STATUS FROM ROOM_ORDER ORDER BY ROOM_ORDER_ID";
 	
@@ -240,12 +245,62 @@ public class RoomOrderDAO implements RoomOrderDAO_Interface {
 
 	@Override
 	public Set<RoomOrderDetailVO> getDetailsByRoomOrderId(String room_order_id) {
-		// TODO Auto-generated method stub
-		return null;
+		Set<RoomOrderDetailVO> set = new HashSet<RoomOrderDetailVO>();
+		RoomOrderDetailVO rodVO = null;
+	
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+	
+		try {
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(Get_Rods_ByRoid);
+			pstmt.setString(1, room_order_id);
+			rs = pstmt.executeQuery();
+	
+			while (rs.next()) {
+				rodVO = new RoomOrderDetailVO();
+				rodVO.setRoom_order_id(rs.getString("ROOM_ORDER_ID"));
+				rodVO.setRoom_category_id(rs.getString("ROOM_CATEGORY_ID"));
+				rodVO.setRoom_promotion_id(rs.getString("ROOM_PROMOTION_ID"));
+				rodVO.setQuantity(rs.getInt("QUANTITY"));
+				rodVO.setRoom_order_price(rs.getInt("ROOM_ORDER_PRICE"));
+				rodVO.setOrder_time(rs.getDate("ORDER_TIME"));
+				rodVO.setNote(rs.getString("NOTE"));
+				set.add(rodVO); // Store the row in the vector
+			}
+				
+		}catch (SQLException se) {
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		return set;
 	}
 
 	@Override
-	public void insertWithDetails(RoomOrderVO roomOrderVO, List<RoomOrderDetailVO> list) {
+	public void insertWithDetails(RoomOrderVO roomOrderVO, List<RoomOrderDetailVO> list, JSONObject orderItem) {
 		
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -280,19 +335,23 @@ public class RoomOrderDAO implements RoomOrderDAO_Interface {
 				aRod.setRoom_order_id(next_room_order_id);
 				dao.addRoomOrderAndDetail(aRod, con);
 			}
+			
+			//新增預定表
+			RoomRsvDAO rsvdao = new RoomRsvDAO();
+			rsvdao.update(orderItem, con);
 
 			//設定於 pstm.executeUpdate()之後
 			con.commit();
 			con.setAutoCommit(true);
 			System.out.println("list.size()-B="+list.size());
-			System.out.println("新增訂單編號" + next_room_order_id + "時,共有明細" + list.size()
-					+ "筆同時被新增");
+			System.out.println("新增訂單編號" + next_room_order_id + "時,共有明細" + list.size() + "筆同時被新增");
+			System.out.println("預定表更新成功");
 			
 			// Handle any driver errors
 		} catch (SQLException se) {
 			if (con != null) {
 				try {
-					// 3●設定於當有exception發生時之catch區塊內
+					// 3.設定於當有exception發生時之catch區塊內
 					System.err.print("Transaction is being ");
 					System.err.println("rolled back-由-dept");
 					con.rollback();

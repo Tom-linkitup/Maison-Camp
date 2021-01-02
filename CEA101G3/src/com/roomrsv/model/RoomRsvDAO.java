@@ -28,7 +28,7 @@ public class RoomRsvDAO implements RoomRsvDAO_interface {
 	}
 
 	private static final String Insert_Rsv_Date = "INSERT INTO ROOM_RESERVATION (RSV_DATE, ROOM_CATEGORY_ID, ROOM_LEFT) VALUES (?, ?, ?)";
-	private static final String Update_Rsv = "UPDATE ROOM_RESERVATION SET ROOM_CATEGORY_ID = ?, ROOM_LEFT = ? WHERE RSV_DATE = ?";
+	private static final String Update_Rsv = "UPDATE ROOM_RESERVATION SET ROOM_LEFT = ? WHERE RSV_DATE = ? AND ROOM_CATEGORY_ID = ?";
 	private static final String Delete_Rsv = "DELETE FROM ROOM_RESERVATION WHERE RSV_DATE = ?";
 	private static final String Get_One_By_Date_And_Room_category_id = "SELECT * FROM ROOM_RESERVATION WHERE RSV_DATE = ? AND ROOM_CATEGORY_ID = ?";
 	private static final String Get_One_Day_By_Date = "SELECT * FROM ROOM_RESERVATION WHERE RSV_DATE = ?";
@@ -36,35 +36,32 @@ public class RoomRsvDAO implements RoomRsvDAO_interface {
 	private static final String Get_All_By_Room_Category_id = "SELECT * FROM ROOM_RESERVATION WHERE ROOM_CATEGORY_ID = ? ORDER BY RSV_DATE";
 	
 	@Override
-	public void insert(LocalDate rsv_date) {
-		Connection con = null;
+	public void insert(LocalDate rsv_date, String room_category_id, Connection con) {
+
+		CurrentRoomService curRoomSvc = new CurrentRoomService();
 		PreparedStatement pstmt = null;
 
 		try {
-			con = ds.getConnection();
-			pstmt = con.prepareStatement(Insert_Rsv_Date);
-			RoomTypeService roomTypeSvc = new RoomTypeService();
-			CurrentRoomService curRoomSvc = new CurrentRoomService();
-			List<RoomTypeVO> roomTypeList = roomTypeSvc.getAllRT();
-			for (RoomTypeVO roomTypeVO : roomTypeList) {
-				pstmt.setObject(1, rsv_date);
-				pstmt.setString(2, roomTypeVO.getRoom_category_id());
-				pstmt.setInt(3, curRoomSvc.getCurRoomQtyByRT(roomTypeVO.getRoom_category_id()));
+				pstmt = con.prepareStatement(Insert_Rsv_Date);
+				pstmt.setDate(1, java.sql.Date.valueOf(rsv_date));
+				pstmt.setString(2, room_category_id);
+				pstmt.setInt(3, curRoomSvc.getCurRoomQtyByRT(room_category_id));
 				pstmt.executeUpdate();
-			}
+			
 		} catch (SQLException e) {
-			throw new RuntimeException("A database error occured. " + e.getMessage());
+			if (con != null) {
+				try {
+					con.rollback(); //新增預定表有問題時交易撤回
+				} catch (SQLException re){
+					throw new RuntimeException("rollback發生錯誤:" + re.getMessage());
+				}
+			}
+			e.printStackTrace();
+			throw new RuntimeException("A database error occured:" + e.getMessage());
 		} finally {
 			if (pstmt != null) {
 				try {
 					pstmt.close();
-				} catch (SQLException e) {
-					e.printStackTrace(System.err);
-				}
-			}
-			if (con != null) {
-				try {
-					con.close();
 				} catch (SQLException e) {
 					e.printStackTrace(System.err);
 				}
@@ -73,30 +70,55 @@ public class RoomRsvDAO implements RoomRsvDAO_interface {
 	}
 
 	@Override
-	public void update(LocalDate rsv_date, String room_category_id, Integer room_left) {
-		Connection con = null;
+	public void update(JSONObject orderItem, Connection con) {
 		PreparedStatement pstmt = null;
-
+		RoomRsvVO rsvVO = null;
 		try {
-			con = ds.getConnection();
+			Integer stay = orderItem.getInt("stay");
+			LocalDate date = LocalDate.parse(orderItem.getString("startDate"));
+			String room_category_id = orderItem.getString("room_category_id");
+			Integer quantity = orderItem.getInt("quantity");
 			pstmt = con.prepareStatement(Update_Rsv);
-			pstmt.setString(1, room_category_id);
-			pstmt.setInt(2, room_left);
-			pstmt.setObject(3, rsv_date);
-			pstmt.executeUpdate();
+			for(int i = 0; i < stay; i++) { //訂幾天的房，更新幾天預定表資料
+				if(i == 0) {
+					date = date.plusDays(i);
+					rsvVO = getOneByDateNRmType(date, room_category_id, con);
+					if(rsvVO == null) {
+						insert(date, room_category_id, con); //如果該日期還沒建立預定表
+						rsvVO = getOneByDateNRmType(date, room_category_id, con);
+					}				
+				}else {
+					date = date.plusDays(1L);
+					rsvVO = getOneByDateNRmType(date, room_category_id, con);
+					if(rsvVO == null) {
+						insert(date, room_category_id, con); //如果該日期還沒建立預定表
+						rsvVO = getOneByDateNRmType(date, room_category_id, con);
+					}
+				}
+				
+				Integer room_left = rsvVO.getRoom_left() - quantity; //預定的日期房間數都要 - 訂購量
+				pstmt.setInt(1, room_left);
+				pstmt.setDate(2, java.sql.Date.valueOf(date));
+				pstmt.setString(3, room_category_id);
+				pstmt.executeUpdate();
+			}
+			
 		} catch (SQLException e) {
-			throw new RuntimeException("A database error occured. " + e.getMessage());
-		} finally {
+			if (con != null) {
+				try {
+					con.rollback(); //新增預定表有問題時交易撤回
+				} catch (SQLException re){
+					throw new RuntimeException("rollback發生錯誤:" + re.getMessage());
+				}
+			}
+			e.printStackTrace();
+			throw new RuntimeException("A database error occured:" + e.getMessage());
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
 			if (pstmt != null) {
 				try {
 					pstmt.close();
-				} catch (SQLException e) {
-					e.printStackTrace(System.err);
-				}
-			}
-			if (con != null) {
-				try {
-					con.close();
 				} catch (SQLException e) {
 					e.printStackTrace(System.err);
 				}
@@ -135,13 +157,11 @@ public class RoomRsvDAO implements RoomRsvDAO_interface {
 	}
 	
 	@Override
-	public RoomRsvVO getOneByDateNRmType(LocalDate rsv_date, String room_category_id) {
-		Connection con = null;
+	public RoomRsvVO getOneByDateNRmType(LocalDate rsv_date, String room_category_id, Connection con) {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		RoomRsvVO rsvVO = null;
 		try {
-			con = ds.getConnection();
 			pstmt = con.prepareStatement(Get_One_By_Date_And_Room_category_id);
 			pstmt.setDate(1, java.sql.Date.valueOf(rsv_date));
 			pstmt.setString(2, room_category_id);
@@ -168,13 +188,6 @@ public class RoomRsvDAO implements RoomRsvDAO_interface {
 			if (pstmt != null) {
 				try {
 					pstmt.close();
-				} catch (SQLException e) {
-					e.printStackTrace(System.err);
-				}
-			}
-			if (con != null) {
-				try {
-					con.close();
 				} catch (SQLException e) {
 					e.printStackTrace(System.err);
 				}
@@ -337,22 +350,39 @@ public class RoomRsvDAO implements RoomRsvDAO_interface {
 	}
 	
 	public Integer roomCheck(LocalDate rsv_date, Integer stay, String room_category_id) {
-		RoomTypeService roomTypeSvc = new RoomTypeService();
-		CurrentRoomService curRoomSvc = new CurrentRoomService();
-		RoomTypeVO roomTypeVO = roomTypeSvc.getOneRT(room_category_id);
-		Integer room_left = curRoomSvc.getCurRoomQtyByRT(roomTypeVO.getRoom_category_id());
-		for (int i = 0; i < stay; i++) {
-			RoomRsvVO rsvVO = getOneByDateNRmType(rsv_date.plusDays(i), room_category_id);
-			if (rsvVO == null) {
-				continue;
-			} else if (rsvVO.getRoom_left() == 0){
-				room_left = 0;
-				break;
-			} else {
-				room_left = Math.min(rsvVO.getRoom_left(), room_left); 
+		Connection con = null;
+		Integer room_left = null;
+		
+		try {
+			con = ds.getConnection();
+			RoomTypeService roomTypeSvc = new RoomTypeService();
+			CurrentRoomService curRoomSvc = new CurrentRoomService();
+			RoomTypeVO roomTypeVO = roomTypeSvc.getOneRT(room_category_id);
+			room_left = curRoomSvc.getCurRoomQtyByRT(roomTypeVO.getRoom_category_id());
+			for (int i = 0; i < stay; i++) {
+				RoomRsvVO rsvVO = getOneByDateNRmType(rsv_date.plusDays(i), room_category_id, con);
+				if (rsvVO == null) {
+					continue;
+				} else if (rsvVO.getRoom_left() == 0){
+					room_left = 0;
+					break;
+				} else {
+					room_left = Math.min(rsvVO.getRoom_left(), room_left); 
+				}
+				
 			}
-			
+		}catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			if (con != null) {
+				try {
+					con.close();
+				} catch (SQLException e) {
+					e.printStackTrace(System.err);
+				}
+			}
 		}
+		
 		return room_left;
 	}
 }

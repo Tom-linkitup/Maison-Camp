@@ -1,5 +1,6 @@
 package com.roomrsv.model;
 
+import java.sql.Connection;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
@@ -13,8 +14,8 @@ public class RoomRsvService {
 		dao = new RoomRsvDAO();
 	}
 	
-	public void insertRsvDate(LocalDate rsv_date) {
-		dao.insert(rsv_date);
+	public void insertRsvDate(LocalDate rsv_date, String room_category_id, Connection con) {
+		dao.insert(rsv_date, room_category_id, con);
 	}
 	
 	public RoomRsvVO updateRmLeft(LocalDate rsv_date, String room_category_id, Integer room_left) {
@@ -33,8 +34,8 @@ public class RoomRsvService {
 		return dao.roomCheck(rsv_date, stay, room_category_id);
 	}
 	
-	public RoomRsvVO getOneByDateNRmType(LocalDate rsv_date, String room_category_id) {
-		return dao.getOneByDateNRmType(rsv_date, room_category_id);
+	public RoomRsvVO getOneByDateNRmType(LocalDate rsv_date, String room_category_id, Connection con) {
+		return dao.getOneByDateNRmType(rsv_date, room_category_id, con);
 	}
 	
 	public List<RoomRsvVO> getOneByDate(LocalDate rsv_date) {

@@ -7,6 +7,8 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.Set;
 
+import org.json.JSONObject;
+
 import com.roomorderdetail.model.RoomOrderDetailVO;
 
 public class RoomOrderJDBCDAO implements RoomOrderDAO_Interface {
@@ -56,7 +58,7 @@ public class RoomOrderJDBCDAO implements RoomOrderDAO_Interface {
 	}
 
 	@Override
-	public void insertWithDetails(RoomOrderVO deptVO, List<RoomOrderDetailVO> list) {
+	public void insertWithDetails(RoomOrderVO deptVO, List<RoomOrderDetailVO> list, JSONObject orderItem) {
 		// TODO Auto-generated method stub
 		
 	}

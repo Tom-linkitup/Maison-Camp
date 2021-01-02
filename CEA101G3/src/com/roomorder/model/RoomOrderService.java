@@ -9,11 +9,10 @@ public class RoomOrderService {
 		dao = new RoomOrderDAO();
 	}
 	
-	public RoomOrderVO addRO(String room_order_id, String mem_id, java.sql.Date check_in_date, java.sql.Date check_out_date, int status) {
+	public RoomOrderVO addRO(String mem_id, java.sql.Date check_in_date, java.sql.Date check_out_date, int status) {
 		
 		RoomOrderVO roomOrderVO = new RoomOrderVO();
 		
-		roomOrderVO.setRoom_order_id(room_order_id);
 		roomOrderVO.setMem_id(mem_id);
 		roomOrderVO.setCheck_in_date(check_in_date);
 		roomOrderVO.setCheck_out_date(check_out_date);

@@ -10,13 +10,9 @@
 <fullyQualifiedTypeName name="javax.naming.InitialContext"/>
 <fullyQualifiedTypeName name="javax.naming.NamingException"/>
 <fullyQualifiedTypeName name="java.sql.Connection"/>
-<fullyQualifiedTypeName name="java.util.ArrayList"/>
-<fullyQualifiedTypeName name="java.util.List"/>
-<fullyQualifiedTypeName name="java.sql.DatabaseMetaData"/>
 <fullyQualifiedTypeName name="com.roomorder.model.RoomOrderService"/>
 <fullyQualifiedTypeName name="com.roomorder.model.RoomOrderVO"/>
 <fullyQualifiedTypeName name="java.util.Set"/>
-<fullyQualifiedTypeName name="com.roomorderdetail.model.RoomOrderDetailVO"/>
 <fullyQualifiedTypeName name="com.roomorderdetail.model.RoomOrderDetailDAO"/>
 <fullyQualifiedTypeName name="java.sql.PreparedStatement"/>
 <fullyQualifiedTypeName name="java.sql.SQLException"/>
@@ -25,13 +21,21 @@
 <fullyQualifiedTypeName name="redis.clients.jedis.JedisPoolConfig"/>
 <fullyQualifiedTypeName name="java.util.Random"/>
 <fullyQualifiedTypeName name="mail.MailService"/>
-<fullyQualifiedTypeName name="javax.servlet.http.HttpSession"/>
 <fullyQualifiedTypeName name="javax.security.auth.message.callback.PrivateKeyCallback.Request"/>
 <fullyQualifiedTypeName name="com.member.model.MemberVO"/>
 <fullyQualifiedTypeName name="com.member.model.MemberService"/>
 <fullyQualifiedTypeName name="java.io.Serializable"/>
 <fullyQualifiedTypeName name="java.sql.ResultSet"/>
 <fullyQualifiedTypeName name="com.currentroom.model.CurrentRoomService"/>
-<fullyQualifiedTypeName name="java.time.LocalDate"/>
+<fullyQualifiedTypeName name="javax.servlet.http.HttpSession"/>
+<fullyQualifiedTypeName name="java.util.HashSet"/>
+<fullyQualifiedTypeName name="com.roomorder.model.RoomOrderDAO"/>
+<fullyQualifiedTypeName name="java.util.List"/>
+<fullyQualifiedTypeName name="java.util.ArrayList"/>
+<fullyQualifiedTypeName name="com.roomorderdetail.model.RoomOrderDetailService"/>
+<fullyQualifiedTypeName name="com.roomorderdetail.model.RoomOrderDetailVO"/>
+<fullyQualifiedTypeName name="java.sql.DatabaseMetaData"/>
+<fullyQualifiedTypeName name="java.text.SimpleDateFormat"/>
 <fullyQualifiedTypeName name="java.sql.Date"/>
+<fullyQualifiedTypeName name="java.time.LocalDate"/>
 </qualifiedTypeNameHistroy>

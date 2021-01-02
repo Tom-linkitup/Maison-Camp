@@ -2,6 +2,8 @@ package com.roomorderdetail.model;
 
 import java.util.List;
 
+import org.json.JSONObject;
+
 public interface RoomOrderDetailDAO_Interface {
 	public void addRoomOrderDetail(RoomOrderDetailVO roomOrderDetailVO);
 	public void updateRoomOrderDetail(RoomOrderDetailVO roomOrderDetailVO);

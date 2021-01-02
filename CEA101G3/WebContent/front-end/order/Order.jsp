@@ -16,6 +16,8 @@
 <!-- 取得預訂的房型資料 -->
 <%
 	String room_category_id = (String) session.getAttribute("room_category_id");
+	pageContext.setAttribute("room_category_id", room_category_id);
+	
 	RoomTypeService roomTypeSvc = new RoomTypeService();
 	RoomTypeVO roomTypeVO = roomTypeSvc.getOneRT(room_category_id);
 	pageContext.setAttribute("roomTypeVO", roomTypeVO);
@@ -27,12 +29,16 @@
 <!-- 取得預訂資料 -->
 <%
 	JSONObject jsonObj = (JSONObject) session.getAttribute("infoJson");
+
 	Integer stay = new Integer(jsonObj.getString("stay"));
 	pageContext.setAttribute("stay", stay);
+	
 	String startDate = jsonObj.getString("startDate");
 	pageContext.setAttribute("startDate", startDate);
+	
 	String leaveDate = jsonObj.getString("leaveDate");
 	pageContext.setAttribute("leaveDate", leaveDate);
+	
 	Integer qty = jsonObj.getInt("qty");
 	pageContext.setAttribute("qty", qty);
 %>
@@ -95,9 +101,9 @@
 				      		<div class="flexslider">
 							  <ul class="slides">
 							  	<c:forEach var="photo" items="${rphList}">
-                          			<li>
-                            			<img src="<%=request.getContextPath()%>/PhotoList.do?room_photo_id=${photo.room_photo_id}" />
-                          			</li> 
+                        		<li>
+                          			<img src="<%=request.getContextPath()%>/PhotoList.do?room_photo_id=${photo.room_photo_id}" />
+                        		</li> 
                         		</c:forEach>
 							  </ul>
 							</div>
@@ -204,8 +210,19 @@
 		    </div>
 		    <div class="steps-control">
 		    	<div class="text-center">
-			    	<a href=""><button type="button">返回</button></a>
-			    	<button type="submit">付款</button>  	
+			    	<a href="<%=request.getContextPath()%>/front-end/room-booking/RoomBooking.jsp"><button type="button">返回</button></a>	    	
+			    	<form method="post" action="<%=request.getContextPath()%>/RoomOrder.do">
+			    		<input type="hidden" name="stay" value="${stay}">
+				    	<input type="hidden" name="mem_id" value="${memVO.mem_id}">
+				    	<input type="hidden" name="check_in" value="${startDate}">
+				    	<input type="hidden" name="check_out" value="${leaveDate}">
+				    	<input type="hidden" name="room_category_id" value="${room_category_id}">
+				    	<input type="hidden" name="room_promotion_id" value="RP10002">
+				    	<input type="hidden" name="quantity" value="${qty}">
+				    	<input type="hidden" name="room_order_price" value="${roomTypeVO.room_price * qty * stay * 1}">
+				    	<input type="hidden" name="action" value="insert">
+				    	<button type="submit">付款</button>  	
+			    	</form>
 		    	</div>
 		    </div>
 	    </div>
@@ -256,12 +273,11 @@
         <script src="<%=request.getContextPath()%>/js/front-end/room-booking.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"></script>
 		<script type="text/javascript">
-		$(window).load(function() {
-			  $('.flexslider').flexslider({
-			    animation: "slide"
-			  });
+			$(window).load(function() {
+				  $('.flexslider').flexslider({
+				    animation: "slide"
+				  });
 			});
 		</script>
-	
 </body>
 </html>

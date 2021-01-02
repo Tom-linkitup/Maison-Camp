@@ -6,6 +6,8 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.List;
 
+import org.json.JSONObject;
+
 public class RoomOrderDetailJDBCDAO implements RoomOrderDetailDAO_Interface {
 	
 	
