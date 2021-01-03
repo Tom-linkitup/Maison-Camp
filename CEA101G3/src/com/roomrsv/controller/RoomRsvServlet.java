@@ -124,6 +124,9 @@ public class RoomRsvServlet extends HttpServlet {
 				if (rmLeft >= qty) {
 					jsonObj.put(rmType, rmLeft);
 					jsonObj.put("Zext", rsv_date.plusDays(1L));
+				} else if(rmLeft == 0){
+					jsonObj.put("Zext", rsv_date.plusDays(stay));
+					jsonObj.put("isMam", "true");
 				} else {
 					jsonObj.put("Zext", rsv_date.plusDays(stay));
 					jsonObj.put("isFull", "true");

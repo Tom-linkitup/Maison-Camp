@@ -1,0 +1,233 @@
+* {
+    box-sizing: border-box;
+}
+body {
+    padding: 0px 0px;
+    font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
+}
+.close-calendar {
+	position:absolute;
+	padding:10px;
+	background-color:#a4a4a4;
+	right:0;
+	top:0;
+}
+.close-calendar img {
+	width:35px;
+}
+.arrow {
+    position: absolute;
+    color: #bbbfca;
+    font-size: 15px;
+    padding: 0px 10px;
+    z-index: 10;
+}
+.aval-title {
+    width: 90%;
+    margin: 0 auto;
+}
+.calendar-forward {
+    right: 5%;
+    top: 10px;
+    cursor: pointer;
+}
+.calendar-backward {
+    left: 5%;
+    top: 10px;
+    cursor: pointer;
+}
+.condition {
+    border: 1px solid black;
+    border-radius: 10px;
+    padding: 20px 40px;
+    width: 90%;
+    margin: 0 auto 20px auto;
+}
+.condition p {
+    color: #acacac;
+}
+.condition h3 {
+    width: fit-content;
+}
+.arrow:hover {
+    color: #495464;
+}
+.view {
+	position:relative;
+    width: 1100px;
+    overflow: hidden;
+    margin: 0 auto;
+    text-align: -webkit-center;
+    margin-top: 30px;
+}
+#display {
+    display: flex;
+    flex-direction: row;
+    width: fit-content;
+    transition: 0.3s ease-in-out;
+    margin: 0 auto;
+}
+.calendar-wrapper {
+    min-width: 1100px;
+    opacity: 0;
+    transition: 0.3s ease-in-out;
+    padding: 0px 10px;
+}
+.title {
+    display: flex;
+    flex-direction: row;
+    height: 47px;
+    padding:10px 0;
+    text-align: center;
+    letter-spacing: 1px;
+    font-size: 20px;
+    width: 98%;
+    background-color:#eeeeee;
+    border-top: 1px solid #dee2e6;
+    border-left: 1px solid #dee2e6;
+    border-right: 1px solid #dee2e6;
+}
+.title b {
+    height: fit-content;
+}
+.title p {
+    margin: 0px auto;
+    font-size:16px;
+}
+.calendar-td {
+    padding:0;
+    background-color:#f2f2f2;
+}
+.week-title th {
+    text-align: center;
+    padding: 2px 0px;
+    font-size: 15px;
+    font-weight: 700;
+    background-color:#fff;
+    border: 1px solid #e8e8e8;
+}
+a.calendar-box {
+    position: relative;
+    display: block;
+    height: 68px;
+    width: 150px;
+    border-radius: 0.5px;
+    margin: 0 auto;
+}
+a.calendar-default {
+    display: flexbox;
+    background-color: white;
+    color:grey;
+}
+a.calendar-default:hover {
+    background-color: #fffdec;
+    text-decoration: none;
+    transition: 0.3s ease-in-out;
+}
+a div.calendar-date {
+	width:100%;
+    position: absolute;
+    top: 3px;
+    font-size: 14px;
+    text-align: center;
+}
+
+a.calendar-isEmpty div.calendar-qty {
+	width:100%;
+    position: absolute;
+    text-align:center;
+    top:27px;
+    font-size: 13px;
+    font-weight: 500;
+    color:#888;
+}
+
+a.calendar-isEmpty div.calendar-price {
+	width:100%;
+    position: absolute;
+    text-align:center;
+    color:#c15c61;
+    bottom: 2px;
+    font-size: 13px;
+    font-weight: 500;
+}
+
+a.calendar-isFull {
+	cursor: no-drop;
+	pointer-events: none;
+	color:grey;
+	background-color:#f2f2f2;
+}
+a.calendar-isFull::before {
+	position: absolute;
+    left: 50%;
+    transform:translateX(-50%);
+    top: 30px;
+	font-size:12px;
+	content: "不適用";
+	color: #c15c61;
+}
+a.calendar-isEmpty {
+	cursor: pointer;
+    color: black;
+}
+a.calendar-isEmpty::before {
+	position: absolute;
+    left: 5px;
+    top: 2px;
+    font-family: "Font Awesome 5 Free";
+    content: "\f111";
+    color: rgb(16, 161, 16);
+    font-size: 10px;
+}
+a.calendar-today .calendar-date {
+    color: rgb(228, 104, 104);
+}
+.logo img {
+    width: 150px;
+}
+.logo {
+    text-align: center;
+}
+@media screen and (max-width: 1140px) {
+    .view {
+        width: 860px;
+        overflow: hidden;
+        margin: 0 auto;
+    }
+    a.calendar-box {
+        height: 100px;
+        width: 100%;
+    }
+    .calendar-wrapper {
+        width: 860px;
+    }
+    .calendar-wrapper table {
+        width: 100%;
+    }
+    .calendar .calendar-date {
+        font-size: 16px;
+    }
+    .calendar .calendar-date::before {
+        font-size: 16px;
+    }
+    .calendar div.calendar-price {
+        font-size: 18px;
+    }
+}
+
+@media screen and (max-width: 840px) {
+    a.calendar-box {
+        min-height: 70px;
+        min-width: 70px;
+    }
+    .calendar-wrapper {
+        width: 660px;
+    }
+    .view {
+        width: 660px;
+    }
+     .calendar div.calendar-price {
+        font-size: 16px;
+    }
+}

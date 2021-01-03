@@ -107,6 +107,10 @@
 														<option value="1">1間</option>
 														<option value="2">2間</option>
 														<option value="3">3間</option>
+														<option value="4">4間</option>
+														<option value="5">5間</option>
+														<option value="6">6間</option>
+														<option value="7">7間</option>
 													</select>
 												</label>
 											</section>
@@ -199,9 +203,10 @@
             wrapper.classList.add("calendar-wrapper");
             let title = document.createElement("div"); //產生日曆標頭
             title.classList.add("title");
-            title.innerHTML = "<b>" + (month + 1) + "月</b><p>" + "," + year + "年</p>";
+            title.innerHTML = "<p>" + year + " / " + (month + 1) + "</p>";
             let table = document.createElement("table"); //產生日曆表格
             table.classList.add("calendar");
+            table.classList.add("table-bordered")
             let firstTr = document.createElement("tr"); //產生標頭列
             firstTr.classList.add("week-title");
 
@@ -227,7 +232,7 @@
                     let a = document.createElement("a");
                     let img = document.createElement("img");
                     img.setAttribute("src", "<%=request.getContextPath()%>/img/loader.gif");
-                    img.setAttribute("style", "display:none; width:100%")
+                    img.setAttribute("style", "display:none; width:60%; margin-left:30px;")
                     td.classList.add("calendar-td");
                     a.classList.add("calendar-box");
                     let id =
@@ -343,7 +348,7 @@
                     backward.fadeOut(0);
                 }
                 calendars.eq(current).css("opacity", "1");
-                calendars.eq(current + 1).css("opacity", "1");
+                
                 if (loaded.indexOf(current) < 0){
                 	fetchAvalibility(current);
                     loaded.push(current+1);
@@ -360,7 +365,7 @@
         		<c:forEach var="roomtypevo" items="${rtList}">
         			${roomtypevo.room_category_id}:${roomtypevo.room_price},
         		</c:forEach>
-        }
+        };
         
         function fetchAvalibility(currentCal){
             let allDays = $(".calendar-wrapper").eq(currentCal).find(".calendar-default");
@@ -390,11 +395,13 @@
     					if(data.isFull == "true"){
     						currentDate.addClass("calendar-isFull");
     						/* currentDate.attr("href",""); */
+    					} else if(data.isMam == "true"){
+    						currentDate.addClass("calendar-isMam");
     					} else {
     						
    							if (data != null){
    								currentDate.children(".calendar-price").text("$" + rm_price[rmType]);
-   								currentDate.children(".calendar-qty").text("剩" + roomLeft);
+   								currentDate.children(".calendar-qty").text("剩 " + roomLeft);
    							}
     				
     						currentDate.addClass("calendar-isEmpty");
@@ -416,7 +423,8 @@
         	fetchAvalibility(current)
         	fetchAvalibility(current+1)
         	 $(".calendar-price").text("");
-        	 $(".calendar-default").removeClass("calendar-isFull calendar-isEmpty");
+        	$(".calendar-qty").text("");
+        	 $(".calendar-default").removeClass("calendar-isFull calendar-isMam calendar-isEmpty");
         })
         
         $("#qty").change(function(){
@@ -424,7 +432,8 @@
         	fetchAvalibility(current)
         	fetchAvalibility(current+1)
         	 $(".calendar-price").text("");
-        	 $(".calendar-default").removeClass("calendar-isFull calendar-isEmpty");
+        	$(".calendar-qty").text("");
+        	 $(".calendar-default").removeClass("calendar-isFull calendar-isMam calendar-isEmpty");
         })
         
         $("#room-type").change(function(){
@@ -432,7 +441,8 @@
         	fetchAvalibility(current)
         	fetchAvalibility(current+1)
         	 $(".calendar-price").text("");
-        	 $(".calendar-default").removeClass("calendar-isFull calendar-isEmpty");
+        	$(".calendar-qty").text("");
+        	 $(".calendar-default").removeClass("calendar-isFull calendar-isMam calendar-isEmpty");
         })
     });
             

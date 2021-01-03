@@ -211,7 +211,7 @@
 		    <div class="steps-control">
 		    	<div class="text-center">
 			    	<a href="<%=request.getContextPath()%>/front-end/room-booking/RoomBooking.jsp"><button type="button">返回</button></a>	    	
-			    	<form method="post" action="<%=request.getContextPath()%>/RoomOrder.do">
+			    	<form style="display:inline-block;" method="post" action="<%=request.getContextPath()%>/RoomOrder.do">
 			    		<input type="hidden" name="stay" value="${stay}">
 				    	<input type="hidden" name="mem_id" value="${memVO.mem_id}">
 				    	<input type="hidden" name="check_in" value="${startDate}">

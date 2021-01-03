@@ -2,7 +2,7 @@
 <launchConfiguration type="org.eclipse.wst.server.ui.launchConfigurationType">
 <stringAttribute key="client-id" value="org.eclipse.wst.server.ui.web"/>
 <stringAttribute key="launchable-adapter-id" value="org.eclipse.jst.server.tomcat.web"/>
-<stringAttribute key="module-artifact" value="org.eclipse.jst.jee.server:CEA101G3///front-end/front-index.jsp"/>
+<stringAttribute key="module-artifact" value="org.eclipse.jst.jee.server:CEA101G3///front-end/room-booking/RoomBooking.jsp"/>
 <stringAttribute key="module-artifact-class" value="org.eclipse.wst.server.core.util.WebResource"/>
 <listAttribute key="org.eclipse.debug.core.MAPPED_RESOURCE_PATHS">
 <listEntry value="/CEA101G3"/>
