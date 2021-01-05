@@ -47,4 +47,8 @@ public class RoomOrderService {
 	public List<RoomOrderVO> getAllRO() {
 		return dao.getAllRoomOrder();
 	}
+	
+	public List<RoomOrderVO> getOneByMemId(String mem_id){
+		return dao.findByMemId(mem_id);
+	}
 }

@@ -2,9 +2,24 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="java.util.*" %>
 <%@ page import="com.member.model.*" %>
+<%@ page import="org.json.*" %>
+<%@ page import="java.time.LocalDate" %>
+<%@ page import="com.roomtype.model.*" %>
+<%@ page import="com.roomorder.model.*" %>
+<%@ page import="com.roomorderdetail.model.*" %>
+<%@ page import="com.roomphoto.model.*" %>
+<%@ page import="com.room.model.*" %>
+<%@ page import="com.roomrsv.model.*"%>
+<!-- 取得會員資訊 -->
 <%
 	MemberVO memVO = (MemberVO) session.getAttribute("memVO");
+	RoomOrderService roSvc = new RoomOrderService();
+	List<RoomOrderVO> rolist = roSvc.getOneByMemId(memVO.getMem_id());
+	pageContext.setAttribute("rolist", rolist);
 %>
+
+<jsp:useBean id="rodSvc" scope="page" class="com.roomorderdetail.model.RoomOrderDetailService" />
+<jsp:useBean id="rtSvc" scope="page" class="com.roomtype.model.RoomTypeService" />
 <!DOCTYPE html>
 <html>
 <head>
@@ -53,15 +68,20 @@
             	<li id="information" class="click-me active"><a href="#"><i class="fa fa-user"></i>會員基本資料</a></li>
                 <li id="info-edit" class="click-me"><a href="#"><i class="fas fa-edit"></i>會員資料修改</a></li>
                 <li id="password-edit" class="click-me"><a href="#"><i class="fa fa-key"></i>變更密碼</a></li>
-                <li id="check-order" class="click-me"><a href="#"><i class="fa fa-search"></i>查詢訂單</a></li>
+                <li id="check-order" class="click-me dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#"><i class="fa fa-search"></i>查詢訂單<span class="caret"></span></a>
+                	<ul class="dropdown-menu">
+      					<li id="room-order"><a href="#"><i class="fas fa-bed"></i>住房訂單</a></li>
+      					<li id="shop-order"><a href="#"><i class="fas fa-shopping-cart"></i>商城訂單</a></li>
+      					<li id="act-order"><a href="#"><i class="fas fa-map-signs"></i>活動報名訂單</a></li>
+    				</ul>        
+                </li>
                 <li id="payment" class="click-me"><a href="#"><i class="far fa-credit-card"></i>付款方式</a></li>
                 <li id="cheap" class="click-me"><a href="#"><i class="fa fa-gift"></i>套裝優惠</a></li>
             </ul>
           </div>
       </div>
       <div id="main">
-      		<div id="info" class="row info-form">
-	          
+      		<div id="info" class="row info-form">     
 	              <fieldset>
 	                  <legend><i class="fas fa-user-circle"></i> 會員基本資料</legend>
 	                  <div class="panel panel-warning" style="width:90%; margin-left:50px;">
@@ -203,18 +223,18 @@
                       <input type="hidden" name="mem_id" value="${memVO.mem_id}">
                       <div class="input-group input-group-icon">
                           <div class="input-name">舊密碼：</div>
-                          <input type="password" placeholder="舊密碼" name="user_old_pwd" maxlength="12"/>
+                          <input type="password" placeholder="舊密碼" name="user_old_pwd" maxlength="12" required/>
                           <div class="input-icon"><i class="fa fa-key"></i></div>
                           <p id="errorMsgUserOldPwd" style="font-size:2px; color:red; margin-left:160px;"></p>
                       </div>
                       <div class="input-group input-group-icon">
                           <div class="input-name">新密碼：</div>
-                          <input type="password" placeholder="新密碼 (長度8-12字且不包含特殊符號)" name="user_new_pwd" maxlength="12"/>
+                          <input type="password" placeholder="新密碼 (長度8-12字且不包含特殊符號)" name="user_new_pwd" maxlength="12" required/>
                           <div class="input-icon"><i class="fa fa-key"></i></div>
                       </div>
                       <div class="input-group input-group-icon">
                           <div class="input-name">新密碼確認：</div>
-                          <input id="check-repeat-pwd" type="password" placeholder="再次輸入新密碼" name="user_re_enter_new_pwd"/>
+                          <input id="check-repeat-pwd" type="password" placeholder="再次輸入新密碼" name="user_re_enter_new_pwd" required/>
                           <div class="input-icon"><i class="fa fa-key"></i></div>
                           <p id="errorMsgUserRePwd" style="font-size:2px; color:red; margin-left:160px;"></p>
                       </div>
@@ -224,6 +244,47 @@
                   <button type="submit" class="form-submit">送出申請</button>
               </form>
           </div>
+          <!--room order section -->      
+          <div id="room-order-show" class="row info-form" style="display:none;">
+          	<h3 class="room-headline">住房訂單</h3>
+          	<c:forEach var="roVO" items="${rolist}">
+              <div class="container">
+			      <div class="row">
+			      	<div class="col-sm-4">
+                    	<img src="<%=request.getContextPath()%>/FrontEndRTPhoto?room_category_id=${rodSvc.getOneROD(roVO.room_order_id).room_category_id}" style="width:300px; height:200px; margin-left:-12px;"/>              		
+			      	</div>
+			      	<div class="col-sm-4">
+				      	<h4 class="room-order-headline">${rtSvc.getOneRT(rodSvc.getOneROD(roVO.room_order_id).room_category_id).room_name}</h4>
+						<ul style="list-style:none; padding:5px 0; line-height:2em; font-size: 15px;">
+			      			<li><i class="fa fa-chevron-circle-right"></i>房型說明: ${rtSvc.getOneRT(rodSvc.getOneROD(roVO.room_order_id).room_category_id).room_type}</li>
+							<li><i class="fa fa-chevron-circle-right"></i>入住日期: ${roVO.check_in_date}</li>
+							<li><i class="fa fa-chevron-circle-right"></i>退房日期: ${roVO.check_out_date}</li>
+							<li><i class="fa fa-chevron-circle-right"></i>訂房數量: ${rodSvc.getOneROD(roVO.room_order_id).quantity} 間</li>
+							<li><i class="fa fa-chevron-circle-right"></i>訂單金額: ${rodSvc.getOneROD(roVO.room_order_id).room_order_price} 元</li>
+						</ul>
+			      	</div>
+			      	<div class="col-sm-4 right-side">
+			      		<h4>訂單編號：#${roVO.room_order_id}</h4>
+			      		<h4>下單日期：${rodSvc.getOneROD(roVO.room_order_id).order_time}</h4>
+			      		<i style="color:#47cf72" class="fas fa-check-circle">已付款</i>
+			      		
+			      		<button class="btn btn-danger" type="submit">取消訂單</button>
+			      	</div>
+			      </div>
+		      </div>
+		      </c:forEach>
+          </div>
+          <!--shop order section -->      
+          <div id="shop-order-show" class="row info-form" style="display:none;">
+          	<h3 class="shop-headline">商城訂單</h3>
+          	
+          </div>
+          <!--act order section -->      
+          <div id="act-order-show" class="row info-form" style="display:none;">
+          	<h3 class="act-headline">活動報名訂單</h3>
+          	
+          </div>
+          <!-- credit card section -->
           <div id="credit-show" class="row info-form" style="display: none;">
               <form>
                   <fieldset>
@@ -278,7 +339,7 @@
                                   </div>
                                 </div>
                               </div>
-                              <div class="row ">
+                              <div class="row">
                                 <div class="col-md-12 text-right">
                                 <input type="hidden" name="action" value="updateCredit">
                                   <button type="submit" class="btn btn-success">提交</button>
@@ -287,7 +348,8 @@
                               </div>
                             </div>
                           </div>
-                      </div>             
+                      </div> 
+                    </div>            
                   </form>
               </div>
           </div>

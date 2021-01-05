@@ -9,6 +9,9 @@ $(document).ready(function() {
 	$("#password-show").css("display","none");
     $("#credit-show").css("display","none");
     $("#info-show").css("display","none");
+    $("#room-order-show").css("display","none");
+    $("#shop-order-show").css("display","none");
+    $("#act-order-show").css("display","none");
     $("#info").css("display","");
   })
     
@@ -16,6 +19,9 @@ $(document).ready(function() {
 	$("#info").css("display","none");
     $("#password-show").css("display","none");
     $("#credit-show").css("display","none");
+    $("#room-order-show").css("display","none");
+    $("#shop-order-show").css("display","none");
+    $("#act-order-show").css("display","none");
     $("#info-show").css("display","");
   })
 
@@ -23,6 +29,9 @@ $(document).ready(function() {
 	$("#info").css("display","none");
     $("#info-show").css("display","none");
     $("#credit-show").css("display","none");
+    $("#room-order-show").css("display","none");
+    $("#shop-order-show").css("display","none");
+    $("#act-order-show").css("display","none");
     $("#password-show").css("display","");
   })
 
@@ -30,7 +39,40 @@ $(document).ready(function() {
 	$("#info").css("display","none");
     $("#info-show").css("display","none");
     $("#password-show").css("display","none");
+    $("#room-order-show").css("display","none");
+    $("#shop-order-show").css("display","none");
+    $("#act-order-show").css("display","none");
     $("#credit-show").css("display","");
+  })
+  
+  $("#room-order").click(function(){
+	$("#info").css("display","none");
+	$("#info-show").css("display","none");
+	$("#password-show").css("display","none");
+	$("#credit-show").css("display","none");
+	$("#shop-order-show").css("display","none");
+    $("#act-order-show").css("display","none");
+	$("#room-order-show").css("display","");
+  })
+  
+  $("#shop-order").click(function(){
+	$("#info").css("display","none");
+	$("#info-show").css("display","none");
+	$("#password-show").css("display","none");
+	$("#credit-show").css("display","none");
+	$("#room-order-show").css("display","none");
+    $("#act-order-show").css("display","none");
+	$("#shop-order-show").css("display","");
+  })
+  
+  $("#act-order").click(function(){
+	$("#info").css("display","none");
+	$("#info-show").css("display","none");
+	$("#password-show").css("display","none");
+	$("#credit-show").css("display","none");
+	$("#shop-order-show").css("display","none");
+    $("#room-order-show").css("display","none");
+	$("#act-order-show").css("display","");
   })
 
   //credit card

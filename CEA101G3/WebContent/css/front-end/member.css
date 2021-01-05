@@ -240,10 +240,6 @@ body {
     text-indent: 4px;
   }
   
-  h3 {
-    color: #7ed321;
-  }
-  
   .errormsg {
       border-color: red;
   }
@@ -401,15 +397,17 @@ body {
   }
   
   .container {
-    max-width: 50em;
+    max-width: 80em;
     padding: 1em 3em 2em 3em;
-    margin: 0em auto;
+    margin: 3em auto;
     background-color: #fff;
     border-radius: 4.2px;
     box-shadow: 0px 3px 10px -2px rgba(0, 0, 0, 0.2);
   }
   .row {
     zoom: 1;
+    width:100%;
+    margin-left:0 !important;
   }
   .row:before,
   .row:after {
@@ -502,9 +500,57 @@ legend {
     border-bottom: none !important;
     width: 20% !important;
 }
+/* order page */
+.room-headline, .shop-headline, .act-headline {
+	text-align:center;
+	color:#555;	
+	position:relative;
+}
+
+.room-headline::after, .shop-headline::after, .act-headline::after {
+	background: #e67e22;
+	left: 50%;
+    z-index: 1;
+    width: 30px;
+    height: 3px;
+    content: " ";
+    bottom: -15px;
+    margin-left: -15px;
+    text-align: center;
+    position:absolute;
+}
+
+.room-order-headline {
+	color: #6b8c57;
+}
+
+.room-order-headline + ul li i {
+	color:#e67e22;
+	margin-right:3px;
+}
+
+.right-side {
+	right:40px;
+}
+
+.right-side h4 {
+	text-align:right;
+	right:10px;
+}
+
+.right-side i {
+	position: absolute;
+    right: 20px;
+    font-size: 18px;
+}
+
+.right-side button {
+	position:absolute;
+	bottom:-140px;
+	right:20px;
+}
 
 /* creditcard */
-
 .creditcardcurrent {
     position: relative;
     color: #444;
@@ -611,6 +657,42 @@ legend {
     transition: all .2s;
     z-index: 999;
 }
+
+/*order list*/
+
+.dropdown-menu{
+	position: absolute;
+    top: 100%;
+    left: 0;
+    z-index: 1000;
+    display: none;
+    float: left;
+    min-width: 240px !important;
+    padding: 5px 0;
+    margin: 2px 0 0;
+    font-size: 15px;
+    text-align: left;
+    list-style: none;
+    background-color: #fff;
+    -webkit-background-clip: padding-box;
+    background-clip: padding-box;
+    border: 1px solid #ccc;
+    border: 1px solid rgba(0,0,0,.15);
+    border-radius: 4px;
+    -webkit-box-shadow: 0 6px 12px rgba(0,0,0,.175);
+    box-shadow: 0 6px 12px rgba(0,0,0,.175);
+}
+
+.dropdown-menu>li>a {
+	color: #337ab7 !important;
+	padding: 5px 20px 5px 12px !important;
+	line-height:1.7 !important;
+}
+
+.dropdown-menu li i {
+	color:#337ab7;
+}
+
 
 /*footer*/
 .site-footer {

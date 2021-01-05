@@ -21,7 +21,6 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css">
 <title>Maison Camp | 露營家</title>
 </head>
-
 <body>
  <div id="parallax-world-of-ugg">
         <div class="block">

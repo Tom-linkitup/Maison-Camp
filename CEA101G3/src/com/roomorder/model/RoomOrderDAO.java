@@ -36,6 +36,7 @@ public class RoomOrderDAO implements RoomOrderDAO_Interface {
 	private static final String Delete_Stmt = "DELETE FROM ROOM_ORDER WHERE ROOM_ORDER_ID=?";
 	private static final String Get_Rods_ByRoid = "SELECT ROOM_ORDER_ID, ROOM_CATEGORY_ID, ROOM_PROMOTION_ID, QUANTITY, ROOM_ORDER_PRICE, ORDER_TIME, NOTE FROM ROOM_ORDER_DETAIL WHERE ROOM_ORDER_ID=? ORDER BY ROOM_ORDER_ID";
 	private static final String Get_One_Stmt = "SELECT ROOM_ORDER_ID, MEM_ID, CHECK_IN_DATE, CHECK_OUT_DATE, STATUS FROM ROOM_ORDER WHERE ROOM_ORDER_ID=?";
+	private static final String Get_One_By_Mem_Id = "SELECT ROOM_ORDER_ID, MEM_ID, CHECK_IN_DATE, CHECK_OUT_DATE, STATUS FROM ROOM_ORDER WHERE MEM_ID = ?";
 	private static final String Get_All_Stmt = "SELECT ROOM_ORDER_ID, MEM_ID, CHECK_IN_DATE, CHECK_OUT_DATE, STATUS FROM ROOM_ORDER ORDER BY ROOM_ORDER_ID";
 	
 	@Override
@@ -378,8 +379,54 @@ public class RoomOrderDAO implements RoomOrderDAO_Interface {
 					e.printStackTrace(System.err);
 				}
 			}
-		}
-		
+		}		
+	}
+
+	@Override
+	public List<RoomOrderVO> findByMemId(String mem_id) {
+		List<RoomOrderVO> list = new ArrayList<>();
+		RoomOrderVO roomOrderVO = null;
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try {
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(Get_One_By_Mem_Id);
+			
+			pstmt.setString(1, mem_id);
+			rs = pstmt.executeQuery();	
+			while(rs.next()) {
+				roomOrderVO = new RoomOrderVO();
+				roomOrderVO.setRoom_order_id(rs.getString("ROOM_ORDER_ID"));
+				roomOrderVO.setMem_id(rs.getString("MEM_ID"));
+				roomOrderVO.setCheck_in_date(rs.getDate("CHECK_IN_DATE"));
+				roomOrderVO.setCheck_out_date(rs.getDate("CHECK_OUT_DATE"));
+				roomOrderVO.setStatus(rs.getInt("STATUS"));	
+				list.add(roomOrderVO);
+			}
+
+			// Handle any SQL errors
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}	
+		return list;
 	}
 
 }

@@ -62,5 +62,11 @@ public class RoomOrderJDBCDAO implements RoomOrderDAO_Interface {
 		// TODO Auto-generated method stub
 		
 	}
+
+	@Override
+	public List<RoomOrderVO> findByMemId(String mem_id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 	
 }
