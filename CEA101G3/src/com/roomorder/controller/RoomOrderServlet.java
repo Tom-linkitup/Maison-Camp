@@ -38,23 +38,28 @@ public class RoomOrderServlet extends HttpServlet {
 		
 		String action = req.getParameter("action");
 		
-		if("update".equals(action)) {	
-			//取得欲更新資料
-			String room_order_id = req.getParameter("room_order_id");
-			String mem_id = req.getParameter("mem_id");
-			java.sql.Date check_in_date = java.sql.Date.valueOf(req.getParameter("check_in_date"));
-			java.sql.Date check_out_date = java.sql.Date.valueOf(req.getParameter("check_out_date"));
-			Integer status = new Integer(req.getParameter("status"));
-			
-			//呼叫service開始更新
-			RoomOrderService roSvc = new RoomOrderService();
-			RoomOrderVO roomOrderVO = new RoomOrderVO();
-			roomOrderVO = roSvc.updateRO(room_order_id, mem_id, check_in_date, check_out_date, status);
-			
-			String url = "/back-end/room-order/RoomOrder.jsp";
-			req.setAttribute("roomOrderVO", roomOrderVO);
-			RequestDispatcher successView = req.getRequestDispatcher(url);
-			successView.forward(req, res);
+		if("update".equals(action)) {
+			try {
+				//取得欲更新資料
+				String room_order_id = req.getParameter("room_order_id");
+				String mem_id = req.getParameter("mem_id");
+				java.sql.Date check_in_date = java.sql.Date.valueOf(req.getParameter("check_in_date"));
+				java.sql.Date check_out_date = java.sql.Date.valueOf(req.getParameter("check_out_date"));
+				Integer status = new Integer(req.getParameter("status"));
+				
+				//呼叫service開始更新
+				RoomOrderService roSvc = new RoomOrderService();
+				RoomOrderVO roomOrderVO = new RoomOrderVO();
+				roomOrderVO = roSvc.updateRO(room_order_id, mem_id, check_in_date, check_out_date, status);
+				
+				String url = "/back-end/room-order/RoomOrder.jsp";
+				req.setAttribute("roomOrderVO", roomOrderVO);
+				RequestDispatcher successView = req.getRequestDispatcher(url);
+				successView.forward(req, res);
+				
+			}catch(Exception e) {
+				e.printStackTrace();
+			}
 		}
 		
 		if("insert".equals(action)) {
@@ -106,6 +111,23 @@ public class RoomOrderServlet extends HttpServlet {
 			}catch(Exception e) {
 				e.printStackTrace();
 			}
+		}
+		
+		if("cancelRoomOrder".equals(action)) {
+			
+			//取得取消訂單資料
+			String room_order_id = req.getParameter("room_order_id");
+			String mem_id = req.getParameter("mem_id");
+			java.sql.Date check_in_date = java.sql.Date.valueOf(req.getParameter("check_in_date"));
+			java.sql.Date check_out_date = java.sql.Date.valueOf(req.getParameter("check_out_date"));
+			
+			//呼叫service更新訂單狀態為取消
+			RoomOrderService roSvc = new RoomOrderService();
+			RoomOrderVO roVO = roSvc.updateRO(room_order_id, mem_id, check_in_date, check_out_date, new Integer(1));
+			
+			//更新預定表資料
+			
+			
 		}
 		
 	}

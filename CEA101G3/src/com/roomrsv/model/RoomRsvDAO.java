@@ -368,8 +368,7 @@ public class RoomRsvDAO implements RoomRsvDAO_interface {
 					break;
 				} else {
 					room_left = Math.min(rsvVO.getRoom_left(), room_left); 
-				}
-				
+				}			
 			}
 		}catch (Exception e) {
 			e.printStackTrace();
@@ -382,7 +381,55 @@ public class RoomRsvDAO implements RoomRsvDAO_interface {
 				}
 			}
 		}
-		
 		return room_left;
+	}
+
+	@Override
+	public void updateWithOrder(JSONObject orderItem, Connection con) {
+		PreparedStatement pstmt = null;
+		RoomRsvVO rsvVO = null;
+		try {
+			Integer stay = orderItem.getInt("stay");
+			LocalDate date = LocalDate.parse(orderItem.getString("startDate"));
+			String room_category_id = orderItem.getString("room_category_id");
+			Integer quantity = orderItem.getInt("quantity");
+			pstmt = con.prepareStatement(Update_Rsv);
+			for(int i = 0; i < stay; i++) { //取消幾天的房，更新幾天預定表資料
+				if(i == 0) {
+					date = date.plusDays(i);
+					rsvVO = getOneByDateNRmType(date, room_category_id, con);				
+				}else {
+					date = date.plusDays(1L);
+					rsvVO = getOneByDateNRmType(date, room_category_id, con);
+				}
+				
+				Integer room_left = rsvVO.getRoom_left() + quantity; //取消的房間數量加回去預定表裡
+				pstmt.setInt(1, room_left);
+				pstmt.setDate(2, java.sql.Date.valueOf(date));
+				pstmt.setString(3, room_category_id);
+				pstmt.executeUpdate();
+			}
+			
+		} catch (SQLException e) {
+			if (con != null) {
+				try {
+					con.rollback(); //更新預定表有問題時交易撤回
+				} catch (SQLException re){
+					throw new RuntimeException("rollback發生錯誤:" + re.getMessage());
+				}
+			}
+			e.printStackTrace();
+			throw new RuntimeException("A database error occured:" + e.getMessage());
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}	
 	}
 }

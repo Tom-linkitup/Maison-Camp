@@ -4,15 +4,16 @@
 		<item key="casesensitive" value="false"/>
 		<item key="wholeword" value="false"/>
 		<item key="isRegEx" value="false"/>
-		<item key="selection" value="todayDa"/>
+		<item key="selection" value="container"/>
 		<list key="findhistory">
+			<item value="right-side"/>
+			<item value="container"/>
 			<item value="room"/>
 			<item value="todayDa"/>
 			<item value="insert"/>
 			<item value="insert_n"/>
 			<item value="submoit"/>
 			<item value="&lt;p&gt;"/>
-			<item value="h3"/>
 		</list>
 		<list key="replacehistory">
 		</list>

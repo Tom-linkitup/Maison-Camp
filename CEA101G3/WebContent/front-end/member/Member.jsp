@@ -266,9 +266,25 @@
 			      	<div class="col-sm-4 right-side">
 			      		<h4>訂單編號：#${roVO.room_order_id}</h4>
 			      		<h4>下單日期：${rodSvc.getOneROD(roVO.room_order_id).order_time}</h4>
-			      		<i style="color:#47cf72" class="fas fa-check-circle">已付款</i>
-			      		
-			      		<button class="btn btn-danger" type="submit">取消訂單</button>
+			      		<c:choose>
+			      			<c:when test="${roVO.status == '0'}">
+					      		<i style="color:#47cf72" class="fas fa-check-circle">已付款</i>
+					      		<form method="post" action="<%=request.getContextPath()%>/RoomOrder.do">
+					      			<input type="hidden" name="room_order_id" value="${roVO.room_order_id}">
+					      			<input type="hidden" name="mem_id" value="${memVO.mem_id}">
+					      			<input type="hidden" name="check_in_date" value="${roVO.check_in_date}">
+					      			<input type="hidden" name="check_out_date" value="${roVO.check_out_date}">
+					      			<input type="hidden" name="action" value="cancelRoomOrder">
+						      		<button class="btn btn-danger" type="submit">取消訂單</button>
+					      		</form>
+			      			</c:when>
+			      			<c:when test="${roVO.status == '1'}">
+			      				<i style="color:#c15c61" class="fas fa-check-circle">已取消</i>
+			      			</c:when>
+			      			<c:otherwise>
+			      				<i style="color:lightblue" class="fas fa-check-circle">已完單</i>
+			      			</c:otherwise>
+			      		</c:choose>	      		
 			      	</div>
 			      </div>
 		      </div>
