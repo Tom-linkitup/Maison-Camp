@@ -1,0 +1,31 @@
+/*
+COLORS:
+
+Light green: #7ed56f
+Medium green: #55c57a
+Dark green: #28b485
+
+*/
+body {
+    margin: 0;
+    padding: 0;
+}
+
+
+.logo {
+  text-align: center;
+  margin-top: -55px;
+}
+
+
+#logoo:hover {
+  -webkit-filter: grayscale(50%);
+  -moz-filter: grayscale(50%);
+  -o-filter: grayscale(50%);
+  transform: scale(1.1); 
+}
+
+.coment{
+	    font-style: normal!important;
+}
+

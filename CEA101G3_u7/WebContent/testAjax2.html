@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="BIG5">
+<title>Insert title here</title>
+<script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+</head>
+<body>
+<input type="text" name="shop_order_id" id="shop_order_id">
+<button id="send">Send</button>
+<div id="demo"></div>
+<div id="demo2"></div>
+</body>
+
+<script>
+		$("#send").click(function(){
+			$.ajax({
+				url: "testAjaxxxx.jsp",
+				type: "POST",
+				data: {
+					"shop_order_id" : $("#shop_order_id").val()
+				},
+				success: function(data){
+					console.log(data);
+					$("#demo").html(data);
+				}
+				
+			});
+		});
+</script>
+</html>
