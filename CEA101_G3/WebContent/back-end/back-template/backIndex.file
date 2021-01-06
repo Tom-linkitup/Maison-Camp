@@ -108,9 +108,9 @@
                           </span>
                       </a>
                       <ul class="treeview-menu">
-                          <li><a href="<%=request.getContextPath() %>/back-end/room-type/RoomTypeInfo.jsp">房型管理</a></li>
-                          <li><a href="<%=request.getContextPath() %>/back-end/room/RoomInfo.jsp">房間管理</a></li>
-                          <li><a href="<%=request.getContextPath() %>/back-end/room-order/RoomOrder.jsp">住房訂單管理</a></li>
+                          <li><a href="<%=request.getContextPath()%>/back-end/room-type/RoomTypeInfo.jsp">房型管理</a></li>
+                          <li><a href="<%=request.getContextPath()%>/back-end/room/RoomInfo.jsp">房間管理</a></li>
+                          <li><a href="<%=request.getContextPath()%>/back-end/room-order/RoomOrder.jsp">住房訂單管理</a></li>
                           <li><a href="<%=request.getContextPath()%>/back-end/room_repair/select_page.jsp">修繕管理</a></li>
                           <li><a href="<%=request.getContextPath()%>/back-end/room_promotion/select_page.jsp">訂房優惠管理</a></li>
                           <li><a href="<%=request.getContextPath()%>/back-end/room_comment/select_page.jsp">房間評論管理</a></li>
@@ -127,8 +127,9 @@
                               </span>
                           </a>
                           <ul class="treeview-menu">
-                              <li><a href="#">銷售統計管理</a></li>
-                              <li><a href="#">商品管理</a></li>
+                              <li><a href="<%=request.getContextPath()%>/back-end/item_category/select_page.jsp">商品類別管理</a></li>
+                              <li><a href="<%=request.getContextPath()%>/back-end/item/ItemInfo.jsp">商品管理</a></li>
+                              <li><a href="<%=request.getContextPath()%>/back-end/item_comment/select_page.jsp">商品評論管理</a></li>
                               <li><a href="#">商品訂單管理</a></li>
                           </ul>
                       </li>

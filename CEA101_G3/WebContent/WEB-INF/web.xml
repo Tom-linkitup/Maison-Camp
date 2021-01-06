@@ -121,7 +121,7 @@
 	</servlet-mapping>
     
 
-  <servlet>
+  	<servlet>
 		<servlet-name>RoomPromotionServlet</servlet-name>
 		<servlet-class>com.room_promotion.controller.RoomPromotionServlet</servlet-class>
 	</servlet>
@@ -130,6 +130,68 @@
 		<url-pattern>/room_promotion/room_promotion.do</url-pattern>
 	</servlet-mapping>
 	
+	<servlet>
+		<servlet-name>ItemServlet</servlet-name>
+		<servlet-class>com.item.controller.ItemServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>ItemServlet</servlet-name>
+		<url-pattern>/item/item.do</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>ItemPhotoServlet</servlet-name>
+		<servlet-class>com.item_photo.controller.itemPhotoServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>ItemPhotoServlet</servlet-name>
+		<url-pattern>/item_photo/itemPhoto.do</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>photoReader</servlet-name>
+		<servlet-class>com.item_photo.controller.photoReader</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>photoReader</servlet-name>
+		<url-pattern>/item_photo/photoReader.do</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>ItemCategoryServlet</servlet-name>
+		<servlet-class>com.item_category.controller.ItemCategoryServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>ItemCategoryServlet</servlet-name>
+		<url-pattern>/item_category/itemCategory.do</url-pattern>
+	</servlet-mapping>
+	
+		<servlet>
+		<servlet-name>ItemCommentServlet</servlet-name>
+		<servlet-class>com.item_comment.controller.ItemCommentServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>ItemCommentServlet</servlet-name>
+		<url-pattern>/item_comment/itemComment.do</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>SystemServlet</servlet-name>
+		<servlet-class>com.system.controller.SystemServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>SystemServlet</servlet-name>
+		<url-pattern>/system/system.do</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>getItemPhoto</servlet-name>
+		<servlet-class>com.item_photo.controller.getItemPhoto</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>getItemPhoto</servlet-name>
+		<url-pattern>/getItemPhoto.do</url-pattern>
+	</servlet-mapping>
 	
 	<servlet>
 		<servlet-name>EmpServlet</servlet-name>
