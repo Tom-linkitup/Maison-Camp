@@ -21,7 +21,6 @@
 </head>
 <body>
 <div class="wrapper">
-
 	<div class="container">
 		<h1>Welcome</h1>
 		<c:if test="${not empty errorMsgs}">

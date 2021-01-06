@@ -49,7 +49,7 @@ public class EmpFilter implements Filter {
 			String alert= "<script> swal('權限不足 無法修改','', 'warning'); </script>";
 			request.setAttribute("alert",alert);
 			
-			String path = "/back_end/emp/protected/viewEmp.jsp";
+			String path = "/back-end/emp/protected/viewEmp.jsp";
 			RequestDispatcher view = request.getRequestDispatcher(path);
 			view.forward(request, response);
 //			response.sendRedirect(request.getContextPath() + "/back_end/emp/protected/viewEmp.jsp");

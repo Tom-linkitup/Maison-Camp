@@ -23,7 +23,7 @@
 	pageContext.setAttribute("list", list);
 %>
 <!DOCTYPE html>
-<%@ include file="backIndex.file"%>
+<%@ include file="/back-end/back-template/backIndex.file"%>
 <html>
 <head>
 <meta charset="UTF-8">
@@ -52,6 +52,8 @@
 #myTable th {
 	background-color:#000;
 	color:#fff;
+	position:sticky;
+	top:0;
 }
 </style>
 </head>
@@ -59,33 +61,35 @@
 	<header>
 		<h2 style="text-align:center; margin-bottom:20px;">訂房訂單資訊</h2>
 	</header>
-	<table id="myTable" class="table table-striped" style="text-align:center;">
-		<tr>
-			<th>訂單編號</th>
-			<th>會員編號</th>
-			<th>入住日期</th>
-			<th>退房日期</th>
-			<th>訂單狀態</th>
-			<th colspan="2">訂單修改</th>
-		</tr>
-		<c:forEach var="roomOrderVO" items="${list}">
-		<tr class="hover">	
-			<td><a class="linkit" href="<%=request.getContextPath()%>/back-end/room-order/RoomOrderDetail.jsp?room_order_id=${roomOrderVO.room_order_id}&mem_id=${roomOrderVO.mem_id}">${roomOrderVO.room_order_id}</a></td>
-			<td>${roomOrderVO.mem_id}</td>
-			<td>${roomOrderVO.check_in_date}</td>
-			<td>${roomOrderVO.check_out_date}</td>
-			<td><c:choose>
-				<c:when test="${roomOrderVO.status == '0'}">
-					未完單
-				</c:when>
-				<c:otherwise>
-					已完單
-				</c:otherwise>
-				</c:choose></td>
-			<td colspan="2"><i class="edit fas fa-edit"></i><i style="margin-left:20px;" class="delete far fa-trash-alt"></i></td>
-		</tr>
-		</c:forEach>
-	</table>
+	<div style="height:43em; overflow:scroll;">
+		<table id="myTable" class="table table-striped" style="text-align:center;">
+			<tr>
+				<th>訂單編號</th>
+				<th>會員編號</th>
+				<th>入住日期</th>
+				<th>退房日期</th>
+				<th>訂單狀態</th>
+				<th colspan="2">訂單修改</th>
+			</tr>
+			<c:forEach var="roomOrderVO" items="${list}">
+			<tr class="hover">	
+				<td><a class="linkit" href="<%=request.getContextPath()%>/back-end/room-order/RoomOrderDetail.jsp?room_order_id=${roomOrderVO.room_order_id}&mem_id=${roomOrderVO.mem_id}">${roomOrderVO.room_order_id}</a></td>
+				<td>${roomOrderVO.mem_id}</td>
+				<td>${roomOrderVO.check_in_date}</td>
+				<td>${roomOrderVO.check_out_date}</td>
+				<td><c:choose>
+					<c:when test="${roomOrderVO.status == '0'}">
+						已付款
+					</c:when>
+					<c:otherwise>
+						入住中
+					</c:otherwise>
+					</c:choose></td>
+				<td colspan="2"><i class="edit fas fa-edit"></i><i style="margin-left:20px;" class="delete far fa-trash-alt"></i></td>
+			</tr>
+			</c:forEach>
+		</table>
+	</div>
 	<div id="showBox" style="display:none;">
 		<i class="cancel fas fa-window-close fa-2x"></i>
 		<iframe id="show" src="" width="30%" height="570"></iframe>
@@ -169,6 +173,6 @@
 			$("#showBox").css("display","none");
 		})
 	</script>	
-<%@include file="backIndex2.file"%>
+<%@include file="/back-end/back-template/backIndex2.file"%>
 </body>
 </html>

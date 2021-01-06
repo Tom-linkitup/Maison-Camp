@@ -3,7 +3,7 @@
 <%@ page import="java.util.*"%>
 <%@ page import="com.member.model.*" %>
 <!DOCTYPE html>
-<%@ include file="backIndex.file"%>
+<%@ include file="/back-end/back-template/backIndex.file"%>
 <html>
 <head>
 <meta charset="UTF-8">
@@ -20,18 +20,11 @@
 		<input class="title" id="tab-1" type="radio" name="tab-group" checked="checked"/>
 		<label for="tab-1">查看所有會員</label> 
 		
-		<input class="title" id="tab-2" type="radio" name="tab-group" /> 
-		<label for="tab-2">預設空白</label> 
-		
-		<input class="title" id="tab-3" type="radio" name="tab-group"  /> 
-		<label for="tab-3">預設空白</label>
 		
 		<div id="content">
 			<jsp:include page="CheckMember.jsp" />
-			<jsp:include page="Default.jsp" />
-			<jsp:include page="Default2.jsp" />
 		</div>
 	</div>
-	<%@ include file="backIndex2.file"%>
+	<%@ include file="/back-end/back-template/backIndex2.file"%>
 </body>
 </html>

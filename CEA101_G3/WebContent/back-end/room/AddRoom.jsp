@@ -29,8 +29,8 @@
 </head>
 <body>
 	<%-- 錯誤表列 --%>
-	<c:forEach var="message" items="${errorMsgs}">
-	</c:forEach>
+	<%-- <c:forEach var="message" items="${errorMsgs}">
+	</c:forEach> --%>
 	
 	<form method="post" action="${pageContext.request.contextPath}/Room.do">
 		<div id="content-2">
@@ -40,17 +40,22 @@
 				<c:forEach var="room" items="${list}">
 					<option value="${room.room_category_id}">${room.room_category_id}</option>
 				</c:forEach>
-			</select>	
-			<%-- <p style="font-size:8px; color:red;">${errorMsgs.room_category_id}</p> --%>
-			
+			</select>
+			<p></p>
+			<c:if test="${not empty errorMsgs}">
+				<p style="font-size:8px; color:red;">${errorMsgs.room_category_id}</p>
+			</c:if>		
 			<span>房間狀態：</span>
 			<select class="input-beautify" name="status">
 				<option value="99">請選擇</option>
 				<option value="0">可入住</option>
 				<option value="1">修繕中</option>
 				<option value="2">in入住中</option>
-			</select>	
-			<%-- <p style="font-size:8px; color:red;">${errorMsgs.status}</p> --%>	
+			</select>
+			<p></p>
+			<c:if test="${not empty errorMsgs}">
+				<p style="font-size:8px; color:red;">${errorMsgs.status}</p>
+			</c:if>		
 			<input type="hidden" name="action" value="insert"><br>
 			<button id="add" type="submit" class="btn btn-primary">新增房間</button>
 		</div>

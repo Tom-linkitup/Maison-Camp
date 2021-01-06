@@ -1,6 +1,5 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="Big5"%>
 <%@ page import="com.room_promotion.model.*"%>
-<%@ include file="backIndex.file"%>
 <%-- 此頁暫練習採用 Script 的寫法取值 --%>
 
 <%
@@ -73,6 +72,5 @@
 		<td><%=room_promotionVO.getRoom_prom_end_date()%></td>
 	</tr>
 </table>
-<%@ include file="backIndex2.file"%>
 </body>
 </html>

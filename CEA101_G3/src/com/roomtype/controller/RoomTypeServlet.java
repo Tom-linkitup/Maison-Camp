@@ -92,6 +92,12 @@ public class RoomTypeServlet extends HttpServlet {
 					errorMsgs.put("room_info", "*房型敘述不得為空");
 				}
 				
+				if(!errorMsgs.isEmpty()) {			
+					RequestDispatcher failureView = req.getRequestDispatcher("/back-end/room-type/RoomTypeInfo.jsp");
+					failureView.forward(req, res);
+					return;
+				}
+				
 				RoomTypeVO roomTypeVO = new RoomTypeVO();
 				roomTypeVO.setRoom_category_id(room_category_id);
 				roomTypeVO.setRoom_name(room_name);
@@ -104,11 +110,6 @@ public class RoomTypeServlet extends HttpServlet {
 				roomTypeVO.setRoom_info(room_info);
 				req.setAttribute("roomTypeVO", roomTypeVO);
 				
-				if(!errorMsgs.isEmpty()) {			
-					RequestDispatcher failureView = req.getRequestDispatcher("/back-end/room-type/RoomTypeInfo.jsp");
-					failureView.forward(req, res);
-				}
-				
 				RoomTypeService roomTypeSvc = new RoomTypeService();			
 				roomTypeSvc.addRT(room_category_id, room_name, room_type, room_price, area, room_guest, room_quantity, room_category_status, room_info);
 				
@@ -116,6 +117,7 @@ public class RoomTypeServlet extends HttpServlet {
 				req.setAttribute("insertSuccess", "yes");
 				RequestDispatcher successView = req.getRequestDispatcher(url);
 				successView.forward(req, res);
+				return;
 				
 			}catch(Exception e) {
 				e.printStackTrace();
@@ -138,6 +140,7 @@ public class RoomTypeServlet extends HttpServlet {
 				String url = "/back-end/room-type/RoomTypeInfo.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url);
 				successView.forward(req, res);
+				return;
 
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -173,6 +176,7 @@ public class RoomTypeServlet extends HttpServlet {
 				String url = "/back-end/room-type/RoomTypeInfo.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url);
 				successView.forward(req, res);
+				return;
 				
 			}catch(Exception e) {
 				e.printStackTrace();
@@ -187,7 +191,8 @@ public class RoomTypeServlet extends HttpServlet {
 			
 			String url = "/back-end/room-type/RoomTypeInfo.jsp";
 			RequestDispatcher successView = req.getRequestDispatcher(url);
-			successView.forward(req, res);			
+			successView.forward(req, res);	
+			return;
 		}
 	}
 

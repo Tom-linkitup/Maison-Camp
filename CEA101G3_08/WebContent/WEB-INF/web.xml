@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd" id="WebApp_ID" version="4.0">
+  <display-name>CEA101G3</display-name>
+  <welcome-file-list>
+    <welcome-file>index.html</welcome-file>
+    <welcome-file>index.htm</welcome-file>
+    <welcome-file>index.jsp</welcome-file>
+    <welcome-file>default.html</welcome-file>
+    <welcome-file>default.htm</welcome-file>
+    <welcome-file>default.jsp</welcome-file>
+  </welcome-file-list>
+  
+  	<servlet>
+		<servlet-name>ItemServlet</servlet-name>
+		<servlet-class>com.item.controller.ItemServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>ItemServlet</servlet-name>
+		<url-pattern>/item/item.do</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>ItemPhotoServlet</servlet-name>
+		<servlet-class>com.item_photo.controller.itemPhotoServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>ItemPhotoServlet</servlet-name>
+		<url-pattern>/item_photo/itemPhoto.do</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>photoReader</servlet-name>
+		<servlet-class>com.item_photo.controller.photoReader</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>photoReader</servlet-name>
+		<url-pattern>/item_photo/photoReader.do</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>ItemCategoryServlet</servlet-name>
+		<servlet-class>com.item_category.controller.ItemCategoryServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>ItemCategoryServlet</servlet-name>
+		<url-pattern>/item_category/itemCategory.do</url-pattern>
+	</servlet-mapping>
+	
+		<servlet>
+		<servlet-name>ItemCommentServlet</servlet-name>
+		<servlet-class>com.item_comment.controller.ItemCommentServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>ItemCommentServlet</servlet-name>
+		<url-pattern>/item_comment/itemComment.do</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>SystemServlet</servlet-name>
+		<servlet-class>com.system.controller.SystemServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>SystemServlet</servlet-name>
+		<url-pattern>/system/system.do</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>getItemPhoto</servlet-name>
+		<servlet-class>com.item_photo.controller.getItemPhoto</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>getItemPhoto</servlet-name>
+		<url-pattern>/getItemPhoto.do</url-pattern>
+	</servlet-mapping>
+	
+	
+</web-app>

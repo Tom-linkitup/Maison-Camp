@@ -5,7 +5,7 @@
 <%@ page import="com.roomtype.model.*"%>
 <%@ page import="com.roomphoto.model.*" %>
 <!DOCTYPE html>
-<%@ include file="backIndex.file"%>
+<%@ include file="/back-end/back-template/backIndex.file"%>
 <html>
 <head>
 <meta charset="UTF-8">
@@ -38,6 +38,6 @@
 			<jsp:include page="default2.jsp" /> --%>
 		</div>
 	</div>
-	<%@ include file="backIndex2.file"%>
+	<%@ include file="/back-end/back-template/backIndex2.file"%>
 </body>
 </html>

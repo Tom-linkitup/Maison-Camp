@@ -3,7 +3,6 @@
 <%@ page import="com.roomtype.model.*"%>
 
 <% 
-	RoomTypeVO roomTypeVO = (RoomTypeVO) request.getAttribute("remain");
 	String insertSuccess = (String)request.getAttribute("insertSuccess");
 	String repeat = (String)request.getAttribute("repeat");
 %>
@@ -39,31 +38,58 @@
 	<form method="post" action="${pageContext.request.contextPath}/RoomType.do">
 		<div id="content-3">
 			房型編號：<input class="input-beautify" type="text" name="room_category_id" value="">
-			<%-- <p class="error" style="color:red; font-size:8px;">${errorMsgs.room_category_id}</p> --%>
+			<p></p>
+			<c:if test="${not empty errorMsgs}">
+				<p class="error" style="color:red; font-size:8px;">${errorMsgs.room_category_id}</p>
+			</c:if>
 				
 			房型名稱：<input class="input-beautify" type="text" name="room_name" value="">
-			<%-- <p class="error" style="color:red; font-size:8px;">${errorMsgs.room_name}</p> --%>
+			<p></p>
+			<c:if test="${not empty errorMsgs}">
+				<p class="error" style="color:red; font-size:8px;">${errorMsgs.room_name}</p>
+			</c:if>
 			
 			房型類型：<input class="input-beautify" type="text" name="room_type" value="">
-			<%-- <p class="error" style="color:red; font-size:8px;">${errorMsgs.room_type}</p> --%>
+			<p></p>
+			<c:if test="${not empty errorMsgs}">
+				<p class="error" style="color:red; font-size:8px;">${errorMsgs.room_type}</p>
+			</c:if>
 				
 			房型價格：<input class="input-beautify" type="text" name="room_price" value="">
-			<%-- <p class="error" style="color:red; font-size:8px;">${errorMsgs.room_price}</p> --%>
+			<p></p>
+			<c:if test="${not empty errorMsgs}">
+				<p class="error" style="color:red; font-size:8px;">${errorMsgs.room_price}</p>
+			</c:if>
 				
 			房間坪數：<input class="input-beautify" type="text" name="area" value="">
-			<%-- <p class="error" style="color:red; font-size:8px;">${errorMsgs.area}</p> --%>
+			<p></p>
+			<c:if test="${not empty errorMsgs}">
+				<p class="error" style="color:red; font-size:8px;">${errorMsgs.area}</p>
+			</c:if>
 			
 			可住人數：<input class="input-beautify" type="text" name="room_guest" value="">
-			<%-- <p class="error" style="color:red; font-size:8px;">${errorMsgs.room_guest}</p> --%>
+			<p></p>
+			<c:if test="${not empty errorMsgs}">
+				<p class="error" style="color:red; font-size:8px;">${errorMsgs.room_guest}</p>
+			</c:if>
 			
 			房間數量：<input class="input-beautify" type="text" name="room_quantity" value="">
-			<%-- <p class="error" style="color:red; font-size:8px;">${errorMsgs.room_quantity}</p> --%>
+			<p></p>
+			<c:if test="${not empty errorMsgs}">
+				<p class="error" style="color:red; font-size:8px;">${errorMsgs.room_quantity}</p>
+			</c:if>
 					
 			房型狀態：<input class="input-beautify" type="text" name="room_category_status" value="">
-			<%-- <p class="error" style="color:red; font-size:8px;">${errorMsgs.room_category_status}</p> --%>
+			<p></p>
+			<c:if test="${not empty errorMsgs}">
+				<p class="error" style="color:red; font-size:8px;">${errorMsgs.room_category_status}</p>
+			</c:if>
 					
 			房型敘述：<input class="input-beautify" type="text" name="room_info" value="">
-			<%-- <p class="error" style="color:red; font-size:8px;">${errorMsgs.room_info}</p> --%>
+			<p></p>
+			<c:if test="${not empty errorMsgs}">
+				<p class="error" style="color:red; font-size:8px;">${errorMsgs.room_info}</p>
+			</c:if>
 			
 			<input type="hidden" name="action" value="insert"><br>
 			<button id="add" type="submit" class="btn btn-primary">新增房型</button>

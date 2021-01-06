@@ -42,14 +42,15 @@ public class RoomServlet extends HttpServlet {
 					errorMsgs.put("status", "*請選擇房間狀態");
 				}
 				
-				RoomVO roomVO = new RoomVO();
-				roomVO.setRoom_category_id(room_category_id);
-				roomVO.setStatus(status);
-				
 				if(!errorMsgs.isEmpty()) {			
 					RequestDispatcher failureView = req.getRequestDispatcher("/back-end/room/RoomInfo.jsp");
 					failureView.forward(req, res);
+					return;
 				}
+				
+				RoomVO roomVO = new RoomVO();
+				roomVO.setRoom_category_id(room_category_id);
+				roomVO.setStatus(status);
 				
 				RoomService roomSvc = new RoomService();
 				roomVO = roomSvc.addRM(room_category_id, status);
@@ -58,6 +59,7 @@ public class RoomServlet extends HttpServlet {
 				req.setAttribute("insertSuccess", "yes");
 				RequestDispatcher successView = req.getRequestDispatcher(url);
 				successView.forward(req, res);
+				return;
 				
 			}catch(Exception e) {
 				e.printStackTrace();
@@ -85,14 +87,15 @@ public class RoomServlet extends HttpServlet {
 					errorUpdateMsgs.put("status", "*請選擇房間狀態");
 				}
 				
-				RoomVO roomVO = new RoomVO();
-				roomVO.setRoom_category_id(room_category_id);
-				roomVO.setStatus(status);
-				
 				if(!errorUpdateMsgs.isEmpty()) {			
 					RequestDispatcher failureView = req.getRequestDispatcher("/back-end/room/RoomInfo.jsp");
 					failureView.forward(req, res);
+					return;
 				}
+				
+				RoomVO roomVO = new RoomVO();
+				roomVO.setRoom_category_id(room_category_id);
+				roomVO.setStatus(status);
 				
 				RoomService roomSvc = new RoomService();
 				roomVO = roomSvc.updateRM(room_category_id, status, room_id);
@@ -101,6 +104,7 @@ public class RoomServlet extends HttpServlet {
 				req.setAttribute("updateSuccess", "yes");
 				RequestDispatcher successView = req.getRequestDispatcher(url);
 				successView.forward(req, res);
+				return;
 				
 			}catch(Exception e) {
 				e.printStackTrace();
@@ -121,6 +125,7 @@ public class RoomServlet extends HttpServlet {
 			req.setAttribute("deleteSuccess", "yes");
 			RequestDispatcher successView = req.getRequestDispatcher(url);
 			successView.forward(req, res);
+			return;
 		}
 		
 		if("getRoomByRtc".equals(action)) {
@@ -135,7 +140,7 @@ public class RoomServlet extends HttpServlet {
 			req.setAttribute("getRoomVoByRtc", getRoomVoByRtc);
 			RequestDispatcher successView = req.getRequestDispatcher(url);
 			successView.forward(req, res);
-			
+			return;
 		}
 		
 	}

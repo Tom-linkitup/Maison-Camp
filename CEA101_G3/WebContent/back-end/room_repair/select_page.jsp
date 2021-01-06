@@ -3,7 +3,7 @@
 <%@ page import="java.util.*"%>
 <%@ page import="com.repair.model.*"%>
 <!DOCTYPE html>
-<%@ include file="backIndex.file"%>
+<%@ include file="/back-end/back-template/backIndex.file"%>
 <html>
 <head>
 <meta charset="UTF-8">
@@ -39,6 +39,6 @@
 			
 		</div>
 	</div>
-	<%@ include file="backIndex2.file"%>
+	<%@ include file="/back-end/back-template/backIndex2.file"%>
 </body>
 </html>

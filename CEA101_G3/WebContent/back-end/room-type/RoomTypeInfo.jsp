@@ -5,7 +5,7 @@
 <%@ page import="com.roomtype.model.*"%>
 <%@ page import="com.roomphoto.model.*" %>
 <!DOCTYPE html>
-<%@ include file="backIndex.file"%>
+<%@ include file="/back-end/back-template/backIndex.file"%>
 <html>
 <head>
 <meta charset="UTF-8">
@@ -31,13 +31,13 @@
 		<input class="title" id="tab-4" type="radio" name="tab-group"  /> 
 		<label for="tab-4">查看房型照片</label>
 		
-		<div id="content">
+		<div id="content" style="height:40em; overflow:scroll;">
 			<jsp:include page="CheckRoomType.jsp" />
 			<jsp:include page="AddRoomTypePhoto.jsp" />
 			<jsp:include page="AddRoomType.jsp" />
 			<jsp:include page="showAllRoomPhoto.jsp" />
 		</div>
 	</div>
-	<%@ include file="backIndex2.file"%>
+	<%@ include file="/back-end/back-template/backIndex2.file"%>
 </body>
 </html>

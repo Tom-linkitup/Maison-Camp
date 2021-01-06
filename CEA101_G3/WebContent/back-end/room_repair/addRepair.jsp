@@ -52,7 +52,7 @@
 			</c:forEach>
 </select></td></tr><br><br>
 	<tr><td>維修資訊：</td><input class="input-beautify" type="text" name="repair_info" value="">
-			<p class="error" style="color:red; font-size:8px;">${errorMsgs.repair_info}</p>
+			<%-- <p class="error" style="color:red; font-size:8px;">${errorMsgs.repair_info}</p> --%>
 			<input  id="status" class="input-beautify" type="text" name="status"  value="0" hidden>
 			</tr>
 			<td><input type="hidden" name="action" value="insert"><br>

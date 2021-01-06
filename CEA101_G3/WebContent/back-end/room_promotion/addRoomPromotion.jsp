@@ -53,23 +53,23 @@
 			</c:forEach>
 		</select></td>
 		</tr>
-		<p class="error" style="color:red; font-size:8px;">${errorMsgs.room_category_id}</p>
+		<%-- <p class="error" style="color:red; font-size:8px;">${errorMsgs.room_category_id}</p> --%>
 		</tr>
 		
 		<tr><td>優惠資訊說明:</td>
 		<td><input type="TEXT" name="room_promotion_info" class="input-beautify" value="<%=(room_promotionVO==null)? "" : room_promotionVO.getRoom_promotion_info()%>"></td>
-		<p class="error" style="color:red; font-size:8px;">${errorMsgs.room_promotion_info}</p>
+		<%-- <p class="error" style="color:red; font-size:8px;">${errorMsgs.room_promotion_info}</p> --%>
 		</tr>
 		 
 		<tr><td>優惠折扣設定:</td> </tr><input type="NUMBER" min="0" max="1" step="0.01" name="room_discount"  class="input-beautify" value="">
-		<p class="error" style="color:red; font-size:8px;">${errorMsgs.room_discount}</p>
+		<%-- <p class="error" style="color:red; font-size:8px;">${errorMsgs.room_discount}</p> --%>
 	
 		<tr><td>優惠開始日期:</td>  </tr><input name="room_prom_start_date" id="f_date1" type="text" class="input-beautify" value="" >
-		<p class="error" style="color:red; font-size:8px;">${errorMsgs.room_prom_start_date}</p>
+		<%-- <p class="error" style="color:red; font-size:8px;">${errorMsgs.room_prom_start_date}</p> --%>
 	
 		
 		<tr><td>優惠結束日期:</td>  </tr><input name="room_prom_end_date" id="f_date2" type="text" class="input-beautify"  value="" >
-		<p class="error" style="color:red; font-size:8px;">${errorMsgs.room_prom_end_date}</p>
+		<%-- <p class="error" style="color:red; font-size:8px;">${errorMsgs.room_prom_end_date}</p> --%>
 		
 		
 		

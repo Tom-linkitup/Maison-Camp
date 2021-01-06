@@ -32,11 +32,11 @@
 <link rel="stylesheet"
 	href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css">
 <link rel="stylesheet"
-	href="<%=request.getContextPath()%>/back_end/css/admin.css">
+	href="<%=request.getContextPath()%>/css/back-end/admin.css">
 <link rel="stylesheet"
-	href="<%=request.getContextPath()%>/back_end/css/context.css">
+	href="<%=request.getContextPath()%>/css/back-end/context.css">
 <link rel="stylesheet"
-	href="<%=request.getContextPath()%>/back_end/css/style.css">
+	href="<%=request.getContextPath()%>/css/back-end/style.css">
 	
 	<style>
 		.displayB {
@@ -50,7 +50,7 @@
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
 	<header class="main-header">
-		<a href="<%=request.getContextPath()%>/back_end/emp/protected/backer.jsp" class="logo"> <span class="logo-mini"><b>M</b></span>
+		<a href="<%=request.getContextPath()%>/back-end/emp/protected/backer.jsp" class="logo"> <span class="logo-mini"><b>M</b></span>
 			<span class="logo-lg"><b>Maison </b> Camp</span>
 		</a>
 		<nav class="navbar navbar-static-top" role="navigation">
@@ -61,10 +61,10 @@
 				<ul class="nav navbar-nav">
 					<li class="dropdown user user-menu"><a href="#"
 						class="dropdown-toggle" data-toggle="dropdown"> <span
-							class="hidden-xs">${empVO.emp_name}</span>
+							class="hidden-xs">${loginEmpVO.emp_name}</span>
 					</a>
 						<ul class="dropdown-menu">
-							<li class=""><a href="<%=request.getContextPath()%>/back_end/emp/protected/lookYourSelf.jsp" class="">個人資料</a></li>
+							<li class=""><a href="<%=request.getContextPath()%>/back-end/emp/protected/lookYourSelf.jsp" class="">個人資料</a></li>
 							<li><a
 								href="<%=request.getContextPath()%>/emp/emp.do?action=logout">登出</a>
 							</li>
@@ -78,11 +78,11 @@
 			<div class="user-panel">
 				<div class="pull-left image">
 					<img
-						src="<%=request.getContextPath()%>/back_end/emp/images/456.png"
+						src="<%=request.getContextPath()%>/back-end/emp/images/456.png"
 						class="img-circle" alt="User Image">
 				</div>
 				<div class="pull-left info">
-					<p>${empVO.emp_name}</p>
+					<p>${loginEmpVO.emp_name}</p>
 					<a href="#"><i class="fa fa-circle text-success"></i> Online</a>
 				</div>
 			</div>
@@ -106,12 +106,12 @@
 				</a>
 					<ul class="treeview-menu">
 						<li><a
-							href="<%=request.getContextPath()%>/back_end/emp/protected/viewEmp.jsp">員工管理</a></li>
+							href="<%=request.getContextPath()%>/back-end/emp/protected/viewEmp.jsp">員工管理</a></li>
 						<li><a
-							href="<%=request.getContextPath()%>/back_end/emp/protected/viewEmpFunc.jsp">員工權限管理</a></li>
+							href="<%=request.getContextPath()%>/back-end/emp/protected/viewEmpFunc.jsp">員工權限管理</a></li>
 						<li><a href="#">系統參數管理</a></li>
 						<li><a
-							href="<%=request.getContextPath()%>/back_end/emp/protected/viewFunc.jsp">權限管理</a></li>
+							href="<%=request.getContextPath()%>/back-end/emp/protected/viewFunc.jsp">權限管理</a></li>
 					</ul></li>
 				<li class="treeview"><a href="#"> <i
 						class="fa fa-user-circle"></i> <span>會員管理</span><span
@@ -168,7 +168,7 @@
 						<div class="collapse navbar-collapse" id="navbarSupportedContent">
 							<ul class="navbar-nav mr-auto">
 								<li class="nav-item"><a class="nav-link"
-									href="<%=request.getContextPath()%>/back_end/emp/protected/addEmpFunc.jsp">New
+									href="<%=request.getContextPath()%>/back-end/emp/protected/addEmpFunc.jsp">New
 										employee function</a></li>
 								<li class="nav-item"><a class="nav-link disabled" href="#">#</a>
 								</li>
@@ -242,7 +242,7 @@
 		crossorigin="anonymous"></script>
 	<script
 		src="https://cdnjs.cloudflare.com/ajax/libs/admin-lte/2.4.3/js/adminlte.min.js"></script>
-	<script src="<%=request.getContextPath()%>/back_end/js/backer.js"></script>
+	<script src="<%=request.getContextPath()%>/js/back-end/backer.js"></script>
 	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
 
