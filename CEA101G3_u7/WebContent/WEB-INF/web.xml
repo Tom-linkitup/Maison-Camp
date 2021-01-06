@@ -67,8 +67,6 @@
 		<url-pattern>/emp_func/emp_func.do</url-pattern>
 	</servlet-mapping>
 
-
-
 	<filter>
 		<filter-name>LoginFilter</filter-name>
 		<filter-class>com.emp.login.filter.LoginFilter</filter-class>

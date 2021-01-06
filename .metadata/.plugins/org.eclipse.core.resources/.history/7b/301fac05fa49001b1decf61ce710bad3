@@ -1,5 +1,0 @@
-package com.currentroom.model;
-
-public class CurrentRoomJDBCDAO implements CurrentRoomDAO_Interface {
-
-}

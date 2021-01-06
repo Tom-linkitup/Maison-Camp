@@ -1,9 +1,0 @@
-package com.currentroom.model;
-
-public class CurrentRoomService {
-	private CurrentRoomDAO_Interface dao;
-	
-	public CurrentRoomService() {
-		dao = new CurrentRoomDAO();
-	}
-}

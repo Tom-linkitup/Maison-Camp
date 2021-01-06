@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
+	id="WebApp_ID" version="4.0">
+	<display-name>CEA101G3</display-name>
+	<welcome-file-list>
+		<welcome-file>index.html</welcome-file>
+		<welcome-file>index.htm</welcome-file>
+		<welcome-file>index.jsp</welcome-file>
+		<welcome-file>default.html</welcome-file>
+		<welcome-file>default.htm</welcome-file>
+		<welcome-file>default.jsp</welcome-file>
+	</welcome-file-list>
+	
+	<resource-ref>
+		<description>DB Connection</description>
+		<res-ref-name>jdbc/GDB</res-ref-name>
+		<res-type>javax.sql.DataSource</res-type>
+		<res-auth>Container</res-auth>
+	</resource-ref>
+
+	<servlet>
+		<servlet-name>MemberServlet</servlet-name>
+		<servlet-class>com.member.controller.MemberServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>MemberServlet</servlet-name>
+		<url-pattern>/Member.do</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>RoomTypeServlet</servlet-name>
+		<servlet-class>com.roomtype.controller.RoomTypeServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>RoomTypeServlet</servlet-name>
+		<url-pattern>/RoomType.do</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>RoomServlet</servlet-name>
+		<servlet-class>com.room.controller.RoomServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>RoomServlet</servlet-name>
+		<url-pattern>/Room.do</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>RoomPhotoServlet</servlet-name>
+		<servlet-class>com.roomphoto.controller.RoomPhotoServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>RoomPhotoServlet</servlet-name>
+		<url-pattern>/RoomPhoto.do</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>GetRoomPhoto</servlet-name>
+		<servlet-class>com.roomphoto.controller.GetRoomPhoto</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>GetRoomPhoto</servlet-name>
+		<url-pattern>/GetRoomPhoto.do</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>PhotoList</servlet-name>
+		<servlet-class>com.roomphoto.controller.PhotoList</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>PhotoList</servlet-name>
+		<url-pattern>/PhotoList.do</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>RoomOrderServlet</servlet-name>
+		<servlet-class>com.roomorder.controller.RoomOrderServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>RoomOrderServlet</servlet-name>
+		<url-pattern>/RoomOrder.do</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>RoomRsvServlet</servlet-name>
+		<servlet-class>com.roomrsv.controller.RoomRsvServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>RoomRsvServlet</servlet-name>
+		<url-pattern>/RoomRsv.do</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>RepairServlet</servlet-name>
+		<servlet-class>com.repair.controller.RepairServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>RepairServlet</servlet-name>
+		<url-pattern>/repair/repair.do</url-pattern>
+	</servlet-mapping>
+    
+    
+    <servlet>
+		<servlet-name>ExtraChargesServlet</servlet-name>
+		<servlet-class>com.extra_charges.controller.ExtraChargesServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>ExtraChargesServlet</servlet-name>
+		<url-pattern>/extra_charges/extra_charges.do</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>RoomCommentServlet</servlet-name>
+		<servlet-class>com.room_comment.controller.RoomCommentServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>RoomCommentServlet</servlet-name>
+		<url-pattern>/room_comment/room_comment.do</url-pattern>
+	</servlet-mapping>
+    
+
+  <servlet>
+		<servlet-name>RoomPromotionServlet</servlet-name>
+		<servlet-class>com.room_promotion.controller.RoomPromotionServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>RoomPromotionServlet</servlet-name>
+		<url-pattern>/room_promotion/room_promotion.do</url-pattern>
+	</servlet-mapping>
+	
+	
+	<servlet>
+		<servlet-name>EmpServlet</servlet-name>
+		<servlet-class>com.emp.controller.EmpServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>EmpServlet</servlet-name>
+		<url-pattern>/emp/emp.do</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>FuncServlet</servlet-name>
+		<servlet-class>com.func.controller.FuncServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>FuncServlet</servlet-name>
+		<url-pattern>/func/func.do</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>EmpFuncServlet</servlet-name>
+		<servlet-class>com.emp_func.controller.EmpFuncServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>EmpFuncServlet</servlet-name>
+		<url-pattern>/emp_func/emp_func.do</url-pattern>
+	</servlet-mapping>
+
+
+
+	<filter>
+		<filter-name>LoginFilter</filter-name>
+		<filter-class>com.emp.login.filter.LoginFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>LoginFilter</filter-name>
+		<url-pattern>/back-end/emp/protected/*</url-pattern>
+		<dispatcher>REQUEST</dispatcher>
+		<dispatcher>FORWARD</dispatcher>
+		<dispatcher>INCLUDE</dispatcher>
+		<dispatcher>ERROR</dispatcher>
+		<dispatcher>ASYNC</dispatcher>
+	</filter-mapping>
+
+	<filter>
+		<filter-name>EmpFilter</filter-name>
+		<filter-class>com.emp.func.filter.EmpFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>EmpFilter</filter-name>
+		<url-pattern>/back-end/emp/protected/addEmp.jsp</url-pattern>
+		<url-pattern>/back-end/emp/protected/addEmpFunc.jsp</url-pattern>
+		<url-pattern>/back-end/emp/protected/addFunc.jsp</url-pattern>
+		<url-pattern>/back-end/emp/protected/updateEmp.jsp</url-pattern>
+		<dispatcher>REQUEST</dispatcher>
+		<dispatcher>FORWARD</dispatcher>
+		<dispatcher>INCLUDE</dispatcher>
+		<dispatcher>ERROR</dispatcher>
+		<dispatcher>ASYNC</dispatcher>
+	</filter-mapping>
+
+	<filter>
+		<filter-name>EmpViewFilter</filter-name>
+		<filter-class>com.emp.func.filter.EmpViewFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>EmpViewFilter</filter-name>
+		<url-pattern>/back-end/emp/protected/viewEmp.jsp</url-pattern>
+		<url-pattern>/back-end/emp/protected/viewEmpFunc.jsp</url-pattern>
+		<url-pattern>/back-end/emp/protected/viewFunc.jsp</url-pattern>
+		<dispatcher>REQUEST</dispatcher>
+		<dispatcher>FORWARD</dispatcher>
+		<dispatcher>INCLUDE</dispatcher>
+		<dispatcher>ERROR</dispatcher>
+		<dispatcher>ASYNC</dispatcher>
+	</filter-mapping>
+	
+	<filter>
+		<filter-name>MemberLoginFilter</filter-name>
+		<filter-class>com.member.filter.MemberLoginFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>MemberLoginFilter</filter-name>
+		<url-pattern>/front-end/member/Member.jsp</url-pattern>
+		<dispatcher>REQUEST</dispatcher>
+		<dispatcher>FORWARD</dispatcher>
+		<dispatcher>INCLUDE</dispatcher>
+		<dispatcher>ERROR</dispatcher>
+		<dispatcher>ASYNC</dispatcher>
+	</filter-mapping>
+
+
+</web-app>
