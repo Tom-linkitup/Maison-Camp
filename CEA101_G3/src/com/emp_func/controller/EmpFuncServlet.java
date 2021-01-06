@@ -45,7 +45,7 @@ public class EmpFuncServlet extends HttpServlet {
 					errorMsgs.add("功能編號: 須為(0000~9999)");
 				}
 				if (!errorMsgs.isEmpty()) {
-					RequestDispatcher failureView = req.getRequestDispatcher("/back_end/emp/protected/addEmpFunc.jsp");
+					RequestDispatcher failureView = req.getRequestDispatcher("/back-end/emp/protected/addEmpFunc.jsp");
 					failureView.forward(req, res);
 					return;
 				}
@@ -53,13 +53,13 @@ public class EmpFuncServlet extends HttpServlet {
 				EmpFuncService empFuncSvc = new EmpFuncService();
 				empFuncSvc.addEmpFunc(emp_id, func_id);
 
-				String url = "/back_end/emp/protected/viewEmpFunc.jsp";
+				String url = "/back-end/emp/protected/viewEmpFunc.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url); // 新增成功後轉交listAllEmp.jsp
 				successView.forward(req, res);
 				
 			} catch (Exception e) {
 				errorMsgs.add(e.getMessage());
-				RequestDispatcher failureView = req.getRequestDispatcher("/back_end/emp/protected/addEmpFunc.jsp");
+				RequestDispatcher failureView = req.getRequestDispatcher("/back-end/emp/protected/addEmpFunc.jsp");
 				failureView.forward(req, res);
 			}
 
@@ -79,14 +79,14 @@ public class EmpFuncServlet extends HttpServlet {
 				
 				empFuncSvc.deleteEmpFunc(emp_id, func_id);
 				
-				String url = "/back_end/emp/protected/viewEmpFunc.jsp";
+				String url = "/back-end/emp/protected/viewEmpFunc.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url);
 				successView.forward(req, res);
 				
 
 			} catch (Exception e) {
 				errorMsgs.add("需先刪除其他表格的關聯");
-				RequestDispatcher failureView = req.getRequestDispatcher("/back_end/emp/protected/addEmpFunc.jsp");
+				RequestDispatcher failureView = req.getRequestDispatcher("/back-end/emp/protected/addEmpFunc.jsp");
 				failureView.forward(req, res);
 			}
 
