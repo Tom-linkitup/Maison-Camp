@@ -92,7 +92,7 @@
 		<url-pattern>/RoomRsv.do</url-pattern>
 	</servlet-mapping>
 	
-		 <servlet>
+	<servlet>
 		<servlet-name>RepairServlet</servlet-name>
 		<servlet-class>com.repair.controller.RepairServlet</servlet-class>
 	</servlet>

@@ -7,7 +7,7 @@ import java.util.List;
 public class EmpJDBCDAO implements EmpDAO_interface {
 	String driver = "oracle.jdbc.driver.OracleDriver";
 	String url = "jdbc:oracle:thin:@localhost:1521:XE";
-	String userid = "PHIL";
+	String userid = "CEA101G3";
 	String passwd = "123456";
 
 	private static final String INSERT_STMT = "INSERT INTO employee (emp_id, emp_user_id, emp_user_pwd, emp_name, emp_status) VALUES ('E'|| EMPLOYEE_ID_SEQ.NEXTVAL,?,?,?,?)";

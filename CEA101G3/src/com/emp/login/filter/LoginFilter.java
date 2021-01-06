@@ -73,7 +73,7 @@ public class LoginFilter implements Filter {
 
 		if (session.getAttribute("loginEmpVO") == null){ //使用者從網址直接進去需登入畫面時。
 			session.setAttribute("location", request.getRequestURI());
-			response.sendRedirect(request.getContextPath() + "/back_end/emp/loginEmp.jsp");
+			response.sendRedirect(request.getContextPath() + "/back-end/emp/loginEmp.jsp");
 		} else {
 			chain.doFilter(request, response);
 		}

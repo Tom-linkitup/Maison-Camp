@@ -11,7 +11,7 @@ import java.util.List;
 public class EmpFuncJDBCDAO implements EmpFuncDAO_interface {
 	String driver = "oracle.jdbc.driver.OracleDriver";
 	String url = "jdbc:oracle:thin:@localhost:1521:XE";
-	String userid = "PHIL";
+	String userid = "CEA101G3";
 	String passwd = "123456";
 	
 	private static final String INSERT_STMT = "INSERT INTO emp_func (emp_id, func_id) VALUES (?,?)";

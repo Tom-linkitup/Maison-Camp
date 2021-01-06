@@ -3,8 +3,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="java.util.*"%>
 <%@ page import="com.emp.model.*"%>
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -17,13 +15,13 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/4.1.2/collection/icon/icon.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="<%=request.getContextPath() %>/back_end/css/admin.css">
-    <link rel="stylesheet" href="<%=request.getContextPath() %>/back_end/css/context.css">
-    <link rel="stylesheet" href="<%=request.getContextPath() %>/back_end/css/style.css">
+    <link rel="stylesheet" href="<%=request.getContextPath()%>/css/back-end/admin.css">
+    <link rel="stylesheet" href="<%=request.getContextPath()%>/css/back-end/context.css">
+    <link rel="stylesheet" href="<%=request.getContextPath()%>/css/back-end/style.css">
 </head> 
     <body class="hold-transition skin-blue sidebar-mini">
             <header class="main-header">
-                <a href="<%=request.getContextPath()%>/back_end/emp/protected/backer.jsp" class="logo">
+                <a href="<%=request.getContextPath()%>/back-end/emp/protected/backer.jsp" class="logo">
                     <span class="logo-mini"><b>M</b></span>
                     <span class="logo-lg"><b>Maison </b> Camp</span>
                 </a>
@@ -39,7 +37,7 @@
                                 </a>
                                 <ul class="dropdown-menu">                           
                                     <li class="">                                     
-                                        <a href="<%=request.getContextPath()%>/back_end/emp/protected/lookYourSelf.jsp" class="">個人資料</a>         
+                                        <a href="<%=request.getContextPath()%>/back-end/emp/protected/lookYourSelf.jsp" class="">個人資料</a>         
                                     </li>
                                     <li>
                                     <a href="<%=request.getContextPath()%>/emp/emp.do?action=logout">登出</a>                                  
@@ -54,7 +52,7 @@
                 <section class="sidebar">
                   <div class="user-panel">
                         <div class="pull-left image">
-                            <img src="<%=request.getContextPath() %>/back_end/emp/images/456.png" class="img-circle" alt="User Image">
+                            <img src="<%=request.getContextPath() %>/img/456.png" class="img-circle" alt="User Image">
                         </div>
                         <div class="pull-left info">
                             <p>${empVO.emp_name}</p>
@@ -85,10 +83,10 @@
                           </span>
                       </a>
                       <ul class="treeview-menu">
-                          <li><a href="<%=request.getContextPath()%>/back_end/emp/protected/viewEmp.jsp">員工管理</a></li>
-                          <li><a href="<%=request.getContextPath()%>/back_end/emp/protected/viewEmpFunc.jsp">員工權限管理</a></li>
+                          <li><a href="<%=request.getContextPath()%>/back-end/emp/protected/viewEmp.jsp">員工管理</a></li>
+                          <li><a href="<%=request.getContextPath()%>/back-end/emp/protected/viewEmpFunc.jsp">員工權限管理</a></li>
                           <li><a href="#">系統參數管理</a></li>
-                          <li><a href="<%=request.getContextPath()%>/back_end/emp/protected/viewFunc.jsp">權限管理</a></li>
+                          <li><a href="<%=request.getContextPath()%>/back-end/emp/protected/viewFunc.jsp">權限管理</a></li>
                       </ul>
                       </li>
                       <li class="treeview">
@@ -110,10 +108,13 @@
                           </span>
                       </a>
                       <ul class="treeview-menu">
-                          <li><a href="#">房型管理</a></li>
-                          <li><a href="#">房間管理</a></li>
-                          <li><a href="#">住房訂單管理</a></li>
-                          <li><a href="#">修繕管理</a></li>
+                          <li><a href="<%=request.getContextPath()%>/back-end/room-type/RoomTypeInfo.jsp">房型管理</a></li>
+                          <li><a href="<%=request.getContextPath()%>/back-end/room/RoomInfo.jsp">房間管理</a></li>
+                          <li><a href="<%=request.getContextPath()%>/back-end/room-order/RoomOrder.jsp">住房訂單管理</a></li>
+                          <li><a href="<%=request.getContextPath()%>/back-end/room_repair/select_page.jsp">修繕管理</a></li>
+                          <li><a href="<%=request.getContextPath()%>/back-end/room_promotion/select_page.jsp">訂房優惠管理</a></li>
+                          <li><a href="<%=request.getContextPath()%>/back-end/room_comment/select_page.jsp">房間評論管理</a></li>
+                          <li><a href="<%=request.getContextPath()%>/back-end/extra_charges/select_page.jsp">額外消費管理</a></li>
                           <li><a href="#">入住管理</a></li>
                           <li><a href="#">退房管理</a></li>
                       </ul>
@@ -160,7 +161,7 @@
         <script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/admin-lte/2.4.3/js/adminlte.min.js"></script> 
-        <script src="<%=request.getContextPath() %>/back_end/js/backer.js"></script>
+        <script src="<%=request.getContextPath()%>/js/back-end/backer.js"></script>
         <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
         ${alert}   
     </body>

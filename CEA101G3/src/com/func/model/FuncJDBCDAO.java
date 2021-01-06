@@ -13,7 +13,7 @@ import com.emp.model.EmpVO;
 public class FuncJDBCDAO implements FuncDAO_interface {
 	String driver = "oracle.jdbc.driver.OracleDriver";
 	String url = "jdbc:oracle:thin:@localhost:1521:XE";
-	String userid = "PHIL";
+	String userid = "CEA101G3";
 	String passwd = "123456";
 
 	private static final String INSERT_STMT = "INSERT INTO FUNC (func_id, func_name, func_info) VALUES((SELECT  LPAD(?,4,'0') FROM DUAL),?,?)";

@@ -34,7 +34,6 @@
 			<input type="password" placeholder="password" name="emp_user_pwd" >
 			<input type="hidden" name="action" value="loginEmp">
 			<button type="submit" id="login-button">Login</button>
-			
 		</form>
 	</div>
 	

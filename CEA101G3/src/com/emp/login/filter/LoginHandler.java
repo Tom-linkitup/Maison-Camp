@@ -38,7 +38,7 @@ public class LoginHandler extends HttpServlet {
 		
 		if (loginEmpVO == null) {
 			errorMsgs.add("帳號或密碼錯誤!");
-			res.sendRedirect(req.getContextPath() + "/back_end/emp/loginEmp.jsp");
+			res.sendRedirect(req.getContextPath() + "/back-end/emp/loginEmp.jsp");
 			return;
 		} else {
 			//讓cookie保存登入 依帳號。
@@ -61,7 +61,7 @@ public class LoginHandler extends HttpServlet {
 			} catch (Exception ignored) {
 			}
 			
-			res.sendRedirect(req.getContextPath() + "/back_end/emp/protected/backer.jsp");
+			res.sendRedirect(req.getContextPath() + "/back-end/emp/protected/backer.jsp");
 		}
 
 	}

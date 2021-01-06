@@ -49,11 +49,10 @@
 							class="hidden-xs">${empVO.emp_name}</span>
 					</a>
 						<ul class="dropdown-menu">
-							<li class=""><a href="<%=request.getContextPath()%>/back_end/emp/lookYourSelf.jsp" class="">個人資料</a></li>
-							<li><a
-								href="<%=request.getContextPath()%>/emp/emp.do?action=logout">登出</a>
-							</li>
-						</ul></li>
+							<li class=""><a href="<%=request.getContextPath()%>/back-end/emp/protected/lookYourSelf.jsp" class="">個人資料</a></li>
+							<li><a href="<%=request.getContextPath()%>/emp/emp.do?action=logout">登出</a></li>
+						</ul>
+					</li>
 				</ul>
 			</div>
 		</nav>
