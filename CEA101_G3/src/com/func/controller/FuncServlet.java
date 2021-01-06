@@ -37,12 +37,12 @@ public class FuncServlet extends HttpServlet {
 				FuncService funcSvc = new FuncService();
 				funcSvc.deleteFunc(func_id);
 				
-				RequestDispatcher failureView = req.getRequestDispatcher("/back_end/emp/protected/viewFunc.jsp");
+				RequestDispatcher failureView = req.getRequestDispatcher("/back-end/emp/protected/viewFunc.jsp");
 				failureView.forward(req, res);
 				
 			} catch (Exception e) {
 				errorMsgs.add("需先刪除其他表格的關聯");
-				RequestDispatcher failureView = req.getRequestDispatcher("/back_end/emp/protected/viewFunc.jsp");
+				RequestDispatcher failureView = req.getRequestDispatcher("/back-end/emp/protected/viewFunc.jsp");
 				failureView.forward(req, res);
 			}
 		}
@@ -70,18 +70,18 @@ public class FuncServlet extends HttpServlet {
 				}
 				
 				if (!errorMsgs.isEmpty()) {
-					RequestDispatcher failureView = req.getRequestDispatcher("/back_end/emp/protected/addFunc.jsp");
+					RequestDispatcher failureView = req.getRequestDispatcher("/back-end/emp/protected/addFunc.jsp");
 					failureView.forward(req, res);
 					return;
 				}
 				
 				FuncService funcSvc = new FuncService();
 				funcSvc.addFunc(func_id,func_name,func_info);
-				RequestDispatcher failureView = req.getRequestDispatcher("/back_end/emp/protected/viewFunc.jsp");
+				RequestDispatcher failureView = req.getRequestDispatcher("/back-end/emp/protected/viewFunc.jsp");
 				failureView.forward(req, res);
 			}catch (Exception e) {
 				errorMsgs.add("錯誤: 該功能編號已存在");
-				RequestDispatcher failureView = req.getRequestDispatcher("/back_end/emp/protected/addFunc.jsp");
+				RequestDispatcher failureView = req.getRequestDispatcher("/back-end/emp/protected/addFunc.jsp");
 				failureView.forward(req, res);
 			}
 		}
