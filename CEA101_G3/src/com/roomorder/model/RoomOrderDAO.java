@@ -38,6 +38,7 @@ public class RoomOrderDAO implements RoomOrderDAO_Interface {
 	private static final String Get_One_Stmt = "SELECT ROOM_ORDER_ID, MEM_ID, CHECK_IN_DATE, CHECK_OUT_DATE, STATUS FROM ROOM_ORDER WHERE ROOM_ORDER_ID=?";
 	private static final String Get_One_By_Mem_Id = "SELECT ROOM_ORDER_ID, MEM_ID, CHECK_IN_DATE, CHECK_OUT_DATE, STATUS FROM ROOM_ORDER WHERE MEM_ID = ?";
 	private static final String Get_All_Stmt = "SELECT ROOM_ORDER_ID, MEM_ID, CHECK_IN_DATE, CHECK_OUT_DATE, STATUS FROM ROOM_ORDER ORDER BY ROOM_ORDER_ID";
+	private static final String Cancel_Order_Stmt = "UPDATE ROOM_ORDER SET STATUS=? WHERE ROOM_ORDER_ID=?";
 	
 	@Override
 	public void addRoomOrder(RoomOrderVO roomOrderVO) {
@@ -427,6 +428,67 @@ public class RoomOrderDAO implements RoomOrderDAO_Interface {
 			}
 		}	
 		return list;
+	}
+
+	@Override
+	public void updateWithRsv(Integer status, String room_order_id, JSONObject orderItem) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		
+		try {
+			con = ds.getConnection();		
+			//設定於 pstm.executeUpdate()之前
+    		con.setAutoCommit(false);
+			
+    		//先更新訂單狀態		
+			pstmt = con.prepareStatement(Cancel_Order_Stmt);			
+			pstmt.setInt(1, status);
+			pstmt.setString(2, room_order_id);
+			pstmt.executeUpdate();
+			
+			//再同時更新預定表
+			RoomRsvDAO rsvdao = new RoomRsvDAO();
+			rsvdao.updateWithOrder(orderItem, con);
+
+			//設定於 pstm.executeUpdate()之後
+			con.commit();
+			con.setAutoCommit(true);
+			System.out.println("取消訂單成功");
+			System.out.println("取消訂單，預定表更新成功");
+			
+			// Handle any driver errors
+		} catch (SQLException se) {
+			if (con != null) {
+				try {
+					// 3.設定於當有exception發生時之catch區塊內
+					System.err.print("Transaction is being ");
+					System.err.println("rolled back-由-dept");
+					con.rollback();
+				} catch (SQLException excep) {
+					throw new RuntimeException("rollback error occured. "
+							+ excep.getMessage());
+				}
+			}
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}		
+		
 	}
 
 }

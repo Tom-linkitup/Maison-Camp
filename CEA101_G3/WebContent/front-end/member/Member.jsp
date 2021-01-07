@@ -247,48 +247,58 @@
           <!--room order section -->      
           <div id="room-order-show" class="row info-form" style="display:none;">
           	<h3 class="room-headline">住房訂單</h3>
-          	<c:forEach var="roVO" items="${rolist}">
-              <div class="container">
-			      <div class="row">
-			      	<div class="col-sm-4">
-                    	<img src="<%=request.getContextPath()%>/FrontEndRTPhoto?room_category_id=${rodSvc.getOneROD(roVO.room_order_id).room_category_id}" style="width:300px; height:200px; margin-left:-12px;"/>              		
-			      	</div>
-			      	<div class="col-sm-4">
-				      	<h4 class="room-order-headline">${rtSvc.getOneRT(rodSvc.getOneROD(roVO.room_order_id).room_category_id).room_name}</h4>
-						<ul style="list-style:none; padding:5px 0; line-height:2em; font-size: 15px;">
-			      			<li><i class="fa fa-chevron-circle-right"></i>房型說明: ${rtSvc.getOneRT(rodSvc.getOneROD(roVO.room_order_id).room_category_id).room_type}</li>
-							<li><i class="fa fa-chevron-circle-right"></i>入住日期: ${roVO.check_in_date}</li>
-							<li><i class="fa fa-chevron-circle-right"></i>退房日期: ${roVO.check_out_date}</li>
-							<li><i class="fa fa-chevron-circle-right"></i>訂房數量: ${rodSvc.getOneROD(roVO.room_order_id).quantity} 間</li>
-							<li><i class="fa fa-chevron-circle-right"></i>訂單金額: ${rodSvc.getOneROD(roVO.room_order_id).room_order_price} 元</li>
-						</ul>
-			      	</div>
-			      	<div class="col-sm-4 right-side">
-			      		<h4>訂單編號：#${roVO.room_order_id}</h4>
-			      		<h4>下單日期：${rodSvc.getOneROD(roVO.room_order_id).order_time}</h4>
-			      		<c:choose>
-			      			<c:when test="${roVO.status == '0'}">
-					      		<i style="color:#47cf72" class="fas fa-check-circle">已付款</i>
-					      		<form method="post" action="<%=request.getContextPath()%>/RoomOrder.do">
-					      			<input type="hidden" name="room_order_id" value="${roVO.room_order_id}">
-					      			<input type="hidden" name="mem_id" value="${memVO.mem_id}">
-					      			<input type="hidden" name="check_in_date" value="${roVO.check_in_date}">
-					      			<input type="hidden" name="check_out_date" value="${roVO.check_out_date}">
-					      			<input type="hidden" name="action" value="cancelRoomOrder">
-						      		<button class="btn btn-danger" type="submit">取消訂單</button>
-					      		</form>
-			      			</c:when>
-			      			<c:when test="${roVO.status == '1'}">
-			      				<i style="color:#c15c61" class="fas fa-check-circle">已取消</i>
-			      			</c:when>
-			      			<c:otherwise>
-			      				<i style="color:lightblue" class="fas fa-check-circle">已完單</i>
-			      			</c:otherwise>
-			      		</c:choose>	      		
-			      	</div>
+          	<c:choose>
+          		<c:when test="${empty rolist}">
+	          		<div class="container">
+          				<h4 style="text-align:center; color:#777;">尚無訂房訂單資料</h4>
+          			</div>
+          		</c:when>
+          		<c:otherwise>
+          		<c:forEach var="roVO" items="${rolist}">
+	              <div class="container">
+				      <div class="row">
+				      	<div class="col-sm-4">
+	                    	<img src="<%=request.getContextPath()%>/FrontEndRTPhoto?room_category_id=${rodSvc.getOneROD(roVO.room_order_id).room_category_id}" style="width:300px; height:200px; margin-left:-12px;"/>              		
+				      	</div>
+				      	<div class="col-sm-4">
+					      	<h4 class="room-order-headline">${rtSvc.getOneRT(rodSvc.getOneROD(roVO.room_order_id).room_category_id).room_name}</h4>
+							<ul style="list-style:none; padding:5px 0; line-height:2em; font-size: 15px;">
+				      			<li><i class="fa fa-chevron-circle-right"></i>房型說明: ${rtSvc.getOneRT(rodSvc.getOneROD(roVO.room_order_id).room_category_id).room_type}</li>
+								<li><i class="fa fa-chevron-circle-right"></i>入住日期: ${roVO.check_in_date}</li>
+								<li><i class="fa fa-chevron-circle-right"></i>退房日期: ${roVO.check_out_date}</li>
+								<li><i class="fa fa-chevron-circle-right"></i>訂房數量: ${rodSvc.getOneROD(roVO.room_order_id).quantity} 間</li>
+								<li><i class="fa fa-chevron-circle-right"></i>訂單金額: ${rodSvc.getOneROD(roVO.room_order_id).room_order_price} 元</li>
+							</ul>
+				      	</div>
+				      	<div class="col-sm-4 right-side">
+				      		<h4>訂單編號：#${roVO.room_order_id}</h4>
+				      		<h4>下單日期：${rodSvc.getOneROD(roVO.room_order_id).order_time}</h4>
+				      		<c:choose>
+				      			<c:when test="${roVO.status == '0'}">
+						      		<i style="color:#47cf72" class="fas fa-check-circle">已付款</i>
+						      		<form method="post" action="<%=request.getContextPath()%>/RoomOrder.do">
+						      			<input type="hidden" name="room_order_id" value="${roVO.room_order_id}">
+						      			<input type="hidden" name="room_category_id" value="${rodSvc.getOneROD(roVO.room_order_id).room_category_id}">
+						      			<input type="hidden" name="quantity" value="${rodSvc.getOneROD(roVO.room_order_id).quantity}">
+						      			<input type="hidden" name="check_in_date" value="${roVO.check_in_date}">
+						      			<input type="hidden" name="check_out_date" value="${roVO.check_out_date}">
+						      			<input type="hidden" name="action" value="cancelRoomOrder">
+							      		<button class="btn btn-danger" type="submit">取消訂單</button>
+						      		</form>
+				      			</c:when>
+				      			<c:when test="${roVO.status == '1'}">
+				      				<i style="color:#c15c61" class="fas fa-check-circle">已取消</i>
+				      			</c:when>
+				      			<c:otherwise>
+				      				<i style="color:lightblue" class="fas fa-check-circle">已完單</i>
+				      			</c:otherwise>
+				      		</c:choose>	      		
+				      	</div>
+				      </div>
 			      </div>
-		      </div>
-		      </c:forEach>
+			      </c:forEach>
+          		</c:otherwise>
+          	</c:choose>
           </div>
           <!--shop order section -->      
           <div id="shop-order-show" class="row info-form" style="display:none;">

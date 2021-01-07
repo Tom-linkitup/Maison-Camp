@@ -68,5 +68,11 @@ public class RoomOrderJDBCDAO implements RoomOrderDAO_Interface {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	@Override
+	public void updateWithRsv(Integer status, String room_order_id, JSONObject orderItem) {
+		// TODO Auto-generated method stub
+		
+	}
 	
 }

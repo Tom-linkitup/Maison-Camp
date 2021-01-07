@@ -55,6 +55,14 @@
 	position:sticky;
 	top:0;
 }
+
+.displayB {
+	display: '';
+}
+
+.displayN {
+	display: none;
+}
 </style>
 </head>
 <body>
@@ -62,6 +70,12 @@
 		<h2 style="text-align:center; margin-bottom:20px;">訂房訂單資訊</h2>
 	</header>
 	<div style="height:43em; overflow:scroll;">
+		<div style="display:inline-flex; position:absolute; top:70px; right:15px;">
+			<div style="line-height:2; margin-right:4px;">搜尋訂單</div>
+			<form class="form-inline my-2 my-lg-0" action="">
+				<input class="form-control mr-sm-2 selectEmpBySomeThing" type="text" placeholder="Search" aria-label="Search">
+			</form>	
+		</div>
 		<table id="myTable" class="table table-striped" style="text-align:center;">
 			<tr>
 				<th>訂單編號</th>
@@ -72,9 +86,9 @@
 				<th colspan="2">訂單修改</th>
 			</tr>
 			<c:forEach var="roomOrderVO" items="${list}">
-			<tr class="hover">	
-				<td><a class="linkit" href="<%=request.getContextPath()%>/back-end/room-order/RoomOrderDetail.jsp?room_order_id=${roomOrderVO.room_order_id}&mem_id=${roomOrderVO.mem_id}">${roomOrderVO.room_order_id}</a></td>
-				<td>${roomOrderVO.mem_id}</td>
+			<tr class="hover colorRow">	
+				<td class="id_info"><a class="linkit" href="<%=request.getContextPath()%>/back-end/room-order/RoomOrderDetail.jsp?room_order_id=${roomOrderVO.room_order_id}&mem_id=${roomOrderVO.mem_id}">${roomOrderVO.room_order_id}</a></td>
+				<td class="name_info">${roomOrderVO.mem_id}</td>
 				<td>${roomOrderVO.check_in_date}</td>
 				<td>${roomOrderVO.check_out_date}</td>
 				<td><c:choose>
@@ -171,7 +185,21 @@
 		
 		$(".cancel").click(function(){
 			$("#showBox").css("display","none");
-		})
+		});
+		
+		$(".selectEmpBySomeThing").keyup(function() {
+			let id_info = $('.id_info');
+			let name_info = $('.name_info');
+			$(".colorRow").addClass('displayN');
+
+			for (let i = 0; i < id_info.length; i++) {
+				if (id_info[i].innerText.indexOf($(".selectEmpBySomeThing").val().trim()) != -1 || 
+						name_info[i].innerText.indexOf($(".selectEmpBySomeThing").val().trim()) != -1) {
+					id_info[i].parentNode.classList.remove('displayN');
+					id_info[i].parentNode.classList.add('displayB');
+				}
+			}
+		});
 	</script>	
 <%@include file="/back-end/back-template/backIndex2.file"%>
 </body>

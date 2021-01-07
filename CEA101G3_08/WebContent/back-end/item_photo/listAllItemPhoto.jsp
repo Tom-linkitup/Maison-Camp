@@ -3,11 +3,11 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="java.util.*"%>
 <%@ page import="com.item_photo.model.*"%>
-<%
+<%-- <%
 	ItemPhotoService itemPhotoSvc = new ItemPhotoService();
     List<ItemPhotoVO> list = itemPhotoSvc.getAll();
     pageContext.setAttribute("list",list);
-%>
+%> --%>
 
 <jsp:useBean id="itemSvc" scope="page" class="com.item.model.ItemService" />
 
@@ -43,7 +43,7 @@
 		<th>­×§ï</th>
 		<th>§R°£</th>
 	</tr>
-	<%@ include file="page1.file" %> 
+	
 	<c:forEach var="itemPhotoVO" items="${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
 		
 		<tr>

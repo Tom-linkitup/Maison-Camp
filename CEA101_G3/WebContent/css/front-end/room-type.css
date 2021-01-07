@@ -156,7 +156,7 @@ body {
 }
 
 .title-text {
-  height: 150px;
+  height: 100px;
   text-align: center;
   color: #fff;
 }
@@ -164,7 +164,7 @@ body {
   font-family: Arial, Helvetica, verdana, 微軟正黑體, sans-serif;
   font-weight: bold;
   letter-spacing: 5px;
-  line-height: 150px;
+  line-height: 100px;
   font-size: 32px;
 }
 

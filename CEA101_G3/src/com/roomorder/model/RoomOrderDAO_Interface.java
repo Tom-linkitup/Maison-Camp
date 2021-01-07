@@ -18,4 +18,6 @@ public interface RoomOrderDAO_Interface {
     public Set<RoomOrderDetailVO> getDetailsByRoomOrderId(String room_order_id);    
     //同時新增訂單與訂單明細與預定表
     public void insertWithDetails(RoomOrderVO roomOrderVO , List<RoomOrderDetailVO> list, JSONObject orderItem);
+    //同時取消訂單（更改訂單狀態）與更新預定表
+    public void updateWithRsv(Integer status, String room_order_id, JSONObject orderItem);
 }

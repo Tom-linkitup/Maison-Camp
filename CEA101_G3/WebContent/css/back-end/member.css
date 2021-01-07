@@ -106,35 +106,32 @@ h1 {
 	font-size:5px;
 }
 
-#myTable {
-    border-collapse: collapse;
-    width: 100%;
-    border-top: 1px solid #000;
-    border-left:1px solid #ddd;
-    border-right:1px solid #ddd;
-    border-bottom:1px solid #ddd;
-    font-size: 16px; 
-}
 #myTable th {
-	position:sticky;
-	top:0;
 	background-color:#000;
 	color:#fff;
-	text-align:center;
-	padding:12px;
+	position:sticky;
+	top:0;
 }
 
-#myTable td {
-    text-align: left;
-    padding: 12px;
+.edit:hover {
+	color:lightblue;
+	cursor:pointer;
 }
 
-#myTable tr {
-    border-bottom: 1px solid #ddd;
+.delete:hover {
+	color:red;
+	cursor:pointer;
+}
+.hover:hover {
+	background-color:#c15c61 !important;
 }
 
-#myTable tr.header, #myTable tr:hover {
-    background-color: #999;
+.displayB {
+	display: '';
+}
+
+.displayN {
+	display: none;
 }
 
 /*light box*/

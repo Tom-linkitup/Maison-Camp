@@ -120,7 +120,6 @@
 		<url-pattern>/room_comment/room_comment.do</url-pattern>
 	</servlet-mapping>
     
-
   	<servlet>
 		<servlet-name>RoomPromotionServlet</servlet-name>
 		<servlet-class>com.room_promotion.controller.RoomPromotionServlet</servlet-class>
@@ -191,6 +190,60 @@
 	<servlet-mapping>
 		<servlet-name>getItemPhoto</servlet-name>
 		<url-pattern>/getItemPhoto.do</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>ActServlet</servlet-name>
+		<servlet-class>com.activity.controller.ActivityServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>ActServlet</servlet-name>
+		<url-pattern>/activity/act.do</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>ActCategory</servlet-name>
+		<servlet-class>com.actCategory.controller.ActivityCategoryServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>ActCategory</servlet-name>
+		<url-pattern>/actcategory/activityCategory.do</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>ActPhotoServlet</servlet-name>
+		<servlet-class>com.actPhoto.Controller.ActPhotoServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>ActPhotoServlet</servlet-name>
+		<url-pattern>/actPhoto/ActPhotoServlet.do</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>PhotoReader</servlet-name>
+		<servlet-class>com.actPhoto.Controller.PhotoReader</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>PhotoReader</servlet-name>
+		<url-pattern>/actPhoto/PhotoReader.do</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>ActOrderServlet</servlet-name>
+		<servlet-class>com.activityOrder.Controller.ActOrderServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>ActOrderServlet</servlet-name>
+		<url-pattern>/actOrder/ActOrderServlet.do</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>ActCommentServlet</servlet-name>
+		<servlet-class>com.activityComment.Controller.ActCommentServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>ActCommentServlet</servlet-name>
+		<url-pattern>/actComment/ActCommentServlet.do</url-pattern>
 	</servlet-mapping>
 	
 	<servlet>
