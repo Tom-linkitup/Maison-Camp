@@ -7,7 +7,7 @@ public class EmpService {
 	private EmpDAO_interface dao;
 	
 	public EmpService() {
-		dao = new EmpJDBCDAO();
+		dao = new EmpDAO();
 	}
 	
 	public EmpVO addEmp(String emp_user_id, String emp_user_pwd, String emp_name, Integer emp_status) {

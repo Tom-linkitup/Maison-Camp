@@ -3,14 +3,14 @@ package com.shop_order_detail.model;
 import java.sql.Date;
 import java.util.List;
 
-import com.shop_order.model.ShopOrderJDBCDAO;
+import com.shop_order.model.ShopOrderDAO;
 
 public class ShopOrderDetailService {
 
 	private ShopOrderDetailDAO_interface dao;
 	
 	public ShopOrderDetailService() {
-		dao = new ShopOrderDetailJDBCDAO();
+		dao = new ShopOrderDetailDAO();
 	}
 
 	public ShopOrderDetailVO addShopOrderDetail(String item_id, String item_promotion_id, String note, Integer quantity, Integer item_price) {

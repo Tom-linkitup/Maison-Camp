@@ -6,7 +6,7 @@ public class FuncService {
 	FuncDAO_interface dao = null;
 	
 	public FuncService() {
-		dao = new FuncJDBCDAO();
+		dao = new FuncDAO();
 	}
 	
 	public FuncVO addFunc(String func_id, String func_name, String func_info) {

@@ -10,7 +10,7 @@ public class ShopOrderService {
 	private ShopOrderDAO_interface dao;
 
 	public ShopOrderService() {
-		dao = new ShopOrderJDBCDAO();
+		dao = new ShopOrderDAO();
 	}
 
 	public ShopOrderVO addShopOrder(String mem_id, String payment, Date time,

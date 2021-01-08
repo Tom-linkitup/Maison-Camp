@@ -7,7 +7,7 @@ public class EmpFuncService {
 	private EmpFuncDAO_interface dao;
 	
 	public EmpFuncService() {
-		dao = new EmpFuncJDBCDAO();
+		dao = new EmpFuncDAO();
 	}
 	
 	public EmpFuncVO addEmpFunc(String emp_id , String func_id) {
