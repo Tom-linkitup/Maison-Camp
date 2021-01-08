@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -39,6 +40,8 @@ public class RoomOrderDAO implements RoomOrderDAO_Interface {
 	private static final String Get_One_By_Mem_Id = "SELECT ROOM_ORDER_ID, MEM_ID, CHECK_IN_DATE, CHECK_OUT_DATE, STATUS FROM ROOM_ORDER WHERE MEM_ID = ?";
 	private static final String Get_All_Stmt = "SELECT ROOM_ORDER_ID, MEM_ID, CHECK_IN_DATE, CHECK_OUT_DATE, STATUS FROM ROOM_ORDER ORDER BY ROOM_ORDER_ID";
 	private static final String Cancel_Order_Stmt = "UPDATE ROOM_ORDER SET STATUS=? WHERE ROOM_ORDER_ID=?";
+	private static final String Get_Check_In_Order = "SELECT * FROM ROOM_ORDER WHERE CHECK_IN_DATE <= CURRENT_DATE;";
+	private static final String Get_Check_Out_Order = "SELECT * FROM ROOM_ORDER WHERE CHECK_OUT_DATE <= CURRENT_DATE;";
 	
 	@Override
 	public void addRoomOrder(RoomOrderVO roomOrderVO) {
@@ -489,6 +492,18 @@ public class RoomOrderDAO implements RoomOrderDAO_Interface {
 			}
 		}		
 		
+	}
+
+	@Override
+	public List<RoomOrderVO> getAllBeforeToday(LocalDate today) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<RoomOrderVO> getAllDateOut(LocalDate today) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }
