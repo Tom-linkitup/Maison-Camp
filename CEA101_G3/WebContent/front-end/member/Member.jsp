@@ -333,7 +333,7 @@
 				      	<div class="col-sm-4">
 								<c:forEach var="actPhotoVO" items="${acPhSvc.getByActId(actOrderVO.actId)}" begin="0" end="0">
 									<c:if test="${actPhotoVO.content != null}">	
-										<img  src="<%=request.getContextPath()%>/actPhoto/ActPhotoServlet.do?action=showPhoto&photo=${actPhotoVO.actPhotoId}">
+										<img  src="<%=request.getContextPath()%>/actPhoto/ActPhotoServlet.do?action=showPhoto&photo=${actPhotoVO.actPhotoId}" style="width:300px; height:200px; margin-left:-12px;">
 									</c:if>
 									<c:if test="${actPhotoVO.content == null }">
 										查無圖片
