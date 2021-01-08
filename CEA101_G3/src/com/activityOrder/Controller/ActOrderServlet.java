@@ -40,9 +40,7 @@ public class ActOrderServlet extends HttpServlet {
 				// 接受請求參數----檢查資料格式
 				String actId = req.getParameter("actId");
 
-
 				String memId = req.getParameter("memId");
-
 
 				String note = req.getParameter("note");
 
@@ -60,14 +58,12 @@ public class ActOrderServlet extends HttpServlet {
 				Integer status = null;
 				status = Integer.parseInt(req.getParameter("status"));
 
-
 				String payment = req.getParameter("payment");
 
 				java.sql.Date createTime = java.sql.Date.valueOf(req.getParameter("createTime"));
 
 				Integer actPrice = null;
 				actPrice = Integer.valueOf(req.getParameter("actPrice"));
-
 
 				// 資料格式驗證完成 包裝資料
 				ActivityOrderVO aoVO = new ActivityOrderVO();
@@ -99,7 +95,6 @@ public class ActOrderServlet extends HttpServlet {
 			}
 		}
 
-		
 // ------------後端新增活動訂單-----------
 		if ("insert".equals(action)) {
 
@@ -204,12 +199,12 @@ public class ActOrderServlet extends HttpServlet {
 				req.setAttribute("activityOrderVO", aoVO);
 
 				if (errorMsgs.isEmpty()) {
-					String url = "/"+req.getParameter("from")+"/actOrder/listOneActOrder.jsp";
+					String url = "/" + req.getParameter("from") + "/actOrder/listOneActOrder.jsp";
 					RequestDispatcher successView = req.getRequestDispatcher(url);
 					successView.forward(req, res);
 				} else {
 					req.setAttribute("activityOrderVO", aoVO);
-					String url = "/"+req.getParameter("from")+"/actOrder/actOrder_select_page.jsp";
+					String url = "/" + req.getParameter("from") + "/actOrder/actOrder_select_page.jsp";
 					RequestDispatcher failureView = req.getRequestDispatcher(url);
 					failureView.forward(req, res);
 					return;
@@ -256,44 +251,41 @@ public class ActOrderServlet extends HttpServlet {
 		}
 
 //--------------------來自各查詢頁面的更新活動訂單請求
-		if("getOne_For_Update".equals(action)) {
+		if ("getOne_For_Update".equals(action)) {
 			try {
-				
+
 				String actOrderId = req.getParameter("actOrderId");
 				ActivityOrderService aos = new ActivityOrderService();
 				ActivityOrderVO aoVO = aos.findByActOrderID(actOrderId);
-				
-				
+
 				req.setAttribute("activityOrderVO", aoVO);
 				String url = "/back-end/actOrder/updateActOrder.jsp";
 				RequestDispatcher success = req.getRequestDispatcher(url);
 				success.forward(req, res);
-			}catch(Exception e) {
+			} catch (Exception e) {
 				e.printStackTrace();
 			}
 		}
 //---------------------更新活動訂單資料
-		if("update".equals(action)) {
+		if ("update".equals(action)) {
 			List<String> errorMsgs = new LinkedList<String>();
 			req.setAttribute("errorMsgs", errorMsgs);
-			
-			
+
 			try {
 				String actOrderId = req.getParameter("actOrderId");
-				
-				//先撈出該筆訂單
+
+				// 先撈出該筆訂單
 				ActivityOrderService aos = new ActivityOrderService();
 				ActivityOrderVO aoVO = aos.findByActOrderID(actOrderId);
-				
-				
+
 				String actId = req.getParameter("actId");
 				String actIdRex = "^A[0-9]+$";
 				if (actId == null || !actId.matches(actIdRex)) {
 					errorMsgs.add("活動編號格式不正確");
 				}
-				
+
 				String memId = req.getParameter("memId");
-		
+
 				String note = req.getParameter("note");
 
 				Integer people = null;
@@ -333,54 +325,103 @@ public class ActOrderServlet extends HttpServlet {
 				aoVO.setPayment(payment);
 				aoVO.setCreateTime(createTime);
 				aoVO.setActPrice(actPrice);
-				
-				if(!errorMsgs.isEmpty()) {
+
+				if (!errorMsgs.isEmpty()) {
 					req.setAttribute("activityOrderVO", aoVO);
 					String url = "/back-end/actOrder/updateActOrder.jsp";
 					RequestDispatcher failureView = req.getRequestDispatcher(url);
 					failureView.forward(req, res);
 				}
-				
-				
+
 				aos.updateByActOrderId(actOrderId, actId, memId, note, people, actPrice, payment, createTime, status);
-				
+
 				req.setAttribute("activityOrderVO", aoVO);
 				String url = "/back-end/actOrder/listOneActOrder.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url);
 				successView.forward(req, res);
-				
-				
-			}catch(Exception e) {
+
+			} catch (Exception e) {
 				e.printStackTrace();
 			}
-			
+
 		}
-		
-//---------------------刪除活動訂單資料
-		if("delete".equals(action)) {
-			
+
+// ---------------------前端取消活動訂單
+		if ("usercancel".equals(action)) {
+			List<String> errorMsgs = new LinkedList<String>();
+			req.setAttribute("errorMsgs", errorMsgs);
+
 			try {
-				
 				String actOrderId = req.getParameter("actOrderId");
-				
+
+				// 先撈出該筆訂單
+				ActivityOrderService aos = new ActivityOrderService();
+				ActivityOrderVO aoVO = aos.findByActOrderID(actOrderId);
+
+				String actId = aoVO.getActId();
+				String memId = aoVO.getMemId();
+
+				String note = aoVO.getNote();
+
+				Integer people = aoVO.getPeople();
+
+				Integer status = 1;
+
+				String payment = aoVO.getPayment();
+
+				java.sql.Date createTime = aoVO.getCreateTime();
+
+				Integer actPrice = aoVO.getActPrice();
+
+				aoVO.setActId(actId);
+				aoVO.setNote(note);
+				aoVO.setPeople(people);
+				aoVO.setStatus(status);
+				aoVO.setPayment(payment);
+				aoVO.setCreateTime(createTime);
+				aoVO.setActPrice(actPrice);
+
+				if (!errorMsgs.isEmpty()) {
+					req.setAttribute("activityOrderVO", aoVO);
+					String url = "/front-end/member/Member.jsp";
+					RequestDispatcher failureView = req.getRequestDispatcher(url);
+					failureView.forward(req, res);
+				}
+
+				aos.updateByActOrderId(actOrderId, actId, memId, note, people, actPrice, payment, createTime, status);
+
+				req.setAttribute("activityOrderVO", aoVO);
+				String url = "/front-end/member/Member.jsp";
+				RequestDispatcher successView = req.getRequestDispatcher(url);
+				successView.forward(req, res);
+
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+
+		}
+
+//---------------------刪除活動訂單資料
+		if ("delete".equals(action)) {
+
+			try {
+
+				String actOrderId = req.getParameter("actOrderId");
+
 				ActivityOrderService aos = new ActivityOrderService();
 				aos.deletebyActOrderId(actOrderId);
-				
+
 				String url = "/back-end/actOrder/listAllActOrder.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url);
 				successView.forward(req, res);
 
-			}catch(Exception e) {
-				
+			} catch (Exception e) {
+
 				System.out.println("刪除失敗");
 				e.printStackTrace();
 			}
-			
-			
+
 		}
-		
-		
-			
 
 	}
 
