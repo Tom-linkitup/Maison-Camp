@@ -5,6 +5,8 @@
     Room_promotionVO room_promotionVO = (Room_promotionVO) request.getAttribute("remain");
 	String insertSuccess = (String)request.getAttribute("insertSuccess");
 	String repeat = (String)request.getAttribute("repeat");
+	
+	request.getAttribute("room_promotionVO");
 %>
 	 		<!--  <input type="TEXT" name="room_category_id"  class="input-beautify" value="<%= (room_promotionVO==null)? "" : room_promotionVO.getRoom_category_id()%>"> -->
 <html>
@@ -53,24 +55,32 @@
 			</c:forEach>
 		</select></td>
 		</tr>
-		<%-- <p class="error" style="color:red; font-size:8px;">${errorMsgs.room_category_id}</p> --%>
+		<p class="error" style="color:red; font-size:8px;">${errorMsgs.room_category_id}</p>
 		</tr>
 		
 		<tr><td>優惠資訊說明:</td>
 		<td><input type="TEXT" name="room_promotion_info" class="input-beautify" value="<%=(room_promotionVO==null)? "" : room_promotionVO.getRoom_promotion_info()%>"></td>
-		<%-- <p class="error" style="color:red; font-size:8px;">${errorMsgs.room_promotion_info}</p> --%>
-		</tr>
+		<c:if test="${not empty errorMsgs}">
+		<p class="error" style="color:red; font-size:8px;">${errorMsgs.room_promotion_info}</p>
+		</c:if></tr><p></p>
 		 
-		<tr><td>優惠折扣設定:</td> </tr><input type="NUMBER" min="0" max="1" step="0.01" name="room_discount"  class="input-beautify" value="">
-		<%-- <p class="error" style="color:red; font-size:8px;">${errorMsgs.room_discount}</p> --%>
-	
-		<tr><td>優惠開始日期:</td>  </tr><input name="room_prom_start_date" id="f_date1" type="text" class="input-beautify" value="" >
-		<%-- <p class="error" style="color:red; font-size:8px;">${errorMsgs.room_prom_start_date}</p> --%>
-	
+		<tr><td>優惠折扣設定:</td>
+		<td><input type="NUMBER" min="0" max="1" step="0.01" name="room_discount"  class="input-beautify" value=""></td>
+		<c:if test="${not empty errorMsgs}">
+		<p class="error" style="color:red; font-size:8px;">${errorMsgs.room_discount}</p>
+		</c:if></tr><p></p>
 		
-		<tr><td>優惠結束日期:</td>  </tr><input name="room_prom_end_date" id="f_date2" type="text" class="input-beautify"  value="" >
-		<%-- <p class="error" style="color:red; font-size:8px;">${errorMsgs.room_prom_end_date}</p> --%>
+		<tr><td>優惠開始日期:</td>
+		<td><input name="room_prom_start_date" id="f_date1" type="text" class="input-beautify" value="" ></td>
+		<c:if test="${not empty errorMsgs}">
+		<p class="error" style="color:red; font-size:8px;">${errorMsgs.room_prom_start_date}</p>
+		</c:if></tr><p></p>
 		
+		<tr><td>優惠結束日期:</td>  
+		<td><input name="room_prom_end_date" id="f_date2" type="text" class="input-beautify"  value="" ></td>
+		<c:if test="${not empty errorMsgs}">
+		<p class="error" style="color:red; font-size:8px;">${errorMsgs.room_prom_end_date}</p>
+		</c:if></tr><p></p>
 		
 		
 		<input type="hidden" name="action" value="insert"><br>
@@ -125,7 +135,13 @@
            minDate:              '<%=room_prom_start_date%>'     
            // value:   new Date(),
            //maxDate:               '+1970-01-01'  // 去除今日(不含)之後
+        }).on('changeDate', function (ev) {
+            var startTime = $("#f_date1").val();
+            $("#mEndTimeDiv").datetimepicker("setStartDate", startTime.toString("yyyy-MM-dd"));
+            queryFunc();
         });
+        
+        
         
         
         $.datetimepicker.setLocale('zh');
@@ -146,17 +162,17 @@
         // ----------------------------------------------------------以下用來排定無法選擇的日期-----------------------------------------------------------
 
         //      1.以下為某一天之前的日期無法選擇
-              var somedate1 = new Date('<%=room_prom_start_date%>');
-              $('#f_date2').datetimepicker({
-                 beforeShowDay: function(date) {
-                	  if (  date.getYear() <  somedate1.getYear() || 
-        		           (date.getYear() == somedate1.getYear() && date.getMonth() <  somedate1.getMonth()) || 
-        		           (date.getYear() == somedate1.getYear() && date.getMonth() == somedate1.getMonth() && date.getDate() < somedate1.getDate())
-                      ) {
-                           return [false, ""]
-                      }
-                      return [true, ""];
-              }});
+    //        var somedate1 = new Date('');
+    //         $('#f_date2').datetimepicker({
+    //             beforeShowDay: function(date) {
+    //            	  if (  date.getYear() <  somedate1.getYear() || 
+    //    		           (date.getYear() == somedate1.getYear() && date.getMonth() <  somedate1.getMonth()) || 
+    //    		           (date.getYear() == somedate1.getYear() && date.getMonth() == somedate1.getMonth() && date.getDate() < somedate1.getDate())
+    //                  ) {
+    //                       return [false, ""]
+    //                  }
+    //                  return [true, ""];
+    //          }});
 
         
         //      2.以下為某一天之後的日期無法選擇

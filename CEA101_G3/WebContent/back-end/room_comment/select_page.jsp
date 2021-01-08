@@ -3,7 +3,7 @@
 <%@ page import="java.util.*"%>
 <%@ page import="com.room_comment.model.*"%>
 <!DOCTYPE html>
-<%@ include file="backIndex.file"%>
+<%@ include file="/back-end/back-template/backIndex.file"%>
 <html>
 <head>
 <meta charset="UTF-8">
@@ -32,6 +32,6 @@
 			<jsp:include page="listAllWaitReplyRoomComment.jsp" />
 		</div>
 	</div>
-	<%@ include file="backIndex2.file"%>
+<%@ include file="/back-end/back-template/backIndex2.file"%>
 </body>
 </html>

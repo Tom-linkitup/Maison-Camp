@@ -9,7 +9,7 @@
 <meta charset="UTF-8">
 <title>訂房優惠管理</title>
 <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/css/back-end/room_promotion.css" />
-<link rel="stylesheet" href="<%=request.getContextPath()%>/bootstrap/bootstrap.min.css">
+<link rel="stylesheet" href="<%=request.getContextPath()%>/back-end/backend/bootstrap/bootstrap.min.css">
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <script src="http://code.jquery.com/jquery-1.12.4.min.js"></script>
@@ -41,7 +41,6 @@
 			<jsp:include page="addRoomPromotion.jsp" />
 		</div>
 	</div>
-	
-</body>
 <%@ include file="/back-end/back-template/backIndex2.file"%>
+</body>
 </html>
