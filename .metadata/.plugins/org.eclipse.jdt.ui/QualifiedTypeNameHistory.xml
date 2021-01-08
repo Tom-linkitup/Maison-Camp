@@ -34,10 +34,10 @@
 <fullyQualifiedTypeName name="com.roomorderdetail.model.RoomOrderDetailService"/>
 <fullyQualifiedTypeName name="com.roomorderdetail.model.RoomOrderDetailVO"/>
 <fullyQualifiedTypeName name="java.text.SimpleDateFormat"/>
-<fullyQualifiedTypeName name="java.time.LocalDate"/>
 <fullyQualifiedTypeName name="java.sql.Connection"/>
 <fullyQualifiedTypeName name="com.roomrsv.model.RoomRsvDAO"/>
 <fullyQualifiedTypeName name="org.json.JSONObject"/>
 <fullyQualifiedTypeName name="java.sql.DatabaseMetaData"/>
 <fullyQualifiedTypeName name="java.sql.Date"/>
+<fullyQualifiedTypeName name="java.time.LocalDate"/>
 </qualifiedTypeNameHistroy>

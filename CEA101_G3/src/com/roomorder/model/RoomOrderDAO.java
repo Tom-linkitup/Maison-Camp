@@ -42,6 +42,7 @@ public class RoomOrderDAO implements RoomOrderDAO_Interface {
 	private static final String Cancel_Order_Stmt = "UPDATE ROOM_ORDER SET STATUS=? WHERE ROOM_ORDER_ID=?";
 	private static final String Get_Check_In_Order = "SELECT * FROM ROOM_ORDER WHERE CHECK_IN_DATE <= CURRENT_DATE;";
 	private static final String Get_Check_Out_Order = "SELECT * FROM ROOM_ORDER WHERE CHECK_OUT_DATE <= CURRENT_DATE;";
+	private static final String Get_Order_By_Status = "SELECT * FROM ROOM_ORDER WHERE STATUS=?";
 	
 	@Override
 	public void addRoomOrder(RoomOrderVO roomOrderVO) {
@@ -495,15 +496,140 @@ public class RoomOrderDAO implements RoomOrderDAO_Interface {
 	}
 
 	@Override
-	public List<RoomOrderVO> getAllBeforeToday(LocalDate today) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<RoomOrderVO> getAllBeforeToday() {
+		List<RoomOrderVO> list = new ArrayList<>();
+		RoomOrderVO roomOrderVO = null;
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try {
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(Get_Check_In_Order);
+			rs = pstmt.executeQuery();	
+			while(rs.next()) {
+				roomOrderVO = new RoomOrderVO();
+				roomOrderVO.setRoom_order_id(rs.getString("ROOM_ORDER_ID"));
+				roomOrderVO.setMem_id(rs.getString("MEM_ID"));
+				roomOrderVO.setCheck_in_date(rs.getDate("CHECK_IN_DATE"));
+				roomOrderVO.setCheck_out_date(rs.getDate("CHECK_OUT_DATE"));
+				roomOrderVO.setStatus(rs.getInt("STATUS"));	
+				list.add(roomOrderVO);
+			}
+
+			// Handle any SQL errors
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}	
+		return list;
 	}
 
 	@Override
-	public List<RoomOrderVO> getAllDateOut(LocalDate today) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<RoomOrderVO> getAllDateOut() {
+		List<RoomOrderVO> list = new ArrayList<>();
+		RoomOrderVO roomOrderVO = null;
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try {
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(Get_Check_Out_Order);
+			rs = pstmt.executeQuery();	
+			while(rs.next()) {
+				roomOrderVO = new RoomOrderVO();
+				roomOrderVO.setRoom_order_id(rs.getString("ROOM_ORDER_ID"));
+				roomOrderVO.setMem_id(rs.getString("MEM_ID"));
+				roomOrderVO.setCheck_in_date(rs.getDate("CHECK_IN_DATE"));
+				roomOrderVO.setCheck_out_date(rs.getDate("CHECK_OUT_DATE"));
+				roomOrderVO.setStatus(rs.getInt("STATUS"));	
+				list.add(roomOrderVO);
+			}
+
+			// Handle any SQL errors
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}	
+		return list;
+	}
+
+	@Override
+	public List<RoomOrderVO> getAllByOrderStatus(Integer status) {
+		List<RoomOrderVO> list = new ArrayList<>();
+		RoomOrderVO roomOrderVO = null;
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try {
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(Get_Order_By_Status);
+			
+			pstmt.setInt(1, status);
+			rs = pstmt.executeQuery();	
+			while(rs.next()) {
+				roomOrderVO = new RoomOrderVO();
+				roomOrderVO.setRoom_order_id(rs.getString("ROOM_ORDER_ID"));
+				roomOrderVO.setMem_id(rs.getString("MEM_ID"));
+				roomOrderVO.setCheck_in_date(rs.getDate("CHECK_IN_DATE"));
+				roomOrderVO.setCheck_out_date(rs.getDate("CHECK_OUT_DATE"));
+				roomOrderVO.setStatus(rs.getInt("STATUS"));	
+				list.add(roomOrderVO);
+			}
+
+			// Handle any SQL errors
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}	
+		return list;
 	}
 
 }
