@@ -7,7 +7,7 @@ public class RepairService {
 	private RepairDAO_interface dao;
 
 	public RepairService() {
-		dao = new RepairJDBCDAO();
+		dao = new RepairDAO();
 	}
 
 	public RepairVO addRepair(String room_id,String emp_id,String repair_info,Integer status) {

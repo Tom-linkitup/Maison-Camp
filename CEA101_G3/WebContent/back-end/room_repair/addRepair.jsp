@@ -45,16 +45,23 @@
 				<option value="${roomVO.room_id}" 'selected':'' } >${roomVO.room_id}
 			</c:forEach></select>
 	     </td></tr><br><br>
+	     
+	     
 <jsp:useBean id="empSvc" scope="page" class="com.emp.model.EmpService" />		
 	<tr><td>員工編號：</td><td><select  name="emp_id" class="input-beautify">
 			<c:forEach var="empVO" items="${empSvc.all}">
 				<option value="${empVO.emp_id}" 'selected':'' } >${empVO.emp_name}(${empVO.emp_id}) 
 			</c:forEach>
 </select></td></tr><br><br>
+
 	<tr><td>維修資訊：</td><input class="input-beautify" type="text" name="repair_info" value="">
-			<%-- <p class="error" style="color:red; font-size:8px;">${errorMsgs.repair_info}</p> --%>
+			<c:if test="${not empty errorMsgs}">
+			 <p class="error" style="color:red; font-size:8px;">${errorMsgs.repair_info}</p> 
+			</c:if>
+			
 			<input  id="status" class="input-beautify" type="text" name="status"  value="0" hidden>
 			</tr>
+			
 			<td><input type="hidden" name="action" value="insert"><br>
 			<button id="add" type="submit" class="btn btn-primary">新增修繕</button>
 				
