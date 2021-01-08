@@ -29,7 +29,6 @@
 <!-- 取得預訂資料 -->
 <%
 	JSONObject jsonObj = (JSONObject) session.getAttribute("infoJson");
-
 	Integer stay = new Integer(jsonObj.getString("stay"));
 	pageContext.setAttribute("stay", stay);
 	

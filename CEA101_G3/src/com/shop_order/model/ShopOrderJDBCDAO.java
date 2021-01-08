@@ -3,10 +3,13 @@ package com.shop_order.model;
 import java.sql.*;
 import java.util.*;
 
+import com.shop_order_detail.model.ShopOrderDetailJDBCDAO;
+import com.shop_order_detail.model.ShopOrderDetailVO;
+
 public class ShopOrderJDBCDAO implements ShopOrderDAO_interface {
 	String driver = "oracle.jdbc.driver.OracleDriver";
 	String url = "jdbc:oracle:thin:@localhost:1521:XE";
-	String userid = "YUCHI";
+	String userid = "CEA101G3";
 	String password = "123456";
 
 	public static final String INSERT_STMT = "INSERT INTO SHOP_ORDER (SHOP_ORDER_ID,MEM_ID,PAYMENT,TIME,SHOP_TOTAL_AMOUNT,STATUS)"
@@ -33,7 +36,7 @@ public class ShopOrderJDBCDAO implements ShopOrderDAO_interface {
 			pstmt.setString(1, shopOrderVO.getMem_id());
 			pstmt.setString(2, shopOrderVO.getPayment());
 			pstmt.setDate(3, shopOrderVO.getTime());
-			pstmt.setInt(4, shopOrderVO.getShop_total_amount());
+			pstmt.setFloat(4, shopOrderVO.getShop_total_amount());
 			pstmt.setInt(5, shopOrderVO.getStatus());
 
 			pstmt.executeUpdate();
@@ -75,7 +78,7 @@ public class ShopOrderJDBCDAO implements ShopOrderDAO_interface {
 			pstmt.setString(1, shopOrderVO.getMem_id());
 			pstmt.setString(2, shopOrderVO.getPayment());
 			pstmt.setDate(3, shopOrderVO.getTime());
-			pstmt.setInt(4, shopOrderVO.getShop_total_amount());
+			pstmt.setFloat(4, shopOrderVO.getShop_total_amount());
 			pstmt.setInt(5, shopOrderVO.getStatus());
 			pstmt.setString(6, shopOrderVO.getShop_order_id());
 
@@ -262,6 +265,71 @@ public class ShopOrderJDBCDAO implements ShopOrderDAO_interface {
 		return list;
 	}
 
+	@Override
+	public void insertWithOrderDetail(ShopOrderVO shopOrderVO, List<ShopOrderDetailVO> list) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		
+		try {
+			Class.forName(driver);
+			con = DriverManager.getConnection(url, userid, password);
+			
+			// 1●設定於 pstm.executeUpdate()之前
+			con.setAutoCommit(false);
+			
+			String cols[] = {"SHOP_ORDER_ID"};
+			pstmt = con.prepareStatement(INSERT_STMT, cols);
+			pstmt.setString(1, shopOrderVO.getMem_id());
+			pstmt.setString(2, shopOrderVO.getPayment());
+			pstmt.setDate(3, shopOrderVO.getTime());
+			pstmt.setFloat(4, shopOrderVO.getShop_total_amount());
+			pstmt.setInt(5, shopOrderVO.getStatus());
+			
+			pstmt.executeUpdate();
+			
+			
+			String next_shop_order_id = null;
+			ResultSet rs = pstmt.getGeneratedKeys();
+			
+			if(rs.next()) {
+				next_shop_order_id = rs.getString(1);
+				System.out.println("自增主鍵值= " + next_shop_order_id +"(剛新增成功的訂單編號)");
+			}else {
+				System.out.println("未取得自增主鍵值");
+			}
+			rs.close();
+			
+
+			ShopOrderDetailJDBCDAO dao = new ShopOrderDetailJDBCDAO();
+			for(ShopOrderDetailVO vo : list) {
+				vo.setShop_order_id(next_shop_order_id);
+				
+				System.out.println(vo.getItem_id());
+				System.out.println(vo.getItem_promotion_id());
+				System.out.println(vo.getNote());
+				System.out.println(vo.getShop_order_id());
+				System.out.println(vo.getItem_price());
+				System.out.println(vo.getQuantity());
+				
+				
+				dao.insert2(vo, con);
+			}
+			
+			con.commit();
+			con.setAutoCommit(true);
+			
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		
+		
+		
+	}
 	public static void main(String[] args) {
 		ShopOrderJDBCDAO dao = new ShopOrderJDBCDAO();
 		ShopOrderVO svo = new ShopOrderVO();
@@ -297,16 +365,18 @@ public class ShopOrderJDBCDAO implements ShopOrderDAO_interface {
 //		System.out.print(svo2.getStatus());
 
 		// 查全部
-		List<ShopOrderVO> list = dao.getAll();
-		for (ShopOrderVO shvo : list) {
-			System.out.print(shvo.getShop_order_id() + ",");
-			System.out.print(shvo.getMem_id() + ",");
-			System.out.print(shvo.getPayment() + ",");
-			System.out.print(shvo.getTime() + ",");
-			System.out.print(shvo.getShop_total_amount() + ",");
-			System.out.print(shvo.getStatus());
-			System.out.println();
-		}
-
+//		List<ShopOrderVO> list = dao.getAll();
+//		for (ShopOrderVO shvo : list) {
+//			System.out.print(shvo.getShop_order_id() + ",");
+//			System.out.print(shvo.getMem_id() + ",");
+//			System.out.print(shvo.getPayment() + ",");
+//			System.out.print(shvo.getTime() + ",");
+//			System.out.print(shvo.getShop_total_amount() + ",");
+//			System.out.print(shvo.getStatus());
+//			System.out.println();
+//		}
+//
 	}
+
+
 }

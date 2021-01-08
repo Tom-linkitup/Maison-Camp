@@ -14,7 +14,7 @@ import com.shop_order.model.ShopOrderVO;
 public class ItemPromotionJDBCDAO implements ItemPromotionDAO_interface {
 	String driver = "oracle.jdbc.driver.OracleDriver";
 	String url = "jdbc:oracle:thin:@localhost:1521:XE";
-	String userid = "YUCHI";
+	String userid = "CEA101G3";
 	String password = "123456";
 
 	public static final String INSERT_STMT = "INSERT INTO ITEM_PROMOTION (ITEM_PROMOTION_ID, ITEM_ID, ITEM_PROMOTION_INFO, ITEM_DISCOUNT, ITEM_PROM_START_DATE, ITEM_PROM_CLOSE_DATE)"

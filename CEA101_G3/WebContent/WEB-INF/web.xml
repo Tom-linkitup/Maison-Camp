@@ -175,6 +175,15 @@
 	</servlet-mapping>
 	
 	<servlet>
+		<servlet-name>CreateShopOrderServlet</servlet-name>
+		<servlet-class>com.shop_order.controller.CreateShopOrderServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>CreateShopOrderServlet</servlet-name>
+		<url-pattern>/shop_order/createshop_order.do</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
 		<servlet-name>SystemServlet</servlet-name>
 		<servlet-class>com.system.controller.SystemServlet</servlet-class>
 	</servlet>

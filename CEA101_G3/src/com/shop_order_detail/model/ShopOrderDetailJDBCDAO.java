@@ -6,10 +6,10 @@ import java.util.*;
 public class ShopOrderDetailJDBCDAO implements ShopOrderDetailDAO_interface{
 	String driver = "oracle.jdbc.driver.OracleDriver";
 	String url = "jdbc:oracle:thin:@localhost:1521:XE";
-	String userid = "YUCHI";
+	String userid = "CEA101G3";
 	String password = "123456";
 
-	public static final String INSERT_STMT = "INSERT INTO�@SHOP_ORDER_DETAIL (SHOP_ORDER_ID , ITEM_ID , ITEM_PROMOTION_ID , NOTE , QUANTITY , ITEM_PRICE)"
+	public static final String INSERT_STMT = "INSERT INTO SHOP_ORDER_DETAIL (SHOP_ORDER_ID , ITEM_ID , ITEM_PROMOTION_ID , NOTE , QUANTITY , ITEM_PRICE)"
 			+ "VALUES(?,?,?,?,?,?)";
 	public static final String GET_ALL_STMT = "SELECT * FROM SHOP_ORDER_DETAIL ORDER BY SHOP_ORDER_ID";
 	public static final String GET_ONE_STMT = "SELECT * FROM SHOP_ORDER_DETAIL WHERE SHOP_ORDER_ID = ?";
@@ -250,6 +250,51 @@ public class ShopOrderDetailJDBCDAO implements ShopOrderDetailDAO_interface{
 		}
 		return list;
 	}
+	
+	@Override
+	public void insert2(ShopOrderDetailVO shopOrderDetailVO, Connection con) {
+		PreparedStatement pstmt = null;
+		
+		try {
+			pstmt = con.prepareStatement(INSERT_STMT);
+			pstmt.setString(1,shopOrderDetailVO.getShop_order_id());
+			pstmt.setString(2,shopOrderDetailVO.getItem_id());
+			pstmt.setString(3,shopOrderDetailVO.getItem_promotion_id());
+			pstmt.setString(4,shopOrderDetailVO.getNote());
+			pstmt.setInt(5,shopOrderDetailVO.getQuantity());
+			pstmt.setFloat(6,shopOrderDetailVO.getItem_price());
+			
+			pstmt.executeUpdate();
+			
+			
+			
+		} catch (SQLException e) {
+			if (con != null) {
+				try {
+					// 3●設定於當有exception發生時之catch區塊內
+					System.err.print("Transaction is being ");
+					System.err.println("rolled back-由-emp");
+					con.rollback();
+				} catch (SQLException excep) {
+					throw new RuntimeException("rollback error occured. "
+							+ excep.getMessage());
+				}
+			}
+			throw new RuntimeException("A database error occured. "
+					+ e.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+		}
+		
+	}
+	
 	public static void main(String[] args) {
 		ShopOrderDetailJDBCDAO dao = new ShopOrderDetailJDBCDAO();
 		ShopOrderDetailVO svo = new ShopOrderDetailVO();
@@ -258,7 +303,7 @@ public class ShopOrderDetailJDBCDAO implements ShopOrderDetailDAO_interface{
 //		svo.setShop_order_id("SD10021");
 //		svo.setItem_id("I10020");
 //		svo.setItem_promotion_id("IP20");
-//		svo.setNote("�S�Ʀh�ܤ�");
+//		svo.setNote("123");
 //		svo.setQuantity(30);
 //		svo.setItem_price(1000);
 //		dao.insert(svo);
@@ -267,7 +312,7 @@ public class ShopOrderDetailJDBCDAO implements ShopOrderDetailDAO_interface{
 		
 //		svo.setItem_id("I10020");
 //		svo.setItem_promotion_id("IP30");
-//		svo.setNote("�h�ܤ��S�ư�");
+//		svo.setNote("456");
 //		svo.setQuantity(2000);
 //		svo.setItem_price(20000);
 //		svo.setShop_order_id("SD10021");
@@ -297,4 +342,6 @@ public class ShopOrderDetailJDBCDAO implements ShopOrderDetailDAO_interface{
 			System.out.println();
 		}
 	}
+
+	
 }
