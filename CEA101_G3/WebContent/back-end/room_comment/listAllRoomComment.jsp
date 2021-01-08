@@ -2,12 +2,22 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="java.util.*"%>
 <%@ page import="com.room_comment.model.*"%>
+<%@ page import="com.roomtype.model.*" %>
+
 <script src="http://code.jquery.com/jquery-1.12.4.min.js"></script>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%
+	List<Room_commentVO> list = null;
+	list = (List<Room_commentVO>)request.getAttribute("getRoom_commentVoByRtc");
+	if (list == null) {
 	Room_commentService room_commentSvc = new Room_commentService();
-	List<Room_commentVO> list = room_commentSvc.getAll();
+	list = room_commentSvc.getAll();
+}
 	pageContext.setAttribute("list", list);
+	
+	RoomTypeService roomTypeSvc = new RoomTypeService();
+	List<RoomTypeVO> roomTypeList = roomTypeSvc.getAllRT();
+	pageContext.setAttribute("roomTypeList", roomTypeList);
 %>
 <!DOCTYPE html>
 <html>
@@ -15,7 +25,7 @@
 <c:if test="${updateSuccess == 'yes' }">
 		<script>
 			$("#tab-5").prop("checked",true);
-			swal("回覆成功", "請再次確認資料是否正確", "success");
+			swal("回覆/修改成功", "請再次確認資料是否正確", "success");
 		</script>
 	</c:if>
 <c:if test="${deleteSuccess == 'yes' }">
@@ -42,6 +52,19 @@
 				<th>評論回覆</th>
 				<th>評論刪除</th>
 			</tr>
+			<div style="display:inline-block; width:600px; margin-bottom:8px;">	
+				<div style="display:inline;">
+					<form method="post" action="${pageContext.request.contextPath}/room_comment/room_comment.do">
+						<select name="room_category_id">
+								<option>請選擇查詢房型</option>
+							<c:forEach var="roomType" items="${roomTypeList}">
+								<option value="${roomType.room_category_id}">${roomType.room_category_id}</option>
+							</c:forEach>
+						</select>
+						<input type="hidden" name="action" value="getRoomCommentByRtc">
+						<input class="queryRT" type="submit" value="查詢">
+					</form>		
+				</div>
 			<%@ include file="page1.file"%>
 			<c:forEach var="room_commentVO" items="${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">			
 			<tr>
@@ -55,7 +78,7 @@
 				<td>
 				    <input type="hidden" name="room_comment_id" value="${room_commentVO.room_comment_id}">
 					<input type="hidden" name="action" value="getOne_For_Update">
-				    <button class="reply btn btn-primary" type="submit">回覆</button>
+				    <button class="reply btn btn-primary" type="submit">回覆/修改</button>
 				</td>
 				
 				

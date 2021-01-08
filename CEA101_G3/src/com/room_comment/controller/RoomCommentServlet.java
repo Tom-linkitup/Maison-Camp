@@ -9,6 +9,8 @@ import java.util.*;
 import javax.servlet.*;
 import javax.servlet.http.*;
 
+import com.room.model.RoomService;
+import com.room.model.RoomVO;
 import com.room_comment.model.*;
 import com.room_promotion.model.Room_promotionService;
 import com.room_promotion.model.Room_promotionVO;
@@ -341,6 +343,21 @@ public class RoomCommentServlet extends HttpServlet {
 						e.printStackTrace();
 					}
 				}
+		if("getRoomCommentByRtc".equals(action)) {
+			System.out.println("有來到這");
+			req.setCharacterEncoding("utf-8");
+			res.setContentType("text/html; charset=utf-8");
+			String room_category_id = req.getParameter("room_category_id");
+			System.out.println("1");
+			System.out.println(room_category_id);
+			Room_commentService room_commentSvc = new Room_commentService();
+			List<Room_commentVO> getRoom_commentVoByRtc = room_commentSvc.getRmByRTC(room_category_id);
+			String url = "/back-end/room_comment/select_page.jsp";
+			req.setAttribute("getRoom_commentVoByRtc", getRoom_commentVoByRtc);
+			RequestDispatcher successView = req.getRequestDispatcher(url);
+			successView.forward(req, res);
+			System.out.println("1");
+		}
 		
 		
 		

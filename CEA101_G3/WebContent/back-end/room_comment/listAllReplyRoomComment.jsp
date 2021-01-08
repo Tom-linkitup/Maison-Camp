@@ -15,7 +15,7 @@
 <c:if test="${updateSuccess == 'yes' }">
 		<script>
 			$("#tab-5").prop("checked",true);
-			swal("回覆成功", "請再次確認資料是否正確", "success");
+			swal("修改成功", "請再次確認資料是否正確", "success");
 		</script>
 	</c:if>
 <meta charset="UTF-8">
@@ -46,7 +46,7 @@
 				<td>
 				    <input type="hidden" name="room_comment_id" value="${room_commentVO.room_comment_id}">
 					<input type="hidden" name="action" value="getOne_For_Update">
-				    <button class="done btn btn-primary" type="submit">回覆</button>
+				    <button class="done btn btn-primary" type="submit">修改</button>
 				</form>
 				</td>
 				

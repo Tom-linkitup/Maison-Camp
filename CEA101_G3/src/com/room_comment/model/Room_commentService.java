@@ -2,6 +2,8 @@ package com.room_comment.model;
 
 import java.util.List;
 
+import com.room.model.RoomVO;
+
 
 
 public class Room_commentService {
@@ -10,7 +12,7 @@ public class Room_commentService {
 	private Room_commentDAO_interface dao;
 
 	public Room_commentService() {
-		dao = new Room_commentJDBCDAO();
+		dao = new Room_commentDAO();
 	}
 
 	public Room_commentVO addRoom_comment(String room_category_id,String room_comment_content, java.sql.Timestamp time,String comment_reply) {
@@ -52,19 +54,14 @@ public class Room_commentService {
 		return dao.getAll();
 	}
 	
-	public List<Room_commentVO> getAllTwins() {
-		return dao.getAllTwins();
-	}
-	public List<Room_commentVO> getAllDouble() {
-		return dao.getAllDouble();
-	}
-	public List<Room_commentVO> getAllQuadruple() {
-		return dao.getAllQuadruple();
-	}
 	public List<Room_commentVO> getAllReply() {
 		return dao.getAllReply();
 	}
 	public List<Room_commentVO> getAllWaitReply() {
 		return dao.getAllWaitReply();
+	}
+	
+	public List<Room_commentVO> getRmByRTC(String room_category_id){
+		return dao.getByRoomCategoryId(room_category_id);
 	}
 }
