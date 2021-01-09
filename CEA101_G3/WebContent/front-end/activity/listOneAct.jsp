@@ -237,7 +237,7 @@ div.comment {
 			<div class="row enr-margin-top enr-margin-bottom">
 				<input id="addOrder" type="button" value="我要報名"
 					class="btn btn-primary"
-					onclick="location.href='<%=request.getContextPath()%>/front-end/actOrder/addActOrder.jsp?actId=<%=activityVO.getActId()%>&memId=M10001'">
+					onclick="location.href='<%=request.getContextPath()%>/front-end/actOrder/addActOrder.jsp?actId=<%=activityVO.getActId()%>'">
 			</div>
 		</div>
 		<!-- 右邊評論 -->
