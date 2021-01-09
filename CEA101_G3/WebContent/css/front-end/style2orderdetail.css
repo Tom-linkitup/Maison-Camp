@@ -383,3 +383,14 @@ Dark green: #28b485
 			position: relative;
 			
 		}
+		.changeQuantity{
+			width:35px;
+		}
+		#sendQuantity{
+			width:50px;
+			text-align:center;
+		}
+		.deletebtn{
+			z-index : 9999;
+			
+		}

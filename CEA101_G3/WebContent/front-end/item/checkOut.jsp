@@ -157,7 +157,7 @@
 		    </div>
 		    <div class="steps-control">
 		    	<div class="text-center">
-			    	<a href="<%=request.getContextPath() %>/front-end/room-booking/RoomBooking.jsp"><button type="button">返回</button></a>	    	
+			    	<a href="<%=request.getContextPath() %>/front-end/item/shopOrderDetail.jsp"><button type="button">返回</button></a>	    	
 			    	<form style="display:inline-block;" method="post" action="<%=request.getContextPath()%>/shop_order/createshop_order.do">
 			    		<input type="hidden" name="status" value="1">
 			    		<input type="hidden" name="amount" value="<%=amount%>">

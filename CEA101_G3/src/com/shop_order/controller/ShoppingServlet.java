@@ -32,9 +32,14 @@ public class ShoppingServlet extends HttpServlet {
 		if(!action.equals("CHECKOUT")) {
 			
 			if(action.equals("DELETE")) {
-				String del = req.getParameter("del");
-				int d = Integer.parseInt(del);
-				buylist.remove(d);
+				String itemId = req.getParameter("itemId");
+				
+				for(int i=0; i < buylist.size(); i++) {
+					Item item = buylist.get(i);
+					if(item.getItemId().equals(itemId)){
+						buylist.remove(i);		
+					}
+				}
 			}
 			else if(action.equals("ADD")){
 				boolean match = false;
@@ -55,11 +60,23 @@ public class ShoppingServlet extends HttpServlet {
 					if(!match) 
 						buylist.add(aItem);
 				}
+			}else if(action.equals("quantityChange")) {
+				String itemId = req.getParameter("itemId");
+				int newVal = new Integer(req.getParameter("newVal"));
+				
+				
+				for(int i=0 ; i < buylist.size(); i++) {
+					Item item = buylist.get(i);
+					
+					if(item.getItemId().equals(itemId)) {
+						item.setQuantity(newVal);
+					}
+				}
 			}
 			session.setAttribute("shoppingcart",buylist);
-			String url = "/front-end/item/shoppingMall.jsp";
-			RequestDispatcher rd = req.getRequestDispatcher(url);
-			rd.forward(req, res);
+//			String url = "/front-end/item/shoppingMall.jsp";
+//			RequestDispatcher rd = req.getRequestDispatcher(url);
+//			rd.forward(req, res);
 		}
 		else if(action.equals("CHECKOUT")) {
 			

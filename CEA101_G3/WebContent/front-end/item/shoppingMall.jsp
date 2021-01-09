@@ -6,7 +6,8 @@
 <%@ page import="com.item_category.model.*"%>
 <%
     ItemService itemSvc = new ItemService();
-    List<ItemVO> list = itemSvc.getByCat("I001");
+//     List<ItemVO> list = itemSvc.getByCat("I001");
+	List<ItemVO> list = itemSvc.getAll();
     pageContext.setAttribute("list",list);
     
     ItemCategoryService itemCatSvc = new ItemCategoryService();
@@ -36,21 +37,16 @@
 		        </div>   
 		    </div>
 		    <div class="col-8 mx-auto">
+		    	<h3 class="lightboxName"></h3>
 		        <div class="lightboxInfo my-3">
 		        </div>
 			       		<h3 class="lightboxPrice mb-3"></h3>
-			       	<form method="post" name="shoppingForm" action="<%=request.getContextPath()%>/ShoppingServlet">
 			        	<div class="btn-group" role="group" aria-label="Basic example">
 							  <button type="button" class="btn btn-secondary dec changeQuantity">-</button>
-							  <input type="text" id="sendQuantity" name="quantity" size="3" value="1">
-							  <input id="sendPrice" type="hidden" name="price">
-							  <input id="sendName" type="hidden" name="name">
-							  <input id="sendItemId" type="hidden" name="itemId">
-							  <input type="hidden" name="action" value="ADD">							  	  
+							  <input type="text" id="sendQuantity" name="quantity" size="3" value="1">					  	  
 							  <button type="button" class="btn btn-secondary inc changeQuantity">+</button>
 			       		 </div>
-            		<button type="submit" class="btn btn-info">加入購物車</button>
-            		</form>
+            		<button type="button" class="btn btn-info addtoCart">加入購物車</button>
 		        </div>
 	 	        </div>
 	 	    </div>
@@ -65,35 +61,22 @@
                 <span></span>
                 <span></span>
                 <ul id="menu">
-                    <a href="#">
-                        <li>首頁</li>
-                    </a>
-                    <a href="#">
-                        <li>最新消息</li>
-                    </a>
-                    <a href="#">
-                        <li>會員登入</li>
-                    </a>
-                    <a href="#">
-                        <li>立即訂房</li>
-                    </a>
-                    <a href="#">
-                        <li>精選商城</li>
-                    </a>
-                    <a href="#">
-                        <li>活動預約</li>
-                    </a>
-                    <a href="#">
-                        <li>聯絡我們</li>
-                    </a>
-                </ul>
+                    <a href="<%=request.getContextPath()%>/front-end/front-index.jsp"><li>首頁</li></a>
+                   	<a href="<%=request.getContextPath()%>/front-end/news/News.jsp"><li>最新消息</li></a>
+               	 	<a href="<%=request.getContextPath()%>/front-end/member/Member.jsp"><li>會員中心</li></a>
+                   	<a href="<%=request.getContextPath()%>/front-end/room-type/RoomType.jsp"><li>帳型介紹</li></a>
+                   	<a href="<%=request.getContextPath()%>/front-end/room-booking/RoomBooking.jsp"><li>立即訂房</li></a>
+                   	<a href="<%=request.getContextPath()%>/front-end/item/shoppingMall.jsp"><li>精選商城</li></a>
+                   	<a href="<%=request.getContextPath()%>/front-end/activity/selectPage.jsp"><li>活動預約</li></a>
+                   	<a href="#"><li>聯絡我們</li></a>
+                 </ul>
             </div>
         </nav>
         <div class="col-xs-4 col-12 logo">
-            <a href="#"><img id="logoo" class="img-logo" src="<%=request.getContextPath() %>/front-end/item/images/logo.png" alt=""></a><!-- LOGO -->
+            <a href="<%=request.getContextPath()%>/front-end/front-index.jsp"><img id="logoo" class="img-logo" src="<%=request.getContextPath()%>/img/logo.png" alt=""></a><!-- LOGO -->
             <div class="car-bg p-2" >
             	<a href="<%=request.getContextPath()%>/front-end/item/shopOrderDetail.jsp">
-           			 <img class="shoppingcar" src="<%=request.getContextPath() %>/front-end/item/images/shopping-cart.png">
+           			 <img class="shoppingcar" src="<%=request.getContextPath() %>/img/shopping-cart.png">
            	 	</a>
             </div>
         </div>
@@ -133,7 +116,7 @@
 	                    	</c:if>
 		                    	<div class="col-3">
 		                            <div class="card mb-3" style="text-align: center">
-		                                <img class="card-img-top itemImg" src="<%=request.getContextPath()%>/item_photo/photoReader.do?id=IPH10004" alt="Card image cap">
+		                                <img class="card-img-top itemImg" src="<%=request.getContextPath()%>/img/20200108.jpg" alt="Card image cap">
 		                                <div class="card-body name"><h5>${itemVO.itemName}</h5></div>
 		                                <FORM method="post">
 		                                	<input type="hidden" class="info" name="itemInfo" value="${itemVO.itemInfo}">		                                
@@ -176,7 +159,7 @@
                     </ul>
                 </div>
                 <div class="col-xs-6 col-md-3">
-                    <a href=""><img src="<%=request.getContextPath() %>/front-end/item/images/footer.png" style="height: 160px; width: 300px;" alt=""></a>
+                    <a href=""><img src="<%=request.getContextPath() %>/img/footer.png" style="height: 160px; width: 300px;" alt=""></a>
                 </div>
             </div>
             <hr>
@@ -202,12 +185,71 @@
 
     <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
-    <script src="<%=request.getContextPath() %>/js/front-end/shoppingMall.js"></script>
+<%--     <script src="<%=request.getContextPath() %>/js/front-end/shoppingMall.js"></script> --%>
     
    <script type="text/javascript">
-   		$(document).ready(function(){
-   			
-   		})
+		   $(document).ready(() => {
+		   	let id,info,price,name;
+		   	
+		//新增資訊到燈箱裡
+		       $(".card").click(function(){
+		       	id = $(this).find(".id").val();            	
+		       	info = $(this).find(".info").val();            	
+		       	price = $(this).find(".price").val();
+		       	name = $(this).find(".name").text();
+		           $("#white").css('display','block');
+		           $("#black").css('display','block');
+		           $('.boxImg').attr("src",$(this).children(".itemImg").attr("src"));
+		           $('.lightboxName').html(name);
+		           $('.lightboxInfo').html(info);
+		           $('.lightboxPrice').text("$NT" + price );
+		       });
+		//關燈箱
+		       $("#black").click(function(){
+		           $("#white").css('display','none');
+		           $("#black").css('display','none');
+		           $("#sendQuantity").val(1);
+		       });
+		       
+		//ajax加入購物車   
+		       $('.addtoCart').click(function(){
+		    	   quantity=$('#sendQuantity').val()
+		       	$.ajax({
+		       		url:"<%=request.getContextPath()%>/ShoppingServlet",
+		       		type:"POST",
+		       		data:{
+		       			"action":"ADD",
+		       			"itemId":id,
+		       			"price":price,
+		       			"name":name,
+		       			"quantity":quantity
+		       		},
+		       		success: function(){
+		       			$("#white").css('display','none');
+				        $("#black").css('display','none');
+				        $("#sendQuantity").val(1);
+		       		}
+		       	});
+		       });
+		       
+		   });
+		   	
+		   $('.changeQuantity').click(function(){
+		   	let btn = $(this);
+		   	let oldValue = btn.parent().find("#sendQuantity").val();
+		   	
+		   	if(btn.text() == "+"){
+		   		var newVal = parseInt(oldValue) + 1;
+		   	}else{
+		   		if(oldValue > 0){
+		   			var newVal = parseInt(oldValue) - 1;
+		   		}else{
+		   			newVal = 0;
+		   		}
+		   	}
+		   	$("#sendQuantity").val(newVal);
+		   });
+   
    </script>
 </body>
 

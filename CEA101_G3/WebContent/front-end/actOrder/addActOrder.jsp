@@ -3,11 +3,13 @@
 <%@ page import="java.util.*"%>
 <%@ page import="com.activityOrder.model.*"%>
 <%@ page import="com.activity.model.*"%>
+<%@ page import="com.member.model.*" %>
 
 <%
 	ActivityOrderVO aoVO = (ActivityOrderVO) request.getAttribute("activityOrderVO");
 	ActivityService actSvc = new ActivityService();
 	ActivityVO activityVO = actSvc.getOneActivity(request.getParameter("actId"));
+	MemberVO memVO = (MemberVO) session.getAttribute("memVO");
 %>
 
 <%
@@ -195,7 +197,7 @@ div.panel {
 			
 				<input type="hidden" name="actId" size="45" value="<%=activityVO.getActId()%>" /> 
 				<input type="hidden" name="actPrice" size="45" value="<%=activityVO.getActPrice()%>" />
-				<input type="hidden" name="memId" size="45" value="<%=request.getParameter("memId")%>" /> 
+				<input type="hidden" name="memId" size="45" value="${memVO.mem_id}" /> 
 				<input type="hidden" name="createTime" id="f_date1" /> 
 				<input type="hidden" name="payment" size="45" value="刷卡" /> 
 				<input type="hidden" name="status" size="45" value="0" /> 
