@@ -65,10 +65,11 @@
 				   	<div class="btn-group paraGroup" role="group" aria-label="Basic example">
 					  <button type="button" class="btn btn-secondary dec changeQuantity">-</button>
 					  <input type="text" class="sendQuantity" name="quantity" size="3" value="<%=order.getQuantity()%>">
+					  <input type="hidden" class="price" name="price" value="<%=order.getPrice()%>">
 					  <input type="hidden" class="itemId" name="itemId" value="<%=order.getItemId()%>">
 					  <button type="button" class="btn btn-secondary inc changeQuantity">+</button>
 			     	 </div>
-				    <h4 class="itemTotalPrice">$NT<%=order.getPrice() %></h4>
+				    <h4 class="itemTotalPrice">$NT<%=order.getPrice()*order.getQuantity()%></h4>
 				    <i class="fas fa-times mt-2 deletebtn" style="width:20px; height:20px;"></i> <!-- 刪除購物車項目 -->
 				  </li>
 			<%}}%>
@@ -151,7 +152,9 @@
 				   	let btn = $(this);
 				   	let oldValue = btn.parent().find(".sendQuantity").val();
 				   	let id = $(this).siblings(".itemId").val();
-				   	
+				   	let price = $(this).siblings(".price").val();
+				   	let chPrice = btn.parent(".paraGroup").siblings(".itemTotalPrice");
+				   	//數量加減
 				   	if(btn.text() == "+"){
 				   		var newVal = parseInt(oldValue) + 1;
 				   	}else{
@@ -162,7 +165,7 @@
 				   		}
 				   	}
 				   	btn.parent().find(".sendQuantity").val(newVal);
-				   	
+				   	//後台更新數量
 				   	$.ajax({
 				   		url:"<%=request.getContextPath()%>/ShoppingServlet",
 	   					type:"POST",
@@ -172,10 +175,10 @@
 	   						"newVal":newVal
 	   					},
 	   					success:function(){
-	   						console.log("數量修改成功");
-	   						
+	   						console.log("....");
+							chPrice.text("$NT" + (newVal*price));
 	   					}
-				   	})
+				   	});
 				   });
 	   			
    	        });
