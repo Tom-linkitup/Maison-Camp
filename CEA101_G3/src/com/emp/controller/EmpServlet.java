@@ -1,7 +1,7 @@
 package com.emp.controller;
 
 import java.io.IOException;
-import java.io.PrintWriter;
+
 import java.util.LinkedList;
 import java.util.List;
 
@@ -13,11 +13,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import javax.websocket.Session;
+
 
 import com.emp.model.EmpService;
 import com.emp.model.EmpVO;
-import com.emp_func.model.EmpFuncService;
+
 
 @WebServlet("/EmpServlet")
 public class EmpServlet extends HttpServlet {

@@ -37,7 +37,7 @@
                         <a class="enterAlert" href="<%=request.getContextPath()%>/front-end/member/Member.jsp"><li>會員中心</li></a>
                         <a href="<%=request.getContextPath()%>/front-end/room-type/RoomType.jsp"><li>帳型介紹</li></a>
                         <a href="<%=request.getContextPath()%>/front-end/room-booking/RoomBooking.jsp"><li>立即訂房</li></a>
-                        <a href="#"><li>精選商城</li></a>
+                        <a href="<%=request.getContextPath()%>/front-end/item/shoppingMall.jsp"><li>精選商城</li></a>
                         <a href="<%=request.getContextPath()%>/front-end/activity/selectPage.jsp"><li>活動預約</li></a>
                         <a href="#"><li>聯絡我們</li></a>
                     </ul>
@@ -255,10 +255,10 @@
               <div class="col-xs-6 col-md-2">
                 <h6>快速連結</h6>
                 <ul class="footer-links">
-                  <li><a href="">會員登入</a></li>
-                  <li><a href="">立即訂房</a></li>
-                  <li><a href="">精選商城</a></li>
-                  <li><a href="">預約活動</a></li>
+                  <li><a href="<%=request.getContextPath()%>/front-end/member/Member.jsp">會員中心</a></li>
+                  <li><a href="<%=request.getContextPath()%>/front-end/room-booking/RoomBooking.jsp">立即訂房</a></li>
+                  <li><a href="<%=request.getContextPath()%>/front-end/item/shoppingMall.jsp">精選商城</a></li>
+                  <li><a href="<%=request.getContextPath()%>/front-end/activity/selectPage.jsp">預約活動</a></li>
                   <li><a href="">聯繫我們</a></li>
                 </ul>
               </div>

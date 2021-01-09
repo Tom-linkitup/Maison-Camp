@@ -32,34 +32,21 @@
                 <span></span>
                 <span></span>
                 <ul id="menu">
-                    <a href="#">
-                        <li>首頁</li>
-                    </a>
-                    <a href="#">
-                        <li>最新消息</li>
-                    </a>
-                    <a href="#">
-                        <li>會員登入</li>
-                    </a>
-                    <a href="#">
-                        <li>立即訂房</li>
-                    </a>
-                    <a href="#">
-                        <li>精選商城</li>
-                    </a>
-                    <a href="#">
-                        <li>活動預約</li>
-                    </a>
-                    <a href="#">
-                        <li>聯絡我們</li>
-                    </a>
-                </ul>
+                         <a href="<%=request.getContextPath()%>/front-end/front-index.jsp"><li>首頁</li></a>
+                    	<a href="<%=request.getContextPath()%>/front-end/news/News.jsp"><li>最新消息</li></a>
+                   	 	<a href="<%=request.getContextPath()%>/front-end/member/Member.jsp"><li>會員中心</li></a>
+                    	<a href="<%=request.getContextPath()%>/front-end/room-type/RoomType.jsp"><li>帳型介紹</li></a>
+                    	<a href="<%=request.getContextPath()%>/front-end/room-booking/RoomBooking.jsp"><li>立即訂房</li></a>
+                    	<a href="<%=request.getContextPath()%>/front-end/item/shoppingMall.jsp"><li>精選商城</li></a>
+                    	<a href="<%=request.getContextPath()%>/front-end/activity/selectPage.jsp"><li>活動預約</li></a>
+                    	<a href="#"><li>聯絡我們</li></a>
+                    </ul>
             </div>
         </nav>
         <div class="col-xs-4 col-12 logo">
-            <a href="<%=request.getContextPath()%>/front-end/item/shoppingMall.jsp"><img id="logoo" class="img-logo" src="<%=request.getContextPath() %>/front-end/item/images/logo.png" alt=""></a><!-- LOGO -->
+            <a href="<%=request.getContextPath()%>/front-end/front-index.jsp"><img id="logoo" class="img-logo" src="<%=request.getContextPath() %>/img/logo.png" alt=""></a><!-- LOGO -->
             <div class="car-bg p-2" >
-            <img class="shopcar" src="<%=request.getContextPath() %>/front-end/item/images/shopping-cart.png">
+            <img class="shopcar" src="<%=request.getContextPath() %>/img/shopping-cart.png">
             </div>
         </div>
     </header>
@@ -70,23 +57,23 @@
 			 for (int index = 0; index < buylist.size(); index++) {
 				Item order = buylist.get(index);
 		%>
-				  <li class="media pb-2">
-				    <img class="mr-3 mt-2 orderDetailPic" src="<%=request.getContextPath()%>/item_photo/photoReader.do?id=IPH10004" alt="Generic placeholder image">
+				  <li class="media mb-3 itemClass">
+				    <img class="mr-3 mt-2 orderDetailPic" src="<%=request.getContextPath()%>/img/20200108.jpg" alt="Generic placeholder image">
 				    <div class="media-body mt-3">
-				      <h5 class="mt-0 mb-1"><%=order.getName() %></h5>				      
+				      <h3 class="mt-0 mb-1"><%=order.getName() %></h3>				      
 				    </div>
-				   	<div class="btn-group" role="group" aria-label="Basic example">
+				   	<div class="btn-group paraGroup" role="group" aria-label="Basic example">
 					  <button type="button" class="btn btn-secondary dec changeQuantity">-</button>
-					  <input type="text" id="sendQuantity" name="quantity" size="3" value="<%=order.getQuantity()%>">						  	  
+					  <input type="text" class="sendQuantity" name="quantity" size="3" value="<%=order.getQuantity()%>">
+					  <input type="hidden" class="itemId" name="itemId" value="<%=order.getItemId()%>">
 					  <button type="button" class="btn btn-secondary inc changeQuantity">+</button>
 			     	 </div>
-				    <div class="itemTotalPrice">$NT<%=order.getPrice() %></div>
-				    <i class="fas fa-times mt-2" style="width:20px; height:20px;"></i>
+				    <h4 class="itemTotalPrice">$NT<%=order.getPrice() %></h4>
+				    <i class="fas fa-times mt-2 deletebtn" style="width:20px; height:20px;"></i> <!-- 刪除購物車項目 -->
 				  </li>
-			<%}%>
-			<%}%>
+			<%}}%>
 		</ul>
-		<form class="photo-form bottom-button" method="post" action="<%=request.getContextPath()%>/ShoppingServlet">
+		<form class="photo-form bottom-button mb-3" method="post" action="<%=request.getContextPath()%>/ShoppingServlet">
 		<input type="hidden" name="action" value="CHECKOUT">
 			<button type="submit">前往結帳</button>
 		</form>
@@ -102,15 +89,15 @@
                 <div class="col-xs-6 col-md-2">
                     <h6>快速連結</h6>
                     <ul class="footer-links">
-                        <li><a href="">會員登入</a></li>
-                        <li><a href="">立即訂房</a></li>
-                        <li><a href="">精選商城</a></li>
-                        <li><a href="">預約活動</a></li>
-                        <li><a href="">聯繫我們</a></li>
-                    </ul>
+	                  <li><a href="<%=request.getContextPath()%>/front-end/member/Member.jsp">會員中心</a></li>
+	                  <li><a href="<%=request.getContextPath()%>/front-end/room-booking/RoomBooking.jsp">立即訂房</a></li>
+	                  <li><a href="<%=request.getContextPath()%>/front-end/item/shoppingMall.jsp">精選商城</a></li>
+	                  <li><a href="<%=request.getContextPath()%>/front-end/activity/selectPage.jsp">預約活動</a></li>
+	                  <li><a href="">聯繫我們</a></li>
+	                </ul>
                 </div>
                 <div class="col-xs-6 col-md-3">
-                    <a href=""><img src="<%=request.getContextPath() %>/front-end/item/images/footer.png" style="height: 160px; width: 300px;" alt=""></a>
+                    <a href=""><img src="<%=request.getContextPath() %>/img/footer.png" style="height: 160px; width: 300px;" alt=""></a>
                 </div>
             </div>
             <hr>
@@ -137,12 +124,62 @@
     <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/js/all.min.js"></script>
-    <script src="<%=request.getContextPath() %>/js/front-end/shoppingMall.js"></script>
+
     
    <script type="text/javascript">
-   		$(document).ready(function(){
-   		
-   		})
+	   		$(document).ready(function(){
+	   			$('.deletebtn').click(function(){
+	   				let id = $(this).siblings(".paraGroup").children(".itemId").val();
+	   				let itemClass = $(this).parent(".itemClass");
+	   				console.log(id);
+	   				$.ajax({
+	   					url:"<%=request.getContextPath()%>/ShoppingServlet",
+	   					type:"POST",
+	   					data:{
+	   						"action":"DELETE",
+	   						"itemId":id
+	   					},
+	   					success:function(){
+	   						console.log("刪除成功");
+	   						itemClass.remove();
+	   					}
+	   				});
+	   			});
+	   			
+	   			
+	   			$('.changeQuantity').click(function(){
+				   	let btn = $(this);
+				   	let oldValue = btn.parent().find(".sendQuantity").val();
+				   	let id = $(this).siblings(".itemId").val();
+				   	
+				   	if(btn.text() == "+"){
+				   		var newVal = parseInt(oldValue) + 1;
+				   	}else{
+				   		if(oldValue > 1){
+				   			var newVal = parseInt(oldValue) - 1;
+				   		}else{
+				   			newVal = 1;
+				   		}
+				   	}
+				   	btn.parent().find(".sendQuantity").val(newVal);
+				   	
+				   	$.ajax({
+				   		url:"<%=request.getContextPath()%>/ShoppingServlet",
+	   					type:"POST",
+	   					data:{
+	   						"action":"quantityChange",
+	   						"itemId":id,
+	   						"newVal":newVal
+	   					},
+	   					success:function(){
+	   						console.log("數量修改成功");
+	   						
+	   					}
+				   	})
+				   });
+	   			
+   	        });
+	   		
    </script>
 </body>
 
