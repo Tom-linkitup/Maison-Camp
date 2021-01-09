@@ -386,8 +386,13 @@
 						      	</c:when>
 				      			<c:otherwise>
 				      				<h4><i style="color:#c15c61" class="fas fa-check-circle">已完成</i></h4>
+									</div>
 				      				</div>
-				      				 </div>
+				      			    <div>
+				      			    	<h3>您寶貴的評論</h3>
+				      			    	<input type="textarea" value="${actCommentSvc.getOneByActOrder(actOrderVO.actOrderId).actComment}" onpaste="return false" oncontextmenu="return false" oncopy="return false" oncut="return false" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" autofocus="autofocus">
+				      			    	
+				      			    </div> 
 				      			</c:otherwise>
 				      		</c:choose>	     		
 			      </div>  
