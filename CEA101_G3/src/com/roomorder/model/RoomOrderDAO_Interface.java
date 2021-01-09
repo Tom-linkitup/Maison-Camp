@@ -22,7 +22,9 @@ public interface RoomOrderDAO_Interface {
     //同時取消訂單（更改訂單狀態）與更新預定表
     public void updateWithRsv(Integer status, String room_order_id, JSONObject orderItem);
     //查詢當天需入住的訂單
-    public List<RoomOrderVO> getAllBeforeToday(LocalDate today);
+    public List<RoomOrderVO> getAllBeforeToday();
     //查詢當天需退房的訂單
-    public List<RoomOrderVO> getAllDateOut(LocalDate today);
+    public List<RoomOrderVO> getAllDateOut();
+    //依訂單狀態查詢訂單
+    public List<RoomOrderVO> getAllByOrderStatus(Integer status);
 }

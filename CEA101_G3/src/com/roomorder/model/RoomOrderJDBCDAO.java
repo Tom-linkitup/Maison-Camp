@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Set;
 
@@ -73,6 +74,24 @@ public class RoomOrderJDBCDAO implements RoomOrderDAO_Interface {
 	public void updateWithRsv(Integer status, String room_order_id, JSONObject orderItem) {
 		// TODO Auto-generated method stub
 		
+	}
+
+	@Override
+	public List<RoomOrderVO> getAllBeforeToday() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<RoomOrderVO> getAllDateOut() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<RoomOrderVO> getAllByOrderStatus(Integer status) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 }

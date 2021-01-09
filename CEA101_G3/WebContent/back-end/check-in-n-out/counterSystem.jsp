@@ -9,14 +9,13 @@
 <%@ page import="java.time.LocalDate"%>
 <%@ page import="java.util.stream.Collectors" %>
 <%
-RoomOrderService roSvc = new RoomOrderService();
-LocalDate today = LocalDate.now();
-List<RoomOrderVO> checkIns = roSvc.getAllBeforeToday(today);
-List<RoomOrderVO> checkOuts = roSvc.getAllByDateOut(today); //取得當天尚未CheckOut的訂單
-List<RoomOrderVO> checkeds = roSvc.getAllByBkStatus(BKSTATUS.CHECKED);
-pageContext.setAttribute("checkIns", checkIns);
-pageContext.setAttribute("checkOuts", checkOuts);
-pageContext.setAttribute("checkeds", checkeds);
+	RoomOrderService roSvc = new RoomOrderService();
+	List<RoomOrderVO> checkIns = roSvc.getAllCheckInOrder(); //取得當天要checkIn的訂單
+	List<RoomOrderVO> checkOuts = roSvc.getAllCheckOutOrder(); //取得當天尚未CheckOut的訂單
+	List<RoomOrderVO> checkeds = roSvc.getOrderByStatus(new Integer(2)); //取得已入住訂單
+	pageContext.setAttribute("checkIns", checkIns);
+	pageContext.setAttribute("checkOuts", checkOuts);
+	pageContext.setAttribute("checkeds", checkeds);
 
 %>
 <jsp:useBean id="memSvc" scope="page" class="com.member.model.MemberService" />
@@ -26,14 +25,8 @@ pageContext.setAttribute("checkeds", checkeds);
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<link rel="icon" type="image/png"
-	href="<%=request.getContextPath()%>/img/loading.png" />
-<link rel="stylesheet"
-	href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
-	integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p"
-	crossorigin="anonymous" />
-<link rel="stylesheet"
-	href="<%=request.getContextPath()%>/css/back/counterSystem.css">
+<link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
+<link rel="stylesheet" href="<%=request.getContextPath()%>/css/back-end/counterSystem.css">
 <title>房務系統</title>
 </head>
 <body>
@@ -50,20 +43,6 @@ pageContext.setAttribute("checkeds", checkeds);
 				<h4>今日待退房訂單</h4>
 				<h3>${checkOuts.size()} 筆</h3>
 			</div>
-			<% 
-				List<RoomOrderVO> list = roSvc.getAllByBkStatus(BKSTATUS.CHECKED);
-				int totalGuest = 0;
-				for (BookingOrderVO bkodvo: list){
-					int i = bkdetailSvc.getAllByBkNo(bkodvo.getBk_no()).stream()
-							.mapToInt(e -> e.getRm_guest())
-							.sum();
-					totalGuest += i;
-				}
-			%>
-			<div>
-				<h4>當前度假村人數</h4>
-				<h3><%=totalGuest%> 人</h3>
-			</div>
 		</div>
 		<div class="main">
 			<div class="list">
@@ -73,10 +52,9 @@ pageContext.setAttribute("checkeds", checkeds);
 					</tr>
 					<tr class="table-head">
 						<th>訂單編號</th>
-						<th>入住會員</th>
-						<th>預約入住日</th>
-						<th>預計退房日</th>
-						<th>接送狀況</th>
+						<th>會員編號</th>
+						<th>入住日期</th>
+						<th>退房日期</th>
 						<th>辦理入住</th>
 					</tr>
 					<c:if test="${checkIns.size()==0}">
@@ -87,30 +65,17 @@ pageContext.setAttribute("checkeds", checkeds);
 					
 					<c:forEach var="checkIn" items="${checkIns}">
 						<tr class="list-data">
-							<td><i class="fas fa-receipt"></i>${checkIn.bk_no}</td>
+							<td><i class="fas fa-receipt"></i>${checkIn.room_order_id}</td>
 							<td>
-								<a class="booking-detail member"
-								href="<%=request.getContextPath()%>/MembersServlet?mb_id=${checkIn.mb_id}&action=getone_bymbid&location=memberDetail.jsp">${checkIn.mb_id}</a><br>
-								<i class="far fa-user member-icon"></i>${mbSvc.getOneByMbId(checkIn.mb_id).mb_name}
+								<%-- <a class="booking-detail member"
+								href="<%=request.getContextPath()%>/MembersServlet?mb_id=${checkIn.mb_id}&action=getone_bymbid&location=memberDetail.jsp">${checkIn.mb_id}</a><br> --%>
+								<i class="far fa-user member-icon"></i>${memSvc.getOneMEM(checkIn.mem_id).name}
 							</td>
-							<td>${checkIn.dateIn}</td>
-							<td>${checkIn.dateOut}</td>
-							<td>
-							<c:choose>
-								<c:when test="${pkupSvc.getOneByBkNo(checkIn.bk_no) == null}">
-									無預約
-								</c:when>
-								<c:when test="${pkupSvc.getOneByBkNo(checkIn.bk_no).pkup_status == 0}">
-									未抵達
-								</c:when>
-								<c:otherwise>
-									已抵達
-								</c:otherwise>
-							</c:choose>
-							</td>
-							<td><button class="check-in"  <c:if test="${checkIn.bk_status != 1}">disabled</c:if> >CHECK IN</button></td>
+							<td>${checkIn.check_in_date}</td>
+							<td>${checkIn.check_out_date}</td>
+							<td><button class="check-in"  <c:if test="${checkIn.status == 0}">disabled</c:if> >CHECK IN</button></td>
 						</tr>
-						<c:if test="${checkIn.bk_status == 1}">
+						<c:if test="${checkIn.status == 1}">
 						<tr>
 							<td class="room-check-in" colspan="7">
 							<% int i = 1; %>
