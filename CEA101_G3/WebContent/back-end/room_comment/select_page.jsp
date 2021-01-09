@@ -3,7 +3,7 @@
 <%@ page import="java.util.*"%>
 <%@ page import="com.room_comment.model.*"%>
 <!DOCTYPE html>
-<%@ include file="/back-end/back-template/backIndex.file"%>
+<%@ include file="backIndex.file"%>
 <html>
 <head>
 <meta charset="UTF-8">
@@ -20,15 +20,6 @@
 		<input class="title" id="tab-1" type="radio" name="tab-group" checked="checked"/>
 		<label for="tab-1">所有評論</label> 
 		
-		<input class="title" id="tab-2" type="radio" name="tab-group"  />
-		<label for="tab-2">兩小床評論</label> 
-		
-		<input class="title" id="tab-3" type="radio" name="tab-group" />
-		<label for="tab-3">一大床評論</label> 
-		
-		<input class="title" id="tab-4" type="radio" name="tab-group" />
-		<label for="tab-4">四人房評論</label>
-		 
 		<input class="title" id="tab-5" type="radio" name="tab-group" />
 		<label for="tab-5">已回覆評論</label>
 		
@@ -37,13 +28,10 @@
 		
 		<div id="content">
 			<jsp:include page="listAllRoomComment.jsp" />
-			<jsp:include page="listAllTwinsRoomComment.jsp" />
-			<jsp:include page="listAllDoubleRoomComment.jsp" />
-			<jsp:include page="listAllQuadrupleRoomComment.jsp" />
 			<jsp:include page="listAllReplyRoomComment.jsp" />
 			<jsp:include page="listAllWaitReplyRoomComment.jsp" />
 		</div>
 	</div>
-	<%@ include file="/back-end/back-template/backIndex2.file"%>
+	<%@ include file="backIndex2.file"%>
 </body>
 </html>

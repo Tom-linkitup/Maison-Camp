@@ -51,4 +51,16 @@ public class RoomOrderService {
 	public List<RoomOrderVO> getOneByMemId(String mem_id){
 		return dao.findByMemId(mem_id);
 	}
+	
+	public List<RoomOrderVO> getAllCheckInOrder(){
+		return dao.getAllBeforeToday();
+	}
+	
+	public List<RoomOrderVO> getAllCheckOutOrder(){
+		return dao.getAllDateOut();
+	}
+	
+	public List<RoomOrderVO> getOrderByStatus(Integer status){
+		return dao.getAllByOrderStatus(status);
+	}
 }

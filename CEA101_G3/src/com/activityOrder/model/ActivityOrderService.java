@@ -80,6 +80,9 @@ public class ActivityOrderService {
 		return dao.findByActId(actId);
 	}
 	
+	public List<ActivityOrderVO> findByMemId(String memId){
+		return dao.findByMemId(memId);
+	}
 	
 	
 	public static void main(String[] argv) {

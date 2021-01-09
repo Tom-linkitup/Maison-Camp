@@ -8,5 +8,6 @@ public interface ActivityOrderDAO_interfact {
      public void delete(String acttOrderId);
      public ActivityOrderVO  findByActOrderId(String actOrderId);
      public List<ActivityOrderVO > findByActId(String actId);
+     public List<ActivityOrderVO > findByMemId(String memId);
      public List<ActivityOrderVO > getAll();
 }

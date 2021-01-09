@@ -1,6 +1,9 @@
 package com.room_comment.model;
 
 import java.util.*;
+
+import com.room.model.RoomVO;
+
 import java.sql.*;
 
 public class Room_commentJDBCDAO implements Room_commentDAO_interface {
@@ -13,7 +16,7 @@ public class Room_commentJDBCDAO implements Room_commentDAO_interface {
 		"INSERT INTO room_comment(room_comment_id,room_category_id,room_comment_content,time,comment_reply)"
 		+ "VALUES ('RC' || room_comment_id_seq.NEXTVAL, ?, ?, ?,?)";
 	private static final String GET_ALL_STMT = 
-		"SELECT room_comment_id,room_category_id,room_comment_content,time,comment_reply FROM room_comment order by room_comment_id";
+		"SELECT room_comment_id,room_category_id,room_comment_content,time,comment_reply FROM room_comment order by room_comment_id desc";
 	private static final String GET_ONE_STMT = 
 		"SELECT room_comment_id,room_category_id,room_comment_content, time,comment_reply FROM room_comment where room_comment_id = ?";
 	private static final String DELETE = 
@@ -31,10 +34,12 @@ public class Room_commentJDBCDAO implements Room_commentDAO_interface {
 			"SELECT room_comment_id,room_category_id,room_comment_content,time,comment_reply FROM room_comment where room_category_id =any (select  room_category_id from room_comment where room_category_id='QUADRUPLE') order by time";
 	
 	private static final String GETALLREPLY=
-	"SELECT room_comment_id,room_category_id,room_comment_content,time,comment_reply FROM room_comment where comment_reply =any (select  comment_reply from room_comment where comment_reply is not null) order by time";
+	"SELECT room_comment_id,room_category_id,room_comment_content,time,comment_reply FROM room_comment where comment_reply =any (select  comment_reply from room_comment where comment_reply is not null) order by time desc";
 	
 	private static final String GETALLWAITREPLY=
-	"SELECT room_comment_id,room_category_id,room_comment_content,time,comment_reply FROM room_comment where comment_reply is null order by time";
+	"SELECT room_comment_id,room_category_id,room_comment_content,time,comment_reply FROM room_comment where comment_reply is null order by time desc";
+	
+	private static final String Get_By_RCT = "SELECT ROOM_COMMENT_ID, ROOM_CATEGORY_ID, ROOM_COMMENT_CONTENT,TIME,COMMENT_REPLY FROM ROOM_COMMENT WHERE ROOM_CATEGORY_ID=? ORDER BY TIME desc";
 	
 	
 	@Override
@@ -303,191 +308,7 @@ public class Room_commentJDBCDAO implements Room_commentDAO_interface {
 	}
 	
 	
-	@Override
-	public List<Room_commentVO> getAllTwins() {
-		List<Room_commentVO> list = new ArrayList<Room_commentVO>();
-		Room_commentVO room_commentVO = null;
-
-		Connection con = null;
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
-
-		try {
-
-			Class.forName(driver);
-			con = DriverManager.getConnection(url, userid, passwd);
-			pstmt = con.prepareStatement(GETALLTWINS);
-			rs = pstmt.executeQuery();
-
-			while (rs.next()) {
-				// room_commentVO 銋迂� Domain objects
-				room_commentVO = new Room_commentVO();
-				room_commentVO.setRoom_comment_id(rs.getString("room_comment_id"));
-				room_commentVO.setRoom_category_id(rs.getString("room_category_id"));
-				room_commentVO.setRoom_comment_content(rs.getString("room_comment_content"));
-				room_commentVO.setTime(rs.getTimestamp("time"));
-				room_commentVO.setComment_reply(rs.getString("comment_reply"));
-				list.add(room_commentVO); // Store the row in the list
-			}
-
-			// Handle any driver errors
-		} catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. "
-					+ e.getMessage());
-			// Handle any SQL errors
-		} catch (SQLException se) {
-			throw new RuntimeException("A database error occured. "
-					+ se.getMessage());
-			// Clean up JDBC resources
-		} finally {
-			if (rs != null) {
-				try {
-					rs.close();
-				} catch (SQLException se) {
-					se.printStackTrace(System.err);
-				}
-			}
-			if (pstmt != null) {
-				try {
-					pstmt.close();
-				} catch (SQLException se) {
-					se.printStackTrace(System.err);
-				}
-			}
-			if (con != null) {
-				try {
-					con.close();
-				} catch (Exception e) {
-					e.printStackTrace(System.err);
-				}
-			}
-		}
-		return list;
-	}
 	
-	@Override
-	public List<Room_commentVO> getAllDouble() {
-		List<Room_commentVO> list = new ArrayList<Room_commentVO>();
-		Room_commentVO room_commentVO = null;
-
-		Connection con = null;
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
-
-		try {
-
-			Class.forName(driver);
-			con = DriverManager.getConnection(url, userid, passwd);
-			pstmt = con.prepareStatement(GETALLDOUBLE);
-			rs = pstmt.executeQuery();
-
-			while (rs.next()) {
-				// room_commentVO 銋迂� Domain objects
-				room_commentVO = new Room_commentVO();
-				room_commentVO.setRoom_comment_id(rs.getString("room_comment_id"));
-				room_commentVO.setRoom_category_id(rs.getString("room_category_id"));
-				room_commentVO.setRoom_comment_content(rs.getString("room_comment_content"));
-				room_commentVO.setTime(rs.getTimestamp("time"));
-				room_commentVO.setComment_reply(rs.getString("comment_reply"));
-				list.add(room_commentVO); // Store the row in the list
-			}
-
-			// Handle any driver errors
-		} catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. "
-					+ e.getMessage());
-			// Handle any SQL errors
-		} catch (SQLException se) {
-			throw new RuntimeException("A database error occured. "
-					+ se.getMessage());
-			// Clean up JDBC resources
-		} finally {
-			if (rs != null) {
-				try {
-					rs.close();
-				} catch (SQLException se) {
-					se.printStackTrace(System.err);
-				}
-			}
-			if (pstmt != null) {
-				try {
-					pstmt.close();
-				} catch (SQLException se) {
-					se.printStackTrace(System.err);
-				}
-			}
-			if (con != null) {
-				try {
-					con.close();
-				} catch (Exception e) {
-					e.printStackTrace(System.err);
-				}
-			}
-		}
-		return list;
-	}
-	
-	@Override
-	public List<Room_commentVO> getAllQuadruple() {
-		List<Room_commentVO> list = new ArrayList<Room_commentVO>();
-		Room_commentVO room_commentVO = null;
-
-		Connection con = null;
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
-
-		try {
-
-			Class.forName(driver);
-			con = DriverManager.getConnection(url, userid, passwd);
-			pstmt = con.prepareStatement(GETALLQUADRUPLE);
-			rs = pstmt.executeQuery();
-
-			while (rs.next()) {
-				// room_commentVO 銋迂� Domain objects
-				room_commentVO = new Room_commentVO();
-				room_commentVO.setRoom_comment_id(rs.getString("room_comment_id"));
-				room_commentVO.setRoom_category_id(rs.getString("room_category_id"));
-				room_commentVO.setRoom_comment_content(rs.getString("room_comment_content"));
-				room_commentVO.setTime(rs.getTimestamp("time"));
-				room_commentVO.setComment_reply(rs.getString("comment_reply"));
-				list.add(room_commentVO); // Store the row in the list
-			}
-
-			// Handle any driver errors
-		} catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. "
-					+ e.getMessage());
-			// Handle any SQL errors
-		} catch (SQLException se) {
-			throw new RuntimeException("A database error occured. "
-					+ se.getMessage());
-			// Clean up JDBC resources
-		} finally {
-			if (rs != null) {
-				try {
-					rs.close();
-				} catch (SQLException se) {
-					se.printStackTrace(System.err);
-				}
-			}
-			if (pstmt != null) {
-				try {
-					pstmt.close();
-				} catch (SQLException se) {
-					se.printStackTrace(System.err);
-				}
-			}
-			if (con != null) {
-				try {
-					con.close();
-				} catch (Exception e) {
-					e.printStackTrace(System.err);
-				}
-			}
-		}
-		return list;
-	}
 	
 	@Override
 	public List<Room_commentVO> getAllReply() {
@@ -615,6 +436,57 @@ public class Room_commentJDBCDAO implements Room_commentDAO_interface {
 		return list;
 	}
 	
+	public List<Room_commentVO> getByRoomCategoryId(String room_category_id) {
+		List<Room_commentVO> room_commentList = new ArrayList<>();
+		Room_commentVO room_commentVO = null;
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			Class.forName(driver);
+			con = DriverManager.getConnection(url, userid, passwd);
+			pstmt = con.prepareStatement(Get_By_RCT);
+			
+			pstmt.setString(1, room_category_id);
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				room_commentVO = new Room_commentVO();
+				room_commentVO.setRoom_comment_id(rs.getString("ROOM_COMMENT_ID"));
+				room_commentVO.setRoom_category_id(rs.getString("ROOM_CATEGORY_ID"));
+				room_commentVO.setRoom_comment_content(rs.getString("ROOM_COMMENT_CONTENT"));
+				room_commentVO.setTime(rs.getTimestamp("TIME"));
+				room_commentVO.setComment_reply(rs.getString("COMMENT_REPLY"));
+				room_commentList.add(room_commentVO);
+			}
+	
+		}catch (ClassNotFoundException e) {
+			throw new RuntimeException("Couldn't load database driver. "
+					+ e.getMessage());
+			// Handle any SQL errors
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}		
+		return room_commentList;
+	}
 
 	public static void main(String[] args) {
 
@@ -650,7 +522,7 @@ public class Room_commentJDBCDAO implements Room_commentDAO_interface {
 //		System.out.println("---------------------");
 ////
 ////		// �閰�
-		List<Room_commentVO> list = dao.getAllTwins();
+		List<Room_commentVO> list = dao.getAll(); 
 		for (Room_commentVO aRoom_comment : list) {
 			System.out.print(aRoom_comment.getRoom_comment_id() + ",");
 			System.out.print(aRoom_comment.getRoom_category_id() + ",");

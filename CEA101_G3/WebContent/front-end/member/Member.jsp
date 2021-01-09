@@ -10,16 +10,28 @@
 <%@ page import="com.roomphoto.model.*" %>
 <%@ page import="com.room.model.*" %>
 <%@ page import="com.roomrsv.model.*"%>
+<%@ page import="com.activityOrder.model.*"%>
+<%@ page import="com.activity.model.*"%>
+<%@ page import="com.actCategory.model.*"%>
 <!-- 取得會員資訊 -->
 <%
 	MemberVO memVO = (MemberVO) session.getAttribute("memVO");
 	RoomOrderService roSvc = new RoomOrderService();
 	List<RoomOrderVO> rolist = roSvc.getOneByMemId(memVO.getMem_id());
 	pageContext.setAttribute("rolist", rolist);
+	
+	// 活動
+	ActivityOrderService actOSvc = new ActivityOrderService();
+	List<ActivityOrderVO> actlist = actOSvc.findByMemId(memVO.getMem_id());
+	pageContext.setAttribute("actlist", actlist);
+	
 %>
 
 <jsp:useBean id="rodSvc" scope="page" class="com.roomorderdetail.model.RoomOrderDetailService" />
 <jsp:useBean id="rtSvc" scope="page" class="com.roomtype.model.RoomTypeService" />
+<jsp:useBean id="acPhSvc" scope="page" class="com.actPhoto.model.ActPhotoService" />
+<jsp:useBean id="actSvc" scope="page" class="com.activity.model.ActivityService" />
+<jsp:useBean id="actCategorySvc" scope="page" class="com.actCategory.model.ActCategoryService" />
 <!DOCTYPE html>
 <html>
 <head>
@@ -308,7 +320,80 @@
           <!--act order section -->      
           <div id="act-order-show" class="row info-form" style="display:none;">
           	<h3 class="act-headline">活動報名訂單</h3>
-          	
+          	<c:choose>
+          		<c:when test="${empty actlist}">
+	          		<div class="container">
+          				<h4 style="text-align:center; color:#777;">尚無活動訂單資料</h4>
+          			</div>
+          		</c:when>
+          		<c:otherwise>
+          		<c:forEach var="actOrderVO" items="${actlist}">
+	            	<div class="container">
+				      <div class="row">
+				      	<div class="col-sm-4">
+								<c:forEach var="actPhotoVO" items="${acPhSvc.getByActId(actOrderVO.actId)}" begin="0" end="0">
+									<c:if test="${actPhotoVO.content != null}">	
+										<img  src="<%=request.getContextPath()%>/actPhoto/ActPhotoServlet.do?action=showPhoto&photo=${actPhotoVO.actPhotoId}" style="width:300px; height:200px; margin-left:-12px;">
+									</c:if>
+									<c:if test="${actPhotoVO.content == null }">
+										查無圖片
+									</c:if>
+								</c:forEach>             		
+				      	</div>
+				      	<div class="col-sm-4">
+					      	<h4 class="room-order-headline">${actSvc.getOneActivity(actOrderVO.actId).actName}</h4>
+							<ul style="list-style:none; padding:5px 0; line-height:2em; font-size: 15px;">
+								<li><i class="fa fa-chevron-circle-right"></i>報名人數: ${actOrderVO.people}</li>
+				      			<li><i class="fa fa-chevron-circle-right"></i>活動起始日期: ${actSvc.getOneActivity(actOrderVO.actId).actStartDate}</li>
+								<li><i class="fa fa-chevron-circle-right"></i>活動結束日期: ${actSvc.getOneActivity(actOrderVO.actId).actEndDate}</li>
+								<li><i class="fa fa-chevron-circle-right"></i>活動報名費用: ${actSvc.getOneActivity(actOrderVO.actId).actPrice} 元</li>
+							</ul>
+				      	</div>
+				      	<div class="col-sm-4">
+				      		<h4>訂單編號：#${actOrderVO.actOrderId}</h4>
+				      		<h4>下單日期：${actOrderVO.createTime}</h4>
+				      		<c:choose>
+				      			<c:when test="${actOrderVO.status == '0'}">
+						      		<h4><i style="color:#47cf72" class="fas fa-check-circle">已付款</i></h4>
+						      		<form method="post" action="<%=request.getContextPath()%>/actOrder/ActOrderServlet.do" onSubmit="return CheckForm()">
+						      			<input type="hidden" name="actOrderId" value="${actOrderVO.actOrderId}">
+						      			<input type="hidden" name="action" value="usercancel">
+							      		<button class="btn btn-danger" type="submit">取消訂單</button>
+						      		</form>
+						      		</div>
+						      		 </div>
+				      			</c:when>
+				      			<c:when test="${actOrderVO.status == '1'}">
+				      				<h4><i style="color:#c15c61" class="fas fa-check-circle">已取消</i></h4>
+				      				</div>
+				      				 </div>
+				      			</c:when>
+				      			<c:when test="${actOrderVO.status == '2'}">
+				      				<h4><i style="color:lightblue" class="fas fa-check-circle">待評論</i></h4>
+									<button id="commentbtn" class="btn-danger">顯示評論</button>
+						      		</div>
+						      		</div>
+						      		<div style="display:none" >
+						      			<form method="post" action="<%=request.getContextPath()%>/actComment/ActCommentServlet.do" onSubmit="return CheckCommentForm()">
+						      			<input type="hidden" name="actCategoryId" value=${actSvc.getOneActivity(actOrderVO.actId).actCategoryId}>
+						      			<h3>活動評論</h3>
+						      			<input type="textarea" name="actComment">
+						      			<input type="hidden" name="action" value="userinsert">
+						      			<input type="hidden" name="actOrderId" value="${actOrderVO.actOrderId}">
+						      			<button class="btn btn-danger" type="submit">送出</button>
+						      			</form>
+						      		</div>
+						      	</c:when>
+				      			<c:otherwise>
+				      				<h4><i style="color:#c15c61" class="fas fa-check-circle">已完成</i></h4>
+				      				</div>
+				      				 </div>
+				      			</c:otherwise>
+				      		</c:choose>	     		
+			      </div>  
+			    </c:forEach>
+          		</c:otherwise>
+          	</c:choose>
           </div>
           <!-- credit card section -->
           <div id="credit-show" class="row info-form" style="display: none;">
@@ -445,6 +530,24 @@
 </c:if>
 
 <script>
+function CheckForm(){
+	var yes = confirm('你確定要取消嗎？');
+  	if (yes) {
+  	return true;
+  	}else{
+  	return false;
+  	}
+}	
+
+function CheckCommentForm(){
+	var yes = confirm('你確定送出評論嗎？');
+  	if (yes) {
+  	return true;
+  	}else{
+  	return false;
+  	}
+}	
+
 $.datetimepicker.setLocale('zh');
 $('#birthday').datetimepicker({
     theme: '',              //theme: 'dark',
@@ -457,6 +560,20 @@ $('#birthday').datetimepicker({
    //minDate:               '-1970-01-01', // 去除今日(不含)之前
    //maxDate:               '+1970-01-01'  // 去除今日(不含)之後
 });
+
+
+
+$("#commentbtn").click(function(){
+	if($(this).parent().parent().next().css('display') === 'none'){
+		$(this).parent().parent().next().css("display","")
+		$(this).text("隱藏評論")
+	}else{
+		$(this).parent().parent().next().css("display","none")
+		$(this).text("顯示評論")
+	}
+	
+});
+
 
 $("#country").countrySelect({
 		defaultCountry:"${memVO.nation}"

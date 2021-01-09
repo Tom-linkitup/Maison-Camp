@@ -30,6 +30,7 @@ public class ActivityOrderDAO implements ActivityOrderDAO_interfact {
 	private static final String GET_ALL_STMT = "SELECT ACT_ORDER_ID, ACT_ID, MEM_ID, NOTE, PEOPLE, ACT_PRICE, PAYMENT, CREATE_TIME, STATUS FROM ACTIVITY_ORDER ORDER BY ACT_ORDER_ID";
 
 	private static final String GET_BYACTID_STMT = "SELECT ACT_ORDER_ID, ACT_ID, MEM_ID, NOTE, PEOPLE, ACT_PRICE, PAYMENT, CREATE_TIME, STATUS FROM ACTIVITY_ORDER where ACT_ID = ?";
+	private static final String GET_BYMEMID_STMT = "SELECT ACT_ORDER_ID, ACT_ID, MEM_ID, NOTE, PEOPLE, ACT_PRICE, PAYMENT, CREATE_TIME, STATUS FROM ACTIVITY_ORDER where MEM_ID = ?";
 	
 	@Override
 	public void insert(ActivityOrderVO activityOrderVO) {
@@ -208,6 +209,8 @@ public class ActivityOrderDAO implements ActivityOrderDAO_interfact {
 		
 		return aoVO;
 	}
+	
+	
 
 	@Override
 	public List<ActivityOrderVO> getAll() {
@@ -286,6 +289,70 @@ public class ActivityOrderDAO implements ActivityOrderDAO_interfact {
 			pstmt = con.prepareStatement(GET_BYACTID_STMT);
 			
 			pstmt.setString(1, actId);
+			
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				aoVO = new ActivityOrderVO();
+				
+				aoVO.setActOrderId(rs.getString("ACT_ORDER_ID"));
+				aoVO.setActId(rs.getString("ACT_ID"));
+				aoVO.setMemId(rs.getString("MEM_ID"));
+				aoVO.setNote(rs.getString("NOTE"));
+				aoVO.setPeople(rs.getInt("PEOPLE"));
+				aoVO.setActPrice(rs.getInt("ACT_PRICE"));
+				aoVO.setPayment(rs.getString("PAYMENT"));
+				aoVO.setCreateTime(rs.getDate("CREATE_TIME"));
+				aoVO.setStatus(rs.getInt("STATUS"));
+				
+				list.add(aoVO);
+			}
+			
+			
+		}catch(SQLException se) {
+			se.printStackTrace();
+		}finally{
+			if(rs!=null) {
+				try {
+					rs.close();
+				}catch(Exception e) {
+					e.printStackTrace();
+				}
+			}
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}			
+		}
+		
+		return list;
+	}
+	
+	
+	@Override
+	public List<ActivityOrderVO> findByMemId(String memId) {
+		List<ActivityOrderVO> list = new ArrayList<ActivityOrderVO>();
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		ActivityOrderVO aoVO = null;
+		
+		
+		try {
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(GET_BYMEMID_STMT);
+			
+			pstmt.setString(1, memId);
 			
 			rs = pstmt.executeQuery();
 			

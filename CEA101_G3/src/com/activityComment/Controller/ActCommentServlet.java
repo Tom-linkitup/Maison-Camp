@@ -12,6 +12,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.activityComment.model.*;
+import com.activityOrder.model.ActivityOrderService;
+import com.activityOrder.model.ActivityOrderVO;
 
 public class ActCommentServlet extends HttpServlet {
 
@@ -30,7 +32,7 @@ public class ActCommentServlet extends HttpServlet {
 		
 		System.out.println(req.getParameter("action"));
 	
-		// 新增評論
+		// 後台新增評論
 		if("insert".equals(action)) {
 			
 			List<String> errorMsgs = new LinkedList<String>();
@@ -48,14 +50,78 @@ public class ActCommentServlet extends HttpServlet {
 				
 				
 				if(!errorMsgs.isEmpty()) {
-					String url = "/"+req.getParameter("from")+"/actComment/addActComment.jsp";
+					String url = "/back-end/actComment/addActComment.jsp";
 					RequestDispatcher failureView = req.getRequestDispatcher(url);
 					failureView.forward(req, res);
 				}
 				
 				ActivityCommentService acs = new ActivityCommentService();
 				acs.addActivityComment(actCategoryId, actComment);
-				String url = "/"+req.getParameter("from")+"/actComment/addActComment.jsp";
+				String url = "/back-end/actComment/addActComment.jsp";
+				RequestDispatcher failureView = req.getRequestDispatcher(url);
+				failureView.forward(req, res);
+			}catch(Exception e) {
+				e.printStackTrace();
+			}
+			
+		}
+		
+		// 使用者新增評論
+		if("userinsert".equals(action)) {
+			
+			List<String> errorMsgs = new LinkedList<String>();
+			req.setAttribute("errorMsgs", errorMsgs);
+			
+			try {
+				String actCategoryId = req.getParameter("actCategoryId");
+				String actCategoryIdRex = "^ACT_CATEGORY[0-9]+$";
+
+				if (actCategoryId == null || !actCategoryId.matches(actCategoryIdRex)) {
+					errorMsgs.add("活動編號格式不正確");
+				}
+				
+				String actComment = req.getParameter("actComment");
+				
+				
+				if(!errorMsgs.isEmpty()) {
+					String url = "/front-end/member/Member.jsp";
+					RequestDispatcher failureView = req.getRequestDispatcher(url);
+					failureView.forward(req, res);
+				}
+				
+				ActivityCommentService acs = new ActivityCommentService();
+				ActivityOrderService aos = new ActivityOrderService();
+				// 先撈出該筆訂單
+				String actOrderId = req.getParameter("actOrderId");
+				ActivityOrderVO aoVO = aos.findByActOrderID(actOrderId);
+
+				String actId = aoVO.getActId();
+				String memId = aoVO.getMemId();
+
+				String note = aoVO.getNote();
+
+				Integer people = aoVO.getPeople();
+
+				Integer status = 3;
+
+				String payment = aoVO.getPayment();
+
+				java.sql.Date createTime = aoVO.getCreateTime();
+
+				Integer actPrice = aoVO.getActPrice();
+
+				aoVO.setActId(actId);
+				aoVO.setNote(note);
+				aoVO.setPeople(people);
+				aoVO.setStatus(status);
+				aoVO.setPayment(payment);
+				aoVO.setCreateTime(createTime);
+				aoVO.setActPrice(actPrice);
+				
+				
+				aos.updateByActOrderId(actOrderId, actId, memId, note, people, actPrice, payment, createTime, status);
+				acs.addActivityComment(actCategoryId, actComment);
+				String url = "/front-end/member/Member.jsp";
 				RequestDispatcher failureView = req.getRequestDispatcher(url);
 				failureView.forward(req, res);
 			}catch(Exception e) {
