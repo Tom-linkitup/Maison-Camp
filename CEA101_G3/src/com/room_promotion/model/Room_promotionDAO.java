@@ -43,14 +43,14 @@ public class Room_promotionDAO implements Room_promotionDAO_interface {
 		"to_char(room_prom_start_date,'yyyy-mm-dd')room_prom_start_date,\r\n" + 
 		"to_char(room_prom_end_date,'yyyy-mm-dd')room_prom_end_date  from room_promotion\r\n" + 
 		"where    to_char(room_prom_start_date,'yyyy-mm-dd') <= TO_CHAR(SYSDATE, 'YYYY-MM-DD')\r\n" + 
-		"and      to_char(room_prom_end_date,'yyyy-mm-dd') >= TO_CHAR(SYSDATE, 'YYYY-MM-DD') ";
+		"and      to_char(room_prom_end_date,'yyyy-mm-dd') >= TO_CHAR(SYSDATE, 'YYYY-MM-DD') order by room_prom_end_date ";
 		
 		private static final String GET_ALL_FUTURE_STMT = 		
 		"SELECT room_promotion_id,room_category_id,room_promotion_info,room_discount,\r\n" + 
 		"to_char(room_prom_start_date,'yyyy-mm-dd')room_prom_start_date,\r\n" + 
 		"to_char(room_prom_end_date,'yyyy-mm-dd')room_prom_end_date  from room_promotion\r\n" + 
 		"where    to_char(room_prom_start_date,'yyyy-mm-dd') > TO_CHAR(SYSDATE, 'YYYY-MM-DD')\r\n" + 
-		"and      to_char(room_prom_end_date,'yyyy-mm-dd') > TO_CHAR(SYSDATE, 'YYYY-MM-DD') ";
+		"and      to_char(room_prom_end_date,'yyyy-mm-dd') > TO_CHAR(SYSDATE, 'YYYY-MM-DD') order by room_prom_start_date ";
 		
 		
 		

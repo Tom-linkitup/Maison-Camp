@@ -11,10 +11,14 @@
 	 		<!--  <input type="TEXT" name="room_category_id"  class="input-beautify" value="<%= (room_promotionVO==null)? "" : room_promotionVO.getRoom_category_id()%>"> -->
 <html>
 <head>
-<meta charset="UTF-8">
+<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/css/back-end/room_promotion.css" />
+<link rel="stylesheet" href="http://code.jquery.com/ui/1.9.2/themes/redmond/jquery-ui.css" />
 <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/datetimepicker/jquery.datetimepicker.css" />
-<script src="<%=request.getContextPath()%>/datetimepicker/jquery.js"></script>
-<script src="<%=request.getContextPath()%>/datetimepicker/jquery.datetimepicker.full.js"></script>
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+<script type="text/javascript" src="http://code.jquery.com/ui/1.9.2/jquery-ui.js"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+<meta charset="UTF-8">
 
 
 <title>Insert title here</title>
@@ -41,7 +45,7 @@
 	<%-- 錯誤表列 --%>
 	<c:forEach var="message" items="${errorMsgs}">
 	</c:forEach>
-<FORM METHOD="post" ACTION="${pageContext.request.contextPath}/room_promotion/room_promotion.do" name="form1">
+<FORM id="myAddForm" METHOD="post" ACTION="${pageContext.request.contextPath}/room_promotion/room_promotion.do" name="form1">
 <div id="content-2">
 
 
@@ -65,148 +69,91 @@
 		</c:if></tr><p></p>
 		 
 		<tr><td>優惠折扣設定:</td>
-		<td><input type="NUMBER" min="0" max="1" step="0.01" name="room_discount"  class="input-beautify" value=""></td>
+		<td><input type="NUMBER" min="0" max="1" step="0.01" name="room_discount"  class="input-beautify" value="<%=(room_promotionVO==null)? "" : room_promotionVO.getRoom_discount()%>"></td>
 		<c:if test="${not empty errorMsgs}">
 		<p class="error" style="color:red; font-size:8px;">${errorMsgs.room_discount}</p>
 		</c:if></tr><p></p>
 		
 		<tr><td>優惠開始日期:</td>
-		<td><input name="room_prom_start_date" id="f_date1" type="text" class="input-beautify" value="" ></td>
+		<td><input name="room_prom_start_date" id="f_date1" type="text" class="input-beautify" value="<%=(room_promotionVO==null)? "" : room_promotionVO.getRoom_prom_start_date()%>"></td>
 		<c:if test="${not empty errorMsgs}">
 		<p class="error" style="color:red; font-size:8px;">${errorMsgs.room_prom_start_date}</p>
 		</c:if></tr><p></p>
 		
 		<tr><td>優惠結束日期:</td>  
-		<td><input name="room_prom_end_date" id="f_date2" type="text" class="input-beautify"  value="" ></td>
+		<td><input name="room_prom_end_date" id="f_date2" type="text" class="input-beautify"  value="<%=(room_promotionVO==null)? "" : room_promotionVO.getRoom_prom_end_date()%>" ></td>
 		<c:if test="${not empty errorMsgs}">
 		<p class="error" style="color:red; font-size:8px;">${errorMsgs.room_prom_end_date}</p>
 		</c:if></tr><p></p>
 		
-		
 		<input type="hidden" name="action" value="insert"><br>
 		<button id="add" type="submit" class="btn btn-primary">新增訂房優惠</button> 
-
 		</div>
+		
 	</FORM>
+	
+	
+	
+	
 </body>
 
 
-<!-- =========================================以下為 datetimepicker 之相關設定========================================== -->
-
-<% 
-  java.sql.Date room_prom_start_date = null;
-  try {
-	  room_prom_start_date = room_promotionVO.getRoom_prom_start_date();
-   } catch (Exception e) {
-	   room_prom_start_date = new java.sql.Date(System.currentTimeMillis());
-   }
-  
-  java.sql.Date room_prom_end_date = null;
-  try {
-	  room_prom_end_date = room_promotionVO.getRoom_prom_end_date();
-   }
-  
-  		catch (Exception e) {
-	   room_prom_end_date = new java.sql.Date(System.currentTimeMillis());
-   }
-  
-%>
-
-
-<style>
-  .xdsoft_datetimepicker .xdsoft_datepicker {
-           width:  300px;   /* width:  300px; */
-  }
-  .xdsoft_datetimepicker .xdsoft_timepicker .xdsoft_time_box {
-           height: 151px;   /* height:  151px; */
-  }
-</style>
 
 <script>
-        $.datetimepicker.setLocale('zh');
-        $('#f_date1').datetimepicker({
-	       theme: '',              //theme: 'dark',
-	       timepicker:false,       //timepicker:true,
-	       step: 1,                //step: 60 (這是timepicker的預設間隔60分鐘)
-	       format:'Y-m-d',         //format:'Y-m-d H:i:s',
-		  //value: 
-           //disabledDates:        ['2017/06/08','2017/06/09','2017/06/10'], // 去除特定不含
-           //startDate:	            '2017/07/10',  // 起始日
-           minDate:              '<%=room_prom_start_date%>'     
-           // value:   new Date(),
-           //maxDate:               '+1970-01-01'  // 去除今日(不含)之後
-        }).on('changeDate', function (ev) {
-            var startTime = $("#f_date1").val();
-            $("#mEndTimeDiv").datetimepicker("setStartDate", startTime.toString("yyyy-MM-dd"));
-            queryFunc();
-        });
-        
-        
-        
-        
-        $.datetimepicker.setLocale('zh');
-        $('#f_date2').datetimepicker({
-	       theme: '',              //theme: 'dark',
-	       timepicker:false,       //timepicker:true,
-	       step: 1,                //step: 60 (這是timepicker的預設間隔60分鐘)
-	       format:'Y-m-d',         //format:'Y-m-d H:i:s',
-		   //value:
-           //disabledDates:        ['2017/06/08','2017/06/09','2017/06/10'], // 去除特定不含
-           //startDate:	            '2017/07/10',  // 起始日
-           minDate:     'f_date1'          
-           //maxDate:               '+1970-01-01'  // 去除今日(不含)之後
-        });
-        
-       
-   
-        // ----------------------------------------------------------以下用來排定無法選擇的日期-----------------------------------------------------------
+$(function() {
+	   var dateFormat = "mm/dd/yy",
+	     from = $("#f_date1")
+	     .datepicker({
+	       defaultDate: "+1w",
+	       changeMonth: true,
+	       changeYear: true,
+	       minDate: 'SYSDATE',
+	       numberOfMonths: 1
+	     })
+	     .on("change", function() {
+	       to.datepicker("option", "minDate", getDate(this));
+	     }),
+	     to = $("#f_date2").datepicker({
+	       defaultDate: "+1w",
+	       changeMonth: true,
+	       changeYear: true,
+	       minDate: 'SYSDATE',
+	       numberOfMonths: 1
+	     })
+	     .on("change", function() {
+	       from.datepicker("option", "maxDate", getDate(this));
+	     });
 
-        //      1.以下為某一天之前的日期無法選擇
-    //        var somedate1 = new Date('');
-    //         $('#f_date2').datetimepicker({
-    //             beforeShowDay: function(date) {
-    //            	  if (  date.getYear() <  somedate1.getYear() || 
-    //    		           (date.getYear() == somedate1.getYear() && date.getMonth() <  somedate1.getMonth()) || 
-    //    		           (date.getYear() == somedate1.getYear() && date.getMonth() == somedate1.getMonth() && date.getDate() < somedate1.getDate())
-    //                  ) {
-    //                       return [false, ""]
-    //                  }
-    //                  return [true, ""];
-    //          }});
+	   function getDate(element) {
+	     var date;
+	     try {
+	       date = $.datepicker.parseDate(dateFormat, element.value);
+	     } catch (error) {
+	       date = null;
+	     }
 
-        
-        //      2.以下為某一天之後的日期無法選擇
-        //      var somedate2 = new Date('2017-06-15');
-        //      $('#f_date1').datetimepicker({
-        //          beforeShowDay: function(date) {
-        //        	  if (  date.getYear() >  somedate2.getYear() || 
-        //		           (date.getYear() == somedate2.getYear() && date.getMonth() >  somedate2.getMonth()) || 
-        //		           (date.getYear() == somedate2.getYear() && date.getMonth() == somedate2.getMonth() && date.getDate() > somedate2.getDate())
-        //              ) {
-        //                   return [false, ""]
-        //              }
-        //              return [true, ""];
-        //      }});
+	     return date;
+	   }
+	   
+	   $("#showTo").click(function() {
+	     $("#from").datepicker("show");
+	   });
+	   
+	   $("#add").on('click', function(e){
+		   e.preventDefault(); // 預設行為
 
-
-        //      3.以下為兩個日期之外的日期無法選擇 (也可按需要換成其他日期)
-        //      var somedate1 = new Date('2017-06-15');
-        //      var somedate2 = new Date('2017-06-25');
-        //      $('#f_date1').datetimepicker({
-        //          beforeShowDay: function(date) {
-        //        	  if (  date.getYear() <  somedate1.getYear() || 
-        //		           (date.getYear() == somedate1.getYear() && date.getMonth() <  somedate1.getMonth()) || 
-        //		           (date.getYear() == somedate1.getYear() && date.getMonth() == somedate1.getMonth() && date.getDate() < somedate1.getDate())
-        //		             ||
-        //		            date.getYear() >  somedate2.getYear() || 
-        //		           (date.getYear() == somedate2.getYear() && date.getMonth() >  somedate2.getMonth()) || 
-        //		           (date.getYear() == somedate2.getYear() && date.getMonth() == somedate2.getMonth() && date.getDate() > somedate2.getDate())
-        //              ) {
-        //                   return [false, ""]
-        //              }
-        //              return [true, ""];
-        //      }});
-        
+		   let date1 = new Date(getDate($('#f_date1')[0]));
+	       let str = date1.getFullYear() + "-" + (date1.getMonth() + 1) + "-"+ date1.getDate();
+	       $("#f_date1").val(str);
+	       
+	       let date2 = new Date(getDate($('#f_date2')[0]));
+	       let str2 = date2.getFullYear() + "-" + (date2.getMonth() + 1) + "-"+ date2.getDate();
+	       $("#f_date2").val(str2);
+	       
+	       $('#myAddForm').submit(); // trigger
+	       
+	   })
+	 });
 </script>
 
 </html>

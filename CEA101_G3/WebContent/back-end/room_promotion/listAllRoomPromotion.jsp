@@ -119,7 +119,6 @@
 		
 		$(".delete").click(function() {
 			window.alert("因房型連動，無法刪除");
-			location.reload();
 		})
 	</script>	
 	

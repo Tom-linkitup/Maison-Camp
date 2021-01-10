@@ -6,7 +6,6 @@ import java.util.*;
 import javax.servlet.*;
 import javax.servlet.http.*;
 
-import com.room_promotion.model.*;
 import com.room_promotion.model.Room_promotionService;
 import com.room_promotion.model.Room_promotionVO;
 
@@ -216,20 +215,40 @@ if ("insert".equals(action)) { // 來自addRoom_promotion.jsp的請求
 			
 				
 				java.sql.Date room_prom_start_date = null;
+				java.sql.Date error1 =java.sql.Date.valueOf("1970-01-01");
 				try {
 					room_prom_start_date = java.sql.Date.valueOf(req.getParameter("room_prom_start_date").trim());
+					
+					if(room_prom_start_date.equals(error1)) {
+						room_prom_start_date=java.sql.Date.valueOf("");
+						errorMsgs.put("room_prom_start_date","請選擇日期!");
+					}
+					
+					
 				} catch (IllegalArgumentException e) {
 					room_prom_start_date=new java.sql.Date(System.currentTimeMillis());
 					errorMsgs.put("room_prom_start_date","請選擇日期!");
 				}
 				
+			//end的日期處理	
 				java.sql.Date room_prom_end_date = null;
+				java.sql.Date error2 =java.sql.Date.valueOf("1970-01-01");
 				try {
 					room_prom_end_date = java.sql.Date.valueOf(req.getParameter("room_prom_end_date").trim());
+					
+					if(room_prom_end_date.equals(error2)) {
+						room_prom_end_date=java.sql.Date.valueOf("");
+						errorMsgs.put("room_prom_end_date","請選擇日期!");
+					}
 				} catch (IllegalArgumentException e) {
 					room_prom_end_date=new java.sql.Date(System.currentTimeMillis());
 					errorMsgs.put("room_prom_end_date","請選擇日期!");
 				}
+				System.out.println(room_prom_end_date);
+			
+									
+				
+				
 				
 				
 
@@ -242,7 +261,7 @@ if ("insert".equals(action)) { // 來自addRoom_promotion.jsp的請求
 				
 				// Send the use back to the form, if there were errors
 				if (!errorMsgs.isEmpty()) {
-					req.setAttribute("room_promotionVO", room_promotionVO); // 含有輸入格式錯誤的room_promotionVO物件,也存入req
+					req.setAttribute("remain", room_promotionVO); // 含有輸入格式錯誤的room_promotionVO物件,也存入req
 					RequestDispatcher failureView = req
 							.getRequestDispatcher("/back-end/room_promotion/select_page.jsp");
 					failureView.forward(req, res);
