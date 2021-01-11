@@ -187,7 +187,7 @@ public class ActOrderServlet extends HttpServlet {
 
 			try {
 				// 接受請求參數----檢查資料格式
-				String actId = req.getParameter("actId");
+				String actId = req.getParameter("actOrderId");
 				String actIdRex = "^AD[0-9]+$";
 
 				if (actId == null || !actId.matches(actIdRex)) {
@@ -266,6 +266,46 @@ public class ActOrderServlet extends HttpServlet {
 				e.printStackTrace();
 			}
 		}
+//-----------------依會員編號查詢訂單
+				if("listByMemId".equals(action)) {
+					List<String> errorMsgs = new LinkedList<String>();
+					req.setAttribute("errorMsgs", errorMsgs);
+					
+					try {
+						String memId = req.getParameter("memId");
+						String memIdRex = "^M[0-9]+$";
+						
+						if(!memId.matches(memIdRex)|| memId==null) {
+							errorMsgs.add("會員編號格式錯誤");
+						}
+						
+						ActivityOrderService aos = new ActivityOrderService();
+						List<ActivityOrderVO> list = new ArrayList<ActivityOrderVO>();
+						list = aos.findByMemId(memId);
+						
+						if(!errorMsgs.isEmpty()) {
+							String url = "/back-end/actOrder/selectPage.jsp";
+							RequestDispatcher failureView = req.getRequestDispatcher(url);
+							failureView.forward(req, res);
+						}
+						
+						req.setAttribute("list", list);
+						String url = "/back-end/actOrder/listOrderByMemId.jsp";
+						RequestDispatcher successView = req.getRequestDispatcher(url);
+						successView.forward(req, res);
+						
+						
+					}catch(Exception e) {
+						errorMsgs.add("其他錯誤發生");
+						String url = "/back-end/actOrder/selectPage.jsp";
+						RequestDispatcher failureView = req.getRequestDispatcher(url);
+						failureView.forward(req, res);
+						e.printStackTrace();
+					}
+					
+					
+					
+				}
 //---------------------更新活動訂單資料
 		if ("update".equals(action)) {
 			List<String> errorMsgs = new LinkedList<String>();

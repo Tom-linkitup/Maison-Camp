@@ -27,12 +27,12 @@ public class ActivityCommentDAO implements ActivityCommentDAO_interface{
 		}
 	}
 	
-	private static final String INSERT_STMT = "INSERT INTO ACTIVITY_COMMENT (ACT_COMMENT_ID,ACT_CATEGORY_ID,ACT_COMMENT,CREATE_TIME) VALUES ('AC' || ACTIVITY_COMMENT_ID_seq.NEXTVAL, ?, ?, ?)";
+	private static final String INSERT_STMT = "INSERT INTO ACTIVITY_COMMENT (ACT_COMMENT_ID ,ACT_ORDER_ID ,ACT_CATEGORY_ID ,ACT_COMMENT ,CREATE_TIME) VALUES ('AC' || ACTIVITY_COMMENT_ID_seq.NEXTVAL ,?, ?, ?, ?)";
 	private static final String DELETE = "DELETE FROM ACTIVITY_COMMENT where ACT_COMMENT_ID = ?";
-	private static final String UPDATE = "UPDATE ACTIVITY_COMMENT set ACT_CATEGORY_ID=?, ACT_COMMENT=?, CREATE_TIME=?  where ACT_COMMENT_ID = ?";
-	private static final String GET_ONE_STMT = "SELECT * FROM ACTIVITY_COMMENT where ACT_COMMENT_ID = ?";
+	private static final String UPDATE = "UPDATE ACTIVITY_COMMENT set ACT_ORDER_ID=?, ACT_CATEGORY_ID=?, ACT_COMMENT=?, CREATE_TIME=?  where ACT_COMMENT_ID = ?";
+	private static final String GET_ONE_STMT = "SELECT * FROM ACTIVITY_COMMENT where ACT_ORDER_ID = ?";
 	private static final String GET_ALL_STMT = "SELECT * FROM ACTIVITY_COMMENT ORDER BY ACT_COMMENT_ID";
-	
+	private static final String GETONE_BYCOMMENTID_STMT = "SELECT * FROM ACTIVITY_COMMENT where ACT_COMMENT_ID = ?";
 	private static final String GET_BYACTID_STMT = "SELECT * FROM ACTIVITY_COMMENT where ACT_CATEGORY_ID=?";
 
 	
@@ -47,10 +47,11 @@ public class ActivityCommentDAO implements ActivityCommentDAO_interface{
 			con = ds.getConnection();
 			pstmt = con.prepareStatement(INSERT_STMT);
 			
-			pstmt.setString(1, activityCommentVO.getActCategoryId());
-			pstmt.setString(2, activityCommentVO.getActComment());
-//			pstmt.setTimestamp(3, activityCommentVO.getCreateTime());
-			pstmt.setTimestamp(3, new Timestamp(System.currentTimeMillis()));
+			pstmt.setString(1, activityCommentVO.getActOrderId());
+			pstmt.setString(2, activityCommentVO.getActCategoryId());
+			pstmt.setString(3, activityCommentVO.getActComment());
+			pstmt.setTimestamp(4, new Timestamp(System.currentTimeMillis()));
+			
 			pstmt.execute();
 			
 		}catch(SQLException se) {
@@ -84,10 +85,11 @@ public class ActivityCommentDAO implements ActivityCommentDAO_interface{
 			pstmt = con.prepareStatement(UPDATE);
 			
 			
-			pstmt.setString(1, activityCommentVO.getActCategoryId());
-			pstmt.setString(2, activityCommentVO.getActComment());
-			pstmt.setTimestamp(3, new Timestamp(System.currentTimeMillis()));
-			pstmt.setString(4, activityCommentVO.getActCommentId());
+			pstmt.setString(1, activityCommentVO.getActOrderId());
+			pstmt.setString(2, activityCommentVO.getActCategoryId());
+			pstmt.setString(3, activityCommentVO.getActComment());
+			pstmt.setTimestamp(4, new Timestamp(System.currentTimeMillis()));
+			pstmt.setString(5, activityCommentVO.getActCommentId());
 			
 			pstmt.execute();
 			
@@ -147,7 +149,7 @@ public class ActivityCommentDAO implements ActivityCommentDAO_interface{
 		}
 		
 	}
-
+	
 	@Override
 	public ActivityCommentVO findActivityCommentId(String activityCommentId) {
 		
@@ -158,7 +160,7 @@ public class ActivityCommentDAO implements ActivityCommentDAO_interface{
 		
 		try {
 			con = ds.getConnection();
-			pstmt = con.prepareStatement(GET_ONE_STMT);
+			pstmt = con.prepareStatement(GETONE_BYCOMMENTID_STMT);
 			
 			pstmt.setString(1, activityCommentId);
 			
@@ -166,7 +168,58 @@ public class ActivityCommentDAO implements ActivityCommentDAO_interface{
 			
 			while(rs.next()) {
 				acVO = new ActivityCommentVO();
+				acVO.setActOrderId(rs.getString("ACT_ORDER_ID"));
+				acVO.setActCommentId(rs.getString("ACT_COMMENT_ID"));
+				acVO.setActCategoryId(rs.getString("ACT_CATEGORY_ID"));
+				acVO.setActComment(rs.getString("ACT_COMMENT"));
+				acVO.setCreateTime(rs.getTimestamp("CREATE_TIME"));
 				
+			}
+			
+		}catch(SQLException se) {
+			se.printStackTrace();
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			if(pstmt!=null) {
+				try {
+					pstmt.close();
+				}catch(Exception e) {
+					e.printStackTrace();
+				}
+			}
+			if(con!=null) {
+				try {
+					con.close();
+				}catch(Exception e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		
+		return acVO;
+	}
+
+
+	@Override
+	public ActivityCommentVO getOneByActOrder(String actOrderId) {
+		
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		ActivityCommentVO acVO = null;
+		
+		try {
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(GET_ONE_STMT);
+			
+			pstmt.setString(1, actOrderId);
+			
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				acVO = new ActivityCommentVO();
+				acVO.setActOrderId(rs.getString("ACT_ORDER_ID"));
 				acVO.setActCommentId(rs.getString("ACT_COMMENT_ID"));
 				acVO.setActCategoryId(rs.getString("ACT_CATEGORY_ID"));
 				acVO.setActComment(rs.getString("ACT_COMMENT"));
@@ -217,7 +270,7 @@ public class ActivityCommentDAO implements ActivityCommentDAO_interface{
 			
 			while(rs.next()) {
 				acVO = new ActivityCommentVO();
-				
+				acVO.setActOrderId(rs.getString("ACT_ORDER_ID"));
 				acVO.setActCommentId(rs.getString("ACT_COMMENT_ID"));
 				acVO.setActCategoryId(rs.getString("ACT_CATEGORY_ID"));
 				acVO.setActComment(rs.getString("ACT_COMMENT"));
@@ -268,7 +321,7 @@ public class ActivityCommentDAO implements ActivityCommentDAO_interface{
 			
 			while(rs.next()) {
 				acVO = new ActivityCommentVO();
-				
+				acVO.setActOrderId(rs.getString("ACT_ORDER_ID"));
 				acVO.setActCommentId(rs.getString("ACT_COMMENT_ID"));
 				acVO.setActCategoryId(rs.getString("ACT_CATEGORY_ID"));
 				acVO.setActComment(rs.getString("ACT_COMMENT"));

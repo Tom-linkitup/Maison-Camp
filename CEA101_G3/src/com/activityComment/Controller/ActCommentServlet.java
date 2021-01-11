@@ -39,6 +39,7 @@ public class ActCommentServlet extends HttpServlet {
 			req.setAttribute("errorMsgs", errorMsgs);
 			
 			try {
+				String actOrderId = req.getParameter("actOrderId");
 				String actCategoryId = req.getParameter("actCategoryId");
 				String actCategoryIdRex = "^ACT_CATEGORY[0-9]+$";
 
@@ -49,6 +50,7 @@ public class ActCommentServlet extends HttpServlet {
 				String actComment = req.getParameter("actComment");
 				
 				
+				
 				if(!errorMsgs.isEmpty()) {
 					String url = "/back-end/actComment/addActComment.jsp";
 					RequestDispatcher failureView = req.getRequestDispatcher(url);
@@ -56,7 +58,7 @@ public class ActCommentServlet extends HttpServlet {
 				}
 				
 				ActivityCommentService acs = new ActivityCommentService();
-				acs.addActivityComment(actCategoryId, actComment);
+				acs.addActivityComment(actOrderId,actCategoryId, actComment);
 				String url = "/back-end/actComment/addActComment.jsp";
 				RequestDispatcher failureView = req.getRequestDispatcher(url);
 				failureView.forward(req, res);
@@ -73,6 +75,7 @@ public class ActCommentServlet extends HttpServlet {
 			req.setAttribute("errorMsgs", errorMsgs);
 			
 			try {
+				String actOrderId = req.getParameter("actOrderId");
 				String actCategoryId = req.getParameter("actCategoryId");
 				String actCategoryIdRex = "^ACT_CATEGORY[0-9]+$";
 
@@ -92,7 +95,6 @@ public class ActCommentServlet extends HttpServlet {
 				ActivityCommentService acs = new ActivityCommentService();
 				ActivityOrderService aos = new ActivityOrderService();
 				// 先撈出該筆訂單
-				String actOrderId = req.getParameter("actOrderId");
 				ActivityOrderVO aoVO = aos.findByActOrderID(actOrderId);
 
 				String actId = aoVO.getActId();
@@ -120,7 +122,7 @@ public class ActCommentServlet extends HttpServlet {
 				
 				
 				aos.updateByActOrderId(actOrderId, actId, memId, note, people, actPrice, payment, createTime, status);
-				acs.addActivityComment(actCategoryId, actComment);
+				acs.addActivityComment(actOrderId,actCategoryId, actComment);
 				String url = "/front-end/member/Member.jsp";
 				RequestDispatcher failureView = req.getRequestDispatcher(url);
 				failureView.forward(req, res);
@@ -135,7 +137,8 @@ public class ActCommentServlet extends HttpServlet {
 			req.setAttribute("errorMsgs", errorMsgs);
 			try {
 				String actCommentId = req.getParameter("actCommentId");
-				String actCommentIdRex = "^[A]{1}[C]{1}[0-9]{5}$";
+				System.out.println(actCommentId);
+				String actCommentIdRex = "^AC[0-9]+$";
 				
 				
 				if(actCommentId==null ||  !actCommentId.matches(actCommentIdRex)) {
@@ -150,7 +153,6 @@ public class ActCommentServlet extends HttpServlet {
 				
 				ActivityCommentService acs = new ActivityCommentService();
 				ActivityCommentVO acVO = acs.findByActCommentId(actCommentId);
-				
 				
 				req.setAttribute("activityCommentVO", acVO);
 				String url = "/back-end/actComment/listOneActComment.jsp";

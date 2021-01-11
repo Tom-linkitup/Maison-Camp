@@ -7,7 +7,7 @@ public class Extra_chargesService {
 	private Extra_chargesDAO_interface dao;
 
 	public Extra_chargesService() {
-		dao = new Extra_chargesJDBCDAO();
+		dao = new Extra_chargesDAO();
 	}
 
 	public Extra_chargesVO addExtra_charges(String room_order_id,String item,Integer price) {

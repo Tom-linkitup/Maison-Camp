@@ -6,7 +6,7 @@ public class Room_promotionService {
 	private Room_promotionDAO_interface dao;
 	
 		public Room_promotionService() {
-			dao = new Room_promotionJDBCDAO();
+			dao = new Room_promotionDAO();
 		}
 
 		public Room_promotionVO addRoom_promotion(String room_category_id, String room_promotion_info,

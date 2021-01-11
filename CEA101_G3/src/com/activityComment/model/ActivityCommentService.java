@@ -17,10 +17,10 @@ public class ActivityCommentService {
 		dao = new ActivityCommentDAO();
 	}
 	
-	public ActivityCommentVO addActivityComment(String actCategoryId, String comment) {
+	public ActivityCommentVO addActivityComment(String orderId,String actCategoryId, String comment) {
 		
 		ActivityCommentVO acVO = new ActivityCommentVO();
-		
+		acVO.setActOrderId(orderId);
 		acVO.setActCategoryId(actCategoryId);;
 		acVO.setActComment(comment);
 		
