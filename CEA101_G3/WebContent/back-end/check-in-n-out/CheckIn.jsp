@@ -105,7 +105,7 @@
 							type: "POST",
 							success: function(str){
 								if(str === "success"){
-									swal("入住成功","please confirm","success");
+									swal("入住成功","請確認","success");
 								 	setTimeout(function () {
 				                        window.location.reload();
 				                    }, 1000);
