@@ -12,7 +12,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.emp_func.model.*;
 
-@WebServlet("/EmpFuncServlet")
 public class EmpFuncServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
