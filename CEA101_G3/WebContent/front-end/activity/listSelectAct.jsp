@@ -120,6 +120,9 @@ form.myForm {
              </div>
          </nav>          
          <a href="#"><img id="logoo" class="img-logo" src="<%=request.getContextPath()%>/img/logo.png" alt=""></a>         
+         <ul class="signin-links">
+	       	<li><i style="margin-right:7px; color:#c15c16;" class="fas fa-child fa-1x"></i>${memVO.name} 您好<i style="color:#496b6b; margin: 0 10px 0 5px;" class="fas fa-exclamation"></i><a class="signin" href="<%=request.getContextPath()%>/Member.do?action=logout"><i class="fas fa-sign-out-alt"></i></a></li>
+	     </ul> 
      </header>
 	<%-- 錯誤表列 --%>
 	<c:if test="${not empty errorMsgs}">
