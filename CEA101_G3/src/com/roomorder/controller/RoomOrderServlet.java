@@ -178,14 +178,33 @@ public class RoomOrderServlet extends HttpServlet {
 		}
 		
 		if("updateRoom".equals(action)) {
-			String room_id = req.getParameter("selected_room_id");
-			String room_order_id = req.getParameter("room_order_id");
-			RoomOrderService roSvc = new RoomOrderService();
-			roSvc.updateOrderCondition(new Integer(2), room_id, room_order_id);
-			RoomService rmSvc = new RoomService();
-			rmSvc.updateRmCondition(new Integer(1), room_id);
-			String success = "success";
-			out.print(success);
+			try {
+				String room_id = req.getParameter("selected_room_id");
+				String room_order_id = req.getParameter("room_order_id");
+				RoomOrderService roSvc = new RoomOrderService();
+				roSvc.updateOrderCondition(new Integer(2), room_id, room_order_id);
+				RoomService rmSvc = new RoomService();
+				rmSvc.updateRmCondition(new Integer(1), room_id);
+				String success = "success";
+				out.print(success);			
+			}catch(Exception e) {
+				e.printStackTrace();
+			}
+		}
+		
+		if("checkOut".equals(action)) {
+			try {
+				String room_order_id = req.getParameter("room_order_id");
+				String room_id = req.getParameter("room_id");
+				RoomOrderService roSvc = new RoomOrderService();
+				roSvc.updateOrderCondition(new Integer(3), "已退房", room_order_id);
+				RoomService rmSvc = new RoomService();
+				rmSvc.updateRmCondition(new Integer(0), room_id);
+				String success = "success";
+				out.print(success);		
+			}catch(Exception e) {
+				e.printStackTrace();
+			}
 		}
 		
 	}
