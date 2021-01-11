@@ -32,6 +32,7 @@
 <jsp:useBean id="acPhSvc" scope="page" class="com.actPhoto.model.ActPhotoService" />
 <jsp:useBean id="actSvc" scope="page" class="com.activity.model.ActivityService" />
 <jsp:useBean id="actCategorySvc" scope="page" class="com.actCategory.model.ActCategoryService" />
+<jsp:useBean id="actCommentSvc" scope="page" class="com.activityComment.model.ActivityCommentService" />
 <!DOCTYPE html>
 <html>
 <head>
@@ -391,7 +392,7 @@
 				      				</div>
 				      			    <div>
 				      			    	<h3>您寶貴的評論</h3>
-				      			    	<input type="textarea" value="${actCommentSvc.getOneByActOrder(actOrderVO.actOrderId).actComment}" onpaste="return false" oncontextmenu="return false" oncopy="return false" oncut="return false" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" autofocus="autofocus">
+				      			    	<input type="textarea" value="${actCommentSvc.getOneByActOrder(actOrderVO.actOrderId).actComment}" onpaste="return false" >
 				      			    	
 				      			    </div> 
 				      			</c:otherwise>
