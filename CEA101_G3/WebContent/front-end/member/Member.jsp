@@ -318,6 +318,7 @@
           	
           </div>
           <!--act order section -->      
+         <!--act order section -->      
           <div id="act-order-show" class="row info-form" style="display:none;">
           	<h3 class="act-headline">活動報名訂單</h3>
           	<c:choose>
@@ -386,7 +387,7 @@
 						      	</c:when>
 				      			<c:otherwise>
 				      				<h4><i style="color:#c15c61" class="fas fa-check-circle">已完成</i></h4>
-									</div>
+				      				</div>
 				      				</div>
 				      			    <div>
 				      			    	<h3>您寶貴的評論</h3>

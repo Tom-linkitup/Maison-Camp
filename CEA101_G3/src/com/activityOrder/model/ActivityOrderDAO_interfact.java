@@ -9,5 +9,7 @@ public interface ActivityOrderDAO_interfact {
      public ActivityOrderVO  findByActOrderId(String actOrderId);
      public List<ActivityOrderVO > findByActId(String actId);
      public List<ActivityOrderVO > findByMemId(String memId);
+     public List<ActivityOrderVO> getNowOrder();
+	 public List<ActivityOrderVO> getBeforeOrder();
      public List<ActivityOrderVO > getAll();
 }

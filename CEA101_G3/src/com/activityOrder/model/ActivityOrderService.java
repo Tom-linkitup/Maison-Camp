@@ -83,7 +83,15 @@ public class ActivityOrderService {
 	public List<ActivityOrderVO> findByMemId(String memId){
 		return dao.findByMemId(memId);
 	}
+	public List<ActivityOrderVO> getNowOrder(){
+		
+		return dao.getNowOrder();
+	}
 	
+	public List<ActivityOrderVO> getBeforeOrder(){
+		
+		return dao.getBeforeOrder();
+	}
 	
 	public static void main(String[] argv) {
 		

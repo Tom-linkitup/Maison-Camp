@@ -5,6 +5,7 @@ import java.sql.Timestamp;
 
 public class ActivityCommentVO implements Serializable {
 	private String actCommentId;
+	private String actOrderId;
 	private String actCategoryId;
 	private String actComment;
 	private Timestamp createTime;
@@ -24,8 +25,14 @@ public class ActivityCommentVO implements Serializable {
 	public void setActCommentId(String actCommentId) {
 		this.actCommentId = actCommentId;
 	}
+	
+	public String getActOrderId() {
+		return actOrderId;
+	}
 
-
+	public void setActOrderId(String actOrderId) {
+		this.actOrderId = actOrderId;
+	}
 
 	public String getActCategoryId() {
 		return actCategoryId;

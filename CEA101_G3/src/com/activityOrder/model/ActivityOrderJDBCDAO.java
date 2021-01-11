@@ -3,6 +3,7 @@ package com.activityOrder.model;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 public class ActivityOrderJDBCDAO implements ActivityOrderDAO_interfact {
@@ -20,6 +21,8 @@ public class ActivityOrderJDBCDAO implements ActivityOrderDAO_interfact {
 	private static final String GET_ALL_STMT = "SELECT ACT_ORDER_ID, ACT_ID, MEM_ID, NOTE, PEOPLE, ACT_PRICE, PAYMENT, CREATE_TIME, STATUS FROM ACTIVITY_ORDER ORDER BY ACT_ORDER_ID";
 
 	private static final String GET_BYACTID_STMT = "SELECT ACT_ORDER_ID, ACT_ID, MEM_ID, NOTE, PEOPLE, ACT_PRICE, PAYMENT, CREATE_TIME, STATUS FROM ACTIVITY_ORDER where ACT_ID = ?";
+	private static final String GET_BEFORE_ORDER_STMT = "SELECT ACT_ORDER_ID, ACT_ID, MEM_ID, NOTE, PEOPLE, ACT_PRICE, PAYMENT, CREATE_TIME, STATUS FROM ACTIVITY_ORDER where ACT_ID IN(SELECT ACT_ID FROM ACTIVITY where ACT_START_DATE < ?)";
+	private static final String GET_NOW_ORDER_STMT = "SELECT ACT_ORDER_ID, ACT_ID, MEM_ID, NOTE, PEOPLE, ACT_PRICE, PAYMENT, CREATE_TIME, STATUS FROM ACTIVITY_ORDER where ACT_ID IN(SELECT ACT_ID FROM ACTIVITY where ACT_START_DATE >= ?)";
 	private static final String GET_BYMEMID_STMT = "SELECT ACT_ORDER_ID, ACT_ID, MEM_ID, NOTE, PEOPLE, ACT_PRICE, PAYMENT, CREATE_TIME, STATUS FROM ACTIVITY_ORDER where MEM_ID = ?";
 	
 	@Override
@@ -409,6 +412,146 @@ public class ActivityOrderJDBCDAO implements ActivityOrderDAO_interfact {
 		}
 		
 		return list;
+	}
+public List<ActivityOrderVO> getBeforeOrder(){
+		
+		List<ActivityOrderVO> list = new ArrayList<ActivityOrderVO>();
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		ActivityOrderVO aoVO = null;
+		
+		Long now = new Date().getTime();
+		java.sql.Date nowTime =  new java.sql.Date(now);
+		
+		try {
+			Class.forName(driver);
+			con = DriverManager.getConnection(url, userid, passwd);
+			pstmt = con.prepareStatement(GET_BEFORE_ORDER_STMT);
+			
+			pstmt.setDate(1, nowTime);
+			
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				aoVO = new ActivityOrderVO();
+				
+				aoVO.setActOrderId(rs.getString("ACT_ORDER_ID"));
+				aoVO.setActId(rs.getString("ACT_ID"));
+				aoVO.setMemId(rs.getString("MEM_ID"));
+				aoVO.setNote(rs.getString("NOTE"));
+				aoVO.setPeople(rs.getInt("PEOPLE"));
+				aoVO.setActPrice(rs.getInt("ACT_PRICE"));
+				aoVO.setPayment(rs.getString("PAYMENT"));
+				aoVO.setCreateTime(rs.getDate("CREATE_TIME"));
+				aoVO.setStatus(rs.getInt("STATUS"));
+				
+				list.add(aoVO);
+			}
+			
+			
+		}catch(ClassNotFoundException ce) {
+			ce.printStackTrace();
+		}catch(SQLException se) {
+			se.printStackTrace();
+		}finally{
+			if(rs!=null) {
+				try {
+					rs.close();
+				}catch(Exception e) {
+					e.printStackTrace();
+				}
+			}
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}			
+		}
+		
+		return list;
+		
+		
+	}
+	
+	
+public List<ActivityOrderVO> getNowOrder(){
+		
+		List<ActivityOrderVO> list = new ArrayList<ActivityOrderVO>();
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		ActivityOrderVO aoVO = null;
+		
+		Long now = new Date().getTime();
+		java.sql.Date nowTime =  new java.sql.Date(now);
+		
+		try {
+			Class.forName(driver);
+			con = DriverManager.getConnection(url, userid, passwd);
+			pstmt = con.prepareStatement(GET_NOW_ORDER_STMT);
+			
+			pstmt.setDate(1, nowTime);
+			
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				aoVO = new ActivityOrderVO();
+				
+				aoVO.setActOrderId(rs.getString("ACT_ORDER_ID"));
+				aoVO.setActId(rs.getString("ACT_ID"));
+				aoVO.setMemId(rs.getString("MEM_ID"));
+				aoVO.setNote(rs.getString("NOTE"));
+				aoVO.setPeople(rs.getInt("PEOPLE"));
+				aoVO.setActPrice(rs.getInt("ACT_PRICE"));
+				aoVO.setPayment(rs.getString("PAYMENT"));
+				aoVO.setCreateTime(rs.getDate("CREATE_TIME"));
+				aoVO.setStatus(rs.getInt("STATUS"));
+				
+				list.add(aoVO);
+			}
+			
+			
+		}catch(ClassNotFoundException ce) {
+			ce.printStackTrace();
+		}catch(SQLException se) {
+			se.printStackTrace();
+		}finally{
+			if(rs!=null) {
+				try {
+					rs.close();
+				}catch(Exception e) {
+					e.printStackTrace();
+				}
+			}
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}			
+		}
+		
+		return list;
+		
+		
 	}
 
 	public static void main(String[] argv) {
