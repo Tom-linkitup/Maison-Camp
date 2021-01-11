@@ -70,6 +70,7 @@ public class ShoppingServlet extends HttpServlet {
 					JSONObject data = new JSONObject();
 					try {
 						data.put("type", "加入購物車");
+						data.put("cartItems", buylist.size());
 					} catch (JSONException e1) {
 						e1.printStackTrace();
 					}

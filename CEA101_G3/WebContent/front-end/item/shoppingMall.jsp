@@ -76,9 +76,10 @@
         </nav>
         <div class="col-xs-4 col-12 logo">
             <a href="<%=request.getContextPath()%>/front-end/front-index.jsp"><img id="logoo" class="img-logo" src="<%=request.getContextPath()%>/img/logo.png" alt=""></a><!-- LOGO -->
-            <div class="car-bg p-2" >
+            <div class="car-bg mt-2" >
             	<a href="<%=request.getContextPath()%>/front-end/item/shopOrderDetail.jsp">
            			 <img class="shoppingcar" src="<%=request.getContextPath() %>/img/shopping-cart.png">
+           			 <span class="badge"></span>
            	 	</a>
             </div>
         </div>
@@ -192,7 +193,6 @@
     
    <script type="text/javascript">
 		   $(document).ready(() => {
- 	
 		   	
 		  //WS
 	    	var MyPoint = "/NotifyWS";
@@ -204,7 +204,9 @@
 	    	webSocket.onmessage = function(event) {
 	    		var jsonObj = JSON.parse(event.data);
 	    		let type = jsonObj.type;
+	    		let items = jsonObj.cartItems;
 	    		toastr["success"](type);
+	    		$(".badge").text(items);
 	    	};
 
 		   	
@@ -277,7 +279,7 @@
 		   "debug": false,
 		   "newestOnTop": false,
 		   "progressBar": true,
-		   "positionClass": "toast-top-right",
+		   "positionClass": "toast-bottom-right",
 		   "preventDuplicates": false,
 		   "onclick": null,
 		   "showDuration": "300",
