@@ -1,11 +1,14 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="com.activity.model.*"%>
+<%@ page import="com.activityOrder.model.*"%>
 <%-- 此頁暫練習採用 Script 的寫法取值 --%>
 
 <%
 	ActivityVO activityVO = (ActivityVO) request.getAttribute("activityVO"); //EmpServlet.java(Concroller), 存入req的empVO物件
 %>
+
+<jsp:useBean id="actOrder" scope="page" class="com.activityOrder.model.ActivityOrderService" />
 
 <html>
 <head>
@@ -158,6 +161,11 @@ div.comment {
          <a href="#"><img id="logoo" class="img-logo" src="<%=request.getContextPath()%>/img/logo.png" alt=""></a>         
      </header>
 	<!-- 左邊活動資訊 -->
+	<c:set value="0" var="sum" />
+		<c:forEach var="actOrderVO" items="${actOrder.findByActId(activityVO.actId)}">
+			<c:set value="${sum + actOrderVO.people}" var="sum" />
+		</c:forEach>
+	
 	<div class="justify-content-start demo">
 		<div class="col-6 test">
 
@@ -196,7 +204,7 @@ div.comment {
 					<h4>報名資訊∕</h4>
 					<div class="text-info small">
 						<p>
-							<i class="fas fa-user-check"></i>已報名人數:<%=activityVO.getActAlreadyApply()%>
+							<i class="fas fa-user-check"></i>已報名人數:${sum}
 						</p>
 						<p>
 							<i class="fas fa-user"></i>報名人數下限:<%=activityVO.getMinPeople()%>
@@ -235,18 +243,23 @@ div.comment {
 				</div>
 			</div>
 			<div class="row enr-margin-top enr-margin-bottom">
-				<input id="addOrder" type="button" value="我要報名"
-					class="btn btn-primary"
-					onclick="location.href='<%=request.getContextPath()%>/front-end/actOrder/addActOrder.jsp?actId=<%=activityVO.getActId()%>'">
-			</div>
+			<c:choose>
+			<c:when test="${sum >= activityVO.maxPeople}">
+				<input id="addOrder" type="button" value="已額滿" disabled>
+				</div>
+			</c:when>
+			<c:otherwise>
+				<input id="addOrder" type="button" value="我要報名" class="btn btn-primary" onclick="location.href='<%=request.getContextPath()%>/front-end/actOrder/addActOrder.jsp?actId=<%=activityVO.getActId()%>'">
+				</div>
+			</c:otherwise>
+			
+				</c:choose>	    
 		</div>
 		<!-- 右邊評論 -->
 		<div class="col-5 test comment">
 			<h3 class="text-primary">活動評論</h3>
-			<jsp:useBean id="actCommentSvc" scope="page"
-				class="com.activityComment.model.ActivityCommentService" />
-			<c:forEach var="actCommentVO"
-				items="${actCommentSvc.getByActCategoryId(activityVO.actCategoryId)}">
+			<jsp:useBean id="actCommentSvc" scope="page" class="com.activityComment.model.ActivityCommentService" />
+			<c:forEach var="actCommentVO" items="${actCommentSvc.getByActCategoryId(activityVO.actCategoryId)}">
 				<c:if test="${not empty actCommentVO.actComment}">
 					<div>
 						<p>
