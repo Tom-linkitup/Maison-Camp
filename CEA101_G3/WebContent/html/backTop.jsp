@@ -134,6 +134,7 @@
                               <li><a href="<%= request.getContextPath() %>/back-end/activity/selectPage.jsp">活動內容管理</a></li>
                               <li><a href="<%= request.getContextPath() %>/back-end/actOrder/selectPage.jsp">活動報名管理</a></li>
                               <li><a href="<%= request.getContextPath() %>/back-end/actComment/selectPage.jsp">活動評論管理</a></li>
+                              <li><a href="<%= request.getContextPath() %>/back-end/actcategory/selectPage.jsp">活動類別管理</a></li>
                           </ul>
                       </li>
                   </ul>
