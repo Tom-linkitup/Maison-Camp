@@ -45,7 +45,6 @@
 				<th>優惠開始日期</th>
 				<th>優惠結束日期</th>
 				<th>訂房優惠修改</th>
-				<th>訂房優惠刪除</th>
 			</tr>
 			<%@ include file="page1.file" %> 
 			<jsp:useBean id="roomTypeSvc" scope="page" class="com.roomtype.model.RoomTypeService" />
@@ -64,13 +63,6 @@
 				<input type="hidden" name="room_promotion_id" value="${room_promotionVO.room_promotion_id}">
 				<input type="hidden" name="action" value="getOne_For_Update">	
 			    <button class="edit btn btn-info" type="button">修改</button>
-				</td>
-				<td>
-				<form method="post" action="${pageContext.request.contextPath}/room_promotion/room_promotion.do">
-					<input type="hidden" name="action" value="delete">
-					<input type="hidden" name="room_promotion_id" value="${room_promotionVO.room_promotion_id}">
-				    <button class="delete btn btn-danger" type="button">刪除</button>
-				</form>
 				</td>
 			</tr>
 			</c:forEach>	
@@ -116,10 +108,6 @@
 			$("#lightBox").css("display","none");
 		})
 		
-		
-		$(".delete").click(function() {
-			window.alert("因房型連動，無法刪除");
-		})
 	</script>	
 	
 </body>

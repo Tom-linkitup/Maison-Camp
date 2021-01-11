@@ -24,21 +24,21 @@ public class RepairDAO implements RepairDAO_interface {
 		}
 	
 	private static final String INSERT_STMT = 
-		"INSERT INTO repair(repair_id,room_id,emp_id,repair_info,status) VALUES ('RE' || Repair_id_seq.NEXTVAL, ?, ?, ?,?)";
+		"INSERT INTO repair(repair_id,room_id,emp_id,repair_info,status) VALUES ('RE' || Repair_id_seq.NEXTVAL, ?, ?, ?,?,?)";
 	private static final String GET_ALL_STMT = 
-		"SELECT repair_id,room_id,emp_id,repair_info,status FROM repair order by repair_id";
+		"SELECT repair_id,room_id,emp_id,repair_info,status,repair_photo FROM repair order by repair_id";
 	private static final String GET_ONE_STMT = 
-		"SELECT repair_id,room_id,emp_id,repair_info,status FROM repair where repair_id = ?";
+		"SELECT repair_id,room_id,emp_id,repair_info,status,repair_photo FROM repair where repair_id = ?";
 	private static final String DELETE = 
 		"DELETE FROM repair where repair_id = ?";
 	private static final String UPDATE = 
-		"UPDATE repair set room_id=?, emp_id=?, repair_info=?,status=? where repair_id = ?";
+		"UPDATE repair set room_id=?, emp_id=?, repair_info=?,status=?,repair_photo=? where repair_id = ?";
 	
 	private static final String status1= 
-	"SELECT repair_id,room_id,emp_id,repair_info,status FROM repair where status =any (select  status from repair where status=1)"; 
+	"SELECT repair_id,room_id,emp_id,repair_info,status,repair_photo FROM repair where status =any (select  status from repair where status=1)"; 
 	
 	private static final String status0= 
-			"SELECT repair_id,room_id,emp_id,repair_info,status FROM repair where status =any (select  status from repair where status=0)";
+			"SELECT repair_id,room_id,emp_id,repair_info,status,repair_photo FROM repair where status =any (select  status from repair where status=0)";
 
 	@Override
 	public void insert(RepairVO repairVO) {
@@ -55,6 +55,7 @@ public class RepairDAO implements RepairDAO_interface {
 			pstmt.setString(2, repairVO.getEmp_id());
 			pstmt.setString(3, repairVO.getRepair_info());
 			pstmt.setInt(4, repairVO.getStatus());
+			pstmt.setBytes(5, repairVO.getRepair_photo());
 		
 			pstmt.executeUpdate();
 
@@ -98,6 +99,7 @@ public class RepairDAO implements RepairDAO_interface {
 			pstmt.setString(3, repairVO.getRepair_info());
 			pstmt.setInt(4, repairVO.getStatus());
 			pstmt.setString(5, repairVO.getRepair_id());
+			pstmt.setBytes(5, repairVO.getRepair_photo());
 
 			pstmt.executeUpdate();
 
@@ -189,6 +191,7 @@ public class RepairDAO implements RepairDAO_interface {
 				repairVO.setEmp_id(rs.getString("emp_id"));
 				repairVO.setRepair_info(rs.getString("repair_info"));
 				repairVO.setStatus(rs.getInt("status"));
+				repairVO.setRepair_photo(rs.getBytes("repair_photo"));
 				
 			}
 
@@ -245,6 +248,7 @@ public class RepairDAO implements RepairDAO_interface {
 				repairVO.setEmp_id(rs.getString("emp_id"));
 				repairVO.setRepair_info(rs.getString("repair_info"));
 				repairVO.setStatus(rs.getInt("status"));
+				repairVO.setRepair_photo(rs.getBytes("repair_photo"));
 				list.add(repairVO); // Store the row in the list
 			}
 
@@ -302,6 +306,7 @@ public class RepairDAO implements RepairDAO_interface {
 				repairVO.setEmp_id(rs.getString("emp_id"));
 				repairVO.setRepair_info(rs.getString("repair_info"));
 				repairVO.setStatus(rs.getInt("status"));
+				repairVO.setRepair_photo(rs.getBytes("repair_photo"));
 				status1list.add(repairVO); // Store the row in the list
 			}
 
@@ -359,6 +364,7 @@ public class RepairDAO implements RepairDAO_interface {
 				repairVO.setEmp_id(rs.getString("emp_id"));
 				repairVO.setRepair_info(rs.getString("repair_info"));
 				repairVO.setStatus(rs.getInt("status"));
+				repairVO.setRepair_photo(rs.getBytes("repair_photo"));
 				status0list.add(repairVO); // Store the row in the list
 			}
 

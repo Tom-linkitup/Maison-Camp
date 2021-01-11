@@ -6,6 +6,7 @@ public class RepairVO implements java.io.Serializable{
 		private String emp_id;
 		private String repair_info;
 		private Integer status;
+		private byte[] repair_photo;
 		
 		
 		public Integer getStatus() {
@@ -37,6 +38,12 @@ public class RepairVO implements java.io.Serializable{
 		}
 		public void setRepair_info(String repair_info) {
 			this.repair_info = repair_info;
+		}
+		public byte[] getRepair_photo() {
+			return repair_photo;
+		}
+		public void setRepair_photo(byte[] repair_photo) {
+			this.repair_photo = repair_photo;
 		}
 }
 

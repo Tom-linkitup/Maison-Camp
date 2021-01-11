@@ -161,6 +161,12 @@ h1 {
   
   
 
+.displayB {
+	display: '';
+}
 
+.displayN {
+	display: none;
+}
 
   
