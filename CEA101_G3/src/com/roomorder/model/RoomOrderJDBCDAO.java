@@ -93,5 +93,11 @@ public class RoomOrderJDBCDAO implements RoomOrderDAO_Interface {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	@Override
+	public void updateOrderStatus(Integer status, String current_room_id, String room_order_id) {
+		// TODO Auto-generated method stub
+		
+	}
 	
 }

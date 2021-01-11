@@ -48,5 +48,9 @@ private RoomDAO_Interface dao;
 	public List<RoomVO> getAllRM(){
 		return dao.getAllRoom();
 	}
+	
+	public void updateRmCondition(Integer status, String room_id) {
+		dao.updateRmStatus(status, room_id);
+	}
 
 }

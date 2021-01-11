@@ -1,6 +1,7 @@
 package com.roomorder.controller;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
@@ -16,12 +17,15 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.json.JSONObject;
 
+import com.room.model.RoomService;
+import com.room.model.RoomVO;
 import com.roomorder.model.RoomOrderDAO;
 import com.roomorder.model.RoomOrderService;
 import com.roomorder.model.RoomOrderVO;
 import com.roomorderdetail.model.RoomOrderDetailService;
 import com.roomorderdetail.model.RoomOrderDetailVO;
 import com.roomrsv.model.RoomRsvDAO;
+import com.roomtype.model.RoomTypeService;
 
 @WebServlet("/RoomOrderServlet")
 public class RoomOrderServlet extends HttpServlet {
@@ -35,6 +39,8 @@ public class RoomOrderServlet extends HttpServlet {
 		
 		req.setCharacterEncoding("utf-8");
 		res.setContentType("text/html;charset=utf-8");
+		
+		PrintWriter out = res.getWriter();
 		
 		String action = req.getParameter("action");
 		
@@ -146,10 +152,40 @@ public class RoomOrderServlet extends HttpServlet {
 				
 			}catch(Exception e) {
 				e.printStackTrace();
+			}		
+		}
+		
+		if("getAvailableRoom".equals(action)) {
+			try {
+				String room_order_id = req.getParameter("room_order_id");
+				RoomOrderDetailService rodSvc = new RoomOrderDetailService();
+				RoomTypeService rtSvc = new RoomTypeService();
+				JSONObject roomobj = new JSONObject();
+				//取得房型名稱
+				String room_name = rtSvc.getOneRT(rodSvc.getOneROD(room_order_id).getRoom_category_id()).getRoom_name();
+				//取得可選用房間編號
+				RoomService rmSvc = new RoomService();
+				List<RoomVO> rmlist = rmSvc.getRmByRTC(rodSvc.getOneROD(room_order_id).getRoom_category_id());
+				roomobj.put("room_order_id", room_order_id);
+				roomobj.put("rmlist", rmlist);
+				roomobj.put("room_name", room_name);
+				out.print(roomobj);
+				
+			}catch(Exception e) {
+				e.printStackTrace();
 			}
 			
-			
-			
+		}
+		
+		if("updateRoom".equals(action)) {
+			String room_id = req.getParameter("selected_room_id");
+			String room_order_id = req.getParameter("room_order_id");
+			RoomOrderService roSvc = new RoomOrderService();
+			roSvc.updateOrderCondition(new Integer(2), room_id, room_order_id);
+			RoomService rmSvc = new RoomService();
+			rmSvc.updateRmCondition(new Integer(1), room_id);
+			String success = "success";
+			out.print(success);
 		}
 		
 	}

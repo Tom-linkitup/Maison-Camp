@@ -27,4 +27,6 @@ public interface RoomOrderDAO_Interface {
     public List<RoomOrderVO> getAllDateOut();
     //依訂單狀態查詢訂單
     public List<RoomOrderVO> getAllByOrderStatus(Integer status);
+    //改變訂單狀態
+    public void updateOrderStatus(Integer status, String room_order_id, String current_room_id);
 }

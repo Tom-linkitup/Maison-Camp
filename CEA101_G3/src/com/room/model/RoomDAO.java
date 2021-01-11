@@ -28,8 +28,9 @@ public class RoomDAO implements RoomDAO_Interface{
 	private static final String Update_Stmt = "UPDATE ROOM SET ROOM_CATEGORY_ID=?, STATUS=? WHERE ROOM_ID=?";
 	private static final String Delete_Stmt = "DELETE FROM ROOM WHERE ROOM_ID=?";
 	private static final String Get_All_Stmt = "SELECT ROOM_ID, ROOM_CATEGORY_ID, STATUS FROM ROOM ORDER BY ROOM_ID";
-	private static final String Get_By_RCT = "SELECT ROOM_ID, ROOM_CATEGORY_ID, STATUS FROM ROOM WHERE ROOM_CATEGORY_ID=? ORDER BY STATUS";
+	private static final String Get_By_RCT = "SELECT ROOM_ID, ROOM_CATEGORY_ID, STATUS FROM ROOM WHERE ROOM_CATEGORY_ID=? ORDER BY ROOM_ID";
 	private static final String Get_One_Stmt = "SELECT ROOM_ID, ROOM_CATEGORY_ID, STATUS FROM ROOM WHERE ROOM_ID=?";
+	private static final String Update_Rm_Status = "UPDATE ROOM SET STATUS=? WHERE ROOM_ID=?";
 
 	@Override
 	public void addRoom(RoomVO roomVO) {
@@ -277,6 +278,44 @@ public class RoomDAO implements RoomDAO_Interface{
 			}
 		}		
 		return roomList;
+	}
+
+	@Override
+	public void updateRmStatus(Integer status, String room_id) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		
+		try {
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(Update_Rm_Status);
+	
+			pstmt.setInt(1, status);
+			pstmt.setString(2, room_id);
+			
+			int updateRoom = pstmt.executeUpdate();
+			System.out.println("更新"+  updateRoom + "筆房間狀態");
+
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}		
+		
 	}
 
 }

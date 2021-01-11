@@ -40,9 +40,10 @@ public class RoomOrderDAO implements RoomOrderDAO_Interface {
 	private static final String Get_One_By_Mem_Id = "SELECT ROOM_ORDER_ID, MEM_ID, CHECK_IN_DATE, CHECK_OUT_DATE, STATUS FROM ROOM_ORDER WHERE MEM_ID = ?";
 	private static final String Get_All_Stmt = "SELECT ROOM_ORDER_ID, MEM_ID, CHECK_IN_DATE, CHECK_OUT_DATE, STATUS FROM ROOM_ORDER ORDER BY ROOM_ORDER_ID";
 	private static final String Cancel_Order_Stmt = "UPDATE ROOM_ORDER SET STATUS=? WHERE ROOM_ORDER_ID=?";
-	private static final String Get_Check_In_Order = "SELECT * FROM ROOM_ORDER WHERE CHECK_IN_DATE <= CURRENT_DATE;";
-	private static final String Get_Check_Out_Order = "SELECT * FROM ROOM_ORDER WHERE CHECK_OUT_DATE <= CURRENT_DATE;";
-	private static final String Get_Order_By_Status = "SELECT * FROM ROOM_ORDER WHERE STATUS=?";
+	private static final String Get_Check_In_Order = "SELECT ROOM_ORDER_ID, MEM_ID, CHECK_IN_DATE, CHECK_OUT_DATE, STATUS FROM ROOM_ORDER WHERE CHECK_IN_DATE >= TRUNC(SYSDATE) ORDER BY ROOM_ORDER_ID";
+	private static final String Get_Check_Out_Order = "SELECT ROOM_ORDER_ID, MEM_ID, CHECK_IN_DATE, CHECK_OUT_DATE, STATUS FROM ROOM_ORDER WHERE CHECK_OUT_DATE = TRUNC(SYSDATE) ORDER BY ROOM_ORDER_ID";
+	private static final String Get_Order_By_Status = "SELECT ROOM_ORDER_ID, MEM_ID, CHECK_IN_DATE, CHECK_OUT_DATE, STATUS, CURRENT_ROOM_ID FROM ROOM_ORDER WHERE STATUS=? ORDER BY ROOM_ORDER_ID";
+	private static final String Update_Order_Status = "UPDATE ROOM_ORDER SET STATUS=?, CURRENT_ROOM_ID=? WHERE ROOM_ORDER_ID=?";
 	
 	@Override
 	public void addRoomOrder(RoomOrderVO roomOrderVO) {
@@ -604,7 +605,8 @@ public class RoomOrderDAO implements RoomOrderDAO_Interface {
 				roomOrderVO.setMem_id(rs.getString("MEM_ID"));
 				roomOrderVO.setCheck_in_date(rs.getDate("CHECK_IN_DATE"));
 				roomOrderVO.setCheck_out_date(rs.getDate("CHECK_OUT_DATE"));
-				roomOrderVO.setStatus(rs.getInt("STATUS"));	
+				roomOrderVO.setStatus(rs.getInt("STATUS"));
+				roomOrderVO.setCurrent_room_id(rs.getString("CURRENT_ROOM_ID"));
 				list.add(roomOrderVO);
 			}
 
@@ -630,6 +632,44 @@ public class RoomOrderDAO implements RoomOrderDAO_Interface {
 			}
 		}	
 		return list;
+	}
+
+	@Override
+	public void updateOrderStatus(Integer status, String current_room_id, String room_order_id) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		try {
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(Update_Order_Status);
+			pstmt.setInt(1, status);
+			pstmt.setString(2, current_room_id);
+			pstmt.setString(3, room_order_id);
+			
+			int orderUpdate = pstmt.executeUpdate();
+			System.out.println("更新"+ orderUpdate + "筆訂房訂單狀態");
+
+			// Handle any SQL errors
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}	
+		
 	}
 
 }

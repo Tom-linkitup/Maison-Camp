@@ -6,6 +6,7 @@
 		<item key="isRegEx" value="false"/>
 		<item key="selection" value="request"/>
 		<list key="findhistory">
+			<item value="booking-detail"/>
 			<item value="request"/>
 			<item value="user-panel"/>
 			<item value="remain"/>
@@ -13,7 +14,6 @@
 			<item value="right-side"/>
 			<item value="container"/>
 			<item value="room"/>
-			<item value="todayDa"/>
 		</list>
 		<list key="replacehistory">
 		</list>

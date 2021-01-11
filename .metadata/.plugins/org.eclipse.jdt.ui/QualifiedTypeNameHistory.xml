@@ -40,4 +40,8 @@
 <fullyQualifiedTypeName name="java.sql.DatabaseMetaData"/>
 <fullyQualifiedTypeName name="java.sql.Date"/>
 <fullyQualifiedTypeName name="java.time.LocalDate"/>
+<fullyQualifiedTypeName name="com.roomtype.model.RoomTypeService"/>
+<fullyQualifiedTypeName name="java.io.PrintWriter"/>
+<fullyQualifiedTypeName name="com.room.model.RoomVO"/>
+<fullyQualifiedTypeName name="com.room.model.RoomService"/>
 </qualifiedTypeNameHistroy>

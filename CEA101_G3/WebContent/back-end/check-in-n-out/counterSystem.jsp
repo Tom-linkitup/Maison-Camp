@@ -7,193 +7,70 @@
 <%@ page import="com.member.model.*"%>
 <%@ page import="java.util.*"%>
 <%@ page import="java.time.LocalDate"%>
-<%@ page import="java.util.stream.Collectors" %>
 <%
 	RoomOrderService roSvc = new RoomOrderService();
 	List<RoomOrderVO> checkIns = roSvc.getAllCheckInOrder(); //取得當天要checkIn的訂單
 	List<RoomOrderVO> checkOuts = roSvc.getAllCheckOutOrder(); //取得當天尚未CheckOut的訂單
-	List<RoomOrderVO> checkeds = roSvc.getOrderByStatus(new Integer(2)); //取得已入住訂單
 	pageContext.setAttribute("checkIns", checkIns);
 	pageContext.setAttribute("checkOuts", checkOuts);
-	pageContext.setAttribute("checkeds", checkeds);
-
 %>
-<jsp:useBean id="memSvc" scope="page" class="com.member.model.MemberService" />
-<jsp:useBean id="rodSvc" scope="page" class="com.roomorderdetail.model.RoomOrderDetailService" />
-<jsp:useBean id="rtSvc" scope="page" class="com.roomtype.model.RoomTypeService" />
-<jsp:useBean id="rmSvc" scope="page" class="com.room.model.RoomService" />
+
 <!DOCTYPE html>
+<%@ include file="/back-end/back-template/backIndex.file"%>
 <html lang="en">
 <head>
+<link rel="stylesheet" href="<%=request.getContextPath()%>/bootstrap/bootstrap.min.css">
 <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
 <link rel="stylesheet" href="<%=request.getContextPath()%>/css/back-end/counterSystem.css">
 <title>房務系統</title>
 </head>
 <body>
-	<div class="wrapper">
-		<div class="header">
-			<div>
-				<h3><%=LocalDate.now()%></h3>
-			</div>
-			<div>
+	<div class="status">
+		<h4>客房預訂管理</h4>
+	</div>
+	<div class="header">
+			<div class="current">
+				<div>
+					<p>${checkIns.size()}</p>
+					<i class="fal fa-bell fa-3x"></i>
+				</div>
 				<h4>今日待入住訂單</h4>
-				<h3>${checkIns.size()} 筆</h3>
 			</div>
-			<div>
+			<div class="current">
+				<div>
+					<p style="color:red;">${checkOuts.size()}</p>
+					<i class="fal fa-sign-out-alt fa-3x"></i>
+				</div>
 				<h4>今日待退房訂單</h4>
-				<h3>${checkOuts.size()} 筆</h3>
 			</div>
-		</div>
-		<div class="main">
-			<div class="list">
-				<table>
-					<tr>
-						<td colspan="7" class="list-title">今日待入住</td>
-					</tr>
-					<tr class="table-head">
-						<th>訂單編號</th>
-						<th>會員編號</th>
-						<th>入住日期</th>
-						<th>退房日期</th>
-						<th>辦理入住</th>
-					</tr>
-					<c:if test="${checkIns.size()==0}">
-						<tr>
-							<td colspan="7" class="td-msg">今日無待入住客戶</td>
-						</tr>
-					</c:if>
-					
-					<c:forEach var="checkIn" items="${checkIns}">
-						<tr class="list-data">
-							<td><i class="fas fa-receipt"></i>${checkIn.room_order_id}</td>
-							<td>
-								<%-- <a class="booking-detail member"
-								href="<%=request.getContextPath()%>/MembersServlet?mb_id=${checkIn.mb_id}&action=getone_bymbid&location=memberDetail.jsp">${checkIn.mb_id}</a><br> --%>
-								<i class="far fa-user member-icon"></i>${memSvc.getOneMEM(checkIn.mem_id).name}
-							</td>
-							<td>${checkIn.check_in_date}</td>
-							<td>${checkIn.check_out_date}</td>
-							<td><button class="check-in"  <c:if test="${checkIn.status == 0}">disabled</c:if> >CHECK IN</button></td>
-						</tr>
-						<c:if test="${checkIn.status == 1}">
-						<tr>
-							<td class="room-check-in" colspan="7">
-							<% int i = 1; %>
-							<c:forEach var="room" items="${bkdetailSvc.getAllByBkNo(checkIn.bk_no)}">
-								<div class="room-info">
-									<h4>房間 <%= i++ %><span class="rmtype" data-rmtype="${room.rm_type}">${rmtypeSvc.getOne(room.rm_type).type_name}</span><span>入住人數：${room.rm_guest} 人</span></h4>
-								</div>
-								<div class="checkin-option">
-									<h4>選擇房號</h4>
-									<c:forEach var="rm" items="${rmSvc.getAllByRmType(room.rm_type)}">
-										<span class="all-rooms <c:if test='${rm.rm_status == 0}'>empty</c:if>">${rm.rm_no}</span>
-										<%-- <a 
-										class="room-for-check <c:if test='${rm.rm_status != 0}'> not-aval  </c:if> "
-										<c:if test="${rm.rm_status==0}">href="<%=request.getContextPath()%>/RoomsServlet?action=update_check_in&rm_no=${rm.rm_no}&mb_id=${checkIn.mb_id}&bk_no=${checkIn.bk_no}"</c:if> >${rm.rm_no}</a> --%>
-									</c:forEach>
-								</div>
-							</c:forEach>
-							<h5 class="price-to-pay">未結餘款：USD\$${checkIn.total_price * 0.7}-</h5>
-							<button class="checkin-confirm" data-mbid="${checkIn.mb_id}" data-bkno="${checkIn.bk_no}">CONFIRM</button>
-							</td>
-						<tr>
-						</c:if>
-					</c:forEach>
-					<tr>
-						<td colspan="7"></td>
-					</tr>
-					<tr>
-						<td colspan="7" class="list-title">今日待退房</td>
-					</tr>
-					<tr class="table-head">
-						<th>訂單編號</th>
-						<th>會員編號</th>
-						<th>入住時間</th>
-						<th>退房日期</th>
-						<th>消費明細</th>
-						<th>辦理退房</th>
-					</tr>
-					<c:if test="${checkOuts.size()==0}">
-						<tr>
-							<td colspan="7" class="td-msg">今日無待退房客戶</td>
-						</tr>
-					</c:if>
-					<c:forEach var="checkOut" items="${checkOuts}">
-						<tr class="list-data">
-							<td><i class="fas fa-receipt"></i>${checkOut.bk_no}</td>
-							<td>
-								<i class="far fa-user member-icon"></i>
-								<a class="booking-detail member"
-								href="<%=request.getContextPath()%>/MembersServlet?mb_id=${checkOut.mb_id}&action=getone_bymbid&location=memberDetail.jsp">${checkOut.mb_id}</a><br>
-								${mbSvc.getOneByMbId(checkOut.mb_id).mb_name}
-							</td>
-							<fmt:parseDate pattern="yyyy-MM-dd'T'HH:mm" type="both" value="${checkOut.checkIn}" var="parsedDateTime"/> 
-							<td><fmt:formatDate pattern="yyyy-MM-dd HH:mm" value="${parsedDateTime}"/></td>
-							<td>${checkOut.dateOut}</td>
-							<td>receipt</td>
-							<td><button class="checkout-confirm" data-mbid="${checkOut.mb_id}" data-bkno="${checkOut.bk_no}">CHECK OUT</button></td>
-						</tr>
-					</c:forEach>
-					<tr>
-						<td colspan="7"></td>
-					</tr>
-					<tr>
-						<td colspan="7" class="list-title">入住中清單</td>
-					</tr>
-					<tr class="table-head">
-						<th>訂單編號</th>
-						<th>會員編號</th>
-						<th>入住時間</th>
-						<th>退房日期</th>
-						<th>入住房號</th>
-						<th>提前退房</th>
-					</tr>
-					<c:if test="${checkeds.size()==0}">
-						<tr>
-							<td colspan="7" class="td-msg">無入住中房客</td>
-						</tr>
-					</c:if>
-					<c:forEach var="checked" items="${checkeds}">
-						<tr class="list-data">
-							<td><i class="fas fa-receipt"></i>${checked.bk_no}</td>
-							<td>
-								<i class="far fa-user member-icon"></i>
-								<a class="booking-detail member"
-								href="<%=request.getContextPath()%>/MembersServlet?mb_id=${checked.mb_id}&action=getone_bymbid&location=memberDetail.jsp">${checked.mb_id}</a><br>
-								${mbSvc.getOneByMbId(checked.mb_id).mb_name}
-							</td>
-							<fmt:parseDate pattern="yyyy-MM-dd'T'HH:mm" type="both" value="${checked.checkIn}" var="parsedDateTime"/> 
-							<td><fmt:formatDate pattern="yyyy-MM-dd HH:mm" value="${parsedDateTime}"/></td>
-							<td>${checked.dateOut}</td>
-							<td>
-								<c:forEach var="room" items="${rmSvc.getAllByBkNo(checked.bk_no)}">
-									<span class="all-rooms">${room.rm_no}</span>
-								</c:forEach>
-							</td>
-							<td><button class="checkout-confirm" data-mbid="${checked.mb_id}" data-bkno="${checked.bk_no}">CHECK OUT</button></td>
-						</tr>
-					</c:forEach>
-					<tr>
-						<td colspan="7"></td>
-					</tr>
-				</table>
+			<div class="current">
+				<div>
+					<p style="color:#1776b9;">${checkOuts.size()}</p>
+					<div class="percentage">58%</div>
+				</div>
+				<h4>今日住房數</h4>
 			</div>
+	</div>
+	
+	<div id="container">
+		<input class="title" id="tab-1" type="radio" name="tab-group" checked="checked"/>
+		<label for="tab-1">入住訂單</label> 
+		
+		<input class="title" id="tab-2" type="radio" name="tab-group" />
+		<label for="tab-2">退房訂單</label> 
+		
+		<input class="title" id="tab-3" type="radio" name="tab-group"  /> 
+		<label for="tab-3">入住中訂單</label>
+		
+		<div id="content">
+			<jsp:include page="CheckIn.jsp" />
+			<jsp:include page="CheckOut.jsp" />
+			<jsp:include page="InRoom.jsp" />
 		</div>
 	</div>
-	<div class="info-display" id="booking-detail-info">
-		<div class="close-icon">
-			<i class="fas fa-times icon"></i>
-		</div>
-		<iframe src=""></iframe>
-	</div>
-	<script src="${pageContext.request.contextPath}/js/jquery-3.5.1.min.js"></script>
-	<script src="${pageContext.request.contextPath}/js/back/backend.js"></script>
-	<script>
-	$(window).on("load", function () {
-	    $(".loader").delay(400).fadeOut();
-	    $("#preloder").delay(600).fadeOut("slow");
-	});
-
+	<script src="http://code.jquery.com/jquery-1.12.4.min.js"></script>
+	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+	<%-- <script>
 	$(document).ready(function () {
 	    let bookingDetail = $("#booking-detail-info");
 	    $(".booking-detail").click(function (e) {
@@ -318,6 +195,7 @@
 	    });
 	});
 
-	</script>
+	</script> --%>
+<%@ include file="/back-end/back-template/backIndex2.file"%>
 </body>
 </html>

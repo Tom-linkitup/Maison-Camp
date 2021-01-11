@@ -13,8 +13,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 
-import org.apache.tomcat.util.http.fileupload.IOUtils;
-
 import com.item.model.ItemService;
 import com.item.model.ItemVO;
 import com.item_photo.model.ItemPhotoService;

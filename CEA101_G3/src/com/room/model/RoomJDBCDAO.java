@@ -300,4 +300,10 @@ public class RoomJDBCDAO implements RoomDAO_Interface {
 		return roomList;
 	}
 
+	@Override
+	public void updateRmStatus(Integer status, String room_id) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

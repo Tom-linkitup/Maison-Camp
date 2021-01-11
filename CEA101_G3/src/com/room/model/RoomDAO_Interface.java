@@ -9,4 +9,5 @@ public interface RoomDAO_Interface {
 	public RoomVO findByRoomId(String room_id);
 	public List<RoomVO> getByRoomCategoryId(String room_category_id);
 	public List<RoomVO> getAllRoom();
+	public void updateRmStatus(Integer status, String room_id);
 }

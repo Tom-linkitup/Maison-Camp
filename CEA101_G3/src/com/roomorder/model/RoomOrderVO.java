@@ -3,11 +3,16 @@ package com.roomorder.model;
 import java.io.Serializable;
 
 public class RoomOrderVO implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private String room_order_id;
 	private String mem_id;	
 	private java.sql.Date check_in_date;
 	private java.sql.Date check_out_date;
-	private int status;	
+	private int status;
+	private String current_room_id;
 	
 	public RoomOrderVO(){
 		
@@ -51,6 +56,14 @@ public class RoomOrderVO implements Serializable {
 
 	public void setStatus(int status) {
 		this.status = status;
+	}
+
+	public String getCurrent_room_id() {
+		return current_room_id;
+	}
+
+	public void setCurrent_room_id(String current_room_id) {
+		this.current_room_id = current_room_id;
 	}
 
 }
