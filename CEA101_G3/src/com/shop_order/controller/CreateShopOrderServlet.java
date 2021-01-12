@@ -5,6 +5,7 @@ import java.util.*;
 import javax.servlet.*;
 import javax.servlet.http.*;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.shop_order.model.*;
@@ -57,17 +58,25 @@ public class CreateShopOrderServlet extends HttpServlet {
 				}
 				
 				/*************************** 2.開始修改資料 *****************************************/
-				
-				Set<javax.websocket.Session> wsSessions = (Set<javax.websocket.Session>) session.getAttribute("wsSessions");
 				ShopOrderService shopOrderSvc = new ShopOrderService();
 				shopOrderSvc.addWithOrderDetail(shopOrderVO, list);
 				
-				if (wsSessions != null && wsSessions.size() > 0) {
-					JSONObject data = new JSONObject();
-					data.put("type", "商品訂單");
-					wsSessions.forEach(e -> e.getAsyncRemote().sendText(data.toString()));
-				}
 				
+				//ws
+				Set<javax.websocket.Session> orderSession = (Set<javax.websocket.Session>) session.getAttribute("orderSession");
+				if (orderSession != null && orderSession.size() > 0) {
+					JSONObject data = new JSONObject();
+					try {
+						data.put("newOrder","新增訂單成功");
+					} catch (JSONException e1) {
+						e1.printStackTrace();
+					}
+					orderSession.forEach(e -> e.getAsyncRemote().sendText(data.toString()));
+				}
+				//
+				
+				
+				session.removeAttribute("shoppingcart");
 				/*************************** 3.新增完成,準備轉交(Send the Success view) ***********/
 				String url = "/front-end/item/shoppingMall.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url);

@@ -284,9 +284,6 @@ public class ShopOrderDAO implements ShopOrderDAO_interface {
 			
 			if(rs.next()) {
 				next_shop_order_id = rs.getString(1);
-				System.out.println("自增主鍵值= " + next_shop_order_id +"(剛新增成功的訂單編號)");
-			}else {
-				System.out.println("未取得自增主鍵值");
 			}
 			rs.close();
 			
@@ -294,15 +291,6 @@ public class ShopOrderDAO implements ShopOrderDAO_interface {
 			ShopOrderDetailDAO dao = new ShopOrderDetailDAO();
 			for(ShopOrderDetailVO vo : list) {
 				vo.setShop_order_id(next_shop_order_id);
-				
-				System.out.println(vo.getItem_id());
-				System.out.println(vo.getItem_promotion_id());
-				System.out.println(vo.getNote());
-				System.out.println(vo.getShop_order_id());
-				System.out.println(vo.getItem_price());
-				System.out.println(vo.getQuantity());
-				
-				
 				dao.insert2(vo, con);
 			}
 			

@@ -17,18 +17,18 @@ import javax.websocket.server.ServerEndpoint;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-@ServerEndpoint(value="/NotifyWS", configurator=ServletAwareConfig.class)
-public class NotifyWS {
-	private static final Set<Session> distributor = Collections.synchronizedSet(new HashSet<>());
+@ServerEndpoint(value="/NotifyShopWS", configurator=ServletAwareConfig.class)
+public class NotifyToBackShopOrder {
+	private static final Set<Session> newShopOrder = Collections.synchronizedSet(new HashSet<>());
 	private EndpointConfig newConfig;
 	
 	
 	@OnOpen
 	public void onOpen(Session userSession, EndpointConfig config) throws IOException {
-		distributor.add(userSession);
+		newShopOrder.add(userSession);
 		this.newConfig = config;
 		HttpSession httpSession = (HttpSession) newConfig.getUserProperties().get("httpSession");
-		httpSession.setAttribute("wsSessions", distributor);
+		httpSession.setAttribute("orderSession", newShopOrder);
 		String text = String.format("Session ID = %s", userSession.getId());
 		System.out.println(text);
 	}
@@ -41,7 +41,7 @@ public class NotifyWS {
 
 	@OnClose
 	public void onClose(Session userSession, CloseReason reason) {
-		distributor.remove(userSession);
+		newShopOrder.remove(userSession);
 		String text = String.format("session ID = %s, disconnected; close code = %d; reason phrase = %s",
 				userSession.getId(), reason.getCloseCode().getCode(), reason.getReasonPhrase());
 		System.out.println(text);
@@ -53,15 +53,16 @@ public class NotifyWS {
 		e.printStackTrace();
 	}
 	
-//	public void sendNotify(String type, String odno, Set<Session> sessions) {
-//		JSONObject data = new JSONObject();
-//		try {
-//			data.put("type", type);
-//			data.put("odno", odno);
-//		} catch (JSONException e1) {
-//			e1.printStackTrace();
-//		}
-//		
-//		sessions.forEach(e -> e.getAsyncRemote().sendText(data.toString()));
-//	}
+	public void sendNotify(String type, String odno, Set<Session> sessions) {
+		JSONObject data = new JSONObject();
+		try {
+			data.put("type", type);
+			data.put("odno", odno);
+		} catch (JSONException e1) {
+			e1.printStackTrace();
+		}
+		
+		sessions.forEach(e -> e.getAsyncRemote().sendText(data.toString()));
+	}
 }
+
