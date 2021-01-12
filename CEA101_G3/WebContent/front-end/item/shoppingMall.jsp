@@ -200,6 +200,7 @@
 	    	var path = window.location.pathname;
 	    	var webCtx = path.substring(0, path.indexOf('/', 1));
 	    	var endPointURL = "ws://" + window.location.host + webCtx + MyPoint;
+	    	console.log(endPointURL);
 	    	var webSocket = new WebSocket(endPointURL);
 	    	webSocket.onmessage = function(event) {
 	    		var jsonObj = JSON.parse(event.data);
