@@ -17,6 +17,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/4.1.2/collection/icon/icon.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="<%=request.getContextPath() %>/css/back-end/admin.css">
     <link rel="stylesheet" href="<%=request.getContextPath() %>/css/back-end/context.css">
     <link rel="stylesheet" href="<%=request.getContextPath() %>/css/back-end/style.css">
@@ -163,6 +164,46 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/admin-lte/2.4.3/js/adminlte.min.js"></script> 
         <script src="<%=request.getContextPath() %>/js/back-end/backer.js"></script>
         <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
         ${alert}   
+        
+        
+        <script>
+        $(document).ready(() => {
+		   	
+  		  //WS
+  	    	var MyPoint = "/NotifyShopWS";
+  	    	var host = window.location.host;
+  	    	var path = window.location.pathname;
+  	    	var webCtx = path.substring(0, path.indexOf('/', 1));
+  	    	var endPointURL = "ws://" + window.location.host + webCtx + MyPoint;
+  	    	var webSocket = new WebSocket(endPointURL);
+  	    	webSocket.onmessage = function(event) {
+  	    		var jsonObj = JSON.parse(event.data);
+  	    		let newOrder = jsonObj.newOrder;
+  	    		toastr["success"](newOrder);
+  	    	};
+        });
+        </script>
+        
+         <script>
+		   toastr.options = {
+				   "closeButton": false,
+				   "debug": false,
+				   "newestOnTop": false,
+				   "progressBar": true,
+				   "positionClass": "toast-bottom-right",
+				   "preventDuplicates": false,
+				   "onclick": null,
+				   "showDuration": "300",
+				   "hideDuration": "1000",
+				   "timeOut": "2500",
+				   "extendedTimeOut": "1000",
+				   "showEasing": "swing",
+				   "hideEasing": "linear",
+				   "showMethod": "fadeIn",
+				   "hideMethod": "fadeOut"
+				 }
+		</script>
     </body>
 </html>

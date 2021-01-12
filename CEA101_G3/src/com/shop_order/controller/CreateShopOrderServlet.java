@@ -4,6 +4,10 @@ import java.io.*;
 import java.util.*;
 import javax.servlet.*;
 import javax.servlet.http.*;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import com.shop_order.model.*;
 import com.shop_order_detail.model.ShopOrderDetailService;
 import com.shop_order_detail.model.ShopOrderDetailVO;
@@ -33,8 +37,6 @@ public class CreateShopOrderServlet extends HttpServlet {
 				
 				Integer status = 1;
 				
-				
-				
 				ShopOrderVO shopOrderVO = new ShopOrderVO(); 
 				shopOrderVO.setMem_id(mem_id);
 				shopOrderVO.setPayment(payment);
@@ -55,11 +57,26 @@ public class CreateShopOrderServlet extends HttpServlet {
 					list.add(detailVO);		
 				}
 				
-
 				/*************************** 2.開始修改資料 *****************************************/
 				ShopOrderService shopOrderSvc = new ShopOrderService();
 				shopOrderSvc.addWithOrderDetail(shopOrderVO, list);
-				System.out.println("訂單新增完成");
+				
+				
+				//ws
+				Set<javax.websocket.Session> orderSession = (Set<javax.websocket.Session>) session.getAttribute("orderSession");
+				if (orderSession != null && orderSession.size() > 0) {
+					JSONObject data = new JSONObject();
+					try {
+						data.put("newOrder","新增訂單成功");
+					} catch (JSONException e1) {
+						e1.printStackTrace();
+					}
+					orderSession.forEach(e -> e.getAsyncRemote().sendText(data.toString()));
+				}
+				//
+				
+				
+				session.removeAttribute("shoppingcart");
 				/*************************** 3.新增完成,準備轉交(Send the Success view) ***********/
 				String url = "/front-end/item/shoppingMall.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url);

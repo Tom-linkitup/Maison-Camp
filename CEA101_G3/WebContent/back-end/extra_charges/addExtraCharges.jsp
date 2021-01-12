@@ -39,25 +39,29 @@
 	</c:forEach>
 <form method="post" action="${pageContext.request.contextPath}/extra_charges/extra_charges.do">	
 <div id="content-2">
-				
-
 		<tr><td>訂房訂單編號:</td>
 		<td><input type="TEXT" name="room_order_id" class="input-beautify" value="<%=(extra_chargesVO==null)? "" : extra_chargesVO.getRoom_order_id()%>"></td>
-		<p class="error" style="color:red; font-size:8px;">${errorMsgs.room_order_id}</p>
+		<p></p>
+		<c:if test="${not empty errorMsgs}">
+			<p class="error" style="color:red; font-size:8px;">${errorMsgs.room_order_id}</p>
+		</c:if>
 		</tr>
 		
 		<tr><td>額外消費內容:</td>
 		<td><input type="TEXT" name="item" class="input-beautify" value="" ></td>
-		<p class="error" style="color:red; font-size:8px;">${errorMsgs.item}</p>
+		<p></p>
+		<c:if test="${not empty errorMsgs}">
+			<p class="error" style="color:red; font-size:8px;">${errorMsgs.item}</p>
+		</c:if>
 		</tr>
 		
 		<tr><td>消費金額總計:</td>
 		<td><input type="TEXT" name="price" class="input-beautify" value=""></td>
-		<p class="error" style="color:red; font-size:8px;">${errorMsgs.price}</p>
+		<p></p>
+		<c:if test="${not empty errorMsgs}">
+			<p class="error" style="color:red; font-size:8px;">${errorMsgs.price}</p>
+		</c:if>
 		</tr>
-
-
-
 
 			<td><input type="hidden" name="action" value="insert"><br>
 			<button id="add" type="submit" class="btn btn-primary">新增額外消費</button>

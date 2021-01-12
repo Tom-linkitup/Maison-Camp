@@ -10,6 +10,7 @@
 	ActivityService actSvc = new ActivityService();
 	ActivityVO activityVO = actSvc.getOneActivity(request.getParameter("actId"));
 	MemberVO memVO = (MemberVO) session.getAttribute("memVO");
+	pageContext.setAttribute("activityVO", activityVO);
 %>
 
 <%
@@ -20,6 +21,13 @@
 		createTime = new java.sql.Date(System.currentTimeMillis());
 	}
 %>
+
+<jsp:useBean id="actOrder" scope="page" class="com.activityOrder.model.ActivityOrderService" />
+
+<c:set value="0" var="sum" />
+	<c:forEach var="actOrderVO" items="${actOrder.findByActId(activityVO.actId)}">
+		<c:set value="${sum + actOrderVO.people}" var="sum" />
+	</c:forEach>
 
 <!DOCTYPE html>
 <html>
@@ -165,6 +173,9 @@ div.panel {
              </div>
          </nav>          
          <a href="#"><img id="logoo" class="img-logo" src="<%=request.getContextPath()%>/img/logo.png" alt=""></a>         
+         <ul class="signin-links">
+	       	<li><i style="margin-right:7px; color:#c15c16;" class="fas fa-child fa-1x"></i>${memVO.name} 您好<i style="color:#496b6b; margin: 0 10px 0 5px;" class="fas fa-exclamation"></i><a class="signin" href="<%=request.getContextPath()%>/Member.do?action=logout"><i class="fas fa-sign-out-alt"></i></a></li>
+	     </ul> 
      </header>
 	<c:if test="${not empty errorMsgs}">
 		<font style="color: red">請修正以下錯誤:</font>
@@ -192,7 +203,20 @@ div.panel {
 						style="width: 100%;">
 				</div>
 				<div style="margin-bottom: 20px">
-				<input class="easyui-textbox" label="參加人數" labelPosition="top" name="people" value="<%=(aoVO == null) ? "1" : aoVO.getPeople()%>" style="width: 100%;">
+				
+				
+				
+				<div style="margin-bottom: 20px">
+				<h6>參加人數:</h6>
+  				<select name="people" style="width:100px; height:40px;">
+  						<c:forEach  var="sumpeople" begin="1" end="${activityVO.maxPeople-sum}">
+  						  	<option value="${sumpeople}">${sumpeople}人</option>>
+  						</c:forEach>
+ 				</select>
+				</div>
+				
+				
+				
 				</div>
 			
 				<input type="hidden" name="actId" size="45" value="<%=activityVO.getActId()%>" /> 

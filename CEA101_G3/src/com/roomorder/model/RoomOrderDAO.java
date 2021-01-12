@@ -40,8 +40,8 @@ public class RoomOrderDAO implements RoomOrderDAO_Interface {
 	private static final String Get_One_By_Mem_Id = "SELECT ROOM_ORDER_ID, MEM_ID, CHECK_IN_DATE, CHECK_OUT_DATE, STATUS FROM ROOM_ORDER WHERE MEM_ID = ?";
 	private static final String Get_All_Stmt = "SELECT ROOM_ORDER_ID, MEM_ID, CHECK_IN_DATE, CHECK_OUT_DATE, STATUS FROM ROOM_ORDER ORDER BY ROOM_ORDER_ID";
 	private static final String Cancel_Order_Stmt = "UPDATE ROOM_ORDER SET STATUS=? WHERE ROOM_ORDER_ID=?";
-	private static final String Get_Check_In_Order = "SELECT ROOM_ORDER_ID, MEM_ID, CHECK_IN_DATE, CHECK_OUT_DATE, STATUS FROM ROOM_ORDER WHERE CHECK_IN_DATE >= TRUNC(SYSDATE) ORDER BY ROOM_ORDER_ID";
-	private static final String Get_Check_Out_Order = "SELECT ROOM_ORDER_ID, MEM_ID, CHECK_IN_DATE, CHECK_OUT_DATE, STATUS FROM ROOM_ORDER WHERE CHECK_OUT_DATE = TRUNC(SYSDATE) ORDER BY ROOM_ORDER_ID";
+	private static final String Get_Check_In_Order = "SELECT ROOM_ORDER_ID, MEM_ID, CHECK_IN_DATE, CHECK_OUT_DATE, STATUS FROM ROOM_ORDER WHERE CHECK_IN_DATE = TRUNC(CURRENT_DATE) ORDER BY ROOM_ORDER_ID";
+	private static final String Get_Check_Out_Order = "SELECT ROOM_ORDER_ID, MEM_ID, CHECK_IN_DATE, CHECK_OUT_DATE, STATUS, CURRENT_ROOM_ID FROM ROOM_ORDER WHERE CHECK_OUT_DATE = TRUNC(CURRENT_DATE) ORDER BY ROOM_ORDER_ID";
 	private static final String Get_Order_By_Status = "SELECT ROOM_ORDER_ID, MEM_ID, CHECK_IN_DATE, CHECK_OUT_DATE, STATUS, CURRENT_ROOM_ID FROM ROOM_ORDER WHERE STATUS=? ORDER BY ROOM_ORDER_ID";
 	private static final String Update_Order_Status = "UPDATE ROOM_ORDER SET STATUS=?, CURRENT_ROOM_ID=? WHERE ROOM_ORDER_ID=?";
 	
@@ -559,6 +559,7 @@ public class RoomOrderDAO implements RoomOrderDAO_Interface {
 				roomOrderVO.setCheck_in_date(rs.getDate("CHECK_IN_DATE"));
 				roomOrderVO.setCheck_out_date(rs.getDate("CHECK_OUT_DATE"));
 				roomOrderVO.setStatus(rs.getInt("STATUS"));	
+				roomOrderVO.setCurrent_room_id(rs.getString("CURRENT_ROOM_ID"));
 				list.add(roomOrderVO);
 			}
 
