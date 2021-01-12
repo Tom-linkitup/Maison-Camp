@@ -10,6 +10,8 @@
 <!DOCTYPE html>
 <html>
 <head>
+<script src="http://code.jquery.com/jquery-1.12.4.min.js"></script>
+
 <meta charset="UTF-8">
 <title>Insert title here</title>
 	<c:if test="${not empty errorMsgs}">
@@ -36,7 +38,7 @@
 	<%-- 錯誤表列 --%>
 	<c:forEach var="message" items="${errorMsgs}">
 	</c:forEach>
-<form method="post" action="${pageContext.request.contextPath}/repair/repair.do">	
+<form method="post" action="${pageContext.request.contextPath}/repair/repair.do" enctype="multipart/form-data">	
 <div id="content-2">
 				
 <jsp:useBean id="roomSvc" scope="page" class="com.room.model.RoomService" />
@@ -59,6 +61,11 @@
 			 <p class="error" style="color:red; font-size:8px;">${errorMsgs.repair_info}</p> 
 			</c:if>
 			
+			
+			<P></P><BR><BR>
+			<INPUT type="file"	id="file" name="repair_photo" accept="image/*" size="45" value="${repairVO.repair_photo}" onchange="loadImageFile(event)" />
+			</p><img style="width:0px" id="preview" src="">
+			
 			<input  id="status" class="input-beautify" type="text" name="status"  value="0" hidden>
 			</tr>
 			
@@ -70,4 +77,49 @@
 		</div>
 	</form>
 </body>
+<!-- 前端預覽圖片 -->
+<script>
+	// 	function init() {
+	// 		let photo = document.getElementsByName('sou_photo')[0];
+	// 		photo.addEventListener('change', function(e) {
+	// 			let files = e.target.files; // 檔案的基本資訊，包括：檔案的名稱、大小與文件型態
+	// 			console.log(files[0])
+	// 			if (files && files[0]) {
+	// 				let file = files[0];
+	// 				if (file.type.indexOf('image') > -1) {
+	// 					let reader = new FileReader(); // new a FileReader
+	// 					reader.onload = function(e) { // 註冊FileReader檔案讀取load的事件 (3)
+	// 						let img = document.createElement("img");
+	// 						img.setAttribute("src", e.target.result);
+	// 						img.style.height = '200px';
+	// 						let node = document.getElementById("preview"); // remove all children
+	// 						while (node.lastChild) {
+	// 							node.removeChild(node.lastChild);
+	// 						}
+	// 						node.appendChild(img);
+	// 					}
+	// 					reader.readAsDataURL(file); // trigger onload event
+	// 				} else {
+	// 					alert('Please upload an image file. ');
+	// 				}
+	// 			}
+	// 		});
+	// 	}
+	// 	window.onload = init;
+	function readURL(input) {
+		if (input.files && input.files[0]) {
+			var reader = new FileReader();
+			reader.onload = function(e) {
+				$('#preview').attr('src', e.target.result);
+			}
+			reader.readAsDataURL(input.files[0]);
+		}
+	}
+	$("#file").change(
+			function() {
+				readURL(this);
+				$("#preview").css("width", "200px").css("height", "150px").css(
+						"margin-bottom", "20px");
+			});
+</script>
 </html>

@@ -6,6 +6,11 @@ import javax.naming.Context;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
 
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.sql.*;
 import com.repair.model.RepairDAO_interface;
 import com.repair.model.RepairVO;
@@ -24,7 +29,7 @@ public class RepairDAO implements RepairDAO_interface {
 		}
 	
 	private static final String INSERT_STMT = 
-		"INSERT INTO repair(repair_id,room_id,emp_id,repair_info,status) VALUES ('RE' || Repair_id_seq.NEXTVAL, ?, ?, ?,?,?)";
+		"INSERT INTO repair(repair_id,room_id,emp_id,repair_info,status,repair_photo) VALUES ('RE' || Repair_id_seq.NEXTVAL, ?, ?, ?,?,?)";
 	private static final String GET_ALL_STMT = 
 		"SELECT repair_id,room_id,emp_id,repair_info,status,repair_photo FROM repair order by repair_id";
 	private static final String GET_ONE_STMT = 
@@ -98,15 +103,17 @@ public class RepairDAO implements RepairDAO_interface {
 			pstmt.setString(2, repairVO.getEmp_id());
 			pstmt.setString(3, repairVO.getRepair_info());
 			pstmt.setInt(4, repairVO.getStatus());
-			pstmt.setString(5, repairVO.getRepair_id());
 			pstmt.setBytes(5, repairVO.getRepair_photo());
+			pstmt.setString(6, repairVO.getRepair_id());
+		
 
 			pstmt.executeUpdate();
 
 			// Handle any driver errors
 		}  catch (SQLException se) {
-			throw new RuntimeException("A database error occured. "
-					+ se.getMessage());
+//			throw new RuntimeException("A database error occured. "
+//					+ se.getMessage());
+			se.printStackTrace();
 			// Clean up JDBC resources
 		} finally {
 			if (pstmt != null) {
@@ -400,45 +407,28 @@ public class RepairDAO implements RepairDAO_interface {
 	}
 	
 	
-	
-//	public static void main(String[] args) {
-//
-//		RepairJDBCDAO dao = new RepairJDBCDAO();
-//
-//		// 新增
-//		RepairVO repairVO1 = new RepairVO();
-//		repairVO1.setRoom_id("RM10010");
-//		repairVO1.setEmp_id("E10009");
-//		repairVO1.setRepair_info("馬通不通");
-//		dao.insert(repairVO1);
+	public static byte[] getPicByteArray() throws IOException{
+		File file = new File("/img/repair_photo");
+		FileInputStream fis = new FileInputStream(file);
+		ByteArrayOutputStream baos = new ByteArrayOutputStream();
+		byte[] buffer = new byte[8192];
+		int i;
+		while ((i = fis.read(buffer)) != -1) {
+			baos.write(buffer, 0, i);
+			baos.flush();
+		}
+		baos.close();
+		fis.close();
+		
+		return baos.toByteArray();
+		
+	}
+	public static void readPic(byte[] bytes) throws IOException {
+		FileOutputStream fos = new FileOutputStream("picture");
+		fos.write(bytes);
+		fos.flush();
+		fos.close();
+	}
 
-//		// 修改
-//		RepairVO repairVO2 = new RepairVO();
-//		repairVO2.setRepair_id("RE1");
-//		repairVO2.setRoom_id("RM1");
-//		repairVO2.setEmp_id("E10002");
-//		repairVO2.setRepair_info("原本馬通不通，現在已修繕完成");
-//		dao.update(repairVO2);
-//
-//		// 刪除
-//		dao.delete("RE5");
-//
-//		// 查詢
-//		RepairVO repairVO3 = dao.findByPrimaryKey("RE2");
-//		System.out.print(repairVO3.getRepair_id() + ",");
-//		System.out.print(repairVO3.getRoom_id() + ",");
-//		System.out.print(repairVO3.getEmp_id() + ",");
-//		System.out.print(repairVO3.getRepair_info() + ",");
-//		System.out.println("---------------------");
-//
-//		// 查詢
-//		List<RepairVO> list = dao.getAll();
-//		for (RepairVO aRepair : list) {
-//			System.out.print(aRepair.getRepair_id() + ",");
-//			System.out.print(aRepair.getRoom_id() + ",");
-//			System.out.print(aRepair.getEmp_id() + ",");
-//			System.out.print(aRepair.getRepair_info() + ",");
-//			System.out.println();
-//		}
 //	}
 }

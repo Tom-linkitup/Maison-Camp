@@ -47,9 +47,10 @@ public class RepairService {
 		dao.delete(repair_id);
 	}
 
-	public RepairVO getOneRepair(String repair_id) {
+	public RepairVO getOneRepairPhoto(String repair_id) {
 		return dao.findByPrimaryKey(repair_id);
 	}
+	
 
 	public List<RepairVO> getAll() {
 		return dao.getAll();

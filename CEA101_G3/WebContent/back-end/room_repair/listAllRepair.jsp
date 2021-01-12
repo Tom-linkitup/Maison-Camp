@@ -13,6 +13,7 @@
 <jsp:useBean id="empSvc" scope="page" class="com.emp.model.EmpService" />
 <html>
 <head>
+<script src="http://code.jquery.com/jquery-1.12.4.min.js"></script>
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
@@ -34,9 +35,10 @@
 				<th>房間編號</th>
 				<th>員工編號</th>
 				<th>修繕內容</th>
+				<th>修繕照片</th>
 				<th>修繕狀態</th>
 				<th>更新修繕</th>
-				<th>修繕刪除</th>
+				
 			</tr>
 			<%@ include file="page1.file"%>
 			
@@ -46,6 +48,9 @@
 				<td class="room_id_info">${repairVO.room_id}</td>
 				<td class="emp_id_info"><c:forEach var="empVO" items="${empSvc.all}"><c:if test="${repairVO.emp_id==empVO.emp_id}">${empVO.emp_id}【${empVO.emp_name}】	</c:if></c:forEach></td>					
 				<td>${repairVO.repair_info}</td>
+				
+				<td><img class="pic" src="${pageContext.request.contextPath}/repair/repair.do?repair_id=${repairVO.repair_id}&action=getRepairPhoto" onMouseOver="this.width=this.width*1.5;this.height=this.height*1.5" onMouseOut="this.width=this.width/1.5;this.height=this.height/1.5" >
+				 </td>		
 				<td><c:choose>
 					<c:when test="${repairVO.status == '0'}">
 						未完成
@@ -54,24 +59,17 @@
 						已完成
 					</c:otherwise>
 					</c:choose></td>
-				
-				
 				<td>
+				
 				<input type="hidden" name="repair_id" value="${repairVO.repair_id}">
 				<input type="hidden" name="action" value="getOne_For_Update">	
 			    <button class="edit btn btn-info" type="submit">修改</button>
 				</td>
-				<td>
-				<form method="post" action="${pageContext.request.contextPath}/repair/repair.do">
-					<input type="hidden" name="action" value="delete">
-					<input type="hidden" name="repair_id" value="${repairVO.repair_id}">
-				    <button class="delete btn btn-danger" type="submit">刪除</button>
-				</form>
-				</td>
-			</tr>
+				
+				
+				</tr>
 			</c:forEach>	
 		</table>
-			<%@ include file="page2.file"%>
 		<div id="lightBox" style="display:none;">
 			<form method="post" action="${pageContext.request.contextPath}/repair/repair.do">
 				<table align="center" id="tableLogin">
@@ -98,6 +96,9 @@
 		</div>
 	</div>
 	<script>		
+	
+		
+	
 		$(".edit").click(function() {
 			$("#lightBox").css("display","");
 			let tr = $(this).parents("tr");
@@ -114,11 +115,7 @@
 		})
 		
 		
-		$(".delete").click(function() {
-			window.alert("不可刪除");
-			
-			location.reload();
-		})
+	
 		
 		
 	$(".selectRepairBySomeThing").keyup(function() {

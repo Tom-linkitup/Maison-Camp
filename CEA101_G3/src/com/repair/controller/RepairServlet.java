@@ -4,12 +4,16 @@ import java.io.*;
 import java.util.*;
 
 import javax.servlet.*;
+import javax.servlet.annotation.MultipartConfig;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
 
 import com.repair.model.*;
 import com.repair.model.RepairService;
 import com.repair.model.RepairVO;
 
+
+@MultipartConfig
 public class RepairServlet  extends HttpServlet {
 	public void doGet(HttpServletRequest req, HttpServletResponse res)
 			throws ServletException, IOException {
@@ -55,7 +59,7 @@ if ("getOne_For_Display".equals(action)) {  // 來自select_page.jsp的請求
 				
 				/***************************2.�}�l�d�߸��*****************************************/
 				RepairService repairSvc = new RepairService();
-				RepairVO repairVO = repairSvc.getOneRepair(repair_id);
+				RepairVO repairVO = repairSvc.getOneRepairPhoto(repair_id);
 				if (repairVO == null) {
 					errorMsgs.add("查無資料");
 				}
@@ -94,7 +98,7 @@ if ("getOne_For_Update".equals(action)) { // 來自listAllRepair.jsp的請求
 				
 				/***************************2.開始查詢資料****************************************/
 				RepairService repairSvc = new RepairService();
-				RepairVO repairVO = repairSvc.getOneRepair(repair_id);
+				RepairVO repairVO = repairSvc.getOneRepairPhoto(repair_id);
 								
 				/***************************3.查詢完成,準備轉交(Send the Success view)************/
 				req.setAttribute("repairVO", repairVO);         // 資料庫取出的room_promotionVO物件,存入req
@@ -111,72 +115,81 @@ if ("getOne_For_Update".equals(action)) { // 來自listAllRepair.jsp的請求
 
 		
 //		
-//if ("update".equals(action)) { 
-//			try {
-//				Map<String, String> errorMsgs = new LinkedHashMap<>();
-//				req.setAttribute("errorMsgs", errorMsgs);
-//		
-//				String repair_id = req.getParameter("repair_id").trim();
-//					
-//				String room_id = req.getParameter("room_id").trim();
-//				if (room_id == null || room_id.trim().length() == 0) {
-//					errorMsgs.put("room_id", "*房間編號不得為空(RM10001,RM10002)");
-//				}	
-//			
-//				String emp_id = req.getParameter("emp_id").trim();
-//				emp_id = emp_id.substring(0,6);
-//				
-//				String repair_info = req.getParameter("repair_info").trim();
-//				if (repair_info == null || repair_info.trim().length() == 0) {
-//					errorMsgs.put("repair_info", "*維修資訊不得為空");
-//				}	
-//				
-//				Integer status = new Integer (req.getParameter("status").trim());
-//				
-//					
-//					
-//					Collection<Part> parts = req.getParts();
-//					for(Part part : parts) {
-//						if(part.getContentType() != null) {
-//							InputStream in = part.getInputStream();
-//							byte[] b = new byte[in.available()];
-//							in.read(b);
-//							in.close();	
-//				
-//				System.out.println("有來到2");
-//				RepairVO repairVO = new RepairVO();
-//				repairVO.setRepair_id(repair_id);
-//				repairVO.setRoom_id(room_id);
-//				repairVO.setEmp_id(emp_id);
-//				repairVO.setRepair_info(repair_info);
-//				repairVO.setStatus(status);
-//				repairVO.setRepair_photo(b);
-//				System.out.println("有來到3");
-//				// Send the use back to the form, if there were errors
-//				if (!errorMsgs.isEmpty()) {
-//					req.setAttribute("repairVO", repairVO); // �t����J�榡���~��repairVO����,�]�s�Jreq
-//					RequestDispatcher failureView = req
-//							.getRequestDispatcher("/back-end/room_repair/select_page.jsp");
-//					failureView.forward(req, res);
-//					return; //�{�����_
-//				}
-//				System.out.println("有來到4");
-//				
-//				/***************************2.開始更新資料***************************************/
-//				RepairService repairSvc = new RepairService();
-//				repairVO = repairSvc.updateRepair(repair_id, room_id,emp_id, repair_info,status,repair_photo);
-//				
-//				/***************************3.新增完成,準備轉交(Send the Success view)***********/
-//				req.setAttribute("repairVO", repairVO); // ��Ʈwupdate���\��,���T����repairVO����,�s�Jreq
-//				String url = "/back-end/room_repair/select_page.jsp";
-//				RequestDispatcher successView = req.getRequestDispatcher(url); //
-//				successView.forward(req, res);
-//				System.out.println("有來到5");
-//				/***************************其他可能的錯誤處理*************************************/
-//				} catch (Exception e) {
-//				e.printStackTrace();
-//				}
-//}
+if ("update".equals(action)) { 
+	
+		
+				RepairVO repairVO = new RepairVO();
+				
+				Map<String, String> errorMsgs = new LinkedHashMap<>();
+				req.setAttribute("errorMsgs", errorMsgs);
+		
+				String repair_id = req.getParameter("repair_id").trim();
+					
+				String room_id = req.getParameter("room_id").trim();
+				if (room_id == null || room_id.trim().length() == 0) {
+					errorMsgs.put("room_id", "*房間編號不得為空(RM10001,RM10002)");
+				}	
+			
+				String emp_id = req.getParameter("emp_id").trim();
+				emp_id = emp_id.substring(0,6);
+				
+				String repair_info = req.getParameter("repair_info").trim();
+				if (repair_info == null || repair_info.trim().length() == 0) {
+					errorMsgs.put("repair_info", "*維修資訊不得為空");
+				}	
+				
+				Integer status = new Integer (req.getParameter("status").trim());
+				
+					
+					
+				byte[] repair_photo = null;
+				Part part = req.getPart("repair_photo");
+				InputStream in = part.getInputStream();
+				
+				if (in.available() == 0) {
+					RepairService repairSvc = new RepairService();
+					repairVO = repairSvc.getOneRepairPhoto(repair_id);
+					repair_photo = repairVO.getRepair_photo();
+				
+				}else{
+					repair_photo=new byte[in.available()];
+					in.read(repair_photo);
+					in.close();
+				}
+				
+				System.out.println("repairID = " + repair_id);
+				System.out.println("length = " + repair_photo.length);
+				
+				repairVO.setRepair_id(repair_id);
+				repairVO.setRoom_id(room_id);
+				repairVO.setEmp_id(emp_id);
+				repairVO.setRepair_info(repair_info);
+				repairVO.setStatus(status);
+				repairVO.setRepair_photo(repair_photo);
+				System.out.println("有來到3");
+				// Send the use back to the form, if there were errors
+				if (!errorMsgs.isEmpty()) {
+					req.setAttribute("repairVO", repairVO); // �t����J�榡���~��repairVO����,�]�s�Jreq
+					RequestDispatcher failureView = req
+							.getRequestDispatcher("/back-end/room_repair/select_page.jsp");
+					failureView.forward(req, res);
+					return; //�{�����_
+				}
+				System.out.println("有來到4");
+				
+				/***************************2.開始更新資料***************************************/
+				RepairService repairSvc = new RepairService();
+				repairVO = repairSvc.updateRepair(repair_id, room_id,emp_id, repair_info,status,repair_photo);
+				
+				/***************************3.新增完成,準備轉交(Send the Success view)***********/
+				req.setAttribute("repairVO", repairVO); 
+				String url = "/back-end/room_repair/select_page.jsp";
+				RequestDispatcher successView = req.getRequestDispatcher(url); //
+				successView.forward(req, res);
+				System.out.println("有來到5");
+				/***************************其他可能的錯誤處理*************************************/
+				} 
+
 		
 
 if ("insert".equals(action)) {   // 來自select_page.jsp的請求 
@@ -280,7 +293,30 @@ if ("delete".equals(action)) { // 來自listAllRepair.jsp
 			}
 				
 			
-		
+if("getRepairPhoto".equals(action)) {
+	String repair_id = req.getParameter("repair_id");
+	System.out.println("這裡有收到請求"+repair_id);
+	res.setContentType("images/*");
+	RepairService repairSvc = new RepairService();
+	RepairVO repairVO = repairSvc.getOneRepairPhoto(repair_id);
+	InputStream  in= null;
+	ServletOutputStream out = null ;
+	byte[] repair_photo=repairVO.getRepair_photo();
+	if (!(repair_photo == null)) {
+		repair_photo=repairVO.getRepair_photo();
+		res.getOutputStream().write(repair_photo);
+	}
+	if (repair_photo == null || repair_photo.length <=1) {
+		repair_photo=repairVO.getRepair_photo();
+		in = getServletContext().getResourceAsStream("/img/repair_photo/No_image.png");
+		byte[] buf = new byte[in.available()];
+		in.read(buf);
+		out = res.getOutputStream();
+		out.write(buf);
+		out.close();
+		in.close();		
+	}
+}
 }
 }
 

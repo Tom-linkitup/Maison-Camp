@@ -3,7 +3,6 @@
 <%@ page import="java.util.*"%>
 <%@ page import="com.repair.model.*"%>
 <%@ page import="com.emp.model.*"%>
-<script src="http://code.jquery.com/jquery-1.12.4.min.js"></script>
 <%
 RepairService repairSvc = new RepairService();
 List<RepairVO> list = repairSvc.getStatus0();
@@ -14,6 +13,7 @@ pageContext.setAttribute("list", list);
 <jsp:useBean id="empSvc" scope="page" class="com.emp.model.EmpService" />
 <html>
 <head>
+<script src="http://code.jquery.com/jquery-1.12.4.min.js"></script>
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
@@ -26,8 +26,10 @@ pageContext.setAttribute("list", list);
 				<th>房間編號</th>
 				<th>員工編號</th>
 				<th>修繕內容</th>
+				<th>修繕圖片</th>
 				<th>修繕狀態</th>
 				<th>更新修繕</th>
+				
 			</tr>
 			<%@ include file="page1.file"%>
 			
@@ -37,6 +39,9 @@ pageContext.setAttribute("list", list);
 				<td>${repairVO.room_id}</td>
 				<td><c:forEach var="empVO" items="${empSvc.all}"><c:if test="${repairVO.emp_id==empVO.emp_id}">${empVO.emp_id}【${empVO.emp_name}】	</c:if></c:forEach></td>			
 				<td>${repairVO.repair_info}</td>
+				
+				<td><div id="r"><img src="${pageContext.request.contextPath}/repair/repair.do?repair_id=${repairVO.repair_id}&action=getRepairPhoto"></div></td>	
+				
 				<td><c:choose>
 					<c:when test="${repairVO.status == '0'}">
 						未完成
@@ -45,6 +50,7 @@ pageContext.setAttribute("list", list);
 						已完成
 					</c:otherwise>
 					</c:choose></td>
+				
 				
 				
 				<td>
@@ -56,9 +62,8 @@ pageContext.setAttribute("list", list);
 			</tr>
 			</c:forEach>	
 		</table>
-			<%@ include file="page2.file"%>
 		<div id="lightBox0" style="display:none;">
-			<form method="post" action="${pageContext.request.contextPath}/repair/repair.do">
+			<form method="post" action="${pageContext.request.contextPath}/repair/repair.do" enctype="multipart/form-data">
 				<table align="right" id="tableLogin">
 					<tr style="font-size:20px; color:#c15c61;"><td>房型修改</td></tr>
 					<tr><td>維修編號：</td><td><input style="background-color:#f9f9f9; border:none;" id="repair_id0" class="input-beautify" type="text" name="repair_id" readonly></td></tr>			
@@ -73,6 +78,11 @@ pageContext.setAttribute("list", list);
 						</select>
 						</td>
 					<tr>
+					
+					
+					<tr><td>維修圖片：</td><td><input id="repair_photo0" class="input-beautify" type="file" name="repair_photo" required accept="image/*" ></td></tr><BR>
+					
+					
 					<td><input type="hidden" name="action" value="update">
 					<input class="btn btn-info" type="submit" id="btnEdit" value="送出修改">
 					<input class="btn btn-warning" type="button" id="btnEditCancel0" value="取消">		
@@ -92,6 +102,11 @@ pageContext.setAttribute("list", list);
 			$("#emp_id0").val(children.eq(2).text());
 			$("#repair_info0").val(children.eq(3).text());
 			$("#status").val(children.eq(4).text());
+			
+			$("#repair_photo0").val(children.eq(5).attr("img"));
+			document.getElementById("repair_photo0").innerHTML = document.getElementById("r");
+			
+			
 		})
 		
 		$("#btnEditCancel0").click(function() {
