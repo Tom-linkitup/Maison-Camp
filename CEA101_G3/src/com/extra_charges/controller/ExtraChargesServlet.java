@@ -19,6 +19,7 @@ public class ExtraChargesServlet extends HttpServlet {
 	public void doPost(HttpServletRequest req, HttpServletResponse res)
 			throws ServletException, IOException {
 		req.setCharacterEncoding("UTF-8");
+		res.setContentType("text/html; charset=UTF-8");
 		PrintWriter out = res.getWriter();
 		String action = req.getParameter("action");
 	
