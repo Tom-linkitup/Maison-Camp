@@ -115,8 +115,7 @@
                           <li><a href="<%=request.getContextPath()%>/back-end/room_promotion/select_page.jsp">訂房優惠管理</a></li>
                           <li><a href="<%=request.getContextPath()%>/back-end/room_comment/select_page.jsp">房間評論管理</a></li>
                           <li><a href="<%=request.getContextPath()%>/back-end/extra_charges/select_page.jsp">額外消費管理</a></li>
-                          <li><a href="#">入住管理</a></li>
-                          <li><a href="#">退房管理</a></li>
+                          <li><a href="<%=request.getContextPath()%>/back-end/check_in_n_out/counterSystem.jsp %>">客房入住管理</a></li>
                       </ul>
                       </li>
                       <li class="treeview">

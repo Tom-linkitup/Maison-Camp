@@ -64,7 +64,7 @@
 				    </div>
 				   	<div class="btn-group paraGroup" role="group" aria-label="Basic example">
 					  <button type="button" class="btn btn-secondary dec changeQuantity">-</button>
-					  <input type="text" class="sendQuantity" name="quantity" size="3" value="<%=order.getQuantity()%>">
+					  <input type="text" class="sendQuantity" name="quantity" size="3" value="<%=order.getQuantity()%>" disabled> 
 					  <input type="hidden" class="price" name="price" value="<%=order.getPrice()%>">
 					  <input type="hidden" class="itemId" name="itemId" value="<%=order.getItemId()%>">
 					  <button type="button" class="btn btn-secondary inc changeQuantity">+</button>

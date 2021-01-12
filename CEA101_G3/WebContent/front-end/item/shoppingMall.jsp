@@ -24,6 +24,8 @@
     <link rel="stylesheet" href="<%=request.getContextPath() %>/css/front-end/style2shopping.css">
     <link rel="shortcut icon" type="image/png" href="img/camplogo.png">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" rel="stylesheet" />
+
     <title>Maison Camp | 露營家</title>
 </head>
 
@@ -74,9 +76,10 @@
         </nav>
         <div class="col-xs-4 col-12 logo">
             <a href="<%=request.getContextPath()%>/front-end/front-index.jsp"><img id="logoo" class="img-logo" src="<%=request.getContextPath()%>/img/logo.png" alt=""></a><!-- LOGO -->
-            <div class="car-bg p-2" >
+            <div class="car-bg mt-2" >
             	<a href="<%=request.getContextPath()%>/front-end/item/shopOrderDetail.jsp">
            			 <img class="shoppingcar" src="<%=request.getContextPath() %>/img/shopping-cart.png">
+           			 <span class="badge"></span>
            	 	</a>
             </div>
         </div>
@@ -185,11 +188,30 @@
 
     <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
-<%--     <script src="<%=request.getContextPath() %>/js/front-end/shoppingMall.js"></script> --%>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+
     
    <script type="text/javascript">
 		   $(document).ready(() => {
-		   	let id,info,price,name;
+		   	
+		  //WS
+	    	var MyPoint = "/NotifyWS";
+	    	var host = window.location.host;
+	    	var path = window.location.pathname;
+	    	var webCtx = path.substring(0, path.indexOf('/', 1));
+	    	var endPointURL = "ws://" + window.location.host + webCtx + MyPoint;
+	    	console.log(endPointURL);
+	    	var webSocket = new WebSocket(endPointURL);
+	    	webSocket.onmessage = function(event) {
+	    		var jsonObj = JSON.parse(event.data);
+	    		let type = jsonObj.type;
+	    		let items = jsonObj.cartItems;
+	    		toastr["success"](type);
+	    		$(".badge").text(items);
+	    	};
+
+		   	
+		   	let id,info,price,name;		   	
 		   	
 		//新增資訊到燈箱裡
 		       $(".card").click(function(){
@@ -232,25 +254,45 @@
 		       	});
 		       });
 		       
+		
+		       $('.changeQuantity').click(function(){
+				   	let btn = $(this);
+				   	let oldValue = btn.parent().find("#sendQuantity").val();
+				   	
+				   	if(btn.text() == "+"){
+				   		var newVal = parseInt(oldValue) + 1;
+				   	}else{
+				   		if(oldValue > 0){
+				   			var newVal = parseInt(oldValue) - 1;
+				   		}else{
+				   			newVal = 0;
+				   		}
+				   	}
+				   	$("#sendQuantity").val(newVal);
+				   });
+		
 		   });
-		   	
-		   $('.changeQuantity').click(function(){
-		   	let btn = $(this);
-		   	let oldValue = btn.parent().find("#sendQuantity").val();
-		   	
-		   	if(btn.text() == "+"){
-		   		var newVal = parseInt(oldValue) + 1;
-		   	}else{
-		   		if(oldValue > 0){
-		   			var newVal = parseInt(oldValue) - 1;
-		   		}else{
-		   			newVal = 0;
-		   		}
-		   	}
-		   	$("#sendQuantity").val(newVal);
-		   });
-   
    </script>
+   
+   <script>
+   toastr.options = {
+		   "closeButton": false,
+		   "debug": false,
+		   "newestOnTop": false,
+		   "progressBar": true,
+		   "positionClass": "toast-bottom-right",
+		   "preventDuplicates": false,
+		   "onclick": null,
+		   "showDuration": "300",
+		   "hideDuration": "1000",
+		   "timeOut": "2500",
+		   "extendedTimeOut": "1000",
+		   "showEasing": "swing",
+		   "hideEasing": "linear",
+		   "showMethod": "fadeIn",
+		   "hideMethod": "fadeOut"
+		 }
+</script>
 </body>
 
 

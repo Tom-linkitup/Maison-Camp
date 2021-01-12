@@ -13,7 +13,21 @@
 	List<RoomOrderVO> checkOuts = roSvc.getAllCheckOutOrder(); //取得當天尚未CheckOut的訂單
 	pageContext.setAttribute("checkIns", checkIns);
 	pageContext.setAttribute("checkOuts", checkOuts);
+	
+	RoomService rmSvc = new RoomService();
+	List<RoomVO> rmlist = rmSvc.getAllRM();
+	Integer roomCount = rmlist.size();
+	Integer occupyCount = 0;	
+	for(RoomVO rm : rmlist){
+		if(rm.getStatus() == 1){
+			occupyCount++;
+		}
+	}
+	Integer roomRate = Math.round((occupyCount*100) / roomCount);
+	pageContext.setAttribute("roomRate", roomRate);
+	pageContext.setAttribute("occupyCount", occupyCount);
 %>
+
 
 <!DOCTYPE html>
 <%@ include file="/back-end/back-template/backIndex.file"%>
@@ -45,8 +59,8 @@
 			</div>
 			<div class="current">
 				<div>
-					<p style="color:#1776b9;">${checkOuts.size()}</p>
-					<div class="percentage">58%</div>
+					<p style="color:#1776b9;">${occupyCount}</p>
+					<div class="percentage">${roomRate}%</div>
 				</div>
 				<h4>今日住房數</h4>
 			</div>

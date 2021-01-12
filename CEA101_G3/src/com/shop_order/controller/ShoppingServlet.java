@@ -1,6 +1,7 @@
 package com.shop_order.controller;
 
 import java.io.IOException;
+import java.util.Set;
 import java.util.Vector;
 
 import javax.servlet.RequestDispatcher;
@@ -10,6 +11,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import com.shop_order.model.Item;
 
@@ -60,6 +64,19 @@ public class ShoppingServlet extends HttpServlet {
 					if(!match) 
 						buylist.add(aItem);
 				}
+				//ws
+				Set<javax.websocket.Session> wsSessions = (Set<javax.websocket.Session>) session.getAttribute("wsSessions");
+				if (wsSessions != null && wsSessions.size() > 0) {
+					JSONObject data = new JSONObject();
+					try {
+						data.put("type", "加入購物車");
+						data.put("cartItems", buylist.size());
+					} catch (JSONException e1) {
+						e1.printStackTrace();
+					}
+					wsSessions.forEach(e -> e.getAsyncRemote().sendText(data.toString()));
+				}
+				//
 			}else if(action.equals("quantityChange")) {
 				String itemId = req.getParameter("itemId");
 				int newVal = new Integer(req.getParameter("newVal"));
