@@ -6,7 +6,7 @@ public class RoomVO implements Serializable {
 	private String room_id;
 	private String room_category_id;
 	private int status;
-	
+	private int occupy;
 	public RoomVO() {
 		
 	}
@@ -33,6 +33,14 @@ public class RoomVO implements Serializable {
 
 	public void setStatus(int status) {
 		this.status = status;
+	}
+
+	public int getOccupy() {
+		return occupy;
+	}
+
+	public void setOccupy(int occupy) {
+		this.occupy = occupy;
 	}
 	
 }

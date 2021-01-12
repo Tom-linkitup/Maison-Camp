@@ -306,4 +306,10 @@ public class RoomJDBCDAO implements RoomDAO_Interface {
 		
 	}
 
+	@Override
+	public void updateRmOccupy(Integer occupy, String room_id) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

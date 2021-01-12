@@ -6,8 +6,6 @@ import java.util.*;
 import javax.servlet.*;
 import javax.servlet.http.*;
 
-import org.json.JSONObject;
-
 import com.extra_charges.model.*;
 
 public class ExtraChargesServlet extends HttpServlet {
@@ -19,6 +17,7 @@ public class ExtraChargesServlet extends HttpServlet {
 	public void doPost(HttpServletRequest req, HttpServletResponse res)
 			throws ServletException, IOException {
 		req.setCharacterEncoding("UTF-8");
+		res.setContentType("text/html;charset=utf-8");
 		PrintWriter out = res.getWriter();
 		String action = req.getParameter("action");
 	
@@ -254,30 +253,7 @@ if ("update".equals(action)) { // 靘updateExtraChargesInput.jsp????
 		failureView.forward(req, res);
 	}
 }
-
-		if ("insertByCheckOut".equals(action)) { 
-			try {			
-				String room_order_id = req.getParameter("room_order_id").trim();
-				String item = req.getParameter("item").trim();
-				Integer price = new Integer(req.getParameter("price").trim());
-								
-				Extra_chargesVO extra_chargesVO = new Extra_chargesVO();
-				extra_chargesVO.setRoom_order_id(room_order_id);
-				extra_chargesVO.setItem(item);
-				extra_chargesVO.setPrice(price);
-			
-				Extra_chargesService extra_chargesSvc = new Extra_chargesService();
-				extra_chargesVO = extra_chargesSvc.addExtra_charges(room_order_id, item, price);
-				JSONObject extraItem = new JSONObject();
-				extraItem.put("room_order_id", extra_chargesVO.getRoom_order_id());
-				extraItem.put("item", extra_chargesVO.getItem());
-				extraItem.put("price", extra_chargesVO.getPrice());
-				extraItem.put("success", "success");
-				out.print(extraItem);		
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		}	
+	
 	}
 }
 

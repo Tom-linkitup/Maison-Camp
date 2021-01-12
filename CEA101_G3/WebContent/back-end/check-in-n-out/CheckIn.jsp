@@ -55,8 +55,8 @@
 				<div class="col-sm-12 roomList">		
 				</div>
 				<div class="roomBtn">
-				<button class="checkin-confirm btn btn-info">確認</button>
-				<button class="cancel btn btn-danger">取消</button>	
+					<button class="checkin-confirm btn btn-info">確認</button>
+					<button class="cancelRoomBox btn btn-danger">取消</button>	
 				</div>
 			</div>				
 		</div>
@@ -76,16 +76,16 @@
 					let data = JSON.parse(str);
 					$("#roomName").text(data.room_name);
 					for(i in data.rmlist){
-						if(data.rmlist[i].status === 0){ //房間為可check in狀態
+						if(data.rmlist[i].occupy === 0){ //房間為可check in狀態
 							let roomBox = document.createElement("div");
 							roomBox.classList.add("roomBox");
 							roomBox.innerText = data.rmlist[i].room_id;
 							$(".roomList").append(roomBox);								
 						}
 					}
-					//預設選擇第一間
+					/* //預設選擇第一間
 					let roomBoxes = $(".roomBox");
-					roomBoxes[0].classList.add("selected");
+					roomBoxes[0].classList.add("selected"); */
 					
 					$(".roomBox").click(function(){		
 				        $(this).siblings(".roomBox").removeClass("selected");
@@ -116,8 +116,8 @@
 				}
 			})
 		});
-			
-		$(".cancel").click(function(){
+	
+		$(".cancelRoomBox").click(function(){
 			$("#lightBox").css("display","none");
 		})	
 	})

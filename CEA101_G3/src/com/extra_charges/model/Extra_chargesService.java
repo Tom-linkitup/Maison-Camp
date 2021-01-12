@@ -49,4 +49,8 @@ public class Extra_chargesService {
 	public List<Extra_chargesVO> getAll() {
 		return dao.getAll();
 	}
+	
+	public List<Extra_chargesVO> getByRO(String room_order_id){
+		return dao.getByRoomOrderId(room_order_id);
+	}
 }
