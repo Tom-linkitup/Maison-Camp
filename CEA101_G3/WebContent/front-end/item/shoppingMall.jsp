@@ -22,7 +22,7 @@
     <link href="https://fonts.googleapis.com/css?family=Lato:100,300,400,700,900" rel="stylesheet">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="<%=request.getContextPath() %>/css/front-end/style2shopping.css">
-    <link rel="shortcut icon" type="image/png" href="img/camplogo.png">
+    <link rel="shortcut icon" type="image/png" href="<%=request.getContextPath() %>/img/camplogo.png">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" rel="stylesheet" />
 
@@ -56,48 +56,40 @@
 
     </div>
     <header class="header">
-        <nav role="navigation">
-            <div id="menuToggle">
-                <input type="checkbox" id="checkboxtoggle" /><!-- 左上按鈕 -->
-                <span></span>
-                <span></span>
-                <span></span>
-                <ul id="menu">
-                    <a href="<%=request.getContextPath()%>/front-end/front-index.jsp"><li>首頁</li></a>
-                   	<a href="<%=request.getContextPath()%>/front-end/news/News.jsp"><li>最新消息</li></a>
-               	 	<a href="<%=request.getContextPath()%>/front-end/member/Member.jsp"><li>會員中心</li></a>
-                   	<a href="<%=request.getContextPath()%>/front-end/room-type/RoomType.jsp"><li>帳型介紹</li></a>
-                   	<a href="<%=request.getContextPath()%>/front-end/room-booking/RoomBooking.jsp"><li>立即訂房</li></a>
-                   	<a href="<%=request.getContextPath()%>/front-end/item/shoppingMall.jsp"><li>精選商城</li></a>
-                   	<a href="<%=request.getContextPath()%>/front-end/activity/selectPage.jsp"><li>活動預約</li></a>
-                   	<a href="#"><li>聯絡我們</li></a>
-                 </ul>
-            </div>
-        </nav>
+          <nav role="navigation">
+              <div id="menuToggle">
+                  <input type="checkbox" id="checkboxtoggle"/>
+                  <span></span>
+                  <span></span>
+                  <span></span>
+                  <ul id="menu">
+                      <a href="<%=request.getContextPath()%>/front-end/front-index.jsp"><li>首頁</li></a>
+                        <a href="<%=request.getContextPath()%>/front-end/news/News.jsp"><li>最新消息</li></a>
+                        <a href="#"><li>會員中心</li></a>
+                        <a href="<%=request.getContextPath()%>/front-end/room-type/roomType.jsp"><li>帳型介紹</li></a>
+                        <a href="<%=request.getContextPath()%>/front-end/room-booking/RoomBooking.jsp"><li>立即訂房</li></a>
+                        <a href="#"><li>精選商城</li></a>
+                        <a href="#"><li>活動預約</li></a>
+                        <a href="#"><li>聯絡我們</li></a>
+                  </ul>
+              </div>
+          </nav>
+          <a href="#"><img id="logoo" class="img-logo" src="<%=request.getContextPath()%>/img/logo.png" alt=""></a>
         <div class="col-xs-4 col-12 logo">
-            <a href="<%=request.getContextPath()%>/front-end/front-index.jsp"><img id="logoo" class="img-logo" src="<%=request.getContextPath()%>/img/logo.png" alt=""></a><!-- LOGO -->
-            <div class="car-bg p-2" >
+            <div class="car-bg mt-2" >
             	<a href="<%=request.getContextPath()%>/front-end/item/shopOrderDetail.jsp">
            			 <img class="shoppingcar" src="<%=request.getContextPath() %>/img/shopping-cart.png">
+           			 <span class="badge"></span>
            	 	</a>
             </div>
         </div>
     </header>
-    <section>
-        <div id="carouselExampleControls" class="carousel slide lickme" data-ride="carousel">
-            <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
-                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                <span class="sr-only">Previous</span>
-            </a>
-            <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
-                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                <span class="sr-only">Next</span>
-            </a>
-        </div>
-    </section>
+    <div class="title-text">
+        <div>精選商城</div>
+      </div>
     <section>
         <div class="container-fluid">
-            <div class="row">
+            <div class="row" style="background-color: #fff">
                 <!-- 中間左頁 -->
                 <div class="col-md-2 bg_grad pl-3 menu_left ">
                     <ul>
@@ -109,7 +101,7 @@
                 
                 <div class="col-md-8 mx-auto pt-5">
                     <!-- 中間右頁 -->
-                    <div class="row">
+                    <div class="row" >
                     <%@ include file="page1toshop.file" %>
                     	
 	                    <c:forEach var="itemVO" items="${list}" varStatus="count"  begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
@@ -192,7 +184,6 @@
     
    <script type="text/javascript">
 		   $(document).ready(() => {
- 	
 		   	
 		  //WS
 	    	var MyPoint = "/NotifyWS";
@@ -200,11 +191,14 @@
 	    	var path = window.location.pathname;
 	    	var webCtx = path.substring(0, path.indexOf('/', 1));
 	    	var endPointURL = "ws://" + window.location.host + webCtx + MyPoint;
+	    	console.log(endPointURL);
 	    	var webSocket = new WebSocket(endPointURL);
 	    	webSocket.onmessage = function(event) {
 	    		var jsonObj = JSON.parse(event.data);
 	    		let type = jsonObj.type;
+	    		let items = jsonObj.cartItems;
 	    		toastr["success"](type);
+	    		$(".badge").text(items);
 	    	};
 
 		   	
@@ -277,7 +271,7 @@
 		   "debug": false,
 		   "newestOnTop": false,
 		   "progressBar": true,
-		   "positionClass": "toast-top-right",
+		   "positionClass": "toast-bottom-right",
 		   "preventDuplicates": false,
 		   "onclick": null,
 		   "showDuration": "300",

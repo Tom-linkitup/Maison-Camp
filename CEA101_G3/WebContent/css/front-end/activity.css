@@ -52,6 +52,16 @@ body {
   user-select: none;
 }
 
+.signin-links {
+  padding: 0;
+  margin: 0;
+  position: absolute;
+  right:32px;
+  top: 37px;
+  list-style:none;
+  z-index:9999;
+}
+
 #menuToggle a {
   font-weight: 400;
   text-decoration: none;

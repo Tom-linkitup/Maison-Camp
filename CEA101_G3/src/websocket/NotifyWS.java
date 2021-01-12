@@ -53,15 +53,15 @@ public class NotifyWS {
 		e.printStackTrace();
 	}
 	
-	public void sendNotify(String type, String odno, Set<Session> sessions) {
-		JSONObject data = new JSONObject();
-		try {
-			data.put("type", type);
-			data.put("odno", odno);
-		} catch (JSONException e1) {
-			e1.printStackTrace();
-		}
-		
-		sessions.forEach(e -> e.getAsyncRemote().sendText(data.toString()));
-	}
+//	public void sendNotify(String type, String odno, Set<Session> sessions) {
+//		JSONObject data = new JSONObject();
+//		try {
+//			data.put("type", type);
+//			data.put("odno", odno);
+//		} catch (JSONException e1) {
+//			e1.printStackTrace();
+//		}
+//		
+//		sessions.forEach(e -> e.getAsyncRemote().sendText(data.toString()));
+//	}
 }

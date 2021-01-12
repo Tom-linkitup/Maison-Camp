@@ -60,6 +60,9 @@ public class ActivityCommentService {
 	public List<ActivityCommentVO> getByActCategoryId(String actCategoryId){
 		return dao.getByActCategoryId(actCategoryId);
 	}
+	public ActivityCommentVO getOneByActOrder(String actOrderId) {
+		return dao.getOneByActOrder(actOrderId);
+	}
 	
 	public static void main(String[] argv) {
 //		
