@@ -3,6 +3,7 @@
 
 
 <html>
+<%@ include file="/back-end/back-template/backIndex.file"%>
 <head>
 <title>IBM Act: Home</title>
 <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/css/back-end/activity.css" />
@@ -15,7 +16,6 @@
 </script>
 </head>
 <body>
-	<jsp:include page="/html/backTop.jsp" flush="true" />
 
 	<h3>¸ê®Æ¬d¸ß:</h3>
 
@@ -49,6 +49,6 @@
 			<jsp:include page="/back-end/actPhoto/listAllActPhoto.jsp" />
 		</div>
 	</div>
-		<jsp:include page="/html/backFooter.jsp" flush="true" />
+		<%@ include file="/back-end/back-template/backIndex2.file"%>
 </body>
 </html>
