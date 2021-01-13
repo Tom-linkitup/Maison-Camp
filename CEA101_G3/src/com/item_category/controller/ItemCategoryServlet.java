@@ -244,6 +244,15 @@ public class ItemCategoryServlet extends HttpServlet {
 				failureView.forward(req, res);
 			}
 		}
+		if("changeCategory".equals(action)) {
+			
+			String itemCategoryId = req.getParameter("itemCategoryId");
+			
+			req.setAttribute("itemCategoryId", itemCategoryId);
+			String url = "/front-end/item/shoppingMall.jsp";
+			RequestDispatcher view = req.getRequestDispatcher(url);
+			view.forward(req,res);
+		}
 	}
 
 }

@@ -28,6 +28,7 @@ public class ItemPhotoJDBCDAO implements ItemPhotoDAO_interface {
 	private static final String DELETE = "DELETE FROM ITEM_PHOTO where item_photo_id = ?";
 	private static final String GET_ONE_STMT = "SELECT * from ITEM_PHOTO where item_photo_id = ? order by item_photo_id";
 	private static final String GET_ALL_STMT = "SELECT * FROM ITEM_PHOTO where item_id = ? order by item_photo_id";
+	private static final String GET_ONE_BY_ITEM_ID = "SELECT * from ITEM_PHOTO where item_id = ? order by item_id";
 
 	public void insert(ItemPhotoVO ItemPhotoVO) {
 
@@ -215,6 +216,70 @@ public class ItemPhotoJDBCDAO implements ItemPhotoDAO_interface {
 		}
 		return ItemPhotoVO;
 	}
+	
+	public ItemPhotoVO findByItemId(String itemId) {
+
+		ItemPhotoVO ItemPhotoVO = null;
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		try {
+
+			Class.forName(driver);
+			con = DriverManager.getConnection(url, userid, passwd);
+			pstmt = con.prepareStatement(GET_ONE_BY_ITEM_ID);
+
+			pstmt.setString(1, itemId);
+
+			rs = pstmt.executeQuery();
+			
+
+
+
+			while (rs.next()) {
+				
+				ItemPhotoVO = new ItemPhotoVO();
+				ItemPhotoVO.setItemPhotoId(rs.getString("item_photo_id"));
+				ItemPhotoVO.setItemId(rs.getString("item_id"));
+				ItemPhotoVO.setContent(rs.getBytes("content"));
+			}
+			
+
+			// Handle any driver errors
+		} catch (ClassNotFoundException e) {
+			throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
+			// Handle any SQL errors
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. " + se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		return ItemPhotoVO;
+	}
+
+	
 
 	public List<ItemPhotoVO> getAll(String item_id) {
 		List<ItemPhotoVO> list = new ArrayList<ItemPhotoVO>();

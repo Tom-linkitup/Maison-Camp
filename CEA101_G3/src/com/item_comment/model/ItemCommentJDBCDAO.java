@@ -20,6 +20,8 @@ public class ItemCommentJDBCDAO implements ItemCommentDAO_interface {
 	private static final String GET_ONE_STMT = "SELECT * from ITEM_COMMENT where item_comment_id = ?";
 	private static final String GET_ALL_STMT = "SELECT * FROM ITEM_COMMENT order by item_comment_id";
 	
+	
+	
 	public void insert(ItemCommentVO ItemCommentVO) {
 
 		Connection con = null;
