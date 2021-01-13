@@ -3,6 +3,7 @@
 
 
 <html>
+<%@ include file="/back-end/back-template/backIndex.file"%>
 <head>
 <title>IBM ActCategory: Home</title>
 <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/css/back-end/actcategory.css" />
@@ -16,7 +17,7 @@
 
 </head>
 <body>
-<jsp:include page="/html/backTop.jsp" flush="true" />
+
 <h3>¸ê®Æ¬d¸ß:</h3>
 
 <div id="container">
@@ -46,6 +47,6 @@
 			<jsp:include page="/back-end/actcategory/addActCategory.jsp" />
 		</div>
 </div>
-		<jsp:include page="/html/backFooter.jsp" flush="true" />
+		<%@ include file="/back-end/back-template/backIndex2.file"%>
 </body>
 </html>

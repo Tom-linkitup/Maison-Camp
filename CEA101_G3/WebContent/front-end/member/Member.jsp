@@ -311,9 +311,12 @@
 				      			<c:when test="${roVO.status == '1'}">
 				      				<i style="color:#c15c61" class="fas fa-check-circle">已取消</i>
 				      			</c:when>
-				      			<c:otherwise>
+				      			<c:when test="${roVO.status == '2'}">
+				      				<i style="color:purple" class="fas fa-check-circle">入住中</i>
+				      			</c:when>
+				      			<c:when test="${roVO.status == '3'}">
 				      				<i style="color:lightblue" class="fas fa-check-circle">已完單</i>
-				      			</c:otherwise>
+				      			</c:when>
 				      		</c:choose>	      		
 				      	</div>
 				      </div>

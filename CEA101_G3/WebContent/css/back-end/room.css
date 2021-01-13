@@ -79,6 +79,13 @@ h1 {
     z-index: 100;
 }
 
+.header {
+	background-color:#000 !important;
+	color:#f9f9f9;
+	position:sticky;
+	top:0;
+}
+
 
 .input-beautify{
     outline-style: none ;
@@ -105,7 +112,7 @@ h1 {
 	font-size:5px;
 }
 
-#myTable {
+/* #myTable {
     border-collapse: collapse; 
     width: 700px;
     border: 1px solid #ddd;
@@ -123,7 +130,7 @@ h1 {
 
 #myTable tr.header, #myTable tr:hover {
     background-color: #f1f1f1;
-}
+} */
 
 /*light box*/
 

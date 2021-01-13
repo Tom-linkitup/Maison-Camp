@@ -111,7 +111,7 @@ public class RoomOrderServlet extends HttpServlet {
 				
 				RoomOrderDAO roDAO = new RoomOrderDAO();
 				roDAO.insertWithDetails(roVO, rodlist, orderItem);
-				res.sendRedirect(req.getContextPath() + "/front-end/member/Member.jsp");
+				res.sendRedirect(req.getContextPath() + "/front-end/thankYouPage/ThankYou.jsp");
 				return;
 				
 			}catch(Exception e) {

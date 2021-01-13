@@ -31,7 +31,7 @@
 		<input class="title" id="tab-4" type="radio" name="tab-group"/> 
 		<label for="tab-4">等我想到再說</label> -->
 		
-		<div id="content">
+		<div id="content" style="height: 40em; overflow: scroll;">
 			<jsp:include page="CheckRoom.jsp" />
 			<jsp:include page="AddRoom.jsp" />
 			<%-- <jsp:include page="default1.jsp" />

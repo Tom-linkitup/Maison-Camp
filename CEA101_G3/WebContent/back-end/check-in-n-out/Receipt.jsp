@@ -9,6 +9,7 @@
 <%@ page import="com.itextpdf.text.Document"%>
 <%@ page import="com.itextpdf.text.Paragraph"%>
 <%@ page import="com.itextpdf.text.Chunk"%>
+<%@ page import="com.itextpdf.text.BaseColor" %>
 <%@ page import="com.itextpdf.text.Element"%>
 <%@ page import="com.itextpdf.text.PageSize"%>
 <%@ page import="com.itextpdf.text.Phrase"%>
@@ -29,6 +30,7 @@
 	
 	RoomOrderDetailService rodSvc = new RoomOrderDetailService();
 	RoomOrderDetailVO roomOrderDetailVO = rodSvc.getOneROD(room_order_id);
+	Integer room_price = roomOrderDetailVO.getRoom_order_price();
 	pageContext.setAttribute("roomOrderDetailVO", roomOrderDetailVO);
 	
 	RoomOrderService roSvc = new RoomOrderService();
@@ -63,34 +65,136 @@
     try{
   		PdfWriter.getInstance(document,new FileOutputStream("/Users/tomgu/CEA101_WebApp/CEA101G3/CEA101_G3/WebContent/pdf/" + roomOrderVO.getRoom_order_id() + ".pdf"));
  		document.open(); 
+ 		//中文字的解決
+ 		BaseFont bfChinese = BaseFont.createFont("/Users/tomgu/CEA101_WebApp/CEA101G3/CEA101_G3/WebContent/font/wei.ttf", "Identity-H", BaseFont.NOT_EMBEDDED);
+ 		Font FontChinese = new Font(bfChinese, 15, Font.NORMAL);
+ 		
  		Paragraph title = new Paragraph();//新增一個段落，類似html的<p>
-		title.add(new Chunk("Maison Camp")); //新增一個字串然後加到Paragraph
+		title.add(new Chunk("Maison Camp | 露營家", FontChinese)); //新增一個字串然後加到Paragraph
 		title.setAlignment(Element.ALIGN_CENTER);
 		title.setSpacingAfter(10); //設定Space
 		document.add(title); //每個element都要加到document才會顯示
 		
 		Paragraph p = new Paragraph();//新增一個段落，類似html的<p>
-		p.add(new Chunk("#Receipt")); //新增一個字串然後加到Paragraph
+		p.add(new Chunk("#消費明細", FontChinese)); //新增一個字串然後加到Paragraph
 		p.setAlignment(Element.ALIGN_CENTER);
 		p.setSpacingAfter(20); //設定Space
 		document.add(p); //每個element都要加到document才會顯示
 		
-		PdfPTable table=new PdfPTable(1); //初始化Table然後指定欄位數目
-		
-		PdfPCell cell = new PdfPCell(); //初始化Cell(欄位)
-		cell.setPhrase(new Phrase(roomOrderVO.getRoom_order_id())); //填入Cell欄位字串，要new一個Phrase
-		cell.setHorizontalAlignment(Element.ALIGN_CENTER); //置中對齊
-		table.addCell(cell); //cell加到table中
-		
-		cell.setPhrase(new Phrase(roomOrderDetailVO.getRoom_order_price()));
-		cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+		PdfPTable table = new PdfPTable(2);  //建立一個只有兩個欄位的表格
+		table.setWidthPercentage(80f);    //設定表格寬
+		table.setWidths(new float[]{0.20f, 0.90f});    //這兩個欄位的比例大小
+		 
+		PdfPCell cell = new PdfPCell();   //建立一個儲存格
+		//透過 Paragraph 物件增加元素及指定編碼, 也可以直接存入字串
+		cell.addElement(new Paragraph("訂單編號", FontChinese));
+		cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+		cell.setBackgroundColor(BaseColor.LIGHT_GRAY);
+		table.addCell(cell);
+		         
+		cell = new PdfPCell();
+		cell.addElement(new Paragraph(roomOrderVO.getRoom_order_id(), FontChinese));
+		cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
 		table.addCell(cell);
 		
-		cell.setPhrase(new Phrase(stay + "nights"));
-		cell.setHorizontalAlignment(Element.ALIGN_CENTER);
-		table.addCell(cell);
+		//cell2
+		PdfPCell cell2 = new PdfPCell(); 
+		cell2.addElement(new Paragraph("會員姓名", FontChinese));
+		cell2.setVerticalAlignment(Element.ALIGN_MIDDLE);
+		cell2.setBackgroundColor(BaseColor.LIGHT_GRAY);
+		table.addCell(cell2);
+		         
+		cell2 = new PdfPCell();
+		cell2.addElement(new Paragraph(memVO.getName(), FontChinese));
+		cell2.setVerticalAlignment(Element.ALIGN_MIDDLE);
+		table.addCell(cell2);
 		
-		document.add(table); //table加到document顯示	
+		//cell 3
+		PdfPCell cell3 = new PdfPCell();
+		cell3.addElement(new Paragraph("入住房型", FontChinese));
+		cell3.setVerticalAlignment(Element.ALIGN_MIDDLE);
+		cell3.setBackgroundColor(BaseColor.LIGHT_GRAY);
+		table.addCell(cell3);
+		         
+		cell3 = new PdfPCell();
+		cell3.addElement(new Paragraph(roomTypeVO.getRoom_name(), FontChinese));
+		cell3.setVerticalAlignment(Element.ALIGN_MIDDLE);
+		table.addCell(cell3);
+		
+		//cell 4
+		PdfPCell cell4 = new PdfPCell(); 
+		cell4.addElement(new Paragraph("入住日期", FontChinese));
+		cell4.setVerticalAlignment(Element.ALIGN_MIDDLE);
+		cell4.setBackgroundColor(BaseColor.LIGHT_GRAY);
+		table.addCell(cell4);
+		         
+		cell4 = new PdfPCell();
+		cell4.addElement(new Paragraph(roomOrderVO.getCheck_in_date().toString(),FontChinese));
+		cell4.setVerticalAlignment(Element.ALIGN_MIDDLE);
+		table.addCell(cell4);
+		
+		//cell 5
+		PdfPCell cell5 = new PdfPCell(); 
+		cell5.addElement(new Paragraph("退房日期", FontChinese));
+		cell5.setVerticalAlignment(Element.ALIGN_MIDDLE);
+		cell5.setBackgroundColor(BaseColor.LIGHT_GRAY);
+		table.addCell(cell5);
+		         
+		cell5 = new PdfPCell();
+		cell5.addElement(new Paragraph(roomOrderVO.getCheck_out_date().toString(),FontChinese));
+		cell5.setVerticalAlignment(Element.ALIGN_MIDDLE);
+		table.addCell(cell5);
+		
+		//cell 6
+		PdfPCell cell6 = new PdfPCell(); 
+		cell6.addElement(new Paragraph("入住天數", FontChinese));
+		cell6.setVerticalAlignment(Element.ALIGN_MIDDLE);
+		cell6.setBackgroundColor(BaseColor.LIGHT_GRAY);
+		table.addCell(cell6);
+		         
+		cell6 = new PdfPCell();
+		cell6.addElement(new Paragraph(stay + "晚", FontChinese));
+		cell6.setVerticalAlignment(Element.ALIGN_MIDDLE);
+		table.addCell(cell6);
+		
+		//cell 7
+		PdfPCell cell7 = new PdfPCell(); 
+		cell7.addElement(new Paragraph("訂單金額", FontChinese));
+		cell7.setVerticalAlignment(Element.ALIGN_MIDDLE);
+		cell7.setBackgroundColor(BaseColor.LIGHT_GRAY);
+		table.addCell(cell7);
+		         
+		cell7 = new PdfPCell();
+		cell7.addElement(new Paragraph(room_price + "元", FontChinese));
+		cell7.setVerticalAlignment(Element.ALIGN_MIDDLE);
+		table.addCell(cell7);
+		
+		//cell 8
+		PdfPCell cell8 = new PdfPCell(); 
+		cell8.addElement(new Paragraph("額外消費", FontChinese));
+		cell8.setVerticalAlignment(Element.ALIGN_MIDDLE);
+		cell8.setBackgroundColor(BaseColor.LIGHT_GRAY);
+		table.addCell(cell8);
+		         
+		cell8 = new PdfPCell();
+		cell8.addElement(new Paragraph(excTotal + "元", FontChinese));
+		cell8.setVerticalAlignment(Element.ALIGN_MIDDLE);
+		table.addCell(cell8);
+		
+		table.setSpacingAfter(20);
+		document.add(table);    //將表格加入 PDF 檔案裡
+		
+		Paragraph total = new Paragraph();
+		total.add(new Chunk("總消費金額:" + (room_price + excTotal) + "元", FontChinese)); 
+		total.setAlignment(Element.ALIGN_CENTER);
+		total.setSpacingAfter(10); 
+		document.add(total); 
+		
+		Paragraph footer = new Paragraph();
+		footer.add(new Chunk("感謝您的入住!", FontChinese)); 
+		footer.setAlignment(Element.ALIGN_CENTER);
+		footer.setSpacingAfter(20);
+		document.add(footer); 
 		
     }catch(Exception e){
    		e.printStackTrace();	
