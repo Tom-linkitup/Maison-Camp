@@ -18,7 +18,7 @@
 </head>
 <body>
 	<div id="content-1">
-		<h2 style="text-align:center; margin-bottom:20px;">房型資訊</h2>
+		<h2 style="text-align:center; margin-bottom:20px;">商品資訊</h2>
 		<table id="myTable" border="1px solid #000">
 			<tr class="header">
 				<th>商品編號</th>

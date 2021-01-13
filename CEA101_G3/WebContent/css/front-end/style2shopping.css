@@ -1,16 +1,4 @@
-/*        
-COLORS:
 
-Light green: #7ed56f
-Medium green: #55c57a
-Dark green: #28b485
-
-*/
-<<<<<<< HEAD
-        body {
-            margin: 0;
-            padding: 0;
-=======
 		body {
 		    margin: 0;
 		    padding: 0;
@@ -21,12 +9,6 @@ Dark green: #28b485
 		  	-webkit-background-size: cover; 
 		  	background-repeat: no-repeat; 
 		  	background-position: center center;
-<<<<<<< HEAD
-            
-=======
-            font-family:'微軟正黑體';
->>>>>>> branch 'main' of https://github.com/Tom-linkitup/Maison-Camp.git
->>>>>>> branch 'main' of https://github.com/Tom-linkitup/Maison-Camp.git
         }
         img{
         	max-width:100%;

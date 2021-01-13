@@ -18,25 +18,18 @@
 <script src="http://code.jquery.com/jquery-1.12.4.min.js"></script>
 </head>
 <body>
-	<a href="${pageContext.request.contextPath}/back-end/item/ItemInfo.jsp"><h2 style="text-decoration: underline; text-underline-position: under; color:#675157; padding:5px 20px 20px 20px;">商品管理</h2></a>
+	<a href="${pageContext.request.contextPath}/back-end/item_category/ItemCategoryInfo.jsp"><h2 style="text-decoration: underline; text-underline-position: under; color:#675157; padding:5px 20px 20px 20px;">商品類別管理</h2></a>
 	<div id="container">
 		<input class="title" id="tab-1" type="radio" name="tab-group" checked="checked"/>
-		<label for="tab-1">查看所有商品</label> 
+		<label for="tab-1">查看所有商品類別</label> 
 		
 		<input class="title" id="tab-2" type="radio" name="tab-group" /> 
-		<label for="tab-2">新增商品照片</label> 
-		
-		<input class="title" id="tab-3" type="radio" name="tab-group" /> 
-		<label for="tab-3">新增商品</label>
-		
-		<input class="title" id="tab-4" type="radio" name="tab-group" /> 
-		<label for="tab-4">查看商品照片</label>
+		<label for="tab-2">新增商品類別</label>
 		
 		<div id="content">
-			<jsp:include page="/back-end/item/listAllItem2.jsp" />
-			<jsp:include page="/back-end/item/addItemPhoto2.jsp" />
-			<jsp:include page="/back-end/item/addItem2.jsp" />
-			<jsp:include page="/back-end/item/showAllItemPhoto.jsp" />
+			<jsp:include page="/back-end/item_category/listAllItemCategory2.jsp" />
+			<jsp:include page="/back-end/item_category/addItemCategory2.jsp" />
+
 		</div>
 	</div>
 <%-- 	<%@ include file="/back-end/item/backIndex2.file"%> --%>
