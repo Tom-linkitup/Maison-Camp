@@ -18,51 +18,51 @@
 <%
 	Session session1 = HibernateUtil.getSessionFactory().openSession();
 	Transaction tx = null;
-	List<String> actCategoryList = new ArrayList(); 
-	List<Integer> actSum = new ArrayList();
-	StringBuffer actCategorySB = new  StringBuffer();
-	StringBuffer actSumSB = new  StringBuffer();
+	List<String> roomCategoryList = new ArrayList(); 
+	List<Integer> roomSum = new ArrayList();
+	StringBuffer roomCategorySB = new  StringBuffer();
+	StringBuffer roomSumSB = new  StringBuffer();
 	int  roomCategoryCount= 0 , roomSumCount = 0 ;
 	try {
 		tx = session1.beginTransaction();
 		@SuppressWarnings("unchecked")
-		NativeQuery<Object[]> query2 = session1.createNativeQuery("select ac.ACT_CATEGORY_NAME , sum(ao.PEOPLE) from activity a inner join activity_order ao on a.act_id=ao.act_id inner join act_category ac on a.ACT_CATEGORY_ID=ac.act_category_id group by ac.ACT_CATEGORY_NAME");
+		NativeQuery<Object[]> query2 = session1.createNativeQuery("select rc.ROOM_NAME , sum(rod.quantity) as 數量 from ROOM_CATEGORY rc inner join ROOM_ORDER_DETAIL rod ON rc.ROOM_CATEGORY_ID=rod.ROOM_CATEGORY_ID group by rc.ROOM_NAME");
 		List<Object[]> list2 = query2.getResultList();
 		for (Object[] aArray : list2) {
 			for(int i=0 ; i<aArray.length ; i++){
 				Object Obj = aArray[i];
 				if(i==0){
 					String roomCategory = (String)Obj;
-					actCategoryList.add(roomCategory);
+					roomCategoryList.add(roomCategory);
 				}else{
 					BigDecimal bd = (BigDecimal)Obj;
-					actSum.add(bd.intValue()) ;
+					roomSum.add(bd.intValue()) ;
 				}
 			}
 		}
 
-		for(String s : actCategoryList){
+		for(String s : roomCategoryList){
 			roomCategoryCount++;
-			if(!(roomCategoryCount==actCategoryList.size())){
-				actCategorySB.append("\"");
-				actCategorySB.append(s);
-				actCategorySB.append("\",");
+			if(!(roomCategoryCount==roomCategoryList.size())){
+				roomCategorySB.append("\"");
+				roomCategorySB.append(s);
+				roomCategorySB.append("\",");
 			}else{
-				actCategorySB.append("\"");
-				actCategorySB.append(s);
-				actCategorySB.append("\"");
+				roomCategorySB.append("\"");
+				roomCategorySB.append(s);
+				roomCategorySB.append("\"");
 			}
 		}
-		for(int i : actSum){
+		for(int i : roomSum){
 			roomSumCount++;
-			if(!(roomSumCount==actCategoryList.size())){
-				actSumSB.append("\"");
-				actSumSB.append(i);
-				actSumSB.append("\",");
+			if(!(roomSumCount==roomCategoryList.size())){
+				roomSumSB.append("\"");
+				roomSumSB.append(i);
+				roomSumSB.append("\",");
 			}else{
-				actSumSB.append("\"");
-				actSumSB.append(i);
-				actSumSB.append("\"");
+				roomSumSB.append("\"");
+				roomSumSB.append(i);
+				roomSumSB.append("\"");
 			}
 		}
 %>
@@ -75,14 +75,14 @@
         var option = {
           xAxis: {
             type: "category",
-            data: [<%=actCategorySB%>],
+            data: [<%=roomCategorySB%>],
           },
           yAxis: {
             type: "value",
           },
           series: [
             {
-              data: [<%=actSumSB%>],
+              data: [<%=roomSumSB%>],
               type: "bar",
               showBackground: true,
               backgroundStyle: {
