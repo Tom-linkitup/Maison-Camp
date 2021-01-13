@@ -103,6 +103,7 @@
 		throw ex; //System.out.println(ex.getMessage());
 	} finally {
 		session1.close();
-	} %>
+	} 
+%>
 </body>
 </html>
