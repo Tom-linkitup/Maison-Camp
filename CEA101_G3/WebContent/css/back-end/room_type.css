@@ -105,7 +105,14 @@ h1 {
 	font-size:5px;
 }
 
-#myTable {
+.header {
+	background-color:#000 !important;
+	color:#f9f9f9;
+	position:sticky;
+	top:0;
+}
+
+/* #myTable {
     border-collapse: collapse; 
     width: 100%;
     border: 1px solid #ddd;
@@ -123,7 +130,7 @@ h1 {
 
 #myTable tr.header, #myTable tr:hover {
     background-color: #f1f1f1;
-}
+} */
 
 /*light box*/
 

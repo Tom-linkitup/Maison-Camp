@@ -49,8 +49,18 @@
 					<td>${checkOut.check_out_date}</td>
 					<td>${checkOut.current_room_id}</td>
 					<td>$${rodSvc.getOneROD(checkOut.room_order_id).room_order_price}</td>
-					<td><a class="linkit" href="<%=request.getContextPath()%>/back-end/check-in-n-out/Receipt.jsp?room_order_id=${checkOut.room_order_id}&mem_id=${checkOut.mem_id}">查看消費明細</a></td>
+					<td>
+						<c:choose>
+							<c:when test="${checkOut.status != 2}">
+								<a class="linkit" href="<%=request.getContextPath()%>/back-end/check-in-n-out/Receipt.jsp?room_order_id=${checkOut.room_order_id}&mem_id=${checkOut.mem_id}">查看消費明細</a>
+							</c:when>
+							<c:otherwise>
+								待退房
+							</c:otherwise>
+						</c:choose>
+                    </td>
 					<td><button class="checkout-confirm btn btn-secondary" <c:if test="${checkOut.status != 2}">disabled</c:if>>CHECK OUT</button></td>
+					
 				</tr>
 			</c:forEach>	
 		</table>

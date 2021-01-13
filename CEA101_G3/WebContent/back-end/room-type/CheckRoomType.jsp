@@ -16,9 +16,9 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<div id="content-1">
+	<div id="content-1" style="width:100%;">
 		<h2 style="text-align:center; margin-bottom:20px;">房型資訊</h2>
-		<table id="myTable" border="1px solid #000">
+		<table class="table table-striped" id="myTable" style="width:100%;">
 			<tr class="header">
 				<th>編號</th>
 				<th>名稱</th>
@@ -32,8 +32,7 @@
 				<th>修改</th>
 				<th>刪除</th>
 			</tr>
-			<%@ include file="page1.file"%>
-			<c:forEach var="roomTypeVO" items="${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">			
+			<c:forEach var="roomTypeVO" items="${list}">			
 			<tr>
 				<td>${roomTypeVO.room_category_id}</td>
 				<td>${roomTypeVO.room_name}</td>
@@ -67,7 +66,6 @@
 			</tr>
 			</c:forEach>	
 		</table>
-		<%@ include file="page2.file"%>
 		<div id="lightBox" style="display:none;">
 			<form method="post" action="${pageContext.request.contextPath}/RoomType.do">
 				<table align="center" id="tableLogin">

@@ -58,52 +58,55 @@
 	</c:if>
 </head>
 <body>
-	<div id="content-1">
-		<h2 style="text-align:center; margin-bottom:20px;">房間資訊</h2>
-		<table id="myTable" border="1px solid #000">
+	<div id="content-1" style="width:100%;">
+		<h2 style="text-align:center; margin-bottom:5px;">房間資訊</h2>
+		<div style="display:inline-flex; width:100%; margin-bottom:8px;">	
+			<div style="display:inline;">
+				<form method="post" action="${pageContext.request.contextPath}/Room.do">
+					<select name="room_category_id">
+							<option>請選擇查詢房型</option>
+						<c:forEach var="roomType" items="${roomTypeList}">
+							<option value="${roomType.room_category_id}">${roomType.room_category_id}</option>
+						</c:forEach>
+					</select>
+					<input type="hidden" name="action" value="getRoomByRtc">
+					<input class="queryRT" type="submit" value="查詢">
+				</form>		
+			</div>
+			<div style="position: absolute; right: 30px;">
+				<i style="color:green;" class="fa fa-circle">&nbsp<span style="color:#000;">可入住</span></i>&nbsp&nbsp
+				<i style="color:orange;" class="fa fa-circle">&nbsp<span style="color:#000;">入住中</span></i>&nbsp&nbsp
+				<i style="color:red;" class="fa fa-circle">&nbsp<span style="color:#000;">修繕中</span></i>		
+			</div>
+		</div>
+		<table class="table table-striped" id="myTable">
 			<tr class="header">
 				<th>房間編號</th>
 				<th style="width:162px;">房型編號</th>
-				<th>房間狀態</th>
-				<th>修改房間</th>
-				<th>刪除房間</th>
+				<th style="text-align:center;">房間狀態</th>
+				<th style="text-align:center;">修改房間</th>
+				<th style="text-align:center;">刪除房間</th>
 			</tr>
-			<div style="display:inline-block; width:600px; margin-bottom:8px;">	
-				<div style="display:inline;">
-					<form method="post" action="${pageContext.request.contextPath}/Room.do">
-						<select name="room_category_id">
-								<option>請選擇查詢房型</option>
-							<c:forEach var="roomType" items="${roomTypeList}">
-								<option value="${roomType.room_category_id}">${roomType.room_category_id}</option>
-							</c:forEach>
-						</select>
-						<input type="hidden" name="action" value="getRoomByRtc">
-						<input class="queryRT" type="submit" value="查詢">
-					</form>		
-				</div>
-				<%@ include file="page1.file"%>
-			</div>
-			<c:forEach var="roomVO" items="${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
-			
+			<c:forEach var="roomVO" items="${list}">	
 			<tr>
 				<td>${roomVO.room_id}</td>
-				<td style="width:162px;">${roomVO.room_category_id}</td>			
+				<td>${roomVO.room_category_id}</td>			
 				<td style="text-align:center;">
 				<c:choose>
-					<c:when test="${roomVO.status == '0'}">
+					<c:when test="${roomVO.occupy == '0'}">
 						<i style="color:green;" class="fa fa-circle"></i>
 					</c:when>
-					<c:when test="${roomVO.status == '1'}">
-						<i style="color:red;" class="fa fa-circle"></i>
+					<c:when test="${roomVO.occupy == '1'}">
+						<i style="color:orange;" class="fa fa-circle"></i>
 					</c:when>
 					<c:otherwise>
-						<i style="color:orange;" class="fa fa-circle"></i>
+						<i style="color:red;" class="fa fa-circle"></i>
 					</c:otherwise>
 				</c:choose></td>
-				<td>	
+				<td style="text-align:center;">	
 			    <button class="edit btn btn-info" type="submit">修改</button>
 				</td>
-				<td>
+				<td style="text-align:center;">
 				<form method="post" action="${pageContext.request.contextPath}/Room.do">
 					<input type="hidden" name="action" value="delete">
 					<input type="hidden" name="room_id" value="${roomVO.room_id}">
@@ -113,7 +116,6 @@
 			</tr>
 			</c:forEach>	
 		</table>
-		<%@ include file="page2.file"%>
 		<div id="lightBox" style="display:none;">
 			<form method="post" action="${pageContext.request.contextPath}/Room.do">
 				<table align="center" id="tableLogin">
@@ -134,8 +136,8 @@
 						<select class="input-beautify" name="status" required>
 							<option value="99">請選擇狀態</option>
 							<option value="0">可入住</option>
-							<option value="1">修繕中</option>
-							<option value="2">入住中</option>		
+							<option value="1">入住中</option>
+							<option value="2">修繕中</option>		
 						</select>
 						</td>
 					</tr>		
