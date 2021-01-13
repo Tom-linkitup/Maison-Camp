@@ -16,7 +16,7 @@ Dark green: #28b485
 		  	-webkit-background-size: cover; 
 		  	background-repeat: no-repeat; 
 		  	background-position: center center;
-            font-family:'微軟正黑體';
+            
         }
         img{
         	max-width:100%;
@@ -162,7 +162,7 @@ Dark green: #28b485
 }
 
 .title-text div {
-  font-family: Arial, Helvetica, verdana, 敺株�迤暺��, sans-serif;
+  font-family: Arial, Helvetica, verdana,	 sans-serif;
   font-weight: bold;
   letter-spacing: 5px;
   line-height: 100px;
@@ -397,4 +397,6 @@ Dark green: #28b485
 		  background: red;
 		  color: white;
 		}
-
+		.card:hover{
+			box-shadow: 10px 5px 5px gray;
+		}

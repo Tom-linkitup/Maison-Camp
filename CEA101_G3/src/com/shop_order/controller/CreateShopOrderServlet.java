@@ -61,7 +61,6 @@ public class CreateShopOrderServlet extends HttpServlet {
 				ShopOrderService shopOrderSvc = new ShopOrderService();
 				shopOrderSvc.addWithOrderDetail(shopOrderVO, list);
 				
-				
 				//ws
 				Set<javax.websocket.Session> orderSession = (Set<javax.websocket.Session>) session.getAttribute("orderSession");
 				if (orderSession != null && orderSession.size() > 0) {

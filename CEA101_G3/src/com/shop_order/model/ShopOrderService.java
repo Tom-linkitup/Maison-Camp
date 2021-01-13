@@ -59,4 +59,8 @@ public class ShopOrderService {
 	public void addWithOrderDetail(ShopOrderVO shopOrderVO, List<ShopOrderDetailVO> list) {
 		dao.insertWithOrderDetail(shopOrderVO, list);
 	}
+	
+	public List<ShopOrderVO> getByMemId(String mem_id){
+		return dao.getByMemId(mem_id);
+	}
 }

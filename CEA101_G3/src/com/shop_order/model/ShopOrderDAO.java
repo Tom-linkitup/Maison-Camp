@@ -7,6 +7,7 @@ import javax.naming.Context;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
 
+import com.roomorder.model.RoomOrderVO;
 import com.shop_order_detail.model.ShopOrderDetailDAO;
 import com.shop_order_detail.model.ShopOrderDetailVO;
 
@@ -34,6 +35,7 @@ public class ShopOrderDAO implements ShopOrderDAO_interface {
 
 	public static final String UPDATE = "UPDATE SHOP_ORDER SET MEM_ID=?, PAYMENT=?, TIME=?, SHOP_TOTAL_AMOUNT=?, STATUS=? WHERE SHOP_ORDER_ID = ?";
 
+	public static final String GETONE_BY_MEMID = "SELECT * FROM SHOP_ORDER WHERE MEM_ID = ?";
 	@Override
 	public void insert(ShopOrderVO shopOrderVO) {
 		Connection con = null;
@@ -301,6 +303,51 @@ public class ShopOrderDAO implements ShopOrderDAO_interface {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+
+	@Override
+	public List<ShopOrderVO> getByMemId(String mem_id) {
+		List<ShopOrderVO> list = new ArrayList<>();
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ShopOrderVO shopOrderVO = null;
+		ResultSet rs = null;
+		
+			try {
+				con = ds.getConnection();
+				pstmt = con.prepareStatement(GETONE_BY_MEMID);
+				pstmt.setString(1, mem_id);
+				rs = pstmt.executeQuery();
+				
+				while(rs.next()) {
+					shopOrderVO = new ShopOrderVO();
+					shopOrderVO.setShop_order_id(rs.getString("shop_order_id"));
+					shopOrderVO.setMem_id(rs.getString("mem_id"));
+					shopOrderVO.setPayment(rs.getString("payment"));
+					shopOrderVO.setTime(rs.getDate("time"));
+					shopOrderVO.setShop_total_amount(rs.getInt("shop_total_amount"));
+					shopOrderVO.setStatus(rs.getInt("status"));
+					list.add(shopOrderVO);
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				if (pstmt != null) {
+					try {
+						pstmt.close();
+					} catch (SQLException se) {
+						se.printStackTrace(System.err);
+					}
+				}
+				if (con != null) {
+					try {
+						con.close();
+					} catch (Exception e) {
+						e.printStackTrace(System.err);
+					}
+				}
+			}	
+			return list;
 	}
 
 

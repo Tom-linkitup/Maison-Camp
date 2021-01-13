@@ -18,40 +18,48 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="<%=request.getContextPath() %>/css/front-end/style2orderdetail.css">
     <link rel="shortcut icon" type="image/png" href="img/camplogo.png">
-    
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" rel="stylesheet" />
     <title>Maison Camp | 露營家</title>
 </head>
 
 <body>
-    <header class="header">
-        <nav role="navigation">
-            <div id="menuToggle">
-                <input type="checkbox" id="checkboxtoggle" /><!-- 左上按鈕 -->
-                <span></span>
-                <span></span>
-                <span></span>
-                <ul id="menu">
-                         <a href="<%=request.getContextPath()%>/front-end/front-index.jsp"><li>首頁</li></a>
-                    	<a href="<%=request.getContextPath()%>/front-end/news/News.jsp"><li>最新消息</li></a>
-                   	 	<a href="<%=request.getContextPath()%>/front-end/member/Member.jsp"><li>會員中心</li></a>
-                    	<a href="<%=request.getContextPath()%>/front-end/room-type/RoomType.jsp"><li>帳型介紹</li></a>
-                    	<a href="<%=request.getContextPath()%>/front-end/room-booking/RoomBooking.jsp"><li>立即訂房</li></a>
-                    	<a href="<%=request.getContextPath()%>/front-end/item/shoppingMall.jsp"><li>精選商城</li></a>
-                    	<a href="<%=request.getContextPath()%>/front-end/activity/selectPage.jsp"><li>活動預約</li></a>
-                    	<a href="#"><li>聯絡我們</li></a>
+        <header class="header">
+          <nav role="navigation">
+              <div id="menuToggle">
+                  <input type="checkbox" id="checkboxtoggle"/>
+                  <span></span>
+                  <span></span>
+                  <span></span>
+                  <ul id="menu">
+                        <a href="<%=request.getContextPath()%>/front-end/front-index.jsp"><li>首頁</li></a>
+                        <a href="<%=request.getContextPath()%>/front-end/news/News.jsp"><li>最新消息</li></a>
+                        <a class="enterAlert" href="<%=request.getContextPath()%>/front-end/member/Member.jsp"><li>會員中心</li></a>
+                        <a href="<%=request.getContextPath()%>/front-end/room-type/RoomType.jsp"><li>帳型介紹</li></a>
+                        <a href="<%=request.getContextPath()%>/front-end/room-booking/RoomBooking.jsp"><li>立即訂房</li></a>
+                        <a href="<%=request.getContextPath()%>/front-end/item/shoppingMall.jsp"><li>精選商城</li></a>
+                        <a href="<%=request.getContextPath()%>/front-end/activity/selectPage.jsp"><li>活動預約</li></a>
+                        <a href="#"><li>聯絡我們</li></a>
                     </ul>
-            </div>
-        </nav>
+              </div>
+          </nav>
+          <a href="#"><img id="logoo" class="img-logo" src="<%=request.getContextPath()%>/img/logo.png" alt=""></a>
         <div class="col-xs-4 col-12 logo">
-            <a href="<%=request.getContextPath()%>/front-end/front-index.jsp"><img id="logoo" class="img-logo" src="<%=request.getContextPath() %>/img/logo.png" alt=""></a><!-- LOGO -->
-            <div class="car-bg p-2" >
-            <img class="shopcar" src="<%=request.getContextPath() %>/img/shopping-cart.png">
+            <div class="car-bg mt-2" >
+            	<a href="<%=request.getContextPath()%>/front-end/item/shopOrderDetail.jsp">
+           			 <img class="shoppingcar" src="<%=request.getContextPath() %>/img/shopping-cart.png">
+           			 <span class="badge"></span>
+           	 	</a>
             </div>
         </div>
     </header>
-	<div class="container h-60">
-		<ul class="list-unstyled">
+    <div class="title-text">
+        <div>精選商城</div>
+      </div>
+	<div class="container-fluid h-60" style="background-color:#f9f9f9; min-height:500px !important;">
+		<ul class="list-unstyled" style=" width: 80%; margin-left: 10%; padding-top: 50px;
+    padding-bottom: 50px;
+    margin-block-end: 0;">
 		<%if (buylist != null && (buylist.size() > 0)) {%>
 		<%
 			 for (int index = 0; index < buylist.size(); index++) {
@@ -72,12 +80,15 @@
 				    <h4 class="itemTotalPrice">$NT<%=order.getPrice()*order.getQuantity()%></h4>
 				    <i class="fas fa-times mt-2 deletebtn" style="width:20px; height:20px;"></i> <!-- 刪除購物車項目 -->
 				  </li>
-			<%}}%>
+			<%}}else { %>
+				<li>購物車為空</li>
+			<%}%>
+			<form class="photo-form bottom-button mb-3" method="post" action="<%=request.getContextPath()%>/ShoppingServlet">
+			<input type="hidden" name="action" value="CHECKOUT">
+			<button type="button" class="checkout">前往結帳</button>
+			</form>
 		</ul>
-		<form class="photo-form bottom-button mb-3" method="post" action="<%=request.getContextPath()%>/ShoppingServlet">
-		<input type="hidden" name="action" value="CHECKOUT">
-			<button type="submit">前往結帳</button>
-		</form>
+		
 	</div>
 	
     <footer class="site-footer">
@@ -125,7 +136,7 @@
     <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/js/all.min.js"></script>
-
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
     
    <script type="text/javascript">
 	   		$(document).ready(function(){
@@ -180,7 +191,32 @@
 	   					}
 				   	});
 				   });
-	   			
+	   				
+	   				$('.checkout').click(function(){
+	   					if($('.itemClass').length == 0){
+	   						toastr["error"]("購物車內無商品");
+		   				}else{
+		   					$(this).parent('form').submit();
+		   				}
+	   				})
+	   				
+	   				toastr.options = {
+					  "closeButton": false,
+					  "debug": false,
+					  "newestOnTop": false,
+					  "progressBar": false,
+					  "positionClass": "toast-top-right",
+					  "preventDuplicates": false,
+					  "onclick": null,
+					  "showDuration": "300",
+					  "hideDuration": "1000",
+					  "timeOut": "5000",
+					  "extendedTimeOut": "1000",
+					  "showEasing": "swing",
+					  "hideEasing": "linear",
+					  "showMethod": "fadeIn",
+					  "hideMethod": "fadeOut"
+					}
    	        });
 	   		
    </script>

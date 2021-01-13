@@ -6,9 +6,10 @@
 <%@ page import="com.item.model.*"%>
 <%@ page import="com.item_category.model.*"%>
 <%@ page import="com.shop_order.model.*"%>
+<%@ page import="com.member.model.*"%>
 <!-- 取得會員資料 -->
 <%
-// 	MemberVO memVO = (MemberVO) session.getAttribute("memVO");
+	MemberVO memVO = (MemberVO) session.getAttribute("memVO");
 %>
 <!-- 取得預訂的商品 -->
 <%
@@ -26,7 +27,6 @@
 <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" />
 <link rel="stylesheet" href="<%=request.getContextPath()%>/css/front-end/checkOut.css">
 <link rel="shortcut icon" type="image/png" href="<%=request.getContextPath()%>/img/logo.png">
-<link rel="stylesheet" href="flexslider.css">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css">
 <title>Maison Camp | 確認訂單</title>
 </head>
@@ -39,20 +39,20 @@
                     <span></span>
                     <span></span>
                     <ul id="menu">
-                         <a href="<%=request.getContextPath()%>/front-end/front-index.jsp"><li>首頁</li></a>
-                    	<a href="<%=request.getContextPath()%>/front-end/news/News.jsp"><li>最新消息</li></a>
-                   	 	<a href="<%=request.getContextPath()%>/front-end/member/Member.jsp"><li>會員中心</li></a>
-                    	<a href="<%=request.getContextPath()%>/front-end/room-type/RoomType.jsp"><li>帳型介紹</li></a>
-                    	<a href="<%=request.getContextPath()%>/front-end/room-booking/RoomBooking.jsp"><li>立即訂房</li></a>
-                    	<a href="#"><li>精選商城</li></a>
-                    	<a href="#"><li>活動預約</li></a>
-                    	<a href="#"><li>聯絡我們</li></a>
+                        <a href="<%=request.getContextPath()%>/front-end/front-index.jsp"><li>首頁</li></a>
+                        <a href="<%=request.getContextPath()%>/front-end/news/News.jsp"><li>最新消息</li></a>
+                        <a class="enterAlert" href="<%=request.getContextPath()%>/front-end/member/Member.jsp"><li>會員中心</li></a>
+                        <a href="<%=request.getContextPath()%>/front-end/room-type/RoomType.jsp"><li>帳型介紹</li></a>
+                        <a href="<%=request.getContextPath()%>/front-end/room-booking/RoomBooking.jsp"><li>立即訂房</li></a>
+                        <a href="<%=request.getContextPath()%>/front-end/item/shoppingMall.jsp"><li>精選商城</li></a>
+                        <a href="<%=request.getContextPath()%>/front-end/activity/selectPage.jsp"><li>活動預約</li></a>
+                        <a href="#"><li>聯絡我們</li></a>
                     </ul>
                 </div>
             </nav>          
             <a href="#"><img id="logoo" class="img-logo" src="<%=request.getContextPath()%>/img/logo.png" alt=""></a>
             <ul class="signin-links">
-	        	<li><i style="margin-right:7px; color:#c15c16;" class="fas fa-child fa-1x"></i>您好<i style="color:#496b6b; margin: 0 10px 0 5px;" class="fas fa-exclamation"></i><a class="signin" href="<%=request.getContextPath()%>/Member.do?action=logout"><i class="fas fa-sign-out-alt"></i></a></li>
+	        	<li><i style="margin-right:7px; color:#c15c16;" class="fas fa-child fa-1x"></i>${memVO.name}您好<i style="color:#496b6b; margin: 0 10px 0 5px;" class="fas fa-exclamation"></i><a class="signin" href="<%=request.getContextPath()%>/Member.do?action=logout"><i class="fas fa-sign-out-alt"></i></a></li>
 	      	</ul>      
         </header>
         <!-- content header -->
@@ -68,7 +68,7 @@
         	</div>
 		
 		    <div class="accordin">
-		      <input type="checkbox" name="tab-2" id="tab-2" />
+		      <input type="checkbox" name="tab-2" id="tab-2" checked/>
 		      <label for="tab-2" class="accordin_title"><i style="margin-right:5px;" class="fa fa-paperclip"></i>價格資訊</label>
 			      <div class="accordin_detail">
 			        <table class="table table-striped table-bordered margin-top-20">
@@ -90,12 +90,10 @@
 			        			<td><%=order.getName()%></td>
 			        			<td><%=order.getPrice()%></td>
 			        			<td><%=order.getQuantity()%></td>
-			        			
+			        			<td><%=order.getPrice()*order.getQuantity()%></td>
 			        		</tr>
 			       			<%}}%>
-			        		<tr>
-			        			<td colspan="5" class="align-rt" style="text-align:end;"><span style="color:#c15c61;">價格：</span></td>	        			
-			        		</tr>
+			        		
 			        		<tr>
 			        			<td colspan="5" class="align-rt" style="text-align:end;"><span style="color:#c15c61;">優惠折數：</span> 0.8</td>
 			        		</tr>
@@ -115,15 +113,15 @@
 		        		<tbody>
 		        			<tr>
 		        				<td>姓名：</td>
-		        				<td></td>
+		        				<td>${memVO.name}</td>
 		        			</tr>
 		        			<tr>
 		        				<td>Email：</td>
-		        				<td><td>
+		        				<td>${memVO.email}<td>
 		        			</tr>
 		        			<tr>
 		        				<td>生日：</td>
-		        				<td></td>
+		        				<td>${memVO.birthday }</td>
 		        			</tr>        		
 		        		</tbody>
 		        	</table>
@@ -161,7 +159,7 @@
 			    	<form style="display:inline-block;" method="post" action="<%=request.getContextPath()%>/shop_order/createshop_order.do">
 			    		<input type="hidden" name="status" value="1">
 			    		<input type="hidden" name="amount" value="<%=amount%>">
-				    	<input type="hidden" name="mem_id" value="M10001">
+				    	<input type="hidden" name="mem_id" value="${memVO.mem_id}">
 				    	<input type="hidden" name="action" value="insert">
 				    	<button type="submit">付款</button>  	
 			    	</form> 
@@ -211,7 +209,6 @@
         </footer>
       <!-- footer -->
         <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
-        <script src="jquery.flexslider.js"></script>
         <script src="<%=request.getContextPath() %>/js/front-end/room-booking.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"></script>
 
