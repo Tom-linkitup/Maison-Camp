@@ -329,4 +329,10 @@ public class Extra_chargesJDBCDAO implements Extra_chargesDAO_interface {
 	
 	}
   }
+
+	@Override
+	public List<Extra_chargesVO> getByRoomOrderId(String room_order_id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

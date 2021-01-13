@@ -52,5 +52,9 @@ private RoomDAO_Interface dao;
 	public void updateRmCondition(Integer status, String room_id) {
 		dao.updateRmStatus(status, room_id);
 	}
+	
+	public void updateRmLive(Integer occupy, String room_id) {
+		dao.updateRmOccupy(occupy, room_id);
+	}
 
 }

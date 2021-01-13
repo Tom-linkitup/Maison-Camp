@@ -49,60 +49,29 @@
 					<td>${checkOut.check_out_date}</td>
 					<td>${checkOut.current_room_id}</td>
 					<td>$${rodSvc.getOneROD(checkOut.room_order_id).room_order_price}</td>
-					<td><a href="">查看消費明細</a></td>
+					<td><a class="linkit" href="<%=request.getContextPath()%>/back-end/check-in-n-out/Receipt.jsp?room_order_id=${checkOut.room_order_id}&mem_id=${checkOut.mem_id}">查看消費明細</a></td>
 					<td><button class="checkout-confirm btn btn-secondary" <c:if test="${checkOut.status != 2}">disabled</c:if>>CHECK OUT</button></td>
 				</tr>
 			</c:forEach>	
 		</table>
-		<div id="lightBox2" style="display:none;">
-			<div id="extraChargeShow">
-				<h3 style="color:#6b8c57; text-align:center; margin-top:20px;">新增額外消費明細</h3>
-				<div style="margin-left:10%; margin-top:25px;">
-					訂單編號:<input class="readonly input-beautify" id="room_order_id_extra" type="text" name="room_order_id" readonly>
-					<p></p>
-					消費內容:<input class="input-beautify" type="text" name="item" value="" required>
-					<p></p>
-					消費金額:<input class="input-beautify" type="text" name="price" value="" required>
-					<input type="hidden" name="action" value="insertByCheckOut">
-					<div class="roomBtn">
-					<button type="button" class="extra-confirm btn btn-info">新增</button>
-					<button type="button" class="extra-cancel btn btn-danger">取消</button>	
-					</div>	
-				</div>
-			</div>				
+		<div id="showBox" style="display:none;">
+			<i class="cancel fas fa-window-close fa-2x"></i>
+			<iframe id="show" src="" width="45%" height="550"></iframe>
 		</div>
 	</div>
 	<script src="http://code.jquery.com/jquery-1.12.4.min.js"></script>
 	<script type="text/javascript">
 		$(document).ready(function(){
-			$(".add-extra").click(function(){
-				$("#lightBox2").css("display","");
-				let this_room_order_id = $(this).parent().parent().find("td").eq(0).html();
-				$("#room_order_id_extra").val(this_room_order_id);
-				$("input[name='item']").val("");
-				$("input[name='price']").val("");
-			});
+			//連結收據明細
+			$(".linkit").click(function(e){
+				e.preventDefault();
+				$("#showBox").css("display","");
+				let url = $(this).attr('href');
+				$("#show").attr('src',url);
+			})
 			
-			$(".extra-confirm").click(function(){
-				let ajax_room_order_id = $("#room_order_id_extra").val();
-				let ajax_item = $("input[name='item']").val();
-				let ajax_price = $("input[name='price']").val();
-				$.ajax({
-					url: "<%=request.getContextPath()%>/extra_charges/extra_charges.do?action=insertByCheckOut",
-					data: {
-						room_order_id: ajax_room_order_id,
-						item: ajax_item,
-						price: ajax_price,
-					},
-					type: "POST",
-					success: function(str){
-						let data = JSON.parse(str);
-						if(data.success === "success"){
-							swal("新增成功","請通知付款","success");
-							
-						}
-					}
-				})
+			$(".cancel").click(function(){
+				$("#showBox").css("display","none");
 			});
 				
 			$(".checkout-confirm").click(function(){
@@ -125,18 +94,7 @@
 					}
 				})
 			})
-			
-			$(".extra-cancel").click(function(){
-				$("#lightBox2").css("display","none");
-			})
 		})
-		
-		
-	
-	
-	
-	
-	
 	</script>
 </body>
 </html>

@@ -32,6 +32,7 @@ public class Extra_chargesDAO implements Extra_chargesDAO_interface {
 		"DELETE FROM EXTRA_CHARGES where EXTRA_CHARGES_ID = ?";
 	private static final String UPDATE = 
 		"UPDATE EXTRA_CHARGES set ROOM_ORDER_ID=?, ITEM=?, PRICE=? where EXTRA_CHARGES_ID = ?";
+	private static final String Get_By_Order_Id = "SELECT * FROM EXTRA_CHARGES WHERE ROOM_ORDER_ID=?";
 
 	@Override
 	public void insert(Extra_chargesVO extra_chargesVO) {
@@ -315,4 +316,62 @@ public class Extra_chargesDAO implements Extra_chargesDAO_interface {
 	
 	}
   }
+
+	@Override
+	public List<Extra_chargesVO> getByRoomOrderId(String room_order_id) {
+		List<Extra_chargesVO> list = new ArrayList<Extra_chargesVO>();
+		Extra_chargesVO extra_chargesVO = null;
+
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		try {
+
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(Get_By_Order_Id);
+			
+			pstmt.setString(1, room_order_id);
+			rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+				// extraChargesVO 也稱為 Domain objects
+				extra_chargesVO = new Extra_chargesVO();
+				extra_chargesVO.setExtra_charges_id(rs.getString("extra_charges_id"));
+				extra_chargesVO.setRoom_order_id(rs.getString("room_order_id"));
+				extra_chargesVO.setItem(rs.getString("item"));
+				extra_chargesVO.setPrice(rs.getInt("price"));
+				list.add(extra_chargesVO); // Store the row in the list
+			}
+
+			// Handle any driver errors
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		return list;
+	}
 }

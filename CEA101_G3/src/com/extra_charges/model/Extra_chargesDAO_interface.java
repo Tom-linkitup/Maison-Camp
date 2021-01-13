@@ -10,7 +10,8 @@ public interface Extra_chargesDAO_interface {
     public void delete(String extra_charges_id);
     public Extra_chargesVO findByPrimaryKey(String extra_charges_id);
     public List<Extra_chargesVO> getAll();
-    //¸U¥Î½Æ¦X¬d¸ß(¶Ç¤J°Ñ¼Æ«¬ºAMap)(¦^¶Ç List)
+    public List<Extra_chargesVO> getByRoomOrderId(String room_order_id);
+    //ï¿½Uï¿½Î½Æ¦Xï¿½dï¿½ï¿½(ï¿½Ç¤Jï¿½Ñ¼Æ«ï¿½ï¿½AMap)(ï¿½^ï¿½ï¿½ List)
 //  public List<Extra_chargesVO> getAll(Map<String, String[]> map); 
 	
 }

@@ -184,7 +184,7 @@ public class RoomOrderServlet extends HttpServlet {
 				RoomOrderService roSvc = new RoomOrderService();
 				roSvc.updateOrderCondition(new Integer(2), room_id, room_order_id);
 				RoomService rmSvc = new RoomService();
-				rmSvc.updateRmCondition(new Integer(1), room_id);
+				rmSvc.updateRmLive(new Integer(1), room_id);
 				String success = "success";
 				out.print(success);			
 			}catch(Exception e) {
@@ -199,7 +199,7 @@ public class RoomOrderServlet extends HttpServlet {
 				RoomOrderService roSvc = new RoomOrderService();
 				roSvc.updateOrderCondition(new Integer(3), "已退房", room_order_id);
 				RoomService rmSvc = new RoomService();
-				rmSvc.updateRmCondition(new Integer(0), room_id);
+				rmSvc.updateRmLive(new Integer(0), room_id);
 				String success = "success";
 				out.print(success);		
 			}catch(Exception e) {

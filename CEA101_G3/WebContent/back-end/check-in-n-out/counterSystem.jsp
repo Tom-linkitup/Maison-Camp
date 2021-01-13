@@ -19,7 +19,7 @@
 	Integer roomCount = rmlist.size();
 	Integer occupyCount = 0;	
 	for(RoomVO rm : rmlist){
-		if(rm.getStatus() == 1){
+		if(rm.getOccupy() == 1){
 			occupyCount++;
 		}
 	}
@@ -84,132 +84,7 @@
 	</div>
 	<script src="http://code.jquery.com/jquery-1.12.4.min.js"></script>
 	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-	<%-- <script>
-	$(document).ready(function () {
-	    let bookingDetail = $("#booking-detail-info");
-	    $(".booking-detail").click(function (e) {
-	        e.preventDefault();
-	        let src = $(this).attr("href");
-	        bookingDetail.addClass("display-show");
-	        bookingDetail.children("iframe").attr("src", src);
-	    });
-	    $(".icon").click(function () {
-	        $(this).parents(".display-show").removeClass("display-show");
-	    });
-	    $(".check-in").click(function () {
-	        let rooms = $(this).closest("tr").next().find(".room-check-in");
-	        if (!rooms.hasClass("show")) {
-	            rooms.addClass("show");
-	        } else {
-	            rooms.removeClass("show");
-	        }
-	    });
-	    $(".empty").click(function () {
-	        $(this).siblings(".empty").removeClass("selected");
-	        $(this).addClass("selected");
-	    });
-	    $(".checkin-confirm").click(function () {
-	        let selects = $(this).siblings(".checkin-option");
-	        let mbid = $(this).attr("data-mbid");
-	        let bkno = $(this).attr("data-bkno");
-	        let roomArr = [];
-	        for (let i = 0; i < selects.length; i++) {
-	            let rm_no = selects.eq(i).children(".selected").text();
-	            if (roomArr.indexOf(rm_no) < 0) {
-	                roomArr.push(rm_no);
-	            } else {
-	                Swal.fire({
-	                    position: "center",
-	                    title: "房號重複",
-	                    icon: "error",
-	                    text: "請重新選擇房號",
-	                });
-	                return;
-	            }
-	        }
-	        $.ajax({
-	            //更新訂單狀態
-	            url: "<%=request.getContextPath()%>/bookingServlet?action=checkin",
-	            data: {
-	                bk_no: bkno,
-	            },
-	            type: "POST",
-	        });
-	        for (i in roomArr) {
-	            //將選好的房號放入房間
-	            $.ajax({
-	                url: "<%=request.getContextPath()%>/RoomsServlet?action=update_check_in",
-	                data: {
-	                    rm_no: roomArr[i],
-	                    mb_id: mbid,
-	                    bk_no: bkno,
-	                },
-	                type: "POST",
-	                success: function (msg) {
-	                    if (msg == "success") {
-	                        Swal.fire({
-	                            position: "center",
-	                            title: "辦理入住成功",
-	                            icon: "success",
-	                            showConfirmButton: false,
-	                        });
-	                        setTimeout(function () {
-	                            window.location.reload();
-	                        }, 1000);
-	                    } else {
-	                        Swal.fire({
-	                            position: "center",
-	                            title: "系統爆炸了",
-	                            icon: "error",
-	                        });
-	                    }
-	                },
-	            });
-	        }
-	    });
-	    $(".checkout-confirm").click(function () {
-	        let mbid = $(this).attr("data-mbid");
-	        let bkno = $(this).attr("data-bkno");
-	        $.ajax({
-	            //更新訂單狀態
-	            url: "<%=request.getContextPath()%>/bookingServlet?action=checkout",
-	            data: {
-	                bk_no: bkno,
-	            },
-	            type: "POST",
-	        });
-	        $.ajax({
-	            //將房號資訊清空
-	            url: "<%=request.getContextPath()%>/RoomsServlet?action=update_check_out",
-	            data: {
-	                mb_id: mbid,
-	                bk_no: bkno,
-	            },
-	            type: "POST",
-	            success: function (msg) {
-	                if (msg == "success") {
-	                    Swal.fire({
-	                        position: "center",
-	                        title: "退房完成",
-	                        icon: "success",
-	                        showConfirmButton: false,
-	                    });
-	                    setTimeout(function () {
-	                        window.location.reload();
-	                    }, 1000);
-	                } else {
-	                    Swal.fire({
-	                        position: "center",
-	                        title: "系統爆炸了",
-	                        icon: "error",
-	                    });
-	                }
-	            },
-	        });
-	    });
-	});
-
-	</script> --%>
+	
 <%@ include file="/back-end/back-template/backIndex2.file"%>
 </body>
 </html>
