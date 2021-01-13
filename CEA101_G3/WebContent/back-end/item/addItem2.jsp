@@ -37,30 +37,27 @@
 		<div id="content-3">
 				
 			商品名稱：<input class="input-beautify" type="text" name="itemName" value="">
-			<p></p>
 			<c:if test="${not empty errorMsgs}">
-				<p class="error" style="color:red; font-size:8px;">${errorMsgs.itemName}</p>
+			<p class="error" style="color:red; font-size:8px;">${errorMsgs.itemName}</p>
 			</c:if>
-				
+			<p></p>
 			商品資訊：<input class="input-beautify" type="text" name="itemInfo" value="">
-			<p></p>
 			<c:if test="${not empty errorMsgs}">
-				<p class="error" style="color:red; font-size:8px;">${errorMsgs.itemInfo}</p>
+			<p class="error" style="color:red; font-size:8px;">${errorMsgs.itemInfo}</p>
 			</c:if>
-				
+			<p></p>
 			商品價格：<input class="input-beautify" type="text" name="itemPrice" value="">
-			<p></p>
 			<c:if test="${not empty errorMsgs}">
-				<p class="error" style="color:red; font-size:8px;">${errorMsgs.itemPrice}</p>
+			<p class="error" style="color:red; font-size:8px;">${errorMsgs.itemPrice}</p>
 			</c:if>
-				
-			商品狀態：<input class="input-beautify" type="text" name="itemStatus" value="">
 			<p></p>
+			商品狀態：<input class="input-beautify" type="text" name="itemStatus" value="">
 			<c:if test="${not empty errorMsgs}">
-				<p class="error" style="color:red; font-size:8px;">${errorMsgs.itemStatus}</p>
+			<p class="error" style="color:red; font-size:8px;">${errorMsgs.itemStatus}</p>
 			</c:if>
 				
 			<jsp:useBean id="ItemCategorySvc" scope="page" class="com.item_category.model.ItemCategoryService" />
+			<p></p>
 			商品類別：<select size="1" name="itemCategoryId">
 				<c:forEach var="itemCategoryVO" items="${ItemCategorySvc.all}">
 				<option value="${itemCategoryVO.itemCategoryId}" ${(itemVO.itemCategoryId==itemCategoryVO.itemCategoryId)? 'selected':'' } >${itemCategoryVO.itemCategoryName}

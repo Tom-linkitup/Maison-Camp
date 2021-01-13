@@ -1,5 +1,9 @@
 eclipse.preferences.version=1
 encoding//WebContent/css/front-end/style2shopping.css=UTF-8
+<<<<<<< HEAD
+encoding//src/com/shop_order/controller/ShoppingServlet.java=UTF-8
+=======
 encoding//src/com/extra_charges/controller=UTF-8
 encoding//src/com/extra_charges/controller/ExtraChargesServlet.java=UTF-8
+>>>>>>> branch 'main' of https://github.com/Tom-linkitup/Maison-Camp.git
 encoding/<project>=UTF-8
