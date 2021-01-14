@@ -23,33 +23,33 @@ public class Room_commentDAO implements Room_commentDAO_interface {
 			}
 
 	private static final String INSERT_STMT = 
-		"INSERT INTO room_comment(room_comment_id,room_category_id,room_comment_content,time,comment_reply,room_order_id)"
+		"INSERT INTO room_comment(room_comment_id,room_category_id,room_comment_content,time,comment_reply)"
 		+ "VALUES ('RC' || room_comment_id_seq.NEXTVAL, ?, ?, current_TimeStamp,?,?)";
 	private static final String GET_ALL_STMT = 
-		"SELECT room_comment_id,room_category_id,room_comment_content,time,comment_reply,room_order_id FROM room_comment order by room_comment_id desc";
+		"SELECT room_comment_id,room_category_id,room_comment_content,time,comment_reply FROM room_comment order by room_comment_id desc";
 	private static final String GET_ONE_STMT = 
-		"SELECT room_comment_id,room_category_id,room_comment_content, time,comment_reply,room_order_id FROM room_comment where room_comment_id = ?";
+		"SELECT room_comment_id,room_category_id,room_comment_content, time,comment_reply FROM room_comment where room_comment_id = ?";
 	private static final String DELETE = 
 		"DELETE FROM room_comment where room_comment_id = ?";
 	private static final String UPDATE = 
-		"UPDATE room_comment set room_category_id=?, room_comment_content=?, time = ? , comment_reply=? ,room_order_id =? where room_comment_id = ?";
+		"UPDATE room_comment set room_category_id=?, room_comment_content=?, time = ? , comment_reply=? where room_comment_id = ?";
 
 	private static final String GETALLTWINS=
-			"SELECT room_comment_id,room_category_id,room_comment_content,time,comment_reply,room_order_id FROM room_comment where room_category_id =any (select  room_category_id from room_comment where room_category_id='TWINS') order by time";
+			"SELECT room_comment_id,room_category_id,room_comment_content,time,comment_reply FROM room_comment where room_category_id =any (select  room_category_id from room_comment where room_category_id='TWINS') order by time";
 	
 	private static final String GETALLDOUBLE=
-			"SELECT room_comment_id,room_category_id,room_comment_content,time,comment_reply,room_order_id FROM room_comment where room_category_id =any (select  room_category_id from room_comment where room_category_id='DOUBLE') order by time";
+			"SELECT room_comment_id,room_category_id,room_comment_content,time,comment_reply FROM room_comment where room_category_id =any (select  room_category_id from room_comment where room_category_id='DOUBLE') order by time";
 	
 	private static final String GETALLQUADRUPLE=
-			"SELECT room_comment_id,room_category_id,room_comment_content,time,comment_reply,room_order_id FROM room_comment where room_category_id =any (select  room_category_id from room_comment where room_category_id='QUADRUPLE') order by time";
+			"SELECT room_comment_id,room_category_id,room_comment_content,time,comment_reply FROM room_comment where room_category_id =any (select  room_category_id from room_comment where room_category_id='QUADRUPLE') order by time";
 	
 	private static final String GETALLREPLY=
-	"SELECT room_comment_id,room_category_id,room_comment_content,time,comment_reply,room_order_id FROM room_comment where comment_reply =any (select  comment_reply from room_comment where comment_reply is not null) order by time desc";
+	"SELECT room_comment_id,room_category_id,room_comment_content,time,comment_reply FROM room_comment where comment_reply =any (select  comment_reply from room_comment where comment_reply is not null) order by time desc";
 	
 	private static final String GETALLWAITREPLY=
-	"SELECT room_comment_id,room_category_id,room_comment_content,time,comment_reply,room_order_id FROM room_comment where comment_reply is null order by time desc";
+	"SELECT room_comment_id,room_category_id,room_comment_content,time,comment_reply FROM room_comment where comment_reply is null order by time desc";
 	
-	private static final String Get_By_RCT = "SELECT ROOM_COMMENT_ID, ROOM_CATEGORY_ID, ROOM_COMMENT_CONTENT,TIME,COMMENT_REPLY ,ROOM_ORDER_ID FROM ROOM_COMMENT WHERE ROOM_CATEGORY_ID=? ORDER BY TIME desc";
+	private static final String Get_By_RCT = "SELECT ROOM_COMMENT_ID, ROOM_CATEGORY_ID, ROOM_COMMENT_CONTENT,TIME,COMMENT_REPLY  FROM ROOM_COMMENT WHERE ROOM_CATEGORY_ID=? ORDER BY TIME desc";
 	
 	
 	@Override
@@ -68,7 +68,6 @@ public class Room_commentDAO implements Room_commentDAO_interface {
 			pstmt.setString(2, room_commentVO.getRoom_comment_content());
 			pstmt.setTimestamp(3, room_commentVO.getTime());
 			pstmt.setString(4, room_commentVO.getComment_reply());
-			pstmt.setString(5, room_commentVO.getRoom_order_id());
 			
 				
 			pstmt.executeUpdate();
@@ -111,8 +110,7 @@ public class Room_commentDAO implements Room_commentDAO_interface {
 			pstmt.setString(2, room_commentVO.getRoom_comment_content());
 			pstmt.setTimestamp(3, room_commentVO.getTime());
 			pstmt.setString(4, room_commentVO.getComment_reply());
-			pstmt.setString(5, room_commentVO.getRoom_order_id());
-			pstmt.setString(6, room_commentVO.getRoom_comment_id());
+			pstmt.setString(5, room_commentVO.getRoom_comment_id());
 			pstmt.executeUpdate();
 
 			// Handle any driver errors
@@ -199,7 +197,6 @@ public class Room_commentDAO implements Room_commentDAO_interface {
 				// room_commentVo 銋迂� Domain objects
 				room_commentVO = new Room_commentVO();
 				room_commentVO.setRoom_comment_id(rs.getString("room_comment_id"));
-				room_commentVO.setRoom_order_id(rs.getString("room_order_id"));
 				room_commentVO.setRoom_category_id(rs.getString("room_category_id"));
 				room_commentVO.setRoom_comment_content(rs.getString("room_comment_content"));
 				room_commentVO.setTime(rs.getTimestamp("time"));
@@ -257,7 +254,6 @@ public class Room_commentDAO implements Room_commentDAO_interface {
 				// room_commentVO 銋迂� Domain objects
 				room_commentVO = new Room_commentVO();
 				room_commentVO.setRoom_comment_id(rs.getString("room_comment_id"));
-				room_commentVO.setRoom_order_id(rs.getString("room_order_id"));
 				room_commentVO.setRoom_category_id(rs.getString("room_category_id"));
 				room_commentVO.setRoom_comment_content(rs.getString("room_comment_content"));
 				room_commentVO.setTime(rs.getTimestamp("time"));
@@ -318,7 +314,6 @@ public class Room_commentDAO implements Room_commentDAO_interface {
 				// room_commentVO 銋迂� Domain objects
 				room_commentVO = new Room_commentVO();
 				room_commentVO.setRoom_comment_id(rs.getString("room_comment_id"));
-				room_commentVO.setRoom_order_id(rs.getString("room_order_id"));
 				room_commentVO.setRoom_category_id(rs.getString("room_category_id"));
 				room_commentVO.setRoom_comment_content(rs.getString("room_comment_content"));
 				room_commentVO.setTime(rs.getTimestamp("time"));
@@ -378,7 +373,6 @@ public class Room_commentDAO implements Room_commentDAO_interface {
 				// room_commentVO 銋迂� Domain objects
 				room_commentVO = new Room_commentVO();
 				room_commentVO.setRoom_comment_id(rs.getString("room_comment_id"));
-				room_commentVO.setRoom_order_id(rs.getString("room_order_id"));
 				room_commentVO.setRoom_category_id(rs.getString("room_category_id"));
 				room_commentVO.setRoom_comment_content(rs.getString("room_comment_content"));
 				room_commentVO.setTime(rs.getTimestamp("time"));
@@ -434,7 +428,6 @@ public class Room_commentDAO implements Room_commentDAO_interface {
 			while(rs.next()) {
 				room_commentVO = new Room_commentVO();
 				room_commentVO.setRoom_comment_id(rs.getString("ROOM_COMMENT_ID"));
-				room_commentVO.setRoom_order_id(rs.getString("ROOM_ORDER_ID"));
 				room_commentVO.setRoom_category_id(rs.getString("ROOM_CATEGORY_ID"));
 				room_commentVO.setRoom_comment_content(rs.getString("ROOM_COMMENT_CONTENT"));
 				room_commentVO.setTime(rs.getTimestamp("TIME"));

@@ -15,7 +15,7 @@ public class Room_commentService {
 		dao = new Room_commentDAO();
 	}
 
-	public Room_commentVO addRoom_comment(String room_category_id,String room_comment_content, java.sql.Timestamp time,String comment_reply,String room_order_id) {
+	public Room_commentVO addRoom_comment(String room_category_id,String room_comment_content, java.sql.Timestamp time,String comment_reply) {
 
 		Room_commentVO room_commentVO = new Room_commentVO();
 		
@@ -23,13 +23,12 @@ public class Room_commentService {
 		room_commentVO.setRoom_comment_content(room_comment_content);
 		room_commentVO.setTime(time);
 		room_commentVO.setComment_reply(comment_reply);
-		room_commentVO.setRoom_order_id(room_order_id);
 		dao.insert(room_commentVO);
 
 		return room_commentVO;
 	}
 
-	public Room_commentVO updateRoom_comment(String room_comment_id, String room_category_id,String room_comment_content, java.sql.Timestamp time,String comment_reply,String room_order_id) {
+	public Room_commentVO updateRoom_comment(String room_comment_id, String room_category_id,String room_comment_content, java.sql.Timestamp time,String comment_reply) {
 
 		Room_commentVO room_commentVO = new Room_commentVO();
 
@@ -38,7 +37,6 @@ public class Room_commentService {
 		room_commentVO.setRoom_comment_content(room_comment_content);
 		room_commentVO.setTime(time);
 		room_commentVO.setComment_reply(comment_reply);
-		room_commentVO.setRoom_order_id(room_order_id);
 		dao.update(room_commentVO);
 
 		return room_commentVO;
