@@ -32,12 +32,10 @@
 	ShopOrderService soSvc = new ShopOrderService();
 	List<ShopOrderVO> solist = soSvc.getByMemId(memVO.getMem_id());
 	pageContext.setAttribute("solist", solist);
-
 	
 %>
-
-
 <jsp:useBean id="rtSvc" scope="page" class="com.roomtype.model.RoomTypeService" />
+<jsp:useBean id="rodSvc" scope="page" class="com.roomorderdetail.model.RoomOrderDetailService" />
 <jsp:useBean id="acPhSvc" scope="page" class="com.actPhoto.model.ActPhotoService" />
 <jsp:useBean id="actSvc" scope="page" class="com.activity.model.ActivityService" />
 <jsp:useBean id="actCategorySvc" scope="page" class="com.actCategory.model.ActCategoryService" />
