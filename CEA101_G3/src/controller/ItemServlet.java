@@ -13,11 +13,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.json.JSONObject;
-
 import com.item.model.ItemService;
 import com.item.model.ItemVO;
-import com.item_category.model.ItemCategoryVO;
 
 public class ItemServlet extends HttpServlet {
 	public void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
@@ -280,21 +277,6 @@ public class ItemServlet extends HttpServlet {
 					e.printStackTrace();
 				}
 			}
-			
-			if ("menuAjax".equals(action)) {
-				try {
-					
-					String itemCategoryId =req.getParameter("itemCategoryId");
-					ItemService itemSvc = new ItemService();
-					List<ItemVO> ItemVOList = itemSvc.getByCat(itemCategoryId);
-					JSONObject data = new JSONObject();
-					data.put("ItemVOList", ItemVOList);
-					out.print(data);
-				}catch(Exception e) {
-					e.printStackTrace();
-				}
-			}
-			
 		
 	}
 }
