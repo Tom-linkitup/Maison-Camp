@@ -52,13 +52,8 @@
 					<tr style="font-size:20px; color:#c15c61;"><td>訂房優惠修改</td></tr>
 					<tr><td>優惠編號：</td><td><input style="background-color:#f9f9f9; border:none;" id="room_promotion_idp" class="input-beautify" type="text" name="room_promotion_id" readonly></td></tr>			
 					<tr><td>房型設定：</td><td><input style="background-color:#f9f9f9; border:none;"id="room_category_idp" class="input-beautify" type="text" name="room_category_id" readonly></td></tr>
-					
 					<tr><td>優惠資訊：</td><td><input id="room_promotion_infop" class="input-beautify" type="text" name="room_promotion_info" required></td></tr>
-					<p class="error" style="color:red; font-size:8px;">${errorMsgs.room_promotion_info}</p>
-					
 					<tr><td>折扣設定：</td><td><input type="NUMBER" min="0" max="1" step="0.01" id="room_discountp" class="input-beautify"  name="room_discount" required></td></tr>
-					<p class="error" style="color:red; font-size:8px;">${errorMsgs.room_discount}</p>
-					
 					<tr><td>優惠開始日期：</td><td><input id="room_prom_start_datep" class="input-beautify" type="date" name="room_prom_start_date" required></td></tr>
 					<tr><td>優惠結束日期：</td><td><input id="room_prom_end_datep" class="input-beautify" type="date" name="room_prom_end_date" required></td></tr>
 				<tr><td>
