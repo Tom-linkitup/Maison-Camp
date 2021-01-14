@@ -11,25 +11,27 @@
 %>
 
 <jsp:useBean id="ItemCategorySvc" scope="page" class="com.item_category.model.ItemCategoryService" />
+<jsp:useBean id="ItemSvc" scope="page" class="com.item.model.ItemService" />
 
 <!DOCTYPE html>
 <html>
 <head>
-<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.20/datatables.min.css"/>
-
-
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
 <body>
+<<<<<<< HEAD
 	<div id="content-1" style="max-height:100% ;	overflow: auto;">
+=======
+>>>>>>> parent of 4ed1ef0... commit 傑
 	<div style="position:relative;">
-	<select id="chooseCategory" name="chooseCategory" style="position: absolute;left: 0px; z-index:99;">
+	<select id="chooseCategory" name="chooseCategory" style="position: absolute;left: 0px; z-index:1000;">
 	<c:forEach var="CategoryVO" items="${ItemCategorySvc.getAll()}">
 	<option value="${CategoryVO.itemCategoryId}">${CategoryVO.itemCategoryName}</option>
 	</c:forEach>
 	</select>
 	</div>
+	<div id="content-1">
 		<h2 style="text-align:center; margin-bottom:20px;">商品資訊</h2>
 		<table id="myTable" border="1px solid #000">
 			<tr class="header">
@@ -42,8 +44,14 @@
 				<th>商品修改</th>
 				<th>商品刪除</th>
 			</tr>
+<<<<<<< HEAD
 			<c:forEach var="itemVO" items="${list}">			
 			<tr class="disappear">
+=======
+			<%@ include file="page1.file"%>
+			<c:forEach var="itemVO" items="${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">			
+			<tr>
+>>>>>>> parent of 4ed1ef0... commit 傑
 				<td>${itemVO.itemId}</td>
 				<td>${itemVO.itemCategoryId}</td>
 				<td>${itemVO.itemName}</td>
@@ -99,6 +107,7 @@
 			</form>
 		</div>
 	</div>
+<<<<<<< HEAD
 	<script src="http://code.jquery.com/jquery-1.12.4.min.js"></script>
 	<script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.20/datatables.min.js"></script>
 	<script>
@@ -188,6 +197,9 @@
         }) 
 	 }) 
 
+=======
+	<script>		
+>>>>>>> parent of 4ed1ef0... commit 傑
 		$(".edit").click(function() {
 			$("#lightBox").css("display","");
 			let tr = $(this).parents("tr");
@@ -204,7 +216,23 @@
 			$("#lightBox").css("display","none");
 		})
 		
+<<<<<<< HEAD
 	})	
+=======
+		$("#chooseCategory").change(function(){
+			$("#myTable").HTML("")
+			
+			
+			
+			
+			
+			
+		})
+		
+		
+		
+
+>>>>>>> parent of 4ed1ef0... commit 傑
 	</script>	
 </body>
 </html>

@@ -9,7 +9,7 @@ public class ItemService {
 	private ItemDAO_interface dao;
 	
 	public ItemService() {
-		dao = new ItemDAO();
+		dao = new ItemJDBCDAO();
 	}
 	
 	public ItemVO addItem(String itemCategoryId, String itemName, String itemInfo, Integer itemPrice, Integer itemStatus) {
