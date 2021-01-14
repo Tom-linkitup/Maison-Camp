@@ -197,10 +197,10 @@ div.sellList_card span{
             <span class="sc-span3">活動詳情</span>
     	</div>
 		<c:forEach var="actVO" items="${list}">
+		<c:if test="${actVO.actStatus =='1'}">
 			<div class="list">
 				<div class="left">
-					<jsp:useBean id="acPhSvc" scope="page"
-						class="com.actPhoto.model.ActPhotoService" />
+					<jsp:useBean id="acPhSvc" scope="page" class="com.actPhoto.model.ActPhotoService" />
 					<c:forEach var="actPhotoVO"
 						items="${acPhSvc.getByActId(actVO.getActId())}" begin="0" end="0">
 						<c:if test="${actPhotoVO.content != null}">	
@@ -230,6 +230,7 @@ div.sellList_card span{
 					</FORM>
 				</div>
 			</div>
+			</c:if>
 		</c:forEach>
 	</div>
 	<footer class="site-footer">
