@@ -4,7 +4,7 @@
 <%@ page import="com.room_comment.model.*"%>
 <%@ page import="com.roomorder.model.*"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-
+ 
 <%
 	Room_commentService room_commentSvc = new Room_commentService();
 	List<Room_commentVO> list = room_commentSvc.getAll();

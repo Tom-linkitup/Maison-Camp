@@ -6,7 +6,7 @@
 <%@ page import="com.roomphoto.model.*"%>
 <%@ page import="com.member.model.*" %>
 <%@ page import="com.room_comment.model.*"%>
-<%@ page import="com.roomorder.model.*"%>
+<%@ page import="com.roomorder.model.*"%> 
 
 <%
 	RoomTypeService roomTypeSvc = new RoomTypeService();

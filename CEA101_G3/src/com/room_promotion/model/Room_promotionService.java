@@ -2,9 +2,9 @@ package com.room_promotion.model;
 import java.util.List;
 
 public class Room_promotionService {	
-
+ 
 	private Room_promotionDAO_interface dao;
-	
+	 
 		public Room_promotionService() {
 			dao = new Room_promotionDAO();
 		}

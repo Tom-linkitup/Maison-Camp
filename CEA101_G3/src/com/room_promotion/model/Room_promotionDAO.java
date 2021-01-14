@@ -11,7 +11,7 @@ import java.sql.*;
 public class Room_promotionDAO implements Room_promotionDAO_interface {
 	//連線池
 			private static DataSource ds = null;
-			static {
+			static { 
 				try {
 					Context ctx = new javax.naming.InitialContext();
 					ds = (DataSource) ctx.lookup("java:comp/env/jdbc/GDB");

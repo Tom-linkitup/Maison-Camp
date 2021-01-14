@@ -6,7 +6,7 @@
 <%@ include file="/back-end/back-template/backIndex.file"%>
 <html>
 <head>
-<meta charset="UTF-8">
+<meta charset="UTF-8"> 
 <title>額外消費管理</title>
 <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/css/back-end/extra_charges.css" />
 <link rel="stylesheet" href="<%=request.getContextPath()%>/back-end/backend/bootstrap/bootstrap.min.css">
