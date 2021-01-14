@@ -110,7 +110,7 @@ public class MemberServlet extends HttpServlet {
 				java.sql.Date birthday = java.sql.Date.valueOf(req.getParameter("birthday"));
 				String personal_id = req.getParameter("personal_id").trim();
 				String payment = req.getParameter("payment");
-				int status = 0;
+				Integer status = new Integer(req.getParameter("status").trim());
 				String note = "Welcome to Maison Camp";
 				
 				MemberVO memVO = new MemberVO();

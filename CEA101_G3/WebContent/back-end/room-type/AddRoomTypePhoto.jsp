@@ -14,7 +14,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<c:if test="${noSelect == 'noSelect'}">
+<c:if test="${not empty errorPhotoMsgs}">
 	<script>
 		$("#tab-2").prop("checked",true);
 		swal("未選擇房型","請修正錯誤！","error");

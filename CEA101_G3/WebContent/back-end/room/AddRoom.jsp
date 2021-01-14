@@ -48,14 +48,23 @@
 			<span>房間狀態：</span>
 			<select class="input-beautify" name="status">
 				<option value="99">請選擇</option>
-				<option value="0">可入住</option>
+				<option value="0">可賣</option>
 				<option value="1">修繕中</option>
-				<option value="2">in入住中</option>
 			</select>
 			<p></p>
 			<c:if test="${not empty errorMsgs}">
 				<p style="font-size:8px; color:red;">${errorMsgs.status}</p>
-			</c:if>		
+			</c:if>
+			<span>入住狀態：</span>
+			<select class="input-beautify" name="occupy">
+				<option value="100">請選擇</option>
+				<option value="0">空房</option>
+				<option value="1">已入住</option>
+			</select>
+			<p></p>
+			<c:if test="${not empty errorMsgs}">
+				<p style="font-size:8px; color:red;">${errorMsgs.occupy}</p>
+			</c:if>
 			<input type="hidden" name="action" value="insert"><br>
 			<button id="add" type="submit" class="btn btn-primary">新增房間</button>
 		</div>

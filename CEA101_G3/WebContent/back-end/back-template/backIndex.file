@@ -85,7 +85,6 @@
                       <ul class="treeview-menu">
                           <li><a href="<%=request.getContextPath()%>/back-end/emp/protected/viewEmp.jsp">員工管理</a></li>
                           <li><a href="<%=request.getContextPath()%>/back-end/emp/protected/viewEmpFunc.jsp">員工權限管理</a></li>
-                          <li><a href="#">系統參數管理</a></li>
                           <li><a href="<%=request.getContextPath()%>/back-end/emp/protected/viewFunc.jsp">權限管理</a></li>
                       </ul>
                       </li>

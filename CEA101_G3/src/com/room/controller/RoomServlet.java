@@ -42,6 +42,11 @@ public class RoomServlet extends HttpServlet {
 					errorMsgs.put("status", "*請選擇房間狀態");
 				}
 				
+				Integer occupy = new Integer(req.getParameter("occupy"));
+				if(occupy == 100) {
+					errorMsgs.put("occupy", "*請選擇入住狀態");
+				}
+				
 				if(!errorMsgs.isEmpty()) {			
 					RequestDispatcher failureView = req.getRequestDispatcher("/back-end/room/RoomInfo.jsp");
 					failureView.forward(req, res);
@@ -51,9 +56,10 @@ public class RoomServlet extends HttpServlet {
 				RoomVO roomVO = new RoomVO();
 				roomVO.setRoom_category_id(room_category_id);
 				roomVO.setStatus(status);
+				roomVO.setOccupy(occupy);
 				
 				RoomService roomSvc = new RoomService();
-				roomVO = roomSvc.addRM(room_category_id, status);
+				roomVO = roomSvc.addRM(room_category_id, status, occupy);
 				
 				String url = "/back-end/room/RoomInfo.jsp";
 				req.setAttribute("insertSuccess", "yes");
@@ -87,6 +93,11 @@ public class RoomServlet extends HttpServlet {
 					errorUpdateMsgs.put("status", "*請選擇房間狀態");
 				}
 				
+				Integer occupy = new Integer(req.getParameter("occupy"));
+				if(status == 100) {
+					errorUpdateMsgs.put("occupy", "*請選擇房間狀態");
+				}
+				
 				if(!errorUpdateMsgs.isEmpty()) {			
 					RequestDispatcher failureView = req.getRequestDispatcher("/back-end/room/RoomInfo.jsp");
 					failureView.forward(req, res);
@@ -98,7 +109,7 @@ public class RoomServlet extends HttpServlet {
 				roomVO.setStatus(status);
 				
 				RoomService roomSvc = new RoomService();
-				roomVO = roomSvc.updateRM(room_category_id, status, room_id);
+				roomVO = roomSvc.updateRM(room_category_id, status, occupy, room_id);
 				
 				String url = "/back-end/room/RoomInfo.jsp";
 				req.setAttribute("updateSuccess", "yes");

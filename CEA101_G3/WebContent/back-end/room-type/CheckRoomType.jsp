@@ -8,12 +8,16 @@
 	List<RoomTypeVO> list = roomTypeSvc.getAllRT();
 	pageContext.setAttribute("list", list);
 %>
-
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<style>
+	.selectColor:hover {
+		background-color:#ffbc00 !important;
+	}
+</style>
 </head>
 <body>
 	<div id="content-1" style="width:100%;">
@@ -33,7 +37,7 @@
 				<th>刪除</th>
 			</tr>
 			<c:forEach var="roomTypeVO" items="${list}">			
-			<tr>
+			<tr class="selectColor">
 				<td>${roomTypeVO.room_category_id}</td>
 				<td>${roomTypeVO.room_name}</td>
 				<td>${roomTypeVO.room_type}</td>
@@ -80,8 +84,7 @@
 					<tr><td>房型狀態：</td>
 						<td>
 						<select id="room_category_status" class="input-beautify" type="text" name="room_category_status" required>
-							<option>請選擇狀態</option>
-							<option value="0">上架</option>
+							<option value="0" selected>上架</option>
 							<option value="1">下架</option>
 						</select>
 						</td>
@@ -108,7 +111,6 @@
 			$("#area").val(children.eq(4).text());
 			$("#room_guest").val(children.eq(5).text());
 			$("#room_quantity").val(children.eq(6).text());
-			$("#room_category_status").val("請選擇狀態");
 			$("#room_info").val(children.eq(8).text());
 		})
 		
