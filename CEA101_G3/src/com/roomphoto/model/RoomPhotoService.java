@@ -6,7 +6,7 @@ public class RoomPhotoService {
 	private RoomPhotoDAO_Interface dao;
 	
 	public RoomPhotoService() {
-		dao = new RoomPhotoJDBCDAO();
+		dao = new RoomPhotoDAO();
 	}
 	
 	public RoomPhotoVO addRPH(String room_category_id, byte[] content) {

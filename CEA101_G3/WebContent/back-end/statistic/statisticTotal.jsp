@@ -20,15 +20,15 @@
 	Transaction tx = null;
 	
 	// room
-	List<String> roomCategoryList = new ArrayList(); 
-	List<Integer> roomSum = new ArrayList();
-	StringBuffer roomCategorySB = new  StringBuffer();
+	List<String> roomCategoryList = new ArrayList<>(); 
+	List<Integer> roomSum = new ArrayList<>();
+	StringBuffer roomCategorySB = new StringBuffer();
 	StringBuffer roomSumSB = new  StringBuffer();
 	int  roomCategoryCount= 0 , roomSumCount = 0 ;
 	
 	// activity
-	List<String> actCategoryList = new ArrayList(); 
-	List<Integer> actSum = new ArrayList();
+	List<String> actCategoryList = new ArrayList<>(); 
+	List<Integer> actSum = new ArrayList<>();
 	StringBuffer actCategorySB = new  StringBuffer();
 	StringBuffer actSumSB = new  StringBuffer();
 	int  actCategoryCount= 0 , actSumCount = 0 ;
@@ -118,7 +118,7 @@
 			}
 		}
 %>
-<div id="main" style="width: 1800px; height: 800px;margin-left:2em;margin-top:5em;">
+<div id="main" style="width: 600px; height: 300px;margin-left:2em;margin-top:1em;">
       <script type="text/javascript">
         // 基于准备好的dom，初始化echarts实例
         var myChart = echarts.init(document.getElementById("main"));
@@ -151,7 +151,7 @@
     
     
     
-    <div id="main1" style="width: 1800px; height: 800px;margin-left:2em;margin-top:5em;">
+    <div id="main1" style="width: 600px; height: 300px;margin-left:2em;margin-top:1em;">
       <script type="text/javascript">
         // 基于准备好的dom，初始化echarts实例
         var myChart = echarts.init(document.getElementById("main1"));
