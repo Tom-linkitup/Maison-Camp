@@ -21,7 +21,7 @@
 </head>
 <body>
 <<<<<<< HEAD
-	<div id="content-1" style="max-height:100% ;	overflow: auto;">
+	<div id="content-1" style="max-height:100% ;overflow: auto;">
 =======
 >>>>>>> parent of 4ed1ef0... commit 傑
 	<div style="position:relative;">
