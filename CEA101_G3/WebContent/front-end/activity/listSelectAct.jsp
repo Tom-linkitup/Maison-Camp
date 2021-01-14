@@ -177,7 +177,6 @@ form.myForm {
 }
 %>
 	<c:forEach var="actVO" items="${list}">
-	<c:if test="${actVO.actStatus =='1'}">
 			<div class="list">
 				<div class="left">
 					<jsp:useBean id="acPhSvc" scope="page"
@@ -211,7 +210,6 @@ form.myForm {
 					</FORM>
 				</div>
 			</div>
-			</c:if>
 		</c:forEach>
 	</div>
 	<footer class="site-footer">
