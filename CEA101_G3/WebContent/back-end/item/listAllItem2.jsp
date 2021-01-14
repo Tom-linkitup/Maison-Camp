@@ -19,17 +19,14 @@
 <title>Insert title here</title>
 </head>
 <body>
-
-	
-
+	<div id="content-1" style="max-height:100% ;overflow: auto;">
 	<div style="position:relative;">
-	<select id="chooseCategory" name="chooseCategory" style="position: absolute;left: 0px; z-index:1000;">
+	<select id="chooseCategory" name="chooseCategory" style="position: absolute;left: 0px; z-index:99;">
 	<c:forEach var="CategoryVO" items="${ItemCategorySvc.getAll()}">
 	<option value="${CategoryVO.itemCategoryId}">${CategoryVO.itemCategoryName}</option>
 	</c:forEach>
 	</select>
 	</div>
-	<div id="content-1" style="max-height:100% ;	overflow: auto;">
 		<h2 style="text-align:center; margin-bottom:20px;">商品資訊</h2>
 		<table id="myTable" border="1px solid #000">
 			<tr class="header">
