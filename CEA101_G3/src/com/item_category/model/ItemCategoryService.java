@@ -6,7 +6,7 @@ public class ItemCategoryService {
 	private ItemCategoryDAO_interface dao;
 
 	public ItemCategoryService() {
-		dao = new ItemCategoryJDBCDAO();
+		dao = new ItemCategoryDAO();
 	}
 
 	public ItemCategoryVO addItemCategory(String itemCategoryId, String itemCategoryName) {
