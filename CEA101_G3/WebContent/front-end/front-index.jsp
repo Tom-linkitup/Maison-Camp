@@ -157,19 +157,19 @@
             <div class="book-title">豪華露營預約狀況即時查詢</div>
             <div class="checking-date">
               <div class="mobile-checking">
-                <a href="<%=request.getContextPath()%>/front-end/room-booking/RoomBooking.jsp">
+                <a href="<%=request.getContextPath()%>/room-booking/RoomBooking.jsp">
                   <img src="<%=request.getContextPath()%>/img/bed-4.svg" alt="">
                   <span>四人帳</span>
                 </a>
               </div>
               <div class="mobile-checking">
-                <a href="<%=request.getContextPath()%>/front-end/room-booking/RoomBooking.jsp">
+                <a href="<%=request.getContextPath()%>/room-booking/RoomBooking.jsp">
                   <img src="<%=request.getContextPath()%>/img/bed-2.svg" alt="">
                   <span>二人帳</span>
                 </a>
               </div>
               <div class="mobile-checking">
-                <a href="<%=request.getContextPath()%>/front-end/room-booking/RoomBooking.jsp">
+                <a href="<%=request.getContextPath()%>/room-booking/RoomBooking.jsp">
                   <img src="<%=request.getContextPath()%>/img/bed-1.svg" alt="">
                   <span>單人帳</span>
                 </a>
