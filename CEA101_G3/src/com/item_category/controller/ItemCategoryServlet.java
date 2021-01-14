@@ -109,7 +109,7 @@ public class ItemCategoryServlet extends HttpServlet {
 				/*************************** 其他可能的錯誤處理 **********************************/
 			} catch (Exception e) {
 				errorMsgs.add("無法取得要修改的資料:" + e.getMessage());
-				RequestDispatcher failureView = req.getRequestDispatcher("/back-end/item_category/listAllItemCategory.jsp");
+				RequestDispatcher failureView = req.getRequestDispatcher("/back-end/item_category/ItemCategoryInfo.jsp");
 				failureView.forward(req, res);
 			}
 		}
@@ -140,7 +140,7 @@ public class ItemCategoryServlet extends HttpServlet {
 				// Send the use back to the form, if there were errors
 				if (!errorMsgs.isEmpty()) {
 					req.setAttribute("itemCategoryVO", itemCategoryVO); // 含有輸入格式錯誤的empVO物件,也存入req
-					RequestDispatcher failureView = req.getRequestDispatcher("/back-end/item_category/update_item_category_input.jsp");
+					RequestDispatcher failureView = req.getRequestDispatcher("/back-end/item_category/ItemCategoryInfo.jsp");
 					failureView.forward(req, res);
 					return; // 程式中斷
 				}
@@ -151,14 +151,14 @@ public class ItemCategoryServlet extends HttpServlet {
 
 				/*************************** 3.修改完成,準備轉交(Send the Success view) *************/
 				req.setAttribute("itemCategoryVO", itemCategoryVO); // 資料庫update成功後,正確的的empVO物件,存入req
-				String url = "/back-end/item_category/listAllItemCategory.jsp";
+				String url = "/back-end/item_category/ItemCategoryInfo.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url); // 修改成功後,轉交listOneEmp.jsp
 				successView.forward(req, res);
 
 				/*************************** 其他可能的錯誤處理 *************************************/
 			} catch (Exception e) {
 				errorMsgs.add("修改資料失敗:" + e.getMessage());
-				RequestDispatcher failureView = req.getRequestDispatcher("/back-end/item_category/update_item_category_input.jsp");
+				RequestDispatcher failureView = req.getRequestDispatcher("/back-end/item_category/ItemCategoryInfo.jsp");
 				failureView.forward(req, res);
 			}
 		}
@@ -204,7 +204,7 @@ public class ItemCategoryServlet extends HttpServlet {
 				itemCategoryVO = itemCategorySvc.addItemCategory(itemCategoryId, itemCategoryName);
 
 				/*************************** 3.新增完成,準備轉交(Send the Success view) ***********/
-				String url = "/back-end/item_category/listAllItemCategory.jsp";
+				String url = "/back-end/item_category/ItemCategoryInfo.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url); // 新增成功後轉交listAllEmp.jsp
 				successView.forward(req, res);
 
@@ -232,7 +232,7 @@ public class ItemCategoryServlet extends HttpServlet {
 				itemCategorySvc.deleteItemCategory(itemCategoryId);
 				
 				/***************************3.刪除完成,準備轉交(Send the Success view)***********/								
-				String url = "/back-end/item_category/listAllItemCategory.jsp";
+				String url = "/back-end/item_category/ItemCategoryInfo.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url);// 刪除成功後,轉交回送出刪除的來源網頁
 				successView.forward(req, res);
 				
@@ -240,7 +240,7 @@ public class ItemCategoryServlet extends HttpServlet {
 			} catch (Exception e) {
 				errorMsgs.add("刪除資料失敗:"+e.getMessage());
 				RequestDispatcher failureView = req
-						.getRequestDispatcher("/back-end/item_category/listAllItemCategory.jsp");
+						.getRequestDispatcher("/back-end/item_category/ItemCategoryInfo.jsp");
 				failureView.forward(req, res);
 			}
 		}

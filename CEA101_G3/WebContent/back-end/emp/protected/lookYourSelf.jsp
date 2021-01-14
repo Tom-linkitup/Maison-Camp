@@ -5,6 +5,9 @@
 <%@ page import="com.emp.model.*"%>
 <jsp:useBean id="funcSvc" scope="page" class="com.func.model.FuncService" />
 
+<%
+	
+%>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -14,7 +17,7 @@
 					<div class="row">
 						<div class="col-sm-4">
 							<img class="img-thumbnail"
-								src="<%=request.getContextPath()%>/back-end/emp/images/456.png"
+								src="<%=request.getContextPath()%>/back-end/emp/images/member.png"
 								style="margin: 10px 8px;">
 							<div style="margin: 10px 8px;">
 								<p>員工編號: ${loginEmpVO.emp_id}</p>

@@ -55,7 +55,7 @@
                   <div class="user-panel">
                         <div class="pull-left image">
                         	
-                            <img src="<%=request.getContextPath() %>/img/456.png" class="img-circle" alt="User Image">
+                            <img src="<%=request.getContextPath() %>/img/member.png" class="img-circle" alt="User Image">
                         </div>
                         <div class="pull-left info">
                             <p>${loginEmpVO.emp_name}</p>
