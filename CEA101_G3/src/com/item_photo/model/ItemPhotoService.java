@@ -14,7 +14,7 @@ public class ItemPhotoService {
 	private ItemPhotoDAO_interface dao;
 	
 	public ItemPhotoService() {
-		dao = new ItemPhotoJDBCDAO();
+		dao = new ItemPhotoDAO();
 	}
 	
 	public ItemPhotoVO addItemPhoto(String itemId, byte[] content) {
@@ -45,6 +45,10 @@ public class ItemPhotoService {
 	
 	public ItemPhotoVO getOneItemPhoto(String itemPhotoId) {
 		return dao.findByPrimaryKey(itemPhotoId);
+	}
+	
+	public ItemPhotoVO getOneByItemId(String itemId) {
+		return dao.findByItemId(itemId);
 	}
 	
 	public List<ItemPhotoVO> getAll(String item_id){

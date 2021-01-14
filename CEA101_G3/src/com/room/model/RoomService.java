@@ -10,22 +10,24 @@ private RoomDAO_Interface dao;
 		dao = new RoomDAO();
 	}
 	
-	public RoomVO addRM(String room_category_id, int status) {
+	public RoomVO addRM(String room_category_id, int status, int occupy) {
 		RoomVO roomVO = new RoomVO();
 		
 		roomVO.setRoom_category_id(room_category_id);
 		roomVO.setStatus(status);
+		roomVO.setOccupy(occupy);
 		
 		dao.addRoom(roomVO);
 		
 		return roomVO;
 	}
 	
-	public RoomVO updateRM(String room_category_id, int status, String room_id) {
+	public RoomVO updateRM(String room_category_id, int status, int occupy, String room_id) {
 		RoomVO roomVO = new RoomVO();
 		
 		roomVO.setRoom_category_id(room_category_id);
 		roomVO.setStatus(status);
+		roomVO.setOccupy(occupy);
 		roomVO.setRoom_id(room_id);
 		
 		dao.updateRoom(roomVO);

@@ -48,7 +48,7 @@
 </style>
 <c:if test="${not empty errorUpdateMsgs}">
 	<script>
-		swal("更新失敗","請重新修改！","error");	
+		swal("更新失敗","未選擇狀態！","error");	
 	</script>		
 </c:if>
 <c:if test="${updateSuccess == 'yes' }">
@@ -74,9 +74,10 @@
 				</form>		
 			</div>
 			<div style="position: absolute; right: 30px;">
-				<i style="color:green;" class="fa fa-circle">&nbsp<span style="color:#000;">可入住</span></i>&nbsp&nbsp
-				<i style="color:orange;" class="fa fa-circle">&nbsp<span style="color:#000;">入住中</span></i>&nbsp&nbsp
-				<i style="color:red;" class="fa fa-circle">&nbsp<span style="color:#000;">修繕中</span></i>		
+				<i style="color:#1876b9;" class="fa fa-circle">&nbsp<span style="color:#000;">可賣</span></i>&nbsp&nbsp
+				<i style="color:red;" class="fa fa-circle">&nbsp<span style="color:#000;">修繕中</span></i>&nbsp&nbsp	
+				<i style="color:green;" class="fa fa-circle">&nbsp<span style="color:#000;">空房</span></i>&nbsp&nbsp
+				<i style="color:orange;" class="fa fa-circle">&nbsp<span style="color:#000;">入住中</span></i>
 			</div>
 		</div>
 		<table class="table table-striped" id="myTable">
@@ -84,6 +85,7 @@
 				<th>房間編號</th>
 				<th style="width:162px;">房型編號</th>
 				<th style="text-align:center;">房間狀態</th>
+				<th style="text-align:center;">入住狀態</th>
 				<th style="text-align:center;">修改房間</th>
 				<th style="text-align:center;">刪除房間</th>
 			</tr>
@@ -93,16 +95,24 @@
 				<td>${roomVO.room_category_id}</td>			
 				<td style="text-align:center;">
 				<c:choose>
+					<c:when test="${roomVO.status == '0'}">
+						<i style="color:#1876b9;" class="fa fa-circle"></i>
+					</c:when>
+					<c:when test="${roomVO.status == '1'}">
+						<i style="color:red;" class="fa fa-circle"></i>
+					</c:when>
+				</c:choose>
+				</td>
+				<td style="text-align:center;">
+				<c:choose>
 					<c:when test="${roomVO.occupy == '0'}">
 						<i style="color:green;" class="fa fa-circle"></i>
 					</c:when>
 					<c:when test="${roomVO.occupy == '1'}">
 						<i style="color:orange;" class="fa fa-circle"></i>
 					</c:when>
-					<c:otherwise>
-						<i style="color:red;" class="fa fa-circle"></i>
-					</c:otherwise>
-				</c:choose></td>
+				</c:choose>
+				</td>
 				<td style="text-align:center;">	
 			    <button class="edit btn btn-info" type="submit">修改</button>
 				</td>
@@ -131,16 +141,33 @@
 						</select>
 						</td>
 					</tr>
+					<c:if test="${not empty errorUpdateMsgs}">
+						<p style="font-size:8px; color:red;">${errorUpdateMsgs.room_category_id}</p>
+					</c:if>
 					<tr><td>房間狀態：</td>
 						<td>
 						<select class="input-beautify" name="status" required>
 							<option value="99">請選擇狀態</option>
-							<option value="0">可入住</option>
-							<option value="1">入住中</option>
-							<option value="2">修繕中</option>		
+							<option value="0">可賣</option>
+							<option value="1">修繕中</option>	
 						</select>
 						</td>
-					</tr>		
+					</tr>
+					<c:if test="${not empty errorUpdateMsgs}">
+						<p style="font-size:8px; color:red;">${errorUpdateMsgs.status}</p>
+					</c:if>
+					<tr><td>入住狀態：</td>
+						<td>
+						<select class="input-beautify" name="occupy" required>
+							<option value="100">請選擇狀態</option>
+							<option value="0">空房</option>
+							<option value="1">入住中</option>	
+						</select>
+						</td>
+					</tr>
+					<c:if test="${not empty errorUpdateMsgs}">
+						<p style="font-size:8px; color:red;">${errorUpdateMsgs.occupy}</p>
+					</c:if>
 					<tr><td colspan="2" align="center">				
 					<input type="hidden" name="action" value="update">
 					<input class="btn btn-info" type="submit" id="btnEdit" value="送出修改">

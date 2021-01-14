@@ -8,14 +8,24 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.naming.Context;
+import javax.naming.NamingException;
+import javax.sql.DataSource;
+
 import com.shop_order.model.ShopOrderDAO;
 import com.shop_order.model.ShopOrderVO;
 
 public class ItemPromotionJDBCDAO implements ItemPromotionDAO_interface {
-	String driver = "oracle.jdbc.driver.OracleDriver";
-	String url = "jdbc:oracle:thin:@localhost:1521:XE";
-	String userid = "CEA101G3";
-	String password = "123456";
+	//連線池
+	private static DataSource ds = null;
+	static {
+		try {
+			Context ctx = new javax.naming.InitialContext();
+			ds = (DataSource) ctx.lookup("java:comp/env/jdbc/GDB");
+		} catch (NamingException e) {
+			e.printStackTrace();
+		}
+	}
 
 	public static final String INSERT_STMT = "INSERT INTO ITEM_PROMOTION (ITEM_PROMOTION_ID, ITEM_ID, ITEM_PROMOTION_INFO, ITEM_DISCOUNT, ITEM_PROM_START_DATE, ITEM_PROM_CLOSE_DATE)"
 			+ "VALUES('IP'|| ITEM_PROMOTION_ID_SEQ.NEXTVAL,?,?,?,?,?)";
@@ -29,8 +39,7 @@ public class ItemPromotionJDBCDAO implements ItemPromotionDAO_interface {
 		PreparedStatement pstmt = null;
 
 		try {
-			Class.forName(driver);
-			con = DriverManager.getConnection(url, userid, password);
+			con = ds.getConnection();
 			pstmt = con.prepareStatement(INSERT_STMT);
 
 			pstmt.setString(1, itemPromotionVO.getItem_id());
@@ -41,9 +50,6 @@ public class ItemPromotionJDBCDAO implements ItemPromotionDAO_interface {
 
 			pstmt.executeUpdate();
 
-		} catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
-			// Handle any SQL errors
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. " + se.getMessage());
 			// Clean up JDBC resources
@@ -70,8 +76,7 @@ public class ItemPromotionJDBCDAO implements ItemPromotionDAO_interface {
 		PreparedStatement pstmt = null;
 
 		try {
-			Class.forName(driver);
-			con = DriverManager.getConnection(url, userid, password);
+			con = ds.getConnection();
 			pstmt = con.prepareStatement(UPDATE);
 
 			pstmt.setString(1, itemPromotionVO.getItem_id());
@@ -83,9 +88,6 @@ public class ItemPromotionJDBCDAO implements ItemPromotionDAO_interface {
 
 			pstmt.executeUpdate();
 
-		} catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
-			// Handle any SQL errors
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. " + se.getMessage());
 			// Clean up JDBC resources
@@ -112,16 +114,12 @@ public class ItemPromotionJDBCDAO implements ItemPromotionDAO_interface {
 		PreparedStatement pstmt = null;
 
 		try {
-			Class.forName(driver);
-			con = DriverManager.getConnection(url, userid, password);
+			con = ds.getConnection();
 			pstmt = con.prepareStatement(DELETE);
 
 			pstmt.setString(1, item_promotion_id);
 
 			pstmt.executeUpdate();
-		} catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
-			// Handle any SQL errors
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. " + se.getMessage());
 			// Clean up JDBC resources
@@ -152,8 +150,7 @@ public class ItemPromotionJDBCDAO implements ItemPromotionDAO_interface {
 
 		try {
 
-			Class.forName(driver);
-			con = DriverManager.getConnection(url, userid, password);
+			con = ds.getConnection();
 			pstmt = con.prepareStatement(GET_ONE_STMT);
 
 			pstmt.setString(1, item_promotion_id);
@@ -170,9 +167,6 @@ public class ItemPromotionJDBCDAO implements ItemPromotionDAO_interface {
 				itemPromotionVO.setItem_prom_close_date(rs.getDate(6));
 			}
 
-		} catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
-			// Handle any SQL errors
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. " + se.getMessage());
 			// Clean up JDBC resources
@@ -212,8 +206,7 @@ public class ItemPromotionJDBCDAO implements ItemPromotionDAO_interface {
 
 		try {
 
-			Class.forName(driver);
-			con = DriverManager.getConnection(url, userid, password);
+			con = ds.getConnection();
 			pstmt = con.prepareStatement(GET_ALL_STMT);
 			rs = pstmt.executeQuery();
 
@@ -229,9 +222,6 @@ public class ItemPromotionJDBCDAO implements ItemPromotionDAO_interface {
 				list.add(itemPromotionVO);
 			}
 
-		} catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
-			// Handle any SQL errors
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. " + se.getMessage());
 			// Clean up JDBC resources

@@ -5,9 +5,11 @@
 <%@ page import="com.item.model.*"%>
 <%@ page import="com.item_category.model.*"%>
 <%
+	String itemCategoryId = request.getParameter("itemCategoryId");
+	if(itemCategoryId == null) 
+		itemCategoryId = "I001";
     ItemService itemSvc = new ItemService();
-//     List<ItemVO> list = itemSvc.getByCat("I001");
-	List<ItemVO> list = itemSvc.getAll();
+    List<ItemVO> list = itemSvc.getByCat(itemCategoryId);
     pageContext.setAttribute("list",list);
     
     ItemCategoryService itemCatSvc = new ItemCategoryService();
@@ -94,7 +96,7 @@
                 <div class="col-md-2 bg_grad pl-3 menu_left ">
                     <ul>
                     	<c:forEach var="itemCategoryVO" items="${catList}">
-                        	<li><a href=""><h5 id="itemTypeCol">${itemCategoryVO.itemCategoryName}</h5></a></li><br><br>
+                        	<li><a href="<%=request.getContextPath()%>/item_category/itemCategory.do?action=changeCategory&itemCategoryId=${itemCategoryVO.itemCategoryId}"><h5 id="itemTypeCol">${itemCategoryVO.itemCategoryName}</h5></a></li><br><br>
                         </c:forEach>
                     </ul>
                 </div>
@@ -110,7 +112,7 @@
 	                    	</c:if>
 		                    	<div class="col-3">
 		                            <div class="card mb-3" style="text-align: center">
-		                                <img class="card-img-top itemImg" src="<%=request.getContextPath()%>/img/20200108.jpg" alt="Card image cap">
+		                                <img class="card-img-top itemImg" src="<%=request.getContextPath()%>/photoByitemId?itemId=${itemVO.itemId}" alt="Card image cap">
 		                                <div class="card-body name"><h5>${itemVO.itemName}</h5></div>
 		                                <FORM method="post">
 		                                	<input type="hidden" class="info" name="itemInfo" value="${itemVO.itemInfo}">		                                

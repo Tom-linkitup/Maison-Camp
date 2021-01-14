@@ -6,7 +6,7 @@ public class ItemCommentService {
 	private ItemCommentDAO_interface dao;
 	
 	public ItemCommentService() {
-		dao = new ItemCommentJDBCDAO();
+		dao = new ItemCommentJDAO();
 	}
 	
 	public ItemCommentVO addItemComment( String itemId,String shopComment, java.sql.Timestamp time) {
