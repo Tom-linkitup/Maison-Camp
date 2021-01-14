@@ -1,6 +1,7 @@
 package com.shop_order.controller;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.Set;
 import java.util.Vector;
 
@@ -16,6 +17,9 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.shop_order.model.Item;
+import com.shop_order.model.ShopOrderService;
+import com.shop_order_detail.model.ShopOrderDetailService;
+import com.shop_order_detail.model.ShopOrderDetailVO;
 
 @WebServlet("/ShoppingServlet")
 public class ShoppingServlet extends HttpServlet {
@@ -111,10 +115,7 @@ public class ShoppingServlet extends HttpServlet {
 			RequestDispatcher rd = req.getRequestDispatcher(url);
 			rd.forward(req, res);
 		}
-		else if(action.equals("findOrderByOrderId")) {
-			String shopOrderId = req.getParameter("shopOrderId");
-			
-		}
+		
 	}
 
 	private Item getItem(HttpServletRequest req) {

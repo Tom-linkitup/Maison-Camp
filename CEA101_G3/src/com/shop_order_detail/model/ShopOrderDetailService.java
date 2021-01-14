@@ -47,7 +47,7 @@ public class ShopOrderDetailService {
 	public void deleteShopOrderDetail(String shop_order_id) {
 		dao.delete(shop_order_id);
 	}
-	public ShopOrderDetailVO getOneShopOrderDetail(String shop_order_id){
+	public List<ShopOrderDetailVO> getAllByShopOrderDetail(String shop_order_id){
 		return dao.findByPrimaryKey(shop_order_id);
 	}
 	public List<ShopOrderDetailVO> getAll(){

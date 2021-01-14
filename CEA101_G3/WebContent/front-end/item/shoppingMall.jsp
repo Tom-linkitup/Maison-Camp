@@ -27,7 +27,6 @@
     <link rel="shortcut icon" type="image/png" href="<%=request.getContextPath() %>/img/camplogo.png">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" rel="stylesheet" />
-
     <title>Maison Camp | 露營家</title>
 </head>
 
@@ -104,26 +103,38 @@
                 <div class="col-md-8 mx-auto pt-5">
                     <!-- 中間右頁 -->
                     <div class="row" >
-                    <%@ include file="page1toshop.file" %>
-                    	
+                    <%@ include file="page1toshop.file" %>             	
 	                    <c:forEach var="itemVO" items="${list}" varStatus="count"  begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
-	                    	<c:if test="${count.count mod 4 == 1 }">
+	                    	<%-- <c:if test="${count.count mod 4 == 0 }"> --%>
 	                			<div class="row">    		
-	                    	</c:if>
-		                    	<div class="col-3">
-		                            <div class="card mb-3" style="text-align: center">
-		                                <img class="card-img-top itemImg" src="<%=request.getContextPath()%>/photoByitemId?itemId=${itemVO.itemId}" alt="Card image cap">
-		                                <div class="card-body name"><h5>${itemVO.itemName}</h5></div>
-		                                <FORM method="post">
-		                                	<input type="hidden" class="info" name="itemInfo" value="${itemVO.itemInfo}">		                                
-		                                	<input type="hidden" class="id" name="itemId" value="${itemVO.itemId}">
-		                                	<input type="hidden" class="price" name="itemPrice" value="${itemVO.itemPrice}">
-		                                </FORM>
-		                            </div>
+			                    	<div class="col-3">
+			                            <div class="card mb-3" style="text-align: center; height:300px; width:220px; margin-left:10px;">
+			                                <img style="height:210px; width:210px;" class="card-img-top itemImg" src="<%=request.getContextPath()%>/photoByitemId?itemId=${itemVO.itemId}" alt="Card image cap">
+			                                <div class="card-body name"><p>${itemVO.itemName}</p></div>
+			                                <FORM method="post">
+			                                	<input type="hidden" class="info" name="itemInfo" value="${itemVO.itemInfo}">		                                
+			                                	<input type="hidden" class="id" name="itemId" value="${itemVO.itemId}">
+			                                	<input type="hidden" class="price" name="itemPrice" value="${itemVO.itemPrice}">
+			                                </FORM>
+			                            </div>
+			                        </div>
 		                        </div>
-		                   	<c:if test="${count.count mod 4 == 0 or count.last}">
-	                			</div>    		
-	                    	</c:if>
+	                    <%-- 	</c:if> --%>
+		                   	<%-- <c:if test="${count.count mod 4 == 0 or count.last}">
+		                   		<div class="row">    		
+			                    	<div class="col-3">
+			                            <div class="card mb-3" style="text-align: center; height:300px; width:220px; margin-left:10px;">
+			                                <img style="height:210px; width:210px;" class="card-img-top itemImg" src="<%=request.getContextPath()%>/photoByitemId?itemId=${itemVO.itemId}" alt="Card image cap">
+			                                <div class="card-body name"><p>${itemVO.itemName}</p></div>
+			                                <FORM method="post">
+			                                	<input type="hidden" class="info" name="itemInfo" value="${itemVO.itemInfo}">		                                
+			                                	<input type="hidden" class="id" name="itemId" value="${itemVO.itemId}">
+			                                	<input type="hidden" class="price" name="itemPrice" value="${itemVO.itemPrice}">
+			                                </FORM>
+			                            </div>
+			                        </div>
+		                        </div>    		
+	                    	</c:if> --%>
 	                    </c:forEach>
 	               </div> 
 					

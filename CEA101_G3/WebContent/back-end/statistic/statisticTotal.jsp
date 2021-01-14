@@ -11,6 +11,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css">
 <script src="<%=request.getContextPath()%>/js/back-end/echarts.min.js"></script>
 <title>Insert title here</title>
 </head>
@@ -21,7 +22,6 @@
 	
 	// 三項總金額
 	int roomOrderSum = 0 , actOrderSum = 0 , itemOrderSum = 0 ; 
-	
 	
 	// room
 	List<String> roomCategoryList = new ArrayList<>(); 
@@ -173,8 +173,7 @@
 				itemSumSB.append("\"");
 			}
 		}
-		
-		
+			
 		// 活動項目營收
 		@SuppressWarnings("unchecked")
 		NativeQuery<Object> query3 = session1.createNativeQuery("select sum(ao.PEOPLE * ao.ACT_PRICE) as 活動項目營收 from ACTIVITY a inner join ACTIVITY_ORDER ao on a.ACT_ID = ao.ACT_ID");
@@ -187,21 +186,15 @@
 		Object roomOrderSumOBJ= query4.getSingleResult();
 		roomOrderSum = ((BigDecimal)roomOrderSumOBJ).intValue();
 		
-		
 		// 商城項目營收
 		@SuppressWarnings("unchecked")
 		NativeQuery<Object> query5 = session1.createNativeQuery("select sum(SHOP_TOTAL_AMOUNT) as 商城項目營收 from shop_order");
 		Object itemOrderSumOBJ= query5.getSingleResult();
-		itemOrderSum = ((BigDecimal)itemOrderSumOBJ).intValue();
-		
-		
-		
+		itemOrderSum = ((BigDecimal)itemOrderSumOBJ).intValue();	
 %>
-<<<<<<< HEAD
-<div id="actTotal" style="width: 1800px; height: 800px;margin-left:2em;margin-top:5em;">
-=======
-<div id="main" style="width: 600px; height: 300px;margin-left:2em;margin-top:1em;">
->>>>>>> branch 'main' of https://github.com/Tom-linkitup/Maison-Camp.git
+<div class="row">
+	<div id="actTotal" class="col-sm-5" style="width: 600px; height: 300px;margin-left:5em;margin-top:1em;">
+	<h3 style="text-align:center;">活動報名數量</h3>
       <script type="text/javascript">
         // 基于准备好的dom，初始化echarts实例
         var myChart = echarts.init(document.getElementById("actTotal"));
@@ -214,6 +207,12 @@
           },
           yAxis: {
             type: "value",
+          },
+          title: {
+              text: '報名數量統計表',
+              textStyle: {
+                  color: '#235894'
+              }
           },
           series: [
             {
@@ -230,15 +229,45 @@
         // 使用刚指定的配置项和数据显示图表。
         myChart.setOption(option);
       </script>
+    </div> 
+    <div id="itemTotal" class="col-sm-5" style="width: 500px; height: 300px;margin-left:1em;margin-top:1em;">
+      <script type="text/javascript">
+        // 基于准备好的dom，初始化echarts实例
+        var myChart2 = echarts.init(document.getElementById("itemTotal"));
+
+        // 指定图表的配置项和数据
+        var option = {
+          xAxis: {
+            type: "category",
+            data: [<%=itemCategorySB%>],
+          },
+          yAxis: {
+            type: "value",
+          },
+          title: {
+              text: '商城數量統計表',
+              textStyle: {
+                  color: '#235894'
+              }
+          },
+          series: [
+            {
+              data: [<%=itemSumSB%>],
+              type: "bar",
+              showBackground: true,
+              backgroundStyle: {
+                color: "rgba(220, 220, 220, 0.8)",
+              },
+            },
+          ],
+        };
+        // 使用刚指定的配置项和数据显示图表。
+        myChart2.setOption(option);
+      </script>
     </div>
-    
-    
-    
-<<<<<<< HEAD
-    <div id="roomTotal" style="width: 1800px; height: 800px;margin-left:2em;margin-top:5em;">
-=======
-    <div id="main1" style="width: 600px; height: 300px;margin-left:2em;margin-top:1em;">
->>>>>>> branch 'main' of https://github.com/Tom-linkitup/Maison-Camp.git
+</div>
+ <div class="row">
+    <div id="roomTotal" class="col-sm-6" style="width:500px; height:300px;margin-left:5em;margin-top:1em;">
       <script type="text/javascript">
         // 基于准备好的dom，初始化echarts实例
         var myChart1 = echarts.init(document.getElementById("roomTotal"));
@@ -251,6 +280,12 @@
           },
           yAxis: {
             type: "value",
+          },
+          title: {
+              text: '訂房數量統計表',
+              textStyle: {
+                  color: '#235894'
+              }
           },
           series: [
             {
@@ -268,39 +303,7 @@
         myChart1.setOption(option);
       </script>
     </div>
-    
-    <div id="itemTotal" style="width: 1800px; height: 800px;margin-left:2em;margin-top:5em;">
-      <script type="text/javascript">
-        // 基于准备好的dom，初始化echarts实例
-        var myChart2 = echarts.init(document.getElementById("itemTotal"));
-
-        // 指定图表的配置项和数据
-        var option = {
-          xAxis: {
-            type: "category",
-            data: [<%=itemCategorySB%>],
-          },
-          yAxis: {
-            type: "value",
-          },
-          series: [
-            {
-              data: [<%=itemSumSB%>],
-              type: "bar",
-              showBackground: true,
-              backgroundStyle: {
-                color: "rgba(220, 220, 220, 0.8)",
-              },
-            },
-          ],
-        };
-
-        // 使用刚指定的配置项和数据显示图表。
-        myChart2.setOption(option);
-      </script>
-    </div>
-    
-    <div id="sumTotal" style="width: 1800px; height: 800px;margin-left:2em;margin-top:5em;">
+    <div id="sumTotal" class="col-sm-5" style="width: 500px; height: 300px;margin-left:-3em;margin-top:1em;">
       <script type="text/javascript">
         // 基于准备好的dom，初始化echarts实例
         var myChart2 = echarts.init(document.getElementById("sumTotal"));
@@ -327,7 +330,8 @@
         option = {
             backgroundColor: {
                 image: bgPatternImg,
-                repeat: 'repeat'
+                repeat: 'repeat',
+                color: '#e67e22'
             },
             title: {
                 text: '收入圓餅圖',
@@ -364,7 +368,7 @@
         myChart2.setOption(option);
       </script>
     </div>
-    
+ </div> 
     
 <%		tx.commit();
 	} catch (RuntimeException ex) {

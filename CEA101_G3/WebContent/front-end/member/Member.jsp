@@ -32,12 +32,10 @@
 	ShopOrderService soSvc = new ShopOrderService();
 	List<ShopOrderVO> solist = soSvc.getByMemId(memVO.getMem_id());
 	pageContext.setAttribute("solist", solist);
-
 	
 %>
-
-<jsp:useBean id="rodSvc" scope="page" class="com.roomorderdetail.model.RoomOrderDetailService" />
 <jsp:useBean id="rtSvc" scope="page" class="com.roomtype.model.RoomTypeService" />
+<jsp:useBean id="rodSvc" scope="page" class="com.roomorderdetail.model.RoomOrderDetailService" />
 <jsp:useBean id="acPhSvc" scope="page" class="com.actPhoto.model.ActPhotoService" />
 <jsp:useBean id="actSvc" scope="page" class="com.activity.model.ActivityService" />
 <jsp:useBean id="actCategorySvc" scope="page" class="com.actCategory.model.ActCategoryService" />
@@ -342,7 +340,7 @@
 	                    	<img src="<%=request.getContextPath()%>/img/shopOrderImg.jpg" style="width:300px; height:200px; margin-left:-12px;"/>              		
 				      	</div>
 				      	<div class="col-sm-4">
-					      	<h4 class="room-order-headline">訂單資訊</h4>
+					      	<h4 class="room-order-headline"><a href="<%=request.getContextPath()%>/findOrder?action=findOrderByOrderId&shopOrderId=${soVO.shop_order_id}">訂單資訊</a></h4>
 							<ul style="list-style:none; padding:5px 0; line-height:2em; font-size: 15px;">
 								<li><i class="fa fa-chevron-circle-right"></i>付款方式: ${soVO.payment}</li>
 								<li><i class="fa fa-chevron-circle-right"></i>訂單金額: ${soVO.shop_total_amount} 元</li>

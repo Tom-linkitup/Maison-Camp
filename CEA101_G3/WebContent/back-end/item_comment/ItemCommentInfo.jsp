@@ -24,7 +24,7 @@
 		<label for="tab-1">查看所有商品評論</label> 
 		
 		<input class="title" id="tab-2" type="radio" name="tab-group" /> 
-		<label for="tab-2">新增商品照片</label> 
+		<label for="tab-2">新增商品評論</label> 
 		
 		<div id="content">
 			<jsp:include page="/back-end/item_comment/listAllItemComment2.jsp" />
