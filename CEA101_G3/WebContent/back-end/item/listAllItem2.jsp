@@ -22,7 +22,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<div id="content-1">
+	<div id="content-1" style="max-height:100% ;	overflow: auto;">
 	<div style="position:relative;">
 	<select id="chooseCategory" name="chooseCategory" style="position: absolute;left: 0px; z-index:99;">
 	<c:forEach var="CategoryVO" items="${ItemCategorySvc.getAll()}">
@@ -42,8 +42,7 @@
 				<th>商品修改</th>
 				<th>商品刪除</th>
 			</tr>
-			<%@ include file="page1.file"%>
-			<c:forEach var="itemVO" items="${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">			
+			<c:forEach var="itemVO" items="${list}">			
 			<tr class="disappear">
 				<td>${itemVO.itemId}</td>
 				<td>${itemVO.itemCategoryId}</td>
@@ -73,7 +72,6 @@
 			</tr>
 			</c:forEach>	
 		</table>
-		<%@ include file="page2.file"%>
 		<div id="lightBox" style="display:none;">
 			<form method="post" action="${pageContext.request.contextPath}/item/item.do">
 				<table align="center" id="tableLogin">
@@ -120,6 +118,8 @@
          			for(j in data2[i]){
              			let tr = document.createElement("tr");
              			tr.classList.add("disappear");
+             			let thead = document.createElement("thead");
+             			let tbody = document.createElement("tbody");
              			let td1 = document.createElement("td");
              			let td2 = document.createElement("td");
              			let td3 = document.createElement("td");
@@ -186,10 +186,8 @@
                
             }
         }) 
-        
+	 }) 
 
-	
-	})
 		$(".edit").click(function() {
 			$("#lightBox").css("display","");
 			let tr = $(this).parents("tr");
@@ -206,52 +204,7 @@
 			$("#lightBox").css("display","none");
 		})
 		
-		
-		$('#myTable').dataTable({
-//		    "searching": true, //搜尋
-//		    "sPaginationType": "full_numbers", //分頁功能樣式
-		   	  "lengthMenu": [2,3], //顯示筆數
-//		    "processing": true, //顯示資料處理狀態
-//		    "serverSide": false, //Server端資料處理模式（分頁、排序、過濾）
-//		    "stateSave": true, //表格狀態保存，當頁面刷新時，是否要保存當前表格狀態，不保存狀態便會在刷新時回復到原始狀態
-//		    "destroy": true, //每一次修改時銷毀資料
-		      "info": true, // 顯示資訊
-			  "autoWidth": true, //是否要自動調整表格寬度
-//		    "ordering": false, //是否要開啟排序
-			  "scrollX": "200px", //設置x軸高度
-//		    "scrollY": "200px", //設置y軸高度
-//		    "scrollCollapse": true, //設置是否控制y軸長度自適應
-//		    "paging": false, //設置是否要開啟y軸內部分頁
-//			"bAutoWidth": true,
-//			"bLengthChange": true,
-		    language: {
-		        "lengthMenu": "顯示 _MENU_ 筆資料",
-		        "sProcessing": "處理中...",
-		        "sZeroRecords": "查無資料",
-		        "sInfo": "目前有 _MAX_ 筆資料",
-		        "sInfoEmpty": "目前共有 0 筆紀錄",
-		        "sInfoFiltered": " ",
-		        "sInfoPostFix": "",
-		        "sSearch": "搜尋任何內容:",
-		        "sUrl": "",
-		        "sEmptyTable": "尚未有資料紀錄存在",
-		        "sLoadingRecords": "載入資料中...",
-		        "sInfoThousands": ",",
-		        "oPaginate": {
-		            "sFirst": "首頁",
-		            "sPrevious": "上一頁",
-		            "sNext": "下一頁",
-		            "sLast": "末頁"
-		        },
-		        "order": [[0, "desc"]],
-		        "oAria": {
-		            "sSortAscending": ": 以升序排列此列",
-		            "sSortDescending": ": 以降序排列此列"
-		        }
-		    }
-		});
-		
-	})
+	})	
 	</script>	
 </body>
 </html>
