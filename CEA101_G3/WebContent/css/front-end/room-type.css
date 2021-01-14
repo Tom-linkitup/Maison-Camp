@@ -1,12 +1,10 @@
 /*
 COLORS:
-
 Light green: #7ed56f
 Medium green: #55c57a
 Dark green: #28b485
-
 */
-body {
+body { 
     margin: 0;
     padding: 0;
     background-image: url("img/stephan-zabini-JUiAUR64QNU-unsplash.jpg");
@@ -562,8 +560,3 @@ body {
   background-repeat: no-repeat; 
   background-position: center center;
 }
-
-
-
-
-

@@ -58,7 +58,7 @@
 		<c:if test="${not empty errorMsgs}">
 		<p class="error" style="color:red; font-size:8px;">${errorMsgs.room_category_id}</p>
 		</c:if>
-		</tr>
+		</tr><P></P>
 		
 		<tr><td>優惠資訊說明:</td>
 		<td><input type="TEXT" name="room_promotion_info" class="input-beautify" value="<%=(room_promotionVO==null)? "" : room_promotionVO.getRoom_promotion_info()%>"></td>

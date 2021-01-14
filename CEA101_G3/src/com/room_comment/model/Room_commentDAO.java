@@ -24,7 +24,7 @@ public class Room_commentDAO implements Room_commentDAO_interface {
 
 	private static final String INSERT_STMT = 
 		"INSERT INTO room_comment(room_comment_id,room_category_id,room_comment_content,time,comment_reply)"
-		+ "VALUES ('RC' || room_comment_id_seq.NEXTVAL, ?, ?, ?,?)";
+		+ "VALUES ('RC' || room_comment_id_seq.NEXTVAL, ?, ?, current_TimeStamp,?,?)";
 	private static final String GET_ALL_STMT = 
 		"SELECT room_comment_id,room_category_id,room_comment_content,time,comment_reply FROM room_comment order by room_comment_id desc";
 	private static final String GET_ONE_STMT = 
@@ -49,7 +49,7 @@ public class Room_commentDAO implements Room_commentDAO_interface {
 	private static final String GETALLWAITREPLY=
 	"SELECT room_comment_id,room_category_id,room_comment_content,time,comment_reply FROM room_comment where comment_reply is null order by time desc";
 	
-	private static final String Get_By_RCT = "SELECT ROOM_COMMENT_ID, ROOM_CATEGORY_ID, ROOM_COMMENT_CONTENT,TIME,COMMENT_REPLY FROM ROOM_COMMENT WHERE ROOM_CATEGORY_ID=? ORDER BY TIME desc";
+	private static final String Get_By_RCT = "SELECT ROOM_COMMENT_ID, ROOM_CATEGORY_ID, ROOM_COMMENT_CONTENT,TIME,COMMENT_REPLY  FROM ROOM_COMMENT WHERE ROOM_CATEGORY_ID=? ORDER BY TIME desc";
 	
 	
 	@Override
@@ -68,6 +68,7 @@ public class Room_commentDAO implements Room_commentDAO_interface {
 			pstmt.setString(2, room_commentVO.getRoom_comment_content());
 			pstmt.setTimestamp(3, room_commentVO.getTime());
 			pstmt.setString(4, room_commentVO.getComment_reply());
+			
 				
 			pstmt.executeUpdate();
 

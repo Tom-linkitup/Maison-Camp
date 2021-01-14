@@ -39,6 +39,7 @@ public class RoomTypeServlet extends HttpServlet {
 			try {			
 				String room_category_id = req.getParameter("room_category_id").trim();
 				RoomTypeService roomTypeSvcTest = new RoomTypeService();
+				
 				List<RoomTypeVO> roomTypeList = roomTypeSvcTest.getAllRT();
 				for(RoomTypeVO rt : roomTypeList) {
 					if(room_category_id.equals(rt.getRoom_category_id())) {
@@ -53,6 +54,7 @@ public class RoomTypeServlet extends HttpServlet {
 				if(room_name == null || room_name.trim().length() == 0) {
 					errorMsgs.put("room_name", "*房型名稱不得為空");
 				}
+				
 				String room_type = req.getParameter("room_type");
 				if(room_type == null || room_type.trim().length() == 0) {
 					errorMsgs.put("room_type", "*房型類別不得為空");

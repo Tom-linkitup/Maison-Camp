@@ -256,5 +256,3 @@ if ("update".equals(action)) { // 靘updateExtraChargesInput.jsp????
 	
 	}
 }
-
-

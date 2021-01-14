@@ -2,7 +2,7 @@ package com.room_promotion.model;
 
 import java.sql.Date;
 
-public class Room_promotionVO implements java.io.Serializable{
+public class Room_promotionVO implements java.io.Serializable{ 
 
 	private String room_promotion_id;
 	private String room_category_id;
