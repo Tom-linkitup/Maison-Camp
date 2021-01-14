@@ -111,7 +111,10 @@ public class ShoppingServlet extends HttpServlet {
 			RequestDispatcher rd = req.getRequestDispatcher(url);
 			rd.forward(req, res);
 		}
-
+		else if(action.equals("findOrderByOrderId")) {
+			String shopOrderId = req.getParameter("shopOrderId");
+			
+		}
 	}
 
 	private Item getItem(HttpServletRequest req) {

@@ -339,7 +339,7 @@
 	              <div class="container">
 				      <div class="row">
 				      	<div class="col-sm-4">
-	                    	<img src="<%=request.getContextPath()%>/FrontEndRTPhoto?room_category_id=${rodSvc.getOneROD(roVO.room_order_id).room_category_id}" style="width:300px; height:200px; margin-left:-12px;"/>              		
+	                    	<img src="<%=request.getContextPath()%>/img/shopOrderImg.jpg" style="width:300px; height:200px; margin-left:-12px;"/>              		
 				      	</div>
 				      	<div class="col-sm-4">
 					      	<h4 class="room-order-headline">訂單資訊</h4>
