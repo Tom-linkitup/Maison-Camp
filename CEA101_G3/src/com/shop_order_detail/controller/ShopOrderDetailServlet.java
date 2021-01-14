@@ -40,7 +40,7 @@ public class ShopOrderDetailServlet extends HttpServlet {
 			}
 			/*************************** 2.開始查詢資料 *****************************************/
 			ShopOrderDetailService shopOrderDetailSvc = new ShopOrderDetailService();
-			ShopOrderDetailVO shopOrderDetailVO = shopOrderDetailSvc.getOneShopOrderDetail(shop_order_id);
+			List<ShopOrderDetailVO> shopOrderDetailVO = shopOrderDetailSvc.getAllByShopOrderDetail(shop_order_id);
 
 			if (shopOrderDetailVO == null) {
 				errorMsgs.add("查無資料");
@@ -66,7 +66,7 @@ public class ShopOrderDetailServlet extends HttpServlet {
 
 				/*************************** 2.開始查詢資料 ****************************************/
 				ShopOrderDetailService shopOrderDetailSvc = new ShopOrderDetailService();
-				ShopOrderDetailVO shopOrderDetailVO = shopOrderDetailSvc.getOneShopOrderDetail(shop_order_id);
+				List<ShopOrderDetailVO> shopOrderDetailVO = shopOrderDetailSvc.getAllByShopOrderDetail(shop_order_id);
 
 				/*************************** 3.查詢完成,準備轉交(Send the Success view) ************/
 				req.setAttribute("shopOrderDetailVO", shopOrderDetailVO);
