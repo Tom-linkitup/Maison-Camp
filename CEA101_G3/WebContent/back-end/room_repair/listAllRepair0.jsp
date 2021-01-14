@@ -40,7 +40,7 @@ pageContext.setAttribute("list", list);
 				<td><c:forEach var="empVO" items="${empSvc.all}"><c:if test="${repairVO.emp_id==empVO.emp_id}">${empVO.emp_id}【${empVO.emp_name}】	</c:if></c:forEach></td>			
 				<td>${repairVO.repair_info}</td>
 				
-				<td><div id="r"><img src="${pageContext.request.contextPath}/repair/repair.do?repair_id=${repairVO.repair_id}&action=getRepairPhoto"></div></td>	
+				<td><div><img  class ="pic" src="${pageContext.request.contextPath}/repair/repair.do?repair_id=${repairVO.repair_id}&action=getRepairPhoto"></div></td>	
 				
 				<td><c:choose>
 					<c:when test="${repairVO.status == '0'}">
@@ -79,8 +79,10 @@ pageContext.setAttribute("list", list);
 						</td>
 					<tr>
 					
+					<td><div><img  class ="pic" src="${pageContext.request.contextPath}/repair/repair.do?repair_id=${repairVO.repair_id}&action=getRepairPhoto"></div></td>	
 					
-					<tr><td>維修圖片：</td><td><input id="repair_photo0" class="input-beautify" type="file" name="repair_photo" required accept="image/*" ></td></tr><BR>
+					
+					<tr><td>維修圖片：</td><td><input id="repair_photo0" class="input-beautify" type="file" name="repair_photo"  accept="image/*" ></td></tr><BR>
 					
 					
 					<td><input type="hidden" name="action" value="update">
@@ -103,8 +105,7 @@ pageContext.setAttribute("list", list);
 			$("#repair_info0").val(children.eq(3).text());
 			$("#status").val(children.eq(4).text());
 			
-			$("#repair_photo0").val(children.eq(5).attr("img"));
-			document.getElementById("repair_photo0").innerHTML = document.getElementById("r");
+			
 			
 			
 		})

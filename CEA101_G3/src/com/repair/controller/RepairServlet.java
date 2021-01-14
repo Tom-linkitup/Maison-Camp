@@ -141,7 +141,8 @@ if ("update".equals(action)) {
 				Integer status = new Integer (req.getParameter("status").trim());
 				
 					
-					
+				
+				
 				byte[] repair_photo = null;
 				Part part = req.getPart("repair_photo");
 				InputStream in = part.getInputStream();

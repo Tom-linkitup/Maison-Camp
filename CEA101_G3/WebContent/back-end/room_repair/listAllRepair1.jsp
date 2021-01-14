@@ -63,7 +63,7 @@
 			</c:forEach>	
 		</table>
 		<div id="lightBox1" style="display:none;">
-			<form method="post" action="${pageContext.request.contextPath}/repair/repair.do">
+			<form method="post" action="${pageContext.request.contextPath}/repair/repair.do" enctype="multipart/form-data" >
 				<table align="center" id="tableLogin">
 					<tr style="font-size:20px; color:#c15c61;"><td>房型修改</td></tr>
 					<tr><td>維修編號：</td><td><input style="background-color:#f9f9f9; border:none;" id="repair_id1" class="input-beautify" type="text" name="repair_id" readonly></td></tr>			
@@ -78,6 +78,12 @@
 						</select>
 						</td>
 					<tr>
+					
+					<td><div><img  class ="pic" src="${pageContext.request.contextPath}/repair/repair.do?repair_id=${repairVO.repair_id}&action=getRepairPhoto"></div></td>	
+					
+  					<tr><td>維修圖片：</td><td><input id="repair_photo0" class="input-beautify" type="file" name="repair_photo"  accept="image/*" ></td></tr><BR>
+					
+					
 					<td><input type="hidden" name="action" value="update">
 					<input class="btn btn-info" type="submit" id="btnEdit" value="送出修改">
 					<input class="btn btn-warning" type="button" id="btnEditCancel1" value="取消">		

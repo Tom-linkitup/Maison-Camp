@@ -49,7 +49,7 @@
 				<td class="emp_id_info"><c:forEach var="empVO" items="${empSvc.all}"><c:if test="${repairVO.emp_id==empVO.emp_id}">${empVO.emp_id}【${empVO.emp_name}】	</c:if></c:forEach></td>					
 				<td>${repairVO.repair_info}</td>
 				
-				<td><img class="pic" src="${pageContext.request.contextPath}/repair/repair.do?repair_id=${repairVO.repair_id}&action=getRepairPhoto" onMouseOver="this.width=this.width*1.5;this.height=this.height*1.5" onMouseOut="this.width=this.width/1.5;this.height=this.height/1.5" >
+				<td><img class="pic" src="${pageContext.request.contextPath}/repair/repair.do?repair_id=${repairVO.repair_id}&action=getRepairPhoto" >
 				 </td>		
 				<td><c:choose>
 					<c:when test="${repairVO.status == '0'}">
@@ -61,6 +61,9 @@
 					</c:choose></td>
 				<td>
 				
+				
+				
+				
 				<input type="hidden" name="repair_id" value="${repairVO.repair_id}">
 				<input type="hidden" name="action" value="getOne_For_Update">	
 			    <button class="edit btn btn-info" type="submit">修改</button>
@@ -71,7 +74,7 @@
 			</c:forEach>	
 		</table>
 		<div id="lightBox" style="display:none;">
-			<form method="post" action="${pageContext.request.contextPath}/repair/repair.do">
+			<form method="post" action="${pageContext.request.contextPath}/repair/repair.do" enctype="multipart/form-data" >
 				<table align="center" id="tableLogin">
 					<tr style="font-size:20px; color:#c15c61;"><td>維修資訊修改</td></tr>
 					<tr><td>維修編號：</td><td><input style="background-color:#f9f9f9; border:none;" id="repair_id" class="input-beautify" type="text" name="repair_id" readonly></td></tr>			
@@ -86,6 +89,12 @@
 						</select>
 						</td>
 					<tr>
+					<td><div><img  class ="pic" src="${pageContext.request.contextPath}/repair/repair.do?repair_id=${repairVO.repair_id}&action=getRepairPhoto"></div></td>	
+					
+					
+					<tr><td>維修圖片：</td><td><input id="repair_photo0" class="input-beautify" type="file" name="repair_photo"  accept="image/*" ></td></tr><BR>
+					
+					
 					<td><input type="hidden" name="action" value="update">
 					<input class="btn btn-info" type="submit" id="btnEdit" value="送出修改">
 					<input class="btn btn-warning" type="button" id="btnEditCancel" value="取消">		
