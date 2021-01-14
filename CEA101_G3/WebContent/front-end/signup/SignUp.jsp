@@ -30,14 +30,12 @@
 </head>
 <body>
 <div class="container">
+	<a href="<%=request.getContextPath()%>/front-end/front-index.jsp">回首頁</a>
 	<section id="Steps" class="steps-section">
-
     <h2 class="steps-header">
       加入 Maison Camp 會員
     </h2>
-
     <div class="steps-timeline">
-
       <div class="steps-one">
         <img class="steps-img" src="http://placehold.it/50/3498DB/FFFFFF" alt="" />
         <h5 class="steps-name">

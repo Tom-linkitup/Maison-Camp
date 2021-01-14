@@ -18,6 +18,13 @@
     <link rel="stylesheet" href="<%=request.getContextPath() %>/css/back-end/admin.css">
     <link rel="stylesheet" href="<%=request.getContextPath() %>/css/back-end/context.css">
     <link rel="stylesheet" href="<%=request.getContextPath() %>/css/back-end/style.css">
+<style type="text/css">
+	body {
+		font-size:1.4em !important;
+	
+	}
+
+</style>
 </head> 
     <body class="hold-transition skin-blue sidebar-mini">
             <header class="main-header">
@@ -52,7 +59,7 @@
                 <section class="sidebar">
                   <div class="user-panel">
                         <div class="pull-left image">
-                            <img src="<%=request.getContextPath() %>/img/456.png" class="img-circle" alt="User Image">
+                            <img src="<%=request.getContextPath() %>/img/member.png" class="img-circle" alt="User Image">
                         </div>
                         <div class="pull-left info">
                             <p>${loginEmpVO.emp_name}</p>
@@ -148,6 +155,7 @@
             <div class="content-wrapper text-tab active">
                 <section class="content container-fluid">
                     <div style="width: 100%; height: 100%;">
+                    	<jsp:include page="/back-end/statistic/statisticTotal.jsp" />
                     </div>
                 </section>
             </div>
@@ -183,23 +191,23 @@
         </script>
         
          <script>
-		   toastr.options = {
-				   "closeButton": false,
-				   "debug": false,
-				   "newestOnTop": false,
-				   "progressBar": true,
-				   "positionClass": "toast-bottom-right",
-				   "preventDuplicates": false,
-				   "onclick": null,
-				   "showDuration": "300",
-				   "hideDuration": "1000",
-				   "timeOut": "2500",
-				   "extendedTimeOut": "1000",
-				   "showEasing": "swing",
-				   "hideEasing": "linear",
-				   "showMethod": "fadeIn",
-				   "hideMethod": "fadeOut"
-				 }
+         toastr.options = {
+        		  "closeButton": false,
+        		  "debug": false,
+        		  "newestOnTop": false,
+        		  "progressBar": false,
+        		  "positionClass": "toast-top-right",
+        		  "preventDuplicates": false,
+        		  "onclick": null,
+        		  "showDuration": "300",
+        		  "hideDuration": "1000",
+        		  "timeOut": "5000",
+        		  "extendedTimeOut": "1000",
+        		  "showEasing": "swing",
+        		  "hideEasing": "linear",
+        		  "showMethod": "fadeIn",
+        		  "hideMethod": "fadeOut"
+        		}
 		</script>
     </body>
 </html>

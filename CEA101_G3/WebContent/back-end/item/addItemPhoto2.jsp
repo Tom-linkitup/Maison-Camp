@@ -26,6 +26,15 @@ ItemService itemSvc = new ItemService();
 </c:if>
 </head>
 <style>
+.photo-form #preview {
+	width: 100%;
+	height: 100%;
+	text-align: center;
+	line-height: 200px;
+	color: gray;
+	font-family: Arial;
+}
+
 .photo-form {
 	position:relative;
 	margin-top: 10px;
@@ -90,17 +99,35 @@ ItemService itemSvc = new ItemService();
 		</select>
 		</div>
 			<input type="file" name="content" multiple required>
-			<p>拖曳照片或直接點擊區塊</p>
+			<div id="preview">拖曳照片或直接點擊區塊</div>
 			<input type="hidden" name="action" value="insert">
 			<button type="submit">上傳</button>
 		</form>
 	</div>
 <script>
 $(document).ready(function(){
-	  $('.photo-form input').change(function () {
-	    $('.photo-form p').text(this.files.length + " file(s) selected");
+	  $('.photo-form input').change(function(e){
+		$("#preview").text("");
+		let preview = $("#preview");
+		let files = e.target.files
+        for(let i = 0; i < files.length; i++){
+            let file = files[i]
+            if(file.type.indexOf("image") >= 0){
+                let reader = new FileReader()
+                reader.addEventListener("load", (ex) => {
+                    let img =  document.createElement("img")
+                    img.setAttribute("width", "200px")
+                    img.setAttribute("height", "150px")
+                    img.src = ex.target.result
+                    img.style.marginLeft = "10px"
+                    preview.append(img);
+                })
+                reader.readAsDataURL(file)
+            }
+        }
 	  });
-	});
+});
 </script>
+
 </body>
 </html>

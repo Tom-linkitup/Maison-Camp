@@ -136,7 +136,8 @@ public class ShopOrderDetailDAO implements ShopOrderDetailDAO_interface{
 		}
 	}
 		
-	public ShopOrderDetailVO findByPrimaryKey(String shop_order_id) {
+	public List<ShopOrderDetailVO> findByPrimaryKey(String shop_order_id) {
+		List<ShopOrderDetailVO> list = new ArrayList<ShopOrderDetailVO>();
 		ShopOrderDetailVO shopOrderDetailVO = null;
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -158,6 +159,7 @@ public class ShopOrderDetailDAO implements ShopOrderDetailDAO_interface{
 				shopOrderDetailVO.setNote(rs.getString("note"));
 				shopOrderDetailVO.setQuantity(rs.getInt("quantity"));
 				shopOrderDetailVO.setItem_price(rs.getInt("item_price"));
+				list.add(shopOrderDetailVO);
 			}
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. " + se.getMessage());
@@ -185,7 +187,7 @@ public class ShopOrderDetailDAO implements ShopOrderDetailDAO_interface{
 				}
 			}
 		}
-		return shopOrderDetailVO;
+		return list;
 	}
 	
 	public List<ShopOrderDetailVO> getAll(){

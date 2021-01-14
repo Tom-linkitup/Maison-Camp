@@ -42,21 +42,16 @@
 	<form method="post" action="<%=request.getContextPath()%>/item_comment/itemComment.do">
 		<div id="content-2">
 		
-			評論編號：<input class="input-beautify" type="text" name="itemCommentId" value="">
-			<c:if test="${not empty errorMsgs}">
-			<p class="error" style="color:red; font-size:8px;">${errorMsgs.itemCommentId}</p>
-			</c:if>
+			商品編號：<input class="input-beautify" type="text" name="itemId" value="">
 			<p></p>
-			商品名稱：<input class="input-beautify" type="text" name="itemId" value="">
 			<c:if test="${not empty errorMsgs}">
 			<p class="error" style="color:red; font-size:8px;">${errorMsgs.itemId}</p>
 			</c:if>
-			<p></p>
 			評論內容：<input class="input-beautify" type="text" name="shopComment" value="">
+			<p></p>
 			<c:if test="${not empty errorMsgs}">
 			<p class="error" style="color:red; font-size:8px;">${errorMsgs.shopComment}</p>
 			</c:if>
-			<p></p>
 			評論時間：<input class="input-beautify" type="TEXT" name="timimg" disabled="disabled" value="<%=formatDate%>" />
 			 		  <input type="hidden" name="time" value="<%=time%>" />
 	

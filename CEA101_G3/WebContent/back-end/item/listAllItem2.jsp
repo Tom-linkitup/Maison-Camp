@@ -10,6 +10,9 @@
 	pageContext.setAttribute("list", list);
 %>
 
+<jsp:useBean id="ItemCategorySvc" scope="page" class="com.item_category.model.ItemCategoryService" />
+<jsp:useBean id="ItemSvc" scope="page" class="com.item.model.ItemService" />
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -17,6 +20,13 @@
 <title>Insert title here</title>
 </head>
 <body>
+	<div style="position:relative;">
+	<select id="chooseCategory" name="chooseCategory" style="position: absolute;left: 0px; z-index:1000;">
+	<c:forEach var="CategoryVO" items="${ItemCategorySvc.getAll()}">
+	<option value="${CategoryVO.itemCategoryId}">${CategoryVO.itemCategoryName}</option>
+	</c:forEach>
+	</select>
+	</div>
 	<div id="content-1">
 		<h2 style="text-align:center; margin-bottom:20px;">商品資訊</h2>
 		<table id="myTable" border="1px solid #000">
@@ -105,6 +115,20 @@
 		$("#btnEditCancel").click(function() {
 			$("#lightBox").css("display","none");
 		})
+		
+		$("#chooseCategory").change(function(){
+			$("#myTable").HTML("")
+			
+			
+			
+			
+			
+			
+		})
+		
+		
+		
+
 	</script>	
 </body>
 </html>
