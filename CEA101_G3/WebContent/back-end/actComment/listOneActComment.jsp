@@ -18,10 +18,16 @@
 
 <div id="content-3">
 	<div>
-		<form METHOD="post" ACTION="<%=request.getContextPath()%>/actComment/ActCommentServlet.do">
-		<input type="text" name="actCommentId" value="" placeholder="請輸入活動評論編號">
-		<input type="hidden" name="action" value="listByActCommentId">
-		<input type="submit" value="送出查詢">
+		<jsp:useBean id="acSvc" class="com.activityComment.model.ActivityCommentService" />
+		<form  METHOD="post" ACTION="<%=request.getContextPath()%>/actComment/ActCommentServlet.do">
+			<select size="1" name="actCommentId">
+				<c:forEach var="acVO" items="${acSvc.all}">
+					<option value="${acVO.actCommentId}">${acVO.actCommentId}
+				</c:forEach>
+			</select>
+			
+			<input type="hidden" name="action" value="listByActCommentId"> 
+			<input type="submit" value="送出查詢">
 		</form>
 	</div>
 

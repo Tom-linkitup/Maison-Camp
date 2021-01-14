@@ -58,7 +58,7 @@ th, td {
 			<tr>
 				<td>活動類別編號:</td>
 				<td><input type="TEXT" name="actCategoryId" size="45"
-					value="<%=(actCategoryVO == null) ? "" : actCategoryVO.getActCategoryId()%>" /></td>
+					value="" placeholder="請輸入活動類別編號  EX: ACT_CATEGORY1" /></td>
 			</tr>
 			<tr>
 				<td>活動類別名稱:</td>

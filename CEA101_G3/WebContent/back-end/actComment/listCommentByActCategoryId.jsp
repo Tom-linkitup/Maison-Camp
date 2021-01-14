@@ -10,13 +10,19 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>依活動編號查詢評論</title>
+<title>依活動類別查詢評論</title>
 </head>
 <body>
 <div id="content-2">
 	<div>
+	<jsp:useBean id="acSvc" class="com.actCategory.model.ActCategoryService" />
 		<form  METHOD="post" ACTION="<%=request.getContextPath()%>/actComment/ActCommentServlet.do">
-			<input type="text" name="actCategoryId" value="" placeholder="請輸入活動類別編號"> 
+			<select size="1" name="actCategoryId">
+				<c:forEach var="acVO" items="${acSvc.all}">
+					<option value="${acVO.actCategoryId}">${acVO.actCategoryId}
+				</c:forEach>
+			</select>
+			
 			<input type="hidden" name="action" value="listByActCategoryId"> 
 			<input type="submit" value="送出查詢">
 		</form>

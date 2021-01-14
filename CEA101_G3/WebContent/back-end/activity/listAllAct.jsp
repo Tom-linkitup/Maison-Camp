@@ -129,7 +129,8 @@
 	</div>
 <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.20/datatables.min.js"></script>
 <script>
-$('#actTable').dataTable({
+// $(document).ready(function() {
+	$('#actTable').dataTable({
 //    "searching": true, //搜尋
 //    "sPaginationType": "full_numbers", //分頁功能樣式
    	  "lengthMenu": [2,3], //顯示筆數
@@ -171,7 +172,8 @@ $('#actTable').dataTable({
             "sSortDescending": ": 以降序排列此列"
         }
     }
-});
+	});
+// });
 
 </script>
 </body>

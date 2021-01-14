@@ -41,7 +41,7 @@
 		<th>活動價格</th>
 		<th>狀態碼</th>
 		<th>修改</th>
-		<th>刪除</th>
+
 	</tr>
 
 	<c:forEach var="activityOrderVO" items="${list}">
@@ -55,19 +55,37 @@
 			<td>${activityOrderVO.payment}</td>
 			<td>${activityOrderVO.createTime}</td>
 			<td>${activityOrderVO.actPrice}</td>
-			<td>${activityOrderVO.status}</td>
+			
+			<c:choose>
+			<c:when test="${activityOrderVO.status == '1'}">
+			<td>
+			未確認
+			</td>
+			</c:when>
+			<c:when test="${activityOrderVO.status == '2'}">
+			<td>
+			延期
+			</td>
+			</c:when>
+			<c:when test="${activityOrderVO.status == '3'}">
+			<td>
+			已取消
+			</td>
+			</c:when>
+			<c:otherwise>
+			<td>
+			已確認
+			</td>
+			</c:otherwise>
+			</c:choose>
+			
 			<td>
 			  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/actOrder/ActOrderServlet.do" style="margin-bottom: 0px;">
 			     <input type="submit" value="修改">
 			     <input type="hidden" name="actOrderId"  value="${activityOrderVO.actOrderId}">
 			     <input type="hidden" name="action"	value="getOne_For_Update"></FORM>
 			</td>
-			<td>
-			  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/actOrder/ActOrderServlet.do" style="margin-bottom: 0px;">
-			     <input type="submit" value="刪除">
-			     <input type="hidden" name="actOrderId"  value="${activityOrderVO.actOrderId}">
-			     <input type="hidden" name="action" value="delete"></FORM>
-			</td>
+			
 		</tr>
 	</c:forEach>
 </table>

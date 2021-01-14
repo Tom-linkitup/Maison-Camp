@@ -54,7 +54,7 @@
 		<input type="submit" value="更新評論">
 	</form>
 	<h4>
-		<a href="<%=request.getContextPath()%>/back-end/actComment/actComment_select_page.jsp">回首頁</a>
+		<a href="<%=request.getContextPath()%>/back-end/actComment/selectPage.jsp">回首頁</a>
 	</h4>
 </body>
 </html>

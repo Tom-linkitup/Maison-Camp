@@ -57,8 +57,14 @@
 	</tr>
 	<tr>
 		<td>訂單狀態:</td>
-		<td><input type="TEXT" name="status" size="45"
-			 value="<%= (aoVO==null)? "0" : aoVO.getStatus()%>" /></td>
+		<td>
+		<select size="1" name="status">
+		<option value="0">已確認</option>
+		<option value="1">未確認</option>
+		<option value="2">延期</option>
+		<option value="3">取消</option>
+		</select>
+		</td>
 	</tr>
 	<tr>
 		<td>活動價格:</td>

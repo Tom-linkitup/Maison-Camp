@@ -1,9 +1,8 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="Big5"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
-
-<html>
 <%@ include file="/back-end/back-template/backIndex.file"%>
+<html>
 <head>
 <title>IBM ActCategory: Home</title>
 <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/css/back-end/actcategory.css" />
@@ -17,8 +16,6 @@
 
 </head>
 <body>
-
-<h3>¸ê®Æ¬d¸ß:</h3>
 
 <div id="container">
 		<div id="error">

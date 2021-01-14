@@ -1,9 +1,8 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="Big5"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
-
-<html>
 <%@ include file="/back-end/back-template/backIndex.file"%>
+<html>
 <head>
 <title>IBM Act: Home</title>
 <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/css/back-end/activity.css" />
@@ -17,7 +16,6 @@
 </head>
 <body>
 
-	<h3>資料查詢:</h3>
 
 	<%-- 錯誤表列 --%>
 	<c:if test="${not empty errorMsgs}">
