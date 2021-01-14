@@ -3,6 +3,7 @@
 <%@ page import="java.util.*"%>
 <%@ page import="com.room_comment.model.*"%>
 <%@ page import="com.roomtype.model.*" %>
+<%@ page import="com.roomorder.model.*" %>
 
 <script src="http://code.jquery.com/jquery-1.12.4.min.js"></script>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
@@ -155,10 +156,10 @@
 			let tr = $(this).parents("tr");
 			let children = tr.children();
 			$("#room_comment_id_delete").val(children.eq(0).text());
-			$("#room_category_id_delete").val(children.eq(1).text());
-			$("#room_comment_content_delete").val(children.eq(2).text());
-			$("#time_delete").val(children.eq(3).text());
-			$("#comment_reply_delete").val(children.eq(4).text());
+			$("#room_category_id_delete").val(children.eq(2).text());
+			$("#room_comment_content_delete").val(children.eq(3).text());
+			$("#time_delete").val(children.eq(4).text());
+			$("#comment_reply_delete").val(children.eq(5).text());
 		})
 		
 		$("#btnDeleteCancel").click(function() {

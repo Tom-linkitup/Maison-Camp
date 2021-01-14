@@ -2,13 +2,17 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="java.util.*"%>
 <%@ page import="com.room_comment.model.*"%>
+<%@ page import="com.roomtype.model.*" %>
+<%@ page import="com.roomorder.model.*" %>
 <script src="http://code.jquery.com/jquery-1.12.4.min.js"></script>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+
 <%
 	Room_commentService room_commentSvc = new Room_commentService();
 	List<Room_commentVO> list = room_commentSvc.getAllReply();
 	pageContext.setAttribute("list", list);
 %>
+
 <!DOCTYPE html>
 <html>
 <head>

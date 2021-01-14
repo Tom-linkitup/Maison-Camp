@@ -7,7 +7,7 @@ public class Room_promotionJDBCDAO implements Room_promotionDAO_interface {
 	String driver = "oracle.jdbc.driver.OracleDriver";
 	String url = "jdbc:oracle:thin:@localhost:1521:XE";
 	String userid = "CEA101G3";
-	String passwd = "123456";
+	String passwd = "123456"; 
 
 		private static final String INSERT_STMT = 
 			"INSERT INTO room_promotion (room_promotion_id,room_category_id,room_promotion_info,room_discount,room_prom_start_date,room_prom_end_date) VALUES ('RP'||room_promotion_seq.NEXTVAL, ?, ?, ?, ?, ?)";

@@ -6,7 +6,7 @@
 <%@ include file="/back-end/back-template/backIndex.file"%>
 <html>
 <head>
-<meta charset="UTF-8">
+<meta charset="UTF-8"> 
 <title>額外消費管理</title>
 <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/css/back-end/extra_charges.css" />
 <link rel="stylesheet" href="<%=request.getContextPath()%>/back-end/backend/bootstrap/bootstrap.min.css">
@@ -21,10 +21,10 @@
 		<label for="tab-1">查看所有額外消費明細</label> 
 		
 	  	<input class="title" id="tab-3" type="radio" name="tab-group"  /> 
-		<label for="tab-3">未結帳</label>
+		<label for="tab-3">未退房</label>
 		
 		<input class="title" id="tab-4" type="radio" name="tab-group"  /> 
-		<label for="tab-4">已結帳</label>
+		<label for="tab-4">已退房</label>
 		
 		
 		<input class="title" id="tab-2" type="radio" name="tab-group"  /> 

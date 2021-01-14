@@ -12,6 +12,7 @@ public interface RepairDAO_interface {
     public List<RepairVO> getAll();
     public List<RepairVO> getStatus1();
     public List<RepairVO> getStatus0();
+
     //萬用複合查詢(傳入參數型態Map)(回傳 List)
 //  public List<RepairVO> getAll(Map<String, String[]> map); 
 }

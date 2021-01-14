@@ -9,11 +9,14 @@ import java.util.*;
 import javax.servlet.*;
 import javax.servlet.http.*;
 
+
 import com.room.model.RoomService;
 import com.room.model.RoomVO;
 import com.room_comment.model.*;
 import com.room_promotion.model.Room_promotionService;
 import com.room_promotion.model.Room_promotionVO;
+import com.roomorder.model.RoomOrderService;
+import com.roomorder.model.RoomOrderVO;
 
 public class RoomCommentServlet extends HttpServlet {
 	public void doGet(HttpServletRequest req, HttpServletResponse res)
@@ -315,9 +318,10 @@ public class RoomCommentServlet extends HttpServlet {
 						String room_comment_content = req.getParameter("room_comment_content").trim();
 						String comment_reply = req.getParameter("comment_reply");
 						
+						
 						String get = req.getParameter("time").trim();
 						Timestamp time = java.sql.Timestamp.valueOf(get);
-
+						String room_order_id = req.getParameter("room_order_id");
 						
 						
 						Room_commentVO room_commentVO = new Room_commentVO();
@@ -343,6 +347,7 @@ public class RoomCommentServlet extends HttpServlet {
 						e.printStackTrace();
 					}
 				}
+		//用房型找評論
 		if("getRoomCommentByRtc".equals(action)) {
 			System.out.println("有來到這");
 			req.setCharacterEncoding("utf-8");
@@ -359,6 +364,28 @@ public class RoomCommentServlet extends HttpServlet {
 			System.out.println("1");
 		}
 		
+		
+		// 使用者新增評論
+				if("userinsert".equals(action)) {
+					
+					List<String> errorMsgs = new LinkedList<String>();
+					req.setAttribute("errorMsgs", errorMsgs);
+					
+					try {
+						
+						String room_category_id = req.getParameter("room_category_id");
+						String room_comment_content = req.getParameter("room_comment_content");
+						
+												
+						
+						String url = "/front-end/member/Member.jsp";
+						RequestDispatcher failureView = req.getRequestDispatcher(url);
+						failureView.forward(req, res);
+					}catch(Exception e) {
+						e.printStackTrace();
+					}
+					
+				}
 		
 		
 	
