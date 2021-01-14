@@ -495,6 +495,7 @@ public class Room_commentJDBCDAO implements Room_commentDAO_interface {
 		// �憓�
 		
 		Room_commentVO room_commentVO1 = new Room_commentVO();
+		room_commentVO1.setRoom_order_id("RM10006");
 		room_commentVO1.setRoom_category_id("TWINS");
 		room_commentVO1.setRoom_comment_content("好棒");
 		room_commentVO1.setTime(java.sql.Timestamp.valueOf("2021-12-29 13:32:02.123456789"));

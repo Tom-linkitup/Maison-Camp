@@ -46,6 +46,7 @@
 		<table id="myTable" border="1px solid #000">
 			<tr class="header">
 				<th>評論編號</th>
+				<th>訂房代號</th>
 				<th>評論房型</th>
 				<th>評論內容</th>
 				<th>評論時間</th>
@@ -70,6 +71,7 @@
 			<c:forEach var="room_commentVO" items="${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">			
 			<tr>
 				<td>${room_commentVO.room_comment_id}</td>
+				<td>${room_commentVO.room_order_id}</td>
 				<td>${room_commentVO.room_category_id}</td>
 				<td>${room_commentVO.room_comment_content}</td>
 				<td><fmt:formatDate value="${room_commentVO.time}" pattern="yyyy-MM-dd HH:mm:ss"/></td>
@@ -101,6 +103,7 @@
 				<table align="center" id="tableLogin">
 					<tr style="font-size:20px; color:#c15c61;"><td>評論資訊</td></tr>
 					<tr><td>評論編號：</td><td><input style="background-color:#f9f9f9; border:none;" id="room_comment_id"      class="input-beautify"   type="text" name="room_comment_id" readonly></td></tr>			
+					<tr><td>訂房代號：</td><td><input style="background-color:#f9f9f9; border:none;" id="room_order_id"      class="input-beautify"   type="text" name="room_order_id" readonly></td></tr>			
 					<tr><td>評論房型：</td><td><input style="background-color:#f9f9f9; border:none;" id="room_category_id"     class="input-beautify" type="text" name="room_category_id" readonly ></td></tr>
 					<tr><td>評論內容：</td><td><input style="background-color:#f9f9f9; border:none;" id="room_comment_content" class="input-beautify" type="text" name="room_comment_content" readonly></td></tr>
 					<tr><td>評論時間：</td><td><input style="background-color:#f9f9f9; border:none;" id="time"                 class="input-beautify" type="text" name="time" readonly></td></tr>
@@ -119,6 +122,7 @@
 				<table align="center" id="tableLogin">
 					<tr style="font-size:20px; color:#c15c61;"><td>評論資訊</td></tr>
 					<tr><td>評論編號：</td><td><input style="background-color:#f9f9f9; border:none;" id="room_comment_id_delete"      class="input-beautify"   type="text" name="room_comment_id" readonly></td></tr>			
+					<tr><td>訂房代號：</td><td><input style="background-color:#f9f9f9; border:none;" id="room_order_id_delete"      class="input-beautify"   type="text" name="room_order_id" readonly></td></tr>			
 					<tr><td>評論房型：</td><td><input style="background-color:#f9f9f9; border:none;" id="room_category_id_delete"     class="input-beautify" type="text" name="room_category_id" readonly ></td></tr>
 					<tr><td>評論內容：</td><td><input style="background-color:#f9f9f9; border:none;" id="room_comment_content_delete" class="input-beautify" type="text" name="room_comment_content" readonly></td></tr>
 					<tr><td>評論時間：</td><td><input style="background-color:#f9f9f9; border:none;" id="time_delete"                 class="input-beautify" type="text" name="time" readonly></td></tr>
@@ -139,10 +143,11 @@
 			let tr = $(this).parents("tr");
 			let children = tr.children();
 			$("#room_comment_id").val(children.eq(0).text());
-			$("#room_category_id").val(children.eq(1).text());
-			$("#room_comment_content").val(children.eq(2).text());
-			$("#time").val(children.eq(3).text());
-			$("#comment_reply").val(children.eq(4).text());
+			$("#room_order_id").val(children.eq(1).text());
+			$("#room_category_id").val(children.eq(2).text());
+			$("#room_comment_content").val(children.eq(3).text());
+			$("#time").val(children.eq(4).text());
+			$("#comment_reply").val(children.eq(5).text());
 		})
 		
 		$("#btnEditCancel").click(function() {
@@ -156,6 +161,7 @@
 			let tr = $(this).parents("tr");
 			let children = tr.children();
 			$("#room_comment_id_delete").val(children.eq(0).text());
+			$("#room_order_id").val(children.eq(1).text());
 			$("#room_category_id_delete").val(children.eq(2).text());
 			$("#room_comment_content_delete").val(children.eq(3).text());
 			$("#time_delete").val(children.eq(4).text());
