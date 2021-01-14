@@ -86,7 +86,20 @@
 					<td>${actVO.minPeople}</td>
 					<td>${actVO.actAlreadyApply}</td>
 					<td>${actVO.actName}</td>
-					<td>${actVO.actStatus}</td>
+					<c:choose>
+					<c:when test="${actVO.actStatus == '0'}">
+						<td>未開始報名</td>
+					</c:when>
+					<c:when test="${actVO.actStatus == '2'}">
+						<td>取消</td>
+					</c:when>
+					<c:when test="${actVO.actStatus == '3'}">
+						<td>延期</td>
+					</c:when>
+					<c:otherwise>
+						<td>正常</td>
+					</c:otherwise>
+					</c:choose>
 					<td>${actVO.actDiscount}</td>
 					<td>${actVO.actPromInfo}</td>
 					<td>${actVO.actPromStartDate}</td>
@@ -99,6 +112,15 @@
 								name="actId" value="${actVO.actId}"> <input
 								type="hidden" name="action" value="getOne_For_Update">
 						</FORM>
+						<c:if test="${actVO.actStatus == '0'}">
+						<FORM METHOD="post"
+							ACTION="<%=request.getContextPath()%>/activity/act.do"
+							style="margin-bottom: 0px;">
+							<input type="submit" value="刪除"> <input type="hidden"
+								name="actId" value="${actVO.actId}"> <input
+								type="hidden" name="action" value="delete">
+						</FORM>
+						</c:if>
 					</td>
 				</tr>
 			</c:forEach>

@@ -93,7 +93,19 @@
 		<td><%=activityVO.getMinPeople()%></td>
 		<td><%=activityVO.getActAlreadyApply()%></td>
 		<td><%=activityVO.getActName()%></td>
-		<td><%=activityVO.getActStatus()%></td>
+		<%
+		String status ="";
+		if(activityVO.getActStatus().equals(0)){
+			status="未開始報名";
+		}else if(activityVO.getActStatus().equals(1)){
+			status="正常";
+		}else if(activityVO.getActStatus().equals(2)){
+			status="延期";
+		}else if(activityVO.getActStatus().equals(3)){
+			status="取消";
+		}
+		%>
+		<td><%= status %></td>
 		<td><%=activityVO.getActDiscount()%></td>
 		<td><%=activityVO.getActPromInfo()%></td>
 		<td><%=activityVO.getActPromStartDate()%></td>

@@ -6,7 +6,10 @@
 <%
 	ActivityVO activityVO = (ActivityVO) request.getAttribute("activityVO"); //EmpServlet.java (Concroller) 存入req的empVO物件 (包括幫忙取出的empVO, 也包括輸入資料錯誤時的empVO物件)
 	List<ActCategoryVO> actCategoryList = new ActCategoryService().getAll();
+	pageContext.setAttribute("activityVO", activityVO);
 %>
+
+
 <html>
 <head>
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
@@ -66,13 +69,15 @@
 	</ul>
 </c:if>
 
+<jsp:useBean id="actCategoryService" scope="page" class="com.actCategory.model.ActCategoryService" />
+
 <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/activity/act.do" name="form1">
-<table>
+<c:if test="${activityVO.actStatus != 0}">
+	<table>
 	<tr>
 		<td>活動編號:<font color=red><b>*</b></font></td>
 		<td><%=activityVO.getActId()%></td>
 	</tr>
-	<jsp:useBean id="actCategoryService" scope="page" class="com.actCategory.model.ActCategoryService" />
 	<tr>
 		<td>活動類別編號:<font color=red><b>*</b></font></td>
 				<td><select size="1" name="actCategoryId">
@@ -85,7 +90,102 @@
 	</tr>
 	<tr>
 		<td>活動內容:</td>
-		<td><input type="TEXT" name="actInfo" size="45"	value="<%=activityVO.getActInfo()%>" /></td>
+		<td><input type="TEXT" name="actInfo" size="45"	value="<%=activityVO.getActInfo()%>" readonly disabled/></td>
+	</tr>
+	<tr>
+		<td>活動價格:</td>
+		<td><input type="TEXT" name="actPrice" size="45"	value="<%=activityVO.getActPrice()%>" readonly disabled/></td>
+	</tr>
+	<tr>
+		<td>活動開始時間:</td>
+		<td><input name="actStartDate" id="f_date1" type="text" readonly disabled></td>
+	</tr>
+	<tr>
+		<td>活動結束時間:</td>
+		<td><input name="actEndDate" id="f_date2"  type="text" readonly disabled></td>
+	</tr>
+	<tr>
+		<td>活動開始報名時間:</td>
+		<td><input name="actApplyOpen" id="f_date3"  type="text" readonly disabled></td>
+	</tr>
+	<tr>
+		<td>活動結束報名時間:</td>
+		<td><input name="actApplyClose" id="f_date4"  type="text" readonly disabled></td>
+	</tr>
+	<tr>
+		<td>報名人數上限:</td>
+		<td><input type="TEXT" name="maxPeople" size="45" value="<%=activityVO.getMaxPeople()%>" readonly disabled/></td>
+	</tr>	
+	<tr>
+		<td>報名人數下限:</td>
+		<td><input type="TEXT" name="minPeople" size="45" value="<%=activityVO.getMinPeople()%>" readonly disabled/></td>
+	</tr>	
+	<tr>
+		<td>已報名人數:</td>
+		<td><input type="TEXT" name="actAlreadyApply" size="45" value="<%=activityVO.getActAlreadyApply()%>" readonly disabled/></td>
+	</tr>
+	<tr>
+		<td>活動名稱:</td>
+		<td><input type="TEXT" name="actName" size="45" value="<%=activityVO.getActName()%>" readonly disabled/></td>
+	</tr>
+	<tr>
+		<td>活動狀態:</td>
+		<td>
+		<select size="1" name="actStatus">
+		<option value="0">未開始報名</option>
+		<option value="1">正常</option>
+		<option value="2">延期</option>
+		<option value="3">取消</option>
+		</select>
+		</td>
+	</tr>
+	<tr>
+		<td>活動折扣:</td>
+		<td><input type="TEXT" name="actDiscount" size="45" value="<%=activityVO.getActDiscount()%>" readonly/></td>
+	</tr>	
+	<tr>
+		<td>折扣內容:</td>
+		<td><input type="TEXT" name="actPromInfo" size="45" value="<%=activityVO.getActPromInfo()%>" readonly/></td>
+	</tr>			
+	<tr>
+		<td>折扣開始時間:</td>
+		<td><input name="actPromStartDate" id="f_date5"  type="text" readonly></td>
+	</tr>			
+	<tr>
+		<td>折扣結束時間:</td>
+		<td><input name="actPromCloseDate" id="f_date6"  type="text" ></td>
+	</tr>			
+	
+
+</table>
+
+
+<br>
+<input type="hidden" name="action" value="update">
+<input type="hidden" name="actId" value="<%=activityVO.getActId()%>">
+<input type="submit" value="送出修改"></FORM>
+</c:if>
+
+<c:if test="${activityVO.actStatus == 0}">
+<table>
+	<tr>
+		<td>活動編號:<font color=red><b>*</b></font></td>
+		<td><%=activityVO.getActId()%></td>
+	</tr>
+
+	<tr>
+		<td>活動類別編號:<font color=red><b>*</b></font></td>
+				<td><select size="1" name="actCategoryId">
+					<c:forEach var="actCategoryVO" items="${actCategoryService.all}">
+							<option value="${actCategoryVO.actCategoryId}"
+								${(activityVO.actCategoryId==actCategoryVO.actCategoryId)? 'selected':'' }>${actCategoryVO.actCategoryName}
+						</c:forEach>
+						
+				</select></td>
+	</tr>
+	<tr>
+		<td>活動內容:</td>
+		<td><input type="TEXT" name="actInfo" size="45"	value="<%=activityVO.getActInfo()%>"/></td>
 	</tr>
 	<tr>
 		<td>活動價格:</td>
@@ -121,11 +221,18 @@
 	</tr>
 	<tr>
 		<td>活動名稱:</td>
-		<td><input type="TEXT" name="actName" size="45" value="<%=activityVO.getActName()%>" /></td>
+		<td><input type="TEXT" name="actName" size="45" value="<%=activityVO.getActName()%>"/></td>
 	</tr>
 	<tr>
 		<td>活動狀態:</td>
-		<td><input type="TEXT" name="actStatus" size="45" value="<%=activityVO.getActStatus()%>" /></td>
+		<td>
+		<select size="1" name="actStatus">
+		<option value="0">未開始報名</option>
+		<option value="1">正常</option>
+		<option value="2">延期</option>
+		<option value="3">取消</option>
+		</select>
+		</td>
 	</tr>
 	<tr>
 		<td>活動折扣:</td>
@@ -137,21 +244,24 @@
 	</tr>			
 	<tr>
 		<td>折扣開始時間:</td>
-		<td><input name="actPromStartDate" id="f_date5"  type="text" ></td>
+		<td><input name="actPromStartDate" id="f_date5"  type="text"></td>
 	</tr>			
 	<tr>
 		<td>折扣結束時間:</td>
 		<td><input name="actPromCloseDate" id="f_date6"  type="text" ></td>
 	</tr>			
 	
-						
-
 
 </table>
+
+
 <br>
 <input type="hidden" name="action" value="update">
 <input type="hidden" name="actId" value="<%=activityVO.getActId()%>">
 <input type="submit" value="送出修改"></FORM>
+</c:if>
+
+
 </body>
 
 

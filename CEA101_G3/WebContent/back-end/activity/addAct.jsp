@@ -89,8 +89,12 @@
 				</tr>
 				<tr>
 					<td>活動狀態:</td>
-					<td><input type="TEXT" name="actStatus" size="45"
-						value="<%=(activityVO == null) ? 0 : activityVO.getActStatus()%>" /></td>
+					
+					<td>
+					<input type="hidden" name="actStatus" size="45"
+						value="0" />
+					<input type="TEXT" size="45" readonly
+						value="未開始報名" /></td>
 				</tr>
 				<tr>
 					<td>活動折扣:</td>
