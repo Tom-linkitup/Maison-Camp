@@ -66,7 +66,7 @@
 				Item order = buylist.get(index);
 		%>
 				  <li class="media mb-3 itemClass">
-				    <img class="mr-3 mt-2 orderDetailPic" src="<%=request.getContextPath()%>/img/20200108.jpg" alt="Generic placeholder image">
+				    <img class="mr-3 mt-2 orderDetailPic" src="<%=request.getContextPath()%>/photoByitemId?itemId=<%=order.getItemId()%>" alt="Generic placeholder image">
 				    <div class="media-body mt-3">
 				      <h3 class="mt-0 mb-1"><%=order.getName() %></h3>				      
 				    </div>
