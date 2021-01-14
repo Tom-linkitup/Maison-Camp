@@ -98,7 +98,7 @@
 			</form>
 		</div>
 	</div>
-	<script>
+	<script>   
 	$(document).ready(function(){
 	$("#chooseCategory").change(function(){
 		$("#myTable").find(".disappear").html("");
