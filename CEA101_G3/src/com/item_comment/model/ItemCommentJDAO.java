@@ -2,17 +2,28 @@ package com.item_comment.model;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.naming.Context;
+import javax.naming.NamingException;
+import javax.sql.DataSource;
+
 import java.sql.*;
 
 import com.item.model.ItemJDBCDAO;
 import com.item.model.ItemVO;
 
-public class ItemCommentJDBCDAO implements ItemCommentDAO_interface {
+public class ItemCommentJDAO implements ItemCommentDAO_interface {
 
-	public static final String driver = "oracle.jdbc.driver.OracleDriver";
-	public static final String url = "jdbc:oracle:thin:@localhost:1521:XE";
-	String userid = "CEA101G3";
-	String passwd = "123456";
+	//連線池
+	private static DataSource ds = null;
+	static {
+		try {
+			Context ctx = new javax.naming.InitialContext();
+			ds = (DataSource) ctx.lookup("java:comp/env/jdbc/GDB");
+		} catch (NamingException e) {
+			e.printStackTrace();
+		}
+	}
 
 	private static final String INSERT_STMT = "INSERT INTO ITEM_COMMENT (item_comment_id,item_id,shop_comment,time) VALUES ('IC' || ITEM_COMMENT_SEQ.NEXTVAL, ?, ?, ?)";
 	private static final String UPDATE = "UPDATE ITEM_COMMENT set item_id=?, shop_comment=?, time=? where item_comment_id = ?";
@@ -29,8 +40,7 @@ public class ItemCommentJDBCDAO implements ItemCommentDAO_interface {
 
 		try {
 
-			Class.forName(driver);
-			con = DriverManager.getConnection(url, userid, passwd);
+			con = ds.getConnection();
 			pstmt = con.prepareStatement(INSERT_STMT);
 
 			pstmt.setString(1, ItemCommentVO.getItemId());
@@ -40,9 +50,6 @@ public class ItemCommentJDBCDAO implements ItemCommentDAO_interface {
 			pstmt.executeUpdate();
 
 			// Handle any driver errors
-		} catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
-			// Handle any SQL errors
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. " + se.getMessage());
 			// Clean up JDBC resources
@@ -72,8 +79,7 @@ public class ItemCommentJDBCDAO implements ItemCommentDAO_interface {
 
 		try {
 
-			Class.forName(driver);
-			con = DriverManager.getConnection(url, userid, passwd);
+			con = ds.getConnection();
 			pstmt = con.prepareStatement(UPDATE);
 
 			
@@ -85,9 +91,6 @@ public class ItemCommentJDBCDAO implements ItemCommentDAO_interface {
 			pstmt.executeUpdate();
 
 			// Handle any driver errors
-		} catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
-			// Handle any SQL errors
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. " + se.getMessage());
 			// Clean up JDBC resources
@@ -117,8 +120,7 @@ public class ItemCommentJDBCDAO implements ItemCommentDAO_interface {
 
 		try {
 
-			Class.forName(driver);
-			con = DriverManager.getConnection(url, userid, passwd);
+			con = ds.getConnection();
 			pstmt = con.prepareStatement(DELETE);
 
 			pstmt.setString(1, itemCommentId);
@@ -126,9 +128,6 @@ public class ItemCommentJDBCDAO implements ItemCommentDAO_interface {
 			pstmt.executeUpdate();
 
 			// Handle any driver errors
-		} catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
-			// Handle any SQL errors
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. " + se.getMessage());
 			// Clean up JDBC resources
@@ -160,8 +159,7 @@ public class ItemCommentJDBCDAO implements ItemCommentDAO_interface {
 
 		try {
 
-			Class.forName(driver);
-			con = DriverManager.getConnection(url, userid, passwd);
+			con = ds.getConnection();
 			pstmt = con.prepareStatement(GET_ONE_STMT);
 
 			pstmt.setString(1, itemCommentId);
@@ -178,9 +176,6 @@ public class ItemCommentJDBCDAO implements ItemCommentDAO_interface {
 			}
 
 			// Handle any driver errors
-		} catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
-			// Handle any SQL errors
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. " + se.getMessage());
 			// Clean up JDBC resources
@@ -220,8 +215,7 @@ public class ItemCommentJDBCDAO implements ItemCommentDAO_interface {
 
 		try {
 
-			Class.forName(driver);
-			con = DriverManager.getConnection(url, userid, passwd);
+			con = ds.getConnection();
 			pstmt = con.prepareStatement(GET_ALL_STMT);
 			rs = pstmt.executeQuery();
 
@@ -236,9 +230,6 @@ public class ItemCommentJDBCDAO implements ItemCommentDAO_interface {
 			}
 
 			// Handle any driver errors
-		} catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
-			// Handle any SQL errors
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. " + se.getMessage());
 			// Clean up JDBC resources
@@ -270,7 +261,7 @@ public class ItemCommentJDBCDAO implements ItemCommentDAO_interface {
 
 	public static void main(String[] args) {
 
-		ItemCommentJDBCDAO dao = new ItemCommentJDBCDAO();
+		ItemCommentJDAO dao = new ItemCommentJDAO();
 
 //		// 新增
 

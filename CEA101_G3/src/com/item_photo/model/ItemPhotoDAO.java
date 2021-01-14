@@ -16,12 +16,22 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ItemPhotoJDBCDAO implements ItemPhotoDAO_interface {
+import javax.naming.Context;
+import javax.naming.NamingException;
+import javax.sql.DataSource;
 
-	public static final String driver = "oracle.jdbc.driver.OracleDriver";
-	public static final String url = "jdbc:oracle:thin:@localhost:1521:XE";
-	String userid = "CEA101G3";
-	String passwd = "123456";
+public class ItemPhotoDAO implements ItemPhotoDAO_interface {
+
+	//連線池
+	private static DataSource ds = null;
+	static {
+		try {
+			Context ctx = new javax.naming.InitialContext();
+			ds = (DataSource) ctx.lookup("java:comp/env/jdbc/GDB");
+		} catch (NamingException e) {
+			e.printStackTrace();
+		}
+	}
 
 	private static final String INSERT_STMT = "INSERT INTO ITEM_PHOTO (item_photo_id,item_id,content) VALUES ('IPH' || ITEM_PHOTO_SEQ.NEXTVAL, ?, ?)";
 	private static final String UPDATE = "UPDATE ITEM_PHOTO set item_id=?, content=? where item_photo_id = ?";
@@ -37,8 +47,7 @@ public class ItemPhotoJDBCDAO implements ItemPhotoDAO_interface {
 
 		try {
 
-			Class.forName(driver);
-			con = DriverManager.getConnection(url, userid, passwd);
+			con = ds.getConnection();
 			pstmt = con.prepareStatement(INSERT_STMT);
 
 			pstmt.setString(1, ItemPhotoVO.getItemId());
@@ -46,9 +55,6 @@ public class ItemPhotoJDBCDAO implements ItemPhotoDAO_interface {
 			pstmt.executeUpdate();
 
 			// Handle any driver errors
-		} catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
-			// Handle any SQL errors
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. " + se.getMessage());
 			// Clean up JDBC resources
@@ -78,8 +84,7 @@ public class ItemPhotoJDBCDAO implements ItemPhotoDAO_interface {
 
 		try {
 
-			Class.forName(driver);
-			con = DriverManager.getConnection(url, userid, passwd);
+			con = ds.getConnection();
 			pstmt = con.prepareStatement(UPDATE);
 
 			pstmt.setString(1, ItemPhotoVO.getItemId());
@@ -89,9 +94,6 @@ public class ItemPhotoJDBCDAO implements ItemPhotoDAO_interface {
 			pstmt.executeUpdate();
 
 			// Handle any driver errors
-		} catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
-			// Handle any SQL errors
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. " + se.getMessage());
 			// Clean up JDBC resources
@@ -121,8 +123,7 @@ public class ItemPhotoJDBCDAO implements ItemPhotoDAO_interface {
 
 		try {
 
-			Class.forName(driver);
-			con = DriverManager.getConnection(url, userid, passwd);
+			con = ds.getConnection();
 			pstmt = con.prepareStatement(DELETE);
 
 			pstmt.setString(1, itemPhotoId);
@@ -130,9 +131,6 @@ public class ItemPhotoJDBCDAO implements ItemPhotoDAO_interface {
 			pstmt.executeUpdate();
 
 			// Handle any driver errors
-		} catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
-			// Handle any SQL errors
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. " + se.getMessage());
 			// Clean up JDBC resources
@@ -164,8 +162,7 @@ public class ItemPhotoJDBCDAO implements ItemPhotoDAO_interface {
 
 		try {
 
-			Class.forName(driver);
-			con = DriverManager.getConnection(url, userid, passwd);
+			con = ds.getConnection();
 			pstmt = con.prepareStatement(GET_ONE_STMT);
 
 			pstmt.setString(1, itemPhotoId);
@@ -185,9 +182,6 @@ public class ItemPhotoJDBCDAO implements ItemPhotoDAO_interface {
 			
 
 			// Handle any driver errors
-		} catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
-			// Handle any SQL errors
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. " + se.getMessage());
 			// Clean up JDBC resources
@@ -226,8 +220,7 @@ public class ItemPhotoJDBCDAO implements ItemPhotoDAO_interface {
 
 		try {
 
-			Class.forName(driver);
-			con = DriverManager.getConnection(url, userid, passwd);
+			con = ds.getConnection();
 			pstmt = con.prepareStatement(GET_ONE_BY_ITEM_ID);
 
 			pstmt.setString(1, itemId);
@@ -247,9 +240,6 @@ public class ItemPhotoJDBCDAO implements ItemPhotoDAO_interface {
 			
 
 			// Handle any driver errors
-		} catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
-			// Handle any SQL errors
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. " + se.getMessage());
 			// Clean up JDBC resources
@@ -291,8 +281,7 @@ public class ItemPhotoJDBCDAO implements ItemPhotoDAO_interface {
 
 		try {
 
-			Class.forName(driver);
-			con = DriverManager.getConnection(url, userid, passwd);
+			con = ds.getConnection();
 			pstmt = con.prepareStatement(GET_ALL_STMT);
 			pstmt.setString(1, item_id);
 			rs = pstmt.executeQuery();
@@ -310,10 +299,7 @@ public class ItemPhotoJDBCDAO implements ItemPhotoDAO_interface {
 			
 
 			// Handle any driver errors
-		} catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
-			// Handle any SQL errors
-		} catch (SQLException se) {
+		}catch (SQLException se) {
 			throw new RuntimeException("A database error occured. " + se.getMessage());
 			// Clean up JDBC resources
 		} finally {
@@ -365,11 +351,24 @@ public class ItemPhotoJDBCDAO implements ItemPhotoDAO_interface {
 	
 	public static void main(String[] args) throws IOException {
 
-		ItemPhotoJDBCDAO dao = new ItemPhotoJDBCDAO();
+		ItemPhotoDAO dao = new ItemPhotoDAO();
 
 //		// 新增
 		ItemPhotoVO ItemPhotoVO1 = new ItemPhotoVO();
 
+		
+		String path = "C:\\shoppingImg\\";
+		
+		for(int i = 1 ; i < 55 ; i++) {
+			byte[] pic = getPictureByteArray(path + i + ".jpg");
+			if(i<10)
+				ItemPhotoVO1.setItemId("I1000"+i);
+			else if(i>=10)
+				ItemPhotoVO1.setItemId("I100"+i);
+			ItemPhotoVO1.setContent(pic);
+			dao.insert(ItemPhotoVO1);
+		}
+		
 //		byte[] pic = getPictureByteArray("WebContent/item/images/1.jpg");
 //		ItemPhotoVO1.setItemId("I10021");
 //		ItemPhotoVO1.setContent(pic);
@@ -393,7 +392,7 @@ public class ItemPhotoJDBCDAO implements ItemPhotoDAO_interface {
 //		System.out.println("---------------------");
 
 		// 查詢
-		List<ItemPhotoVO> list = dao.getAll("I10001");
+//		List<ItemPhotoVO> list = dao.getAll("I10001");
 //		for (ItemPhotoVO aItemPhoto : list) {
 //			System.out.print(aItemPhoto.getItemPhotoId() + ",");
 //			System.out.print(aItemPhoto.getItemId() + ",");

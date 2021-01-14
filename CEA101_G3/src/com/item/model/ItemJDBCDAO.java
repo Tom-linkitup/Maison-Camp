@@ -8,11 +8,21 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.naming.Context;
+import javax.naming.NamingException;
+import javax.sql.DataSource;
+
 public class ItemJDBCDAO implements ItemDAO_interface {
-	public static final String driver = "oracle.jdbc.driver.OracleDriver";
-	public static final String url = "jdbc:oracle:thin:@localhost:1521:XE";
-	String userid = "CEA101G3";
-	String passwd = "123456";
+	//連線池
+	private static DataSource ds = null;
+	static {
+		try {
+			Context ctx = new javax.naming.InitialContext();
+			ds = (DataSource) ctx.lookup("java:comp/env/jdbc/GDB");
+		} catch (NamingException e) {
+			e.printStackTrace();
+		}
+	}
 
 	private static final String INSERT_STMT = "INSERT INTO ITEM (item_id,item_category_id,item_name,item_info,item_price,item_status) VALUES ('I' || SEQ_ITEM_ID.NEXTVAL, ?, ?, ?, ?, ?)";
 	private static final String GET_ONE_STMT = "SELECT * from item where item_id = ?";
@@ -28,8 +38,7 @@ public class ItemJDBCDAO implements ItemDAO_interface {
 
 		try {
 
-			Class.forName(driver);
-			con = DriverManager.getConnection(url, userid, passwd);
+			con = ds.getConnection();
 			pstmt = con.prepareStatement(INSERT_STMT);
 
 			pstmt.setString(1, ItemVO.getItemCategoryId());
@@ -41,9 +50,6 @@ public class ItemJDBCDAO implements ItemDAO_interface {
 			pstmt.executeUpdate();
 
 			// Handle any driver errors
-		} catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
-			// Handle any SQL errors
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. " + se.getMessage());
 			// Clean up JDBC resources
@@ -73,8 +79,7 @@ public class ItemJDBCDAO implements ItemDAO_interface {
 
 		try {
 
-			Class.forName(driver);
-			con = DriverManager.getConnection(url, userid, passwd);
+			con = ds.getConnection();
 			pstmt = con.prepareStatement(UPDATE);
 
 			pstmt.setString(1, ItemVO.getItemCategoryId());
@@ -87,9 +92,6 @@ public class ItemJDBCDAO implements ItemDAO_interface {
 			pstmt.executeUpdate();
 
 			// Handle any driver errors
-		} catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
-			// Handle any SQL errors
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. " + se.getMessage());
 			// Clean up JDBC resources
@@ -119,8 +121,7 @@ public class ItemJDBCDAO implements ItemDAO_interface {
 
 		try {
 
-			Class.forName(driver);
-			con = DriverManager.getConnection(url, userid, passwd);
+			con = ds.getConnection();
 			pstmt = con.prepareStatement(DELETE);
 
 			pstmt.setString(1, itemId);
@@ -128,9 +129,6 @@ public class ItemJDBCDAO implements ItemDAO_interface {
 			pstmt.executeUpdate();
 
 			// Handle any driver errors
-		} catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
-			// Handle any SQL errors
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. " + se.getMessage());
 			// Clean up JDBC resources
@@ -162,8 +160,7 @@ public class ItemJDBCDAO implements ItemDAO_interface {
 
 		try {
 
-			Class.forName(driver);
-			con = DriverManager.getConnection(url, userid, passwd);
+			con = ds.getConnection();
 			pstmt = con.prepareStatement(GET_ONE_STMT);
 
 			pstmt.setString(1, itemId);
@@ -182,9 +179,6 @@ public class ItemJDBCDAO implements ItemDAO_interface {
 			}
 
 			// Handle any driver errors
-		} catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
-			// Handle any SQL errors
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. " + se.getMessage());
 			// Clean up JDBC resources
@@ -224,8 +218,7 @@ public class ItemJDBCDAO implements ItemDAO_interface {
 
 		try {
 
-			Class.forName(driver);
-			con = DriverManager.getConnection(url, userid, passwd);
+			con = ds.getConnection();
 			pstmt = con.prepareStatement(GET_ALL_STMT);
 			rs = pstmt.executeQuery();
 
@@ -242,9 +235,6 @@ public class ItemJDBCDAO implements ItemDAO_interface {
 			}
 
 			// Handle any driver errors
-		} catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
-			// Handle any SQL errors
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. " + se.getMessage());
 			// Clean up JDBC resources
@@ -284,8 +274,7 @@ public class ItemJDBCDAO implements ItemDAO_interface {
 		ResultSet rs = null;
 		
 		try {
-			Class.forName(driver);
-			con = DriverManager.getConnection(url,userid,passwd);
+			con = ds.getConnection();
 			pstmt = con.prepareStatement(GET_BY_CAT);
 			pstmt.setString(1, itemCategoryId);
 			
@@ -301,8 +290,6 @@ public class ItemJDBCDAO implements ItemDAO_interface {
 				ItemVO.setItemStatus(rs.getInt("item_status"));
 				list.add(ItemVO);
 			}
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

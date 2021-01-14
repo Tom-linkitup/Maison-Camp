@@ -14,7 +14,7 @@ public class ItemPhotoService {
 	private ItemPhotoDAO_interface dao;
 	
 	public ItemPhotoService() {
-		dao = new ItemPhotoJDBCDAO();
+		dao = new ItemPhotoDAO();
 	}
 	
 	public ItemPhotoVO addItemPhoto(String itemId, byte[] content) {
