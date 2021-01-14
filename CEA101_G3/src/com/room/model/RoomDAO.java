@@ -24,13 +24,14 @@ public class RoomDAO implements RoomDAO_Interface{
 		}
 	}
 	
-	private static final String Add_Stmt = "INSERT INTO ROOM (ROOM_ID, ROOM_CATEGORY_ID, STATUS) VALUES('RM' || ROOM_ID_seq.NEXTVAL,?,?)";
-	private static final String Update_Stmt = "UPDATE ROOM SET ROOM_CATEGORY_ID=?, STATUS=? WHERE ROOM_ID=?";
+	private static final String Add_Stmt = "INSERT INTO ROOM (ROOM_ID, ROOM_CATEGORY_ID, STATUS, OCCUPY) VALUES('RM' || ROOM_ID_seq.NEXTVAL,?,?,?)";
+	private static final String Update_Stmt = "UPDATE ROOM SET ROOM_CATEGORY_ID=?, STATUS=?, OCCUPY=? WHERE ROOM_ID=?";
 	private static final String Delete_Stmt = "DELETE FROM ROOM WHERE ROOM_ID=?";
-	private static final String Get_All_Stmt = "SELECT ROOM_ID, ROOM_CATEGORY_ID, STATUS FROM ROOM ORDER BY ROOM_ID";
-	private static final String Get_By_RCT = "SELECT ROOM_ID, ROOM_CATEGORY_ID, STATUS FROM ROOM WHERE ROOM_CATEGORY_ID=? ORDER BY ROOM_ID";
-	private static final String Get_One_Stmt = "SELECT ROOM_ID, ROOM_CATEGORY_ID, STATUS FROM ROOM WHERE ROOM_ID=?";
+	private static final String Get_All_Stmt = "SELECT ROOM_ID, ROOM_CATEGORY_ID, STATUS, OCCUPY FROM ROOM ORDER BY ROOM_ID";
+	private static final String Get_By_RCT = "SELECT ROOM_ID, ROOM_CATEGORY_ID, STATUS, OCCUPY FROM ROOM WHERE ROOM_CATEGORY_ID=? ORDER BY ROOM_ID";
+	private static final String Get_One_Stmt = "SELECT ROOM_ID, ROOM_CATEGORY_ID, STATUS, OCCUPY FROM ROOM WHERE ROOM_ID=?";
 	private static final String Update_Rm_Status = "UPDATE ROOM SET STATUS=? WHERE ROOM_ID=?";
+	private static final String Update_Rm_Occupy = "UPDATE ROOM SET OCCUPY=? WHERE ROOM_ID=?";
 
 	@Override
 	public void addRoom(RoomVO roomVO) {
@@ -43,6 +44,7 @@ public class RoomDAO implements RoomDAO_Interface{
 			
 			pstmt.setString(1, roomVO.getRoom_category_id());
 			pstmt.setInt(2, roomVO.getStatus());
+			pstmt.setInt(3, roomVO.getOccupy());
 			
 			int addRoom = pstmt.executeUpdate();
 			System.out.println("新增"+ addRoom + "筆房間資料");
@@ -81,7 +83,8 @@ public class RoomDAO implements RoomDAO_Interface{
 			
 			pstmt.setString(1, roomVO.getRoom_category_id());
 			pstmt.setInt(2, roomVO.getStatus());
-			pstmt.setString(3, roomVO.getRoom_id());
+			pstmt.setInt(3, roomVO.getOccupy());
+			pstmt.setString(4, roomVO.getRoom_id());
 			
 			int updateRoom = pstmt.executeUpdate();
 			System.out.println("更新"+  updateRoom + "筆房間資料");
@@ -165,6 +168,7 @@ public class RoomDAO implements RoomDAO_Interface{
 				roomVO.setRoom_id(rs.getString("ROOM_ID"));
 				roomVO.setRoom_category_id(rs.getString("ROOM_CATEGORY_ID"));
 				roomVO.setStatus(rs.getInt("STATUS"));
+				roomVO.setOccupy(rs.getInt("OCCUPY"));
 			}
 	
 		} catch (SQLException se) {
@@ -210,6 +214,7 @@ public class RoomDAO implements RoomDAO_Interface{
 				roomVO.setRoom_id(rs.getString("ROOM_ID"));
 				roomVO.setRoom_category_id(rs.getString("ROOM_CATEGORY_ID"));
 				roomVO.setStatus(rs.getInt("STATUS"));
+				roomVO.setOccupy(rs.getInt("OCCUPY"));
 				roomList.add(roomVO);
 			}
 	
@@ -254,6 +259,7 @@ public class RoomDAO implements RoomDAO_Interface{
 				roomVO.setRoom_id(rs.getString("ROOM_ID"));
 				roomVO.setRoom_category_id(rs.getString("ROOM_CATEGORY_ID"));
 				roomVO.setStatus(rs.getInt("STATUS"));
+				roomVO.setOccupy(rs.getInt("OCCUPY"));
 				roomList.add(roomVO);
 			}
 
@@ -316,6 +322,43 @@ public class RoomDAO implements RoomDAO_Interface{
 			}
 		}		
 		
+	}
+
+	@Override
+	public void updateRmOccupy(Integer occupy, String room_id) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		
+		try {
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(Update_Rm_Occupy);
+	
+			pstmt.setInt(1, occupy);
+			pstmt.setString(2, room_id);
+			
+			int updateRoom = pstmt.executeUpdate();
+			System.out.println("更新"+  updateRoom + "筆房間住房狀態");
+
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}	
 	}
 
 }

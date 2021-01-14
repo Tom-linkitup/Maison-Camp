@@ -32,7 +32,6 @@ public class PhotoList extends HttpServlet {
 		byte[] buf = roomPhotoVO.getContent();
 		
 		res.getOutputStream().write(buf);
-		res.flushBuffer();
-		
+		res.flushBuffer();	
 	}
 }

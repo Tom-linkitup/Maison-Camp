@@ -39,6 +39,7 @@
 			<jsp:include page="/back-end/item/showAllItemPhoto.jsp" />
 		</div>
 	</div>
-	<%@ include file="/back-end/back-template/backIndex2.file"%>
+<%-- 	<%@ include file="/back-end/item/backIndex2.file"%> --%>
 </body>
 </html>
+<%@ include file="/back-end/back-template/backIndex2.file"%>

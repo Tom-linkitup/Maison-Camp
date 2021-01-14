@@ -2,6 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <!DOCTYPE html>
+<%@ include file="/back-end/back-template/backIndex.file"%>
 <html>
 <head>
 <title>act comment selectPage</title>
@@ -17,7 +18,6 @@
 <title>活動訂單管理</title>
 </head>
 <body>
-	<jsp:include page="/html/backTop.jsp" flush="true" />
 
 <div id="container">
 		<div id="error">
@@ -58,8 +58,7 @@
 		</div>
 </div>
 
-
-		<jsp:include page="/html/backFooter.jsp" flush="true" />
+<%@ include file="/back-end/back-template/backIndex2.file"%>
 
 </body>
 </html>

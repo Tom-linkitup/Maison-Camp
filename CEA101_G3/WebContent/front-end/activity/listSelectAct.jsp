@@ -30,7 +30,7 @@ div#demo {
 div.list {
 	border: 1px solid blue;
 	border-radius: 3em;
-	margin: 20px;
+	margin: 20px auto 0px auto;
 }
 
 div.left {
@@ -69,7 +69,8 @@ div.content {
 
 div.left img {
 	border-radius: 50%;
-	max-width: 100%;
+	width:300px;
+	height:250px;
 	filter: drop-shadow(5px 5px 5px #333);
 }
 

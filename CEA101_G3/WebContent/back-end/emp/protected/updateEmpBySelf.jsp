@@ -29,9 +29,9 @@
 									type="password" class="form-control" name="emp_user_pwd" value="<%=empVO.getEmp_user_pwd()%>">
 									
 								<label for="formGroupExampleInput2">員工狀態:</label>
-								 <select class="custom-select" name="emp_status">
+								 <select class="custom-select" name="emp_status" disabled>
 									<option value="0">0(已離職)</option>
-									<option value="1">1(在職)</option>
+									<option value="1" selected>1(在職)</option>
 								</select>
 							</div>
 						</div>

@@ -47,10 +47,6 @@
 	</c:forEach>
 <FORM id="myAddForm" METHOD="post" ACTION="${pageContext.request.contextPath}/room_promotion/room_promotion.do" name="form1">
 <div id="content-2">
-
-
-		
- 
 		<tr><td>優惠房型設定:</td>
 		<td><select size="1" name="room_category_id" class="input-beautify">
 		<jsp:useBean id="roomTypeSvc" scope="page" class="com.roomtype.model.RoomTypeService" />
@@ -59,8 +55,10 @@
 			</c:forEach>
 		</select></td>
 		</tr>
+		<c:if test="${not empty errorMsgs}">
 		<p class="error" style="color:red; font-size:8px;">${errorMsgs.room_category_id}</p>
-		</tr>
+		</c:if>
+		</tr><P></P>
 		
 		<tr><td>優惠資訊說明:</td>
 		<td><input type="TEXT" name="room_promotion_info" class="input-beautify" value="<%=(room_promotionVO==null)? "" : room_promotionVO.getRoom_promotion_info()%>"></td>

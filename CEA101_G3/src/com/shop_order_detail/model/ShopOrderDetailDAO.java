@@ -246,7 +246,7 @@ public class ShopOrderDetailDAO implements ShopOrderDetailDAO_interface{
 		
 		try {
 			pstmt = con.prepareStatement(INSERT_STMT);
-			pstmt.setString(1,shopOrderDetailVO.getShop_order_id());
+			pstmt.setString(1,shopOrderDetailVO.getShop_order_id());	
 			pstmt.setString(2,shopOrderDetailVO.getItem_id());
 			pstmt.setString(3,shopOrderDetailVO.getItem_promotion_id());
 			pstmt.setString(4,shopOrderDetailVO.getNote());

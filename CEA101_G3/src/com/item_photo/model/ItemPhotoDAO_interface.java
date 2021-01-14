@@ -10,5 +10,6 @@ public interface ItemPhotoDAO_interface {
     public List<ItemPhotoVO> getAll(String item_id);
   //萬用複合查詢(傳入參數型態Map)(回傳 List)
 //  public List<ItemPhotoVO> getAll(Map<String, String[]> map); 
+	public ItemPhotoVO findByItemId(String itemId);
 
 }

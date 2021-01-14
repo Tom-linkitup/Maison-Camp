@@ -14,7 +14,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<c:if test="${noSelect == 'noSelect'}">
+<c:if test="${not empty errorPhotoMsgs}">
 	<script>
 		$("#tab-2").prop("checked",true);
 		swal("未選擇房型","請修正錯誤！","error");
@@ -26,12 +26,12 @@
 	position:relative;
 	margin-top: 10px;
 	margin-left: 20px;
-	width: 500px;
-	height: 200px;
+	width: 1100px;
+	height: 450px;
 	border: 4px dashed gray;
 }
 
-.photo-form p {
+.photo-form #preview {
 	width: 100%;
 	height: 100%;
 	text-align: center;
@@ -46,7 +46,6 @@
 	height: 100%;
 	outline: none;
 	opacity: 0;
-	margin-top:20px;
 }
 
 .photo-form button {
@@ -54,10 +53,10 @@
 	color: #fff;
 	background: #16a085;
 	border: none;
-	width: 508px;
-	height: 35px;
-	margin-top: 8px;
-	margin-left: -8px;
+	width: 1100px;
+	height: 45px;
+	margin-top: 10px;
+	margin-left: -5px;
 	border-radius: 4px;
 	border-bottom: 4px solid #117A60;
 	transition: all .2s ease;
@@ -86,17 +85,34 @@
 			</select>	
 		</div>
 			<input type="file" name="roomPhoto" multiple required>
-			<p>拖曳照片或直接點擊區塊</p>
+			<div id="preview">拖曳照片或直接點擊區塊</div>
 			<input type="hidden" name="action" value="upload">
 			<button type="submit">上傳</button>
 		</form>
 	</div>
 <script>
 $(document).ready(function(){
-	  $('.photo-form input').change(function () {
-	    $('.photo-form p').text(this.files.length + " file(s) selected");
+	  $('.photo-form input').change(function(e){
+		$("#preview").text("");
+		let preview = $("#preview");
+		let files = e.target.files
+        for(let i = 0; i < files.length; i++){
+            let file = files[i]
+            if(file.type.indexOf("image") >= 0){
+                let reader = new FileReader()
+                reader.addEventListener("load", (ex) => {
+                    let img =  document.createElement("img")
+                    img.setAttribute("width", "200px")
+                    img.setAttribute("height", "150px")
+                    img.src = ex.target.result
+                    img.style.marginLeft = "10px"
+                    preview.append(img);
+                })
+                reader.readAsDataURL(file)
+            }
+        }
 	  });
-	});
+});
 </script>
 </body>
 </html>

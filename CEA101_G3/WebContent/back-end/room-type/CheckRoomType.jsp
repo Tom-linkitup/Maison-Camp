@@ -8,17 +8,21 @@
 	List<RoomTypeVO> list = roomTypeSvc.getAllRT();
 	pageContext.setAttribute("list", list);
 %>
-
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<style>
+	.selectColor:hover {
+		background-color:#ffbc00 !important;
+	}
+</style>
 </head>
 <body>
-	<div id="content-1">
+	<div id="content-1" style="width:100%;">
 		<h2 style="text-align:center; margin-bottom:20px;">房型資訊</h2>
-		<table id="myTable" border="1px solid #000">
+		<table class="table table-striped" id="myTable" style="width:100%;">
 			<tr class="header">
 				<th>編號</th>
 				<th>名稱</th>
@@ -32,9 +36,8 @@
 				<th>修改</th>
 				<th>刪除</th>
 			</tr>
-			<%@ include file="page1.file"%>
-			<c:forEach var="roomTypeVO" items="${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">			
-			<tr>
+			<c:forEach var="roomTypeVO" items="${list}">			
+			<tr class="selectColor">
 				<td>${roomTypeVO.room_category_id}</td>
 				<td>${roomTypeVO.room_name}</td>
 				<td>${roomTypeVO.room_type}</td>
@@ -67,7 +70,6 @@
 			</tr>
 			</c:forEach>	
 		</table>
-		<%@ include file="page2.file"%>
 		<div id="lightBox" style="display:none;">
 			<form method="post" action="${pageContext.request.contextPath}/RoomType.do">
 				<table align="center" id="tableLogin">
@@ -82,8 +84,7 @@
 					<tr><td>房型狀態：</td>
 						<td>
 						<select id="room_category_status" class="input-beautify" type="text" name="room_category_status" required>
-							<option>請選擇狀態</option>
-							<option value="0">上架</option>
+							<option value="0" selected>上架</option>
 							<option value="1">下架</option>
 						</select>
 						</td>
@@ -110,7 +111,6 @@
 			$("#area").val(children.eq(4).text());
 			$("#room_guest").val(children.eq(5).text());
 			$("#room_quantity").val(children.eq(6).text());
-			$("#room_category_status").val("請選擇狀態");
 			$("#room_info").val(children.eq(8).text());
 		})
 		

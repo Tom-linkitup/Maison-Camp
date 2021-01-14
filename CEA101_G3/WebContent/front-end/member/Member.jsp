@@ -13,17 +13,26 @@
 <%@ page import="com.activityOrder.model.*"%>
 <%@ page import="com.activity.model.*"%>
 <%@ page import="com.actCategory.model.*"%>
+<%@ page import="com.shop_order.model.*"%>
 <!-- 取得會員資訊 -->
 <%
 	MemberVO memVO = (MemberVO) session.getAttribute("memVO");
-	RoomOrderService roSvc = new RoomOrderService();
-	List<RoomOrderVO> rolist = roSvc.getOneByMemId(memVO.getMem_id());
-	pageContext.setAttribute("rolist", rolist);
-	
+
 	// 活動
 	ActivityOrderService actOSvc = new ActivityOrderService();
 	List<ActivityOrderVO> actlist = actOSvc.findByMemId(memVO.getMem_id());
 	pageContext.setAttribute("actlist", actlist);
+	
+	// 訂房
+	RoomOrderService roSvc = new RoomOrderService();
+	List<RoomOrderVO> rolist = roSvc.getOneByMemId(memVO.getMem_id());
+	pageContext.setAttribute("rolist", rolist);
+	
+	// 商城
+	ShopOrderService soSvc = new ShopOrderService();
+	List<ShopOrderVO> solist = soSvc.getByMemId(memVO.getMem_id());
+	pageContext.setAttribute("solist", solist);
+
 	
 %>
 
@@ -55,15 +64,15 @@
                 <span></span>
                 <span></span>
                 <ul id="menu">
-                    <a href="<%=request.getContextPath()%>/front-end/front-index.jsp"><li>首頁</li></a>
-                    <a href="<%=request.getContextPath()%>/front-end/news/News.jsp"><li>最新消息</li></a>
-                    <a href="<%=request.getContextPath()%>/front-end/member/Member.jsp"><li>會員中心</li></a>
-                    <a href="<%=request.getContextPath()%>/front-end/room-type/RoomType.jsp"><li>帳型介紹</li></a>
-                    <a href="<%=request.getContextPath()%>/front-end/room-booking/RoomBooking.jsp"><li>立即訂房</li></a>
-                    <a href="#"><li>精選商城</li></a>
-                    <a href="#"><li>活動預約</li></a>
-                    <a href="#"><li>聯絡我們</li></a>
-                </ul>
+                        <a href="<%=request.getContextPath()%>/front-end/front-index.jsp"><li>首頁</li></a>
+                        <a href="<%=request.getContextPath()%>/front-end/news/News.jsp"><li>最新消息</li></a>
+                        <a class="enterAlert" href="<%=request.getContextPath()%>/front-end/member/Member.jsp"><li>會員中心</li></a>
+                        <a href="<%=request.getContextPath()%>/front-end/room-type/RoomType.jsp"><li>帳型介紹</li></a>
+                        <a href="<%=request.getContextPath()%>/front-end/room-booking/RoomBooking.jsp"><li>立即訂房</li></a>
+                        <a href="<%=request.getContextPath()%>/front-end/item/shoppingMall.jsp"><li>精選商城</li></a>
+                        <a href="<%=request.getContextPath()%>/front-end/activity/selectPage.jsp"><li>活動預約</li></a>
+                        <a href="#"><li>聯絡我們</li></a>
+                    </ul>
             </div>
         </nav>          
         <a href="#"><img id="logoo" class="img-logo" src="<%=request.getContextPath()%>/img/logo.png" alt=""></a>         
@@ -302,9 +311,12 @@
 				      			<c:when test="${roVO.status == '1'}">
 				      				<i style="color:#c15c61" class="fas fa-check-circle">已取消</i>
 				      			</c:when>
-				      			<c:otherwise>
+				      			<c:when test="${roVO.status == '2'}">
+				      				<i style="color:purple" class="fas fa-check-circle">入住中</i>
+				      			</c:when>
+				      			<c:when test="${roVO.status == '3'}">
 				      				<i style="color:lightblue" class="fas fa-check-circle">已完單</i>
-				      			</c:otherwise>
+				      			</c:when>
 				      		</c:choose>	      		
 				      	</div>
 				      </div>
@@ -316,7 +328,46 @@
           <!--shop order section -->      
           <div id="shop-order-show" class="row info-form" style="display:none;">
           	<h3 class="shop-headline">商城訂單</h3>
-          	
+          		<c:choose>
+          		<c:when test="${empty solist}">
+	          		<div class="container">
+          				<h4 style="text-align:center; color:#777;">尚無商品訂單資料</h4>
+          			</div>
+          		</c:when>
+          		<c:otherwise>
+          		<c:forEach var="soVO" items="${solist}">
+	              <div class="container">
+				      <div class="row">
+				      	<div class="col-sm-4">
+	                    	<img src="<%=request.getContextPath()%>/img/shopOrderImg.jpg" style="width:300px; height:200px; margin-left:-12px;"/>              		
+				      	</div>
+				      	<div class="col-sm-4">
+					      	<h4 class="room-order-headline">訂單資訊</h4>
+							<ul style="list-style:none; padding:5px 0; line-height:2em; font-size: 15px;">
+								<li><i class="fa fa-chevron-circle-right"></i>付款方式: ${soVO.payment}</li>
+								<li><i class="fa fa-chevron-circle-right"></i>訂單金額: ${soVO.shop_total_amount} 元</li>
+							</ul>
+				      	</div>
+				      	<div class="col-sm-4 right-side">
+				      		<h4>訂單編號：#${soVO.shop_order_id}</h4>
+				      		<h4>下單日期：${soVO.time}</h4>
+				      		<c:choose>
+				      			<c:when test="${soVO.status == '0'}">
+						      		<i style="color:#47cf72" class="fas fa-check-circle">已取消</i>
+				      			</c:when>
+				      			<c:when test="${soVO.status == '1'}">
+				      				<i style="color:#c15c61" class="fas fa-check-circle">已付款</i>
+				      			</c:when>
+				      			<c:otherwise>
+				      				<i style="color:lightblue" class="fas fa-check-circle">已完單</i>
+				      			</c:otherwise>
+				      		</c:choose>	      		
+				      	</div>
+				      </div>
+			      </div>
+			      </c:forEach>
+          		</c:otherwise>
+          	</c:choose>
           </div>
           <!--act order section -->      
          <!--act order section -->      

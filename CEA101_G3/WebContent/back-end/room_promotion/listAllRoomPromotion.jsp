@@ -3,12 +3,14 @@
 <%@ page import="java.util.*"%>
 <%@ page import="com.room_promotion.model.*"%>
 <%@ page import="com.roomtype.model.*"%>
-
+<%@ page import="com.room_comment.model.*"%>
+<%@ page import="com.roomorder.model.*"%>
 <%
 	Room_promotionService room_promotionSvc = new Room_promotionService();
 	List<Room_promotionVO> list = room_promotionSvc.getAll();
 	pageContext.setAttribute("list", list);
 %>
+
 
 <!DOCTYPE html>
 

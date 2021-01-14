@@ -111,7 +111,7 @@ public class RoomOrderServlet extends HttpServlet {
 				
 				RoomOrderDAO roDAO = new RoomOrderDAO();
 				roDAO.insertWithDetails(roVO, rodlist, orderItem);
-				res.sendRedirect(req.getContextPath() + "/front-end/member/Member.jsp");
+				res.sendRedirect(req.getContextPath() + "/front-end/thankYouPage/ThankYou.jsp");
 				return;
 				
 			}catch(Exception e) {
@@ -184,7 +184,7 @@ public class RoomOrderServlet extends HttpServlet {
 				RoomOrderService roSvc = new RoomOrderService();
 				roSvc.updateOrderCondition(new Integer(2), room_id, room_order_id);
 				RoomService rmSvc = new RoomService();
-				rmSvc.updateRmCondition(new Integer(1), room_id);
+				rmSvc.updateRmLive(new Integer(1), room_id);
 				String success = "success";
 				out.print(success);			
 			}catch(Exception e) {
@@ -199,12 +199,50 @@ public class RoomOrderServlet extends HttpServlet {
 				RoomOrderService roSvc = new RoomOrderService();
 				roSvc.updateOrderCondition(new Integer(3), "已退房", room_order_id);
 				RoomService rmSvc = new RoomService();
-				rmSvc.updateRmCondition(new Integer(0), room_id);
+				rmSvc.updateRmLive(new Integer(0), room_id);
 				String success = "success";
 				out.print(success);		
 			}catch(Exception e) {
 				e.printStackTrace();
 			}
+		}
+		
+		if("cancelRoomOrderFromBackend".equals(action)) {
+			
+			try {
+				//取得取消訂單資料
+				String room_order_id = req.getParameter("room_order_id");
+				String room_category_id = req.getParameter("room_category_id");
+				Integer quantity = new Integer(req.getParameter("quantity"));
+				java.sql.Date check_in_date = java.sql.Date.valueOf(req.getParameter("check_in_date"));
+				java.sql.Date check_out_date = java.sql.Date.valueOf(req.getParameter("check_out_date"));
+				SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+				String startDate = sdf.format(check_in_date);
+				
+				//計算訂單住房天數更新預定表
+				LocalDate orderFrom = check_in_date.toLocalDate();
+				LocalDate orderTo = check_out_date.toLocalDate();
+				Integer stay = orderTo.compareTo(orderFrom);
+				System.out.println("入住天數為" + stay);
+				
+				JSONObject orderItem = new JSONObject();
+				orderItem.put("stay", stay);
+				orderItem.put("room_category_id", room_category_id);
+				orderItem.put("startDate", startDate);
+				orderItem.put("quantity", quantity);
+					
+				//呼叫 order DAO 更新訂單狀態為取消
+				RoomOrderDAO dao = new RoomOrderDAO();
+				dao.updateWithRsv(new Integer(1), room_order_id, orderItem);
+				
+				String url = "/back-end/room-order/RoomOrder.jsp";
+				RequestDispatcher successView = req.getRequestDispatcher(url);
+				successView.forward(req, res);
+				return;
+				
+			}catch(Exception e) {
+				e.printStackTrace();
+			}		
 		}
 		
 	}

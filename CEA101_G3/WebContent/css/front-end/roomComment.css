@@ -1,0 +1,242 @@
+body {
+margin: 0;
+padding: 0;
+}
+.entry {
+  height: 140px;
+}
+.entry .mybox {
+  margin-left: 110px;   
+  height:100%;
+  background-color:#f4f4f0;
+  position:relative;
+  border-radius:0px;
+  border-color: #c0c0c0;
+  border-top-color: #e8e9e4;
+  border-style:solid;
+  border-width: 1px;
+  padding:10px;
+}
+.mybox:before {
+  content:"";
+  border-color: transparent #c0c0c0 transparent transparent;
+  border-style:solid;
+  border-width:15px;
+  width:0;
+  height:0;
+  position:absolute;
+  bottom: 50%;
+  margin-bottom: -10px;
+  left:-30px    
+}
+.mybox:reply {
+  content:"";
+  border-color: transparent #c0c0c0 transparent transparent;
+  border-style:solid;
+  border-width:15px;
+  width:0;
+  height:0;
+  position:absolute;
+  bottom: 50%;
+  margin-bottom: -10px;
+  left:-30px    
+}
+.mybox:after {
+  content:"";
+  border-color: transparent #f4f4f0 transparent transparent;
+  border-style:solid;
+  width:0;
+  height:0;
+  position:absolute;
+  bottom: 50%;
+  margin-bottom: -10px;
+  left:-29px
+}
+.mybox .textarea-wrapper {
+  height:100%;
+  background-color: #dce1e4;
+  resize: none;
+  border-color: #808080;
+  border-style:solid;
+  border-width:1px;
+  border-radius:1px;
+  box-shadow: inset 0px 2px 5px #c0c0c0;
+}
+.mybox textarea {
+  height:100px;
+  width:100%;
+  background-color: rgba(0,0,0,0);
+  color: #000;
+  font-family: "Open Sans";
+  text-shadow: 1px 1px #fafafa;
+  font-size: 12px;
+  resize: none;
+  border: none;
+  outline: none;
+  bottom: -40px
+}
+.mybox .actions {
+  position:relative;
+  width:100%;
+  height:40px;
+  bottom:0px;
+  background-color:rgba(0,0,0,0.1);
+  border-top: 1px dotted #808080;
+}
+.mybox .actions .send {
+  height: 38px;
+}
+.post {
+  height: 110px;
+  min-height: 110px;
+  margin-bottom: 2px;
+  position: relative;
+}
+.mybox-middle {
+  margin-left: 110px;
+  height: 100%;
+  width:600px;
+  background-color:#ffffff;
+  position:relative;
+  border-radius:0px;
+  border-color: #c0c0c0;
+  border-top-color: #fff;
+  border-style:solid;
+  border-width: 1px;
+  font-family: "Open Sans";
+  font-size: 12px;
+}
+.mybox-reply {
+  margin-left: 110px;
+  min-width: 500px;
+  background-color:#f4f4f0;
+  position:relative;
+  border-radius:0px;
+  border-color: #c0c0c0;
+  border-top-color: #fff;
+  border-style:solid;
+  border-width: 1px;
+  font-family: "Open Sans";
+  font-size: 12px;
+}
+div.post:nth-child(1) div.mybox-middle {
+  border-color: #c0c0c0;
+}
+div.post:nth-last-child(4) div.mybox-middle  {
+  background-color: #dce1e4 ;
+  border-color: #a0a0a0;
+  border-top-color: #eee;
+}
+div.post:nth-last-child(4) div.mybox-middle:before {
+  content:"";
+  border-color: transparent #a0a0a0 transparent transparent;
+  border-style:solid;
+  border-width:15px;
+  width:0;
+  height:0;
+  position:absolute;
+  bottom: 50%;
+  margin-bottom: -10px;
+  left:-30px    
+}
+div.post:nth-last-child(4) div.mybox-middle:after {
+  content:"";
+  border-color:  transparent #dce1e4 transparent transparent;
+  border-style:solid;
+  border-width:15px;
+  width:0;
+  height:0;
+  position:absolute;
+  bottom: 50%;
+  margin-bottom: -10px;
+  left:-29px
+}
+.mybox-middle:before {
+  content:"";
+  border-color: transparent #c0c0c0 transparent transparent;
+  border-style:solid;
+  border-width:15px;
+  width:0;
+  height:0;
+  position:absolute;
+  bottom: 50%;
+  margin-bottom: -10px;
+  left:-30px    
+}
+.mybox-middle:after {
+  content:"";
+  border-color: transparent #ffffff transparent transparent;
+  border-style:solid;
+  border-width:15px;
+  width:0;
+  height:0;
+  position:absolute;
+  bottom: 50%;
+  margin-bottom: -10px;
+  left:-29px;
+}
+.mybox-middle div.widget {
+  position: absolute;
+  height:100px;
+  bottom: 50%;
+  margin-bottom:-30px;
+  margin-left:10px;
+  color: #949c9f;
+  text-shadow: 1px 1px #fff;
+}
+.mybox-middle span.username {
+  font-weight: bold;
+  opacity:1;
+}
+.mybox-middle span.timestamp {
+  font-size: 80%;
+}
+div.post:nth-last-child(4) div {
+  text-shadow: 1px 1px #fafafa;
+  color: #404040;
+}
+.mybox-middle div.message {
+  text-align: justify;
+  margin-left:120px;
+  margin-right:130px;
+  word-wrap: break-word;
+  color:#9c9ca5;
+  text-shadow: 1px 1px #fff;
+  height: 100px;
+  overflow:inherit;
+  padding: 0px;
+  position:sticky;
+}
+.mybox-middle div.message:nth-last-child(1) {
+  padding-top: 10px;
+}
+.sidebar {
+  position:relative;
+  height:100%;
+  width: 108px;
+  float:left;
+}
+.avatar {
+  width:76px;   
+  height:76px;
+  float: left;
+  background-color: #f4f4f4;
+  margin-left:13px;
+  border-color: #c0c0c0;
+  border-style: solid;
+  border-radius: 3px;
+  box-shadow: 0 0 4px #d0d0d0;
+  border-width: 1px;
+  position:absolute; 
+  top:50%;
+  margin-top: -36px;
+  
+}
+.avatar img.author {
+  max-width: 80%;
+  max-height: 80%;
+  padding: 10%;
+}
+
+
+}

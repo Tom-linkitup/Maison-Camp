@@ -1,10 +1,7 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="java.util.*"%>
 <%@ page import="com.emp.model.*"%>
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -73,7 +70,6 @@
                           </a>
                           <ul class="treeview-menu">
                               <li><a href="#">最新消息管理</a></li>
-                              <li><a href="#">促銷專案管理</a></li>
                           </ul>
                       </li>
                       <li class="treeview">
@@ -86,7 +82,6 @@
                       <ul class="treeview-menu">
                           <li><a href="<%=request.getContextPath()%>/back-end/emp/protected/viewEmp.jsp">員工管理</a></li>
                           <li><a href="<%=request.getContextPath()%>/back-end/emp/protected/viewEmpFunc.jsp">員工權限管理</a></li>
-                          <li><a href="#">系統參數管理</a></li>
                           <li><a href="<%=request.getContextPath()%>/back-end/emp/protected/viewFunc.jsp">權限管理</a></li>
                       </ul>
                       </li>
@@ -109,15 +104,14 @@
                           </span>
                       </a>
                       <ul class="treeview-menu">
-                          <li><a href="<%=request.getContextPath() %>/back-end/room-type/RoomTypeInfo.jsp">房型管理</a></li>
-                          <li><a href="<%=request.getContextPath() %>/back-end/room/RoomInfo.jsp">房間管理</a></li>
-                          <li><a href="<%=request.getContextPath() %>/back-end/room-order/RoomOrder.jsp">住房訂單管理</a></li>
+                          <li><a href="<%=request.getContextPath()%>/back-end/room-type/RoomTypeInfo.jsp">房型管理</a></li>
+                          <li><a href="<%=request.getContextPath()%>/back-end/room/RoomInfo.jsp">房間管理</a></li>
+                          <li><a href="<%=request.getContextPath()%>/back-end/room-order/RoomOrder.jsp">住房訂單管理</a></li>
                           <li><a href="<%=request.getContextPath()%>/back-end/room_repair/select_page.jsp">修繕管理</a></li>
                           <li><a href="<%=request.getContextPath()%>/back-end/room_promotion/select_page.jsp">訂房優惠管理</a></li>
                           <li><a href="<%=request.getContextPath()%>/back-end/room_comment/select_page.jsp">房間評論管理</a></li>
                           <li><a href="<%=request.getContextPath()%>/back-end/extra_charges/select_page.jsp">額外消費管理</a></li>
-                          <li><a href="#">入住管理</a></li>
-                          <li><a href="#">退房管理</a></li>
+                          <li><a href="<%=request.getContextPath()%>/back-end/check-in-n-out/counterSystem.jsp">客房入住管理</a></li>
                       </ul>
                       </li>
                       <li class="treeview">
@@ -128,9 +122,10 @@
                               </span>
                           </a>
                           <ul class="treeview-menu">
-                              <li><a href="#">銷售統計管理</a></li>
-                              <li><a href="#">商品管理</a></li>
-                              <li><a href="#">商品訂單管理</a></li>
+                              <li><a href="<%=request.getContextPath()%>/back-end/item_category/ItemCategoryInfo.jsp">商品類別管理</a></li>
+                              <li><a href="<%=request.getContextPath()%>/back-end/item/ItemInfo.jsp">商品管理</a></li>
+                              <li><a href="<%=request.getContextPath()%>/back-end/item_comment/ItemCommentInfo.jsp">商品評論管理</a></li>
+                              <li><a href="<%=request.getContextPath()%>/back-end/shop_order_detail/ItemOrderInfo.jsp">商品訂單管理</a></li>
                           </ul>
                       </li>
                       <li class="treeview">
@@ -141,9 +136,10 @@
                               </span>
                           </a>
                           <ul class="treeview-menu">
-                              <li><a href="#">活動內容管理</a></li>
-                              <li><a href="#">活動報名管理</a></li>
-                              <li><a href="#">活動排程</a></li>
+                              <li><a href="<%= request.getContextPath() %>/back-end/activity/selectPage.jsp">活動內容管理</a></li>
+                              <li><a href="<%= request.getContextPath() %>/back-end/actOrder/selectPage.jsp">活動報名管理</a></li>
+                              <li><a href="<%= request.getContextPath() %>/back-end/actComment/selectPage.jsp">活動評論管理</a></li>
+                              <li><a href="<%= request.getContextPath() %>/back-end/actcategory/selectPage.jsp">活動類別管理</a></li>
                           </ul>
                       </li>
                   </ul>

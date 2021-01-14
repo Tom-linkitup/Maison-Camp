@@ -5,9 +5,11 @@
 <%@ page import="com.item.model.*"%>
 <%@ page import="com.item_category.model.*"%>
 <%
+	String itemCategoryId = request.getParameter("itemCategoryId");
+	if(itemCategoryId == null) 
+		itemCategoryId = "I001";
     ItemService itemSvc = new ItemService();
-//     List<ItemVO> list = itemSvc.getByCat("I001");
-	List<ItemVO> list = itemSvc.getAll();
+    List<ItemVO> list = itemSvc.getByCat(itemCategoryId);
     pageContext.setAttribute("list",list);
     
     ItemCategoryService itemCatSvc = new ItemCategoryService();
@@ -21,7 +23,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://fonts.googleapis.com/css?family=Lato:100,300,400,700,900" rel="stylesheet">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="<%=request.getContextPath() %>/css/front-end/style2shopping.css">
+    <link rel="stylesheet" href="<%=request.getContextPath() %>/css/front-end/shopping.css">
     <link rel="shortcut icon" type="image/png" href="<%=request.getContextPath() %>/img/camplogo.png">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" rel="stylesheet" />
@@ -63,15 +65,15 @@
                   <span></span>
                   <span></span>
                   <ul id="menu">
-                      <a href="<%=request.getContextPath()%>/front-end/front-index.jsp"><li>首頁</li></a>
+                        <a href="<%=request.getContextPath()%>/front-end/front-index.jsp"><li>首頁</li></a>
                         <a href="<%=request.getContextPath()%>/front-end/news/News.jsp"><li>最新消息</li></a>
-                        <a href="#"><li>會員中心</li></a>
-                        <a href="<%=request.getContextPath()%>/front-end/room-type/roomType.jsp"><li>帳型介紹</li></a>
+                        <a class="enterAlert" href="<%=request.getContextPath()%>/front-end/member/Member.jsp"><li>會員中心</li></a>
+                        <a href="<%=request.getContextPath()%>/front-end/room-type/RoomType.jsp"><li>帳型介紹</li></a>
                         <a href="<%=request.getContextPath()%>/front-end/room-booking/RoomBooking.jsp"><li>立即訂房</li></a>
-                        <a href="#"><li>精選商城</li></a>
-                        <a href="#"><li>活動預約</li></a>
+                        <a href="<%=request.getContextPath()%>/front-end/item/shoppingMall.jsp"><li>精選商城</li></a>
+                        <a href="<%=request.getContextPath()%>/front-end/activity/selectPage.jsp"><li>活動預約</li></a>
                         <a href="#"><li>聯絡我們</li></a>
-                  </ul>
+                    </ul>
               </div>
           </nav>
           <a href="#"><img id="logoo" class="img-logo" src="<%=request.getContextPath()%>/img/logo.png" alt=""></a>
@@ -94,7 +96,7 @@
                 <div class="col-md-2 bg_grad pl-3 menu_left ">
                     <ul>
                     	<c:forEach var="itemCategoryVO" items="${catList}">
-                        	<li><a href=""><h5 id="itemTypeCol">${itemCategoryVO.itemCategoryName}</h5></a></li><br><br>
+                        	<li><a href="<%=request.getContextPath()%>/item_category/itemCategory.do?action=changeCategory&itemCategoryId=${itemCategoryVO.itemCategoryId}"><h5 id="itemTypeCol">${itemCategoryVO.itemCategoryName}</h5></a></li><br><br>
                         </c:forEach>
                     </ul>
                 </div>
@@ -110,7 +112,7 @@
 	                    	</c:if>
 		                    	<div class="col-3">
 		                            <div class="card mb-3" style="text-align: center">
-		                                <img class="card-img-top itemImg" src="<%=request.getContextPath()%>/img/20200108.jpg" alt="Card image cap">
+		                                <img class="card-img-top itemImg" src="<%=request.getContextPath()%>/photoByitemId?itemId=${itemVO.itemId}" alt="Card image cap">
 		                                <div class="card-body name"><h5>${itemVO.itemName}</h5></div>
 		                                <FORM method="post">
 		                                	<input type="hidden" class="info" name="itemInfo" value="${itemVO.itemInfo}">		                                

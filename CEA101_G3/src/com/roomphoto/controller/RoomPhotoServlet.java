@@ -3,6 +3,9 @@ package com.roomphoto.controller;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Collection;
+import java.util.LinkedHashMap;
+import java.util.Map;
+
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
@@ -26,14 +29,19 @@ public class RoomPhotoServlet extends HttpServlet {
 		String action = req.getParameter("action");
 					
 		
-		if("upload".equals(action)) {		
+		if("upload".equals(action)) {
+			
+			Map<String, String> errorPhotoMsgs = new LinkedHashMap<>();
+			req.setAttribute("errorPhotoMsgs", errorPhotoMsgs);
+			
 			String room_category_id = req.getParameter("room_category_id");
 			
-			if(room_category_id.equals("noSelectRoomType")) {
+			if("noSelectRoomType".equals(room_category_id)) {
+				errorPhotoMsgs.put("room_category_id", "*請選擇房型編號");
 				String url = "/back-end/room-type/RoomTypeInfo.jsp";
-				req.setAttribute("noSelect","noSelect");
 				RequestDispatcher failureView = req.getRequestDispatcher(url);
 				failureView.forward(req, res);
+				return;
 			}
 			
 			Collection<Part> parts = req.getParts();
@@ -57,6 +65,7 @@ public class RoomPhotoServlet extends HttpServlet {
 			req.setAttribute("uploadSuccess", "uploadSuccess");
 			RequestDispatcher successView = req.getRequestDispatcher(url);
 			successView.forward(req, res);
+			return;
 		}
 		
 		if("delete".equals(action)) {
@@ -66,6 +75,7 @@ public class RoomPhotoServlet extends HttpServlet {
 			roomPhotoSvc.deleteRPH(room_photo_id.trim());
 			
 			req.setAttribute("deletePicSucess", "deletePicSuccess");
+			return;
 		}
 	}
 }

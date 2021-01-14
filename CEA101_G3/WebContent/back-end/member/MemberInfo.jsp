@@ -75,7 +75,7 @@
 		</table>
 		<div id="lightBox" style="display:none;">
 			<form method="post" action="${pageContext.request.contextPath}/Member.do">
-				<table align="center" id="tableLogin">
+				<table style="text-align:center" id="tableLogin">
 					<tr style="font-size:20px; color:#c15c61;"><td>會員修改</td></tr>
 					<tr><td>會員編號：</td><td><input style="background-color:#f9f9f9; border:none;" id="mem_id" class="input-noEdit" type="text" name="mem_id" readonly></td></tr>			
 					<tr><td>會員帳號：</td><td><input id="user_id" class="input-beautify" type="text" name="user_id" required></td></tr>
@@ -85,14 +85,13 @@
 					<tr><td>會員國籍：</td><td><input id="nation" class="input-beautify" type="text" name="nation" required></td></tr>
 					<tr><td>電子信箱：</td><td><input id="email" class="input-beautify" type="text" name="email" required></td></tr>
 					<tr><td>會員性別：</td><td><input id="sexual" class="input-beautify" type="text" name="sexual" required></td></tr>
-					<tr><td>出生年月日：</td><td><input id="birthday" class="input-beautify" type="text" name="birthday" required></td></tr>
+					<tr><td>出生年月日：</td><td><input id="birthday" class="input-beautify" type="date" name="birthday" required></td></tr>
 					<tr><td>身分證字號：</td><td><input id="personal_id" class="input-beautify" type="text" name="personal_id" required></td></tr>
 					<tr><td>付款卡號：</td><td><input id="payment" class="input-beautify" type="text" name="payment" required></td></tr>
 					<tr><td>會員狀態：</td>
 						<td>
-						<select id="status" class="input-beautify" type="text" name="status" required>
-							<option>請選擇狀態</option>
-							<option value="0">未驗證</option>
+						<select id="status" class="input-beautify" name="status" required>
+							<option value="0" selected>未驗證</option>
 							<option value="1">已驗證</option>
 						</select>
 						</td>
@@ -122,7 +121,6 @@
 			$("#birthday").val(children.eq(8).text());
 			$("#personal_id").val(children.eq(9).text());
 			$("#payment").val(children.eq(10).text());
-			$("#status").val("請選擇狀態");
 		})
 		
 		$("#btnEditCancel").click(function() {

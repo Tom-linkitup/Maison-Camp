@@ -5,7 +5,6 @@
 <%
 	ActivityVO activityVO = (ActivityVO) request.getAttribute("activityVO"); //EmpServlet.java(Concroller), 存入req的empVO物件
 	ActivityService actSvc = new ActivityService();
-	ActivityVO activityVO1 = actSvc.getOneActivity(request.getParameter("A10001"));
 %>
 
 <html>

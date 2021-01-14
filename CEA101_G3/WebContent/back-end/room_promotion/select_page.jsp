@@ -19,7 +19,7 @@
 <%
     Room_promotionVO room_promotionVO = (Room_promotionVO) request.getAttribute("room_promotionVO");
 %>
-<!--  ====<%=(room_promotionVO != null)?room_promotionVO.getRoom_promotion_info():"" %>==== 測試用-->
+<%-- <!--  ====<%=(room_promotionVO != null)?room_promotionVO.getRoom_promotion_info():"" %>==== 測試用--> --%>
 
 	<a href="<%=request.getContextPath()%>/back-end/room_promotion/select_page.jsp"><h2 style="text-decoration: underline; text-underline-position: under; color:#675157; padding:5px 20px 20px 20px;">訂房優惠管理</h2></a>
 	<div id="container">

@@ -36,7 +36,8 @@ public class GetRoomPhoto extends HttpServlet {
 		String forurl = "/back-end/room-type/RoomTypeInfo.jsp";
 		req.setAttribute("query", "query");
 		RequestDispatcher successView = req.getRequestDispatcher(forurl);
-		successView.forward(req, res);				
+		successView.forward(req, res);	
+		return;
 	}
 
 }
