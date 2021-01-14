@@ -26,7 +26,6 @@
 				<th>消費內容</th>
 				<th>價格</th>
 				<th>更新消費內容</th>
-				<th>刪除</th>
 			</tr>
 			<%@ include file="page1.file"%>
 			
@@ -42,11 +41,6 @@
 				<input type="hidden" name="extra_charges_id" value="${extra_chargesVO.extra_charges_id}">
 				<input type="hidden" name="action" value="getOne_For_Update">	
 			    <button class="edit btn btn-info" type="submit">修改</button>
-				</td>
-				<td>
-					<input type="hidden" name="extra_charges_id" value="">
-				    <button class="delete btn btn-danger" type="submit">刪除</button>
-				
 				</td>
 			</tr>
 			</c:forEach>	
@@ -85,11 +79,6 @@
 			$("#lightBox").css("display","none");
 		})
 		
-		
-		$(".delete").click(function() {
-			window.alert("不可刪除");
-			
-		})
 	</script>	
 
 </body>

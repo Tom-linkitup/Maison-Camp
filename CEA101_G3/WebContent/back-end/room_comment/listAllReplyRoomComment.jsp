@@ -2,13 +2,17 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="java.util.*"%>
 <%@ page import="com.room_comment.model.*"%>
+<%@ page import="com.roomtype.model.*" %>
+<%@ page import="com.roomorder.model.*" %>
 <script src="http://code.jquery.com/jquery-1.12.4.min.js"></script>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+
 <%
 	Room_commentService room_commentSvc = new Room_commentService();
 	List<Room_commentVO> list = room_commentSvc.getAllReply();
 	pageContext.setAttribute("list", list);
 %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -27,6 +31,7 @@
 		<table id="myTable" border="1px solid #000">
 			<tr class="header">
 				<th>評論編號</th>
+				<th>訂房代號</th>
 				<th>評論房型</th>
 				<th>評論內容</th>
 				<th>評論時間</th>
@@ -37,6 +42,7 @@
 			<c:forEach var="room_commentVO" items="${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">			
 			<tr>
 				<td>${room_commentVO.room_comment_id}</td>
+				<td>${room_commentVO.room_order_id}</td>
 				<td>${room_commentVO.room_category_id}</td>
 				<td>${room_commentVO.room_comment_content}</td>
 				<td><fmt:formatDate value="${room_commentVO.time}" pattern="yyyy-MM-dd HH:mm:ss"/></td>
@@ -64,6 +70,7 @@
 				<table align="center" id="tableLogin">
 					<tr style="font-size:20px; color:#c15c61;"><td>評論資訊</td></tr>
 					<tr><td>評論編號：</td><td><input style="background-color:#f9f9f9; border:none;" id="room_comment_id_done"      class="input-beautify"   type="text" name="room_comment_id" readonly></td></tr>			
+					<tr><td>訂房代號：</td><td><input style="background-color:#f9f9f9; border:none;" id="room_order_id_done"      class="input-beautify"   type="text" name="room_order_id" readonly></td></tr>			
 					<tr><td>評論房型：</td><td><input style="background-color:#f9f9f9; border:none;" id="room_category_id_done"     class="input-beautify" type="text" name="room_category_id" readonly ></td></tr>
 					<tr><td>評論內容：</td><td><input style="background-color:#f9f9f9; border:none;" id="room_comment_content_done" class="input-beautify" type="text" name="room_comment_content" readonly></td></tr>
 					<tr><td>評論時間：</td><td><input style="background-color:#f9f9f9; border:none;" id="time_done"                 class="input-beautify" type="text" name="time" readonly></td></tr>
@@ -86,10 +93,11 @@
 			let tr = $(this).parents("tr");
 			let children = tr.children();
 			$("#room_comment_id_done").val(children.eq(0).text());
-			$("#room_category_id_done").val(children.eq(1).text());
-			$("#room_comment_content_done").val(children.eq(2).text());
-			$("#time_done").val(children.eq(3).text());
-			$("#comment_reply_done").val(children.eq(4).text());
+			$("#room_order_id_done").val(children.eq(1).text());
+			$("#room_category_id_done").val(children.eq(2).text());
+			$("#room_comment_content_done").val(children.eq(3).text());
+			$("#time_done").val(children.eq(4).text());
+			$("#comment_reply_done").val(children.eq(5).text());
 		})
 		
 		$("#btnEditCancel_done").click(function() {

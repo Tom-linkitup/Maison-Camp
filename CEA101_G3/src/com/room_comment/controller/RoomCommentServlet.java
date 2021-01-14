@@ -318,9 +318,10 @@ public class RoomCommentServlet extends HttpServlet {
 						String room_comment_content = req.getParameter("room_comment_content").trim();
 						String comment_reply = req.getParameter("comment_reply");
 						
+						
 						String get = req.getParameter("time").trim();
 						Timestamp time = java.sql.Timestamp.valueOf(get);
-
+						String room_order_id = req.getParameter("room_order_id");
 						
 						
 						Room_commentVO room_commentVO = new Room_commentVO();
@@ -329,9 +330,10 @@ public class RoomCommentServlet extends HttpServlet {
 						room_commentVO.setRoom_comment_content(room_comment_content);
 						room_commentVO.setTime(time);
 						room_commentVO.setComment_reply(comment_reply);
+						room_commentVO.setRoom_order_id(room_order_id);
 
 						Room_commentService room_commentSvc = new Room_commentService();
-						room_commentVO = room_commentSvc.updateRoom_comment(room_comment_id,room_category_id,room_comment_content,time,comment_reply);
+						room_commentVO = room_commentSvc.updateRoom_comment(room_comment_id,room_category_id,room_comment_content,time,comment_reply,room_order_id);
 						
 						String url = "/back-end/room_comment/select_page.jsp";
 						req.setAttribute("updateSuccess", "yes");
@@ -346,6 +348,7 @@ public class RoomCommentServlet extends HttpServlet {
 						e.printStackTrace();
 					}
 				}
+		//用房型找評論
 		if("getRoomCommentByRtc".equals(action)) {
 			System.out.println("有來到這");
 			req.setCharacterEncoding("utf-8");

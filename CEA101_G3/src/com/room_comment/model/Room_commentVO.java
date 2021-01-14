@@ -9,6 +9,7 @@ public class Room_commentVO implements java.io.Serializable{
 	private String room_comment_content;
 	private Timestamp time;
 	private String comment_reply;
+	private String room_order_id;
 	
 	
 	public String getComment_reply() {
@@ -40,6 +41,12 @@ public class Room_commentVO implements java.io.Serializable{
 	}
 	public void setRoom_comment_content(String room_comment_content) {
 		this.room_comment_content = room_comment_content;
+	}
+	public String getRoom_order_id() {
+		return room_order_id;
+	}
+	public void setRoom_order_id(String room_order_id) {
+		this.room_order_id = room_order_id;
 	}
 	
 	

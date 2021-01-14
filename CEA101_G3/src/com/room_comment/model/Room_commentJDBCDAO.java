@@ -494,12 +494,13 @@ public class Room_commentJDBCDAO implements Room_commentDAO_interface {
 		
 		// �憓�
 		
-//		Room_commentVO room_commentVO1 = new Room_commentVO();
-//		room_commentVO1.setRoom_category_id("TWINS");
-//		room_commentVO1.setRoom_comment_content("好棒");
-//		room_commentVO1.setTime(java.sql.Timestamp.valueOf("2021-12-29 13:32:02.123456789"));
+		Room_commentVO room_commentVO1 = new Room_commentVO();
+		room_commentVO1.setRoom_order_id("RM10006");
+		room_commentVO1.setRoom_category_id("TWINS");
+		room_commentVO1.setRoom_comment_content("好棒");
+		room_commentVO1.setTime(java.sql.Timestamp.valueOf("2021-12-29 13:32:02.123456789"));
 //		room_commentVO1.setComment_reply("謝謝");
-//		dao.insert(room_commentVO1);
+		dao.insert(room_commentVO1);
 		
 //		 java.sql.Timestamp.valueOf
 //		// 靽格
@@ -521,15 +522,15 @@ public class Room_commentJDBCDAO implements Room_commentDAO_interface {
 //		System.out.print(room_commentVO3.getTime() + ",");
 //		System.out.println("---------------------");
 ////
-////		// �閰�
-		List<Room_commentVO> list = dao.getAll(); 
-		for (Room_commentVO aRoom_comment : list) {
-			System.out.print(aRoom_comment.getRoom_comment_id() + ",");
-			System.out.print(aRoom_comment.getRoom_category_id() + ",");
-			System.out.print(aRoom_comment.getRoom_comment_content() + ",");
-			System.out.print(aRoom_comment.getTime() + ",");
-			System.out.print(aRoom_comment.getComment_reply() + ",");
-			System.out.println();
-		}
+//////		// �閰�
+//		List<Room_commentVO> list = dao.getAll(); 
+//		for (Room_commentVO aRoom_comment : list) {
+//			System.out.print(aRoom_comment.getRoom_comment_id() + ",");
+//			System.out.print(aRoom_comment.getRoom_category_id() + ",");
+//			System.out.print(aRoom_comment.getRoom_comment_content() + ",");
+//			System.out.print(aRoom_comment.getTime() + ",");
+//			System.out.print(aRoom_comment.getComment_reply() + ",");
+//			System.out.println();
+//		}
 	}
 }
