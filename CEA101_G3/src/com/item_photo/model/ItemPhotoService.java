@@ -47,6 +47,10 @@ public class ItemPhotoService {
 		return dao.findByPrimaryKey(itemPhotoId);
 	}
 	
+	public ItemPhotoVO getOneByItemId(String itemId) {
+		return dao.findByItemId(itemId);
+	}
+	
 	public List<ItemPhotoVO> getAll(String item_id){
 		return dao.getAll(item_id);
 	}
