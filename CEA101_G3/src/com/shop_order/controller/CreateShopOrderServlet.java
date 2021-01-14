@@ -26,11 +26,6 @@ public class CreateShopOrderServlet extends HttpServlet {
 		Vector<Item> buylist = (Vector<Item>) session.getAttribute("shoppingcart");
 		String action = req.getParameter("action");
 		
-		if(buylist == null) {
-			RequestDispatcher failureView = req.getRequestDispatcher("/front-end/item/shoppingMall.jsp");
-			failureView.forward(req, res);
-			return;
-		}
 		
 		if ("insert".equals(action)) {
 			
@@ -50,7 +45,6 @@ public class CreateShopOrderServlet extends HttpServlet {
 				shopOrderVO.setTime(time);
 				shopOrderVO.setShop_total_amount(shop_total_amount);
 				shopOrderVO.setStatus(status);
-
 				List<ShopOrderDetailVO> list = new ArrayList<ShopOrderDetailVO>(); 
 				ShopOrderDetailVO detailVO = null;
 				for(int i = 0 ; i <buylist.size(); i++ ) {
@@ -64,7 +58,6 @@ public class CreateShopOrderServlet extends HttpServlet {
 					list.add(detailVO);		
 				}
 				
-				/*************************** 2.開始修改資料 *****************************************/
 				ShopOrderService shopOrderSvc = new ShopOrderService();
 				shopOrderSvc.addWithOrderDetail(shopOrderVO, list);
 				
@@ -73,7 +66,7 @@ public class CreateShopOrderServlet extends HttpServlet {
 				if (orderSession != null && orderSession.size() > 0) {
 					JSONObject data = new JSONObject();
 					try {
-						data.put("newOrder","新增訂單成功");
+						data.put("newOrder","有一筆新訂單");
 					} catch (JSONException e1) {
 						e1.printStackTrace();
 					}

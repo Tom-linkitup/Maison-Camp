@@ -138,6 +138,13 @@ public class ItemCategoryServlet extends HttpServlet {
 				e.getStackTrace();
 			}
 		}
+		if ("changeCategory".equals(action)) {
+			String itemCategoryId = req.getParameter("itemCategoryId");
+			req.setAttribute("itemCategoryId", itemCategoryId);
+			String url = "/front-end/item/shoppingMall.jsp";
+			RequestDispatcher successView = req.getRequestDispatcher(url);// 刪除成功後,轉交回送出刪除的來源網頁
+			successView.forward(req, res);
+		}
 	}
 
 }
