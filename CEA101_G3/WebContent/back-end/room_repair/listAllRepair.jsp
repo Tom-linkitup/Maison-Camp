@@ -18,8 +18,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-		<div id="content-1">
-		
+		<div id="content-1" style="height:40em; overflow:scroll;">	
 		<h2 style="text-align:center; margin-bottom:20px;">維修資訊</h2>
 		<div style="display:inline-flex; position:absolute; top:70px; right:15px;">
 			<div style="line-height:2; margin-right:4px;">快速搜尋(房間、員工)</div>

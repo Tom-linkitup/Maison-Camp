@@ -19,6 +19,7 @@ public class RoomPromotionServlet extends HttpServlet {
 			throws ServletException, IOException {
 
 		req.setCharacterEncoding("UTF-8");
+		res.setContentType("text/html; charset=utf-8");
 		String action = req.getParameter("action");
 System.out.println("有收到請求");		
 		
@@ -105,6 +106,7 @@ if ("getOne_For_Update".equals(action)) { // 來自listAllRoom_promotion.jsp的�
 				String url = "/back-end/room_promotion/select_page.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url);// 成功轉交 update_room_promotion_input.jsp
 				successView.forward(req, res);
+				return;
 
 				/***************************其他可能的錯誤處理**********************************/
 			} catch (Exception e) {
@@ -169,6 +171,7 @@ if ("update".equals(action)) {
 				req.setAttribute("updateSuccess", "yes");
 				RequestDispatcher successView = req.getRequestDispatcher(url); // 修改成功後,轉交listOneRoom_promotion.jsp
 				successView.forward(req, res);
+				return;
 
 				/***************************其他可能的錯誤處理*************************************/
 			} catch (Exception e) {
@@ -277,6 +280,7 @@ if ("insert".equals(action)) { // 來自addRoom_promotion.jsp的請求
 				req.setAttribute("insertSuccess", "yes");
 				RequestDispatcher successView = req.getRequestDispatcher(url); // 新增成功後轉交listAllRoom_promotion.jsp
 				successView.forward(req, res);				
+				return;
 				
 				/***************************其他可能的錯誤處理**********************************/
 			} catch(Exception e) {
@@ -298,6 +302,7 @@ if ("delete".equals(action)) { // 來自listAllRoom_promotion.jsp
 				String url = "/back-end/room_promotion/select_page.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url);// 刪除成功後,轉交回送出刪除的來源網頁
 				successView.forward(req, res);
+				return;
 				
 		
 			

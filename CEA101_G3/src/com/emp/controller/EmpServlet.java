@@ -339,7 +339,7 @@ public class EmpServlet extends HttpServlet {
 					}
 				}
 			}		
-			session.invalidate();		
+			session.removeAttribute("loginEmpVO");;		
 			res.sendRedirect(req.getContextPath() + "/back-end/emp/loginEmp.jsp");
 //			RequestDispatcher tologin = req.getRequestDispatcher("/back-end/emp/loginEmp.jsp");
 //			tologin.forward(req, res);

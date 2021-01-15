@@ -13,6 +13,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.json.JSONObject;
+
 import com.item.model.ItemService;
 import com.item.model.ItemVO;
 
@@ -274,6 +276,21 @@ public class ItemServlet extends HttpServlet {
 
 					/*************************** 其他可能的錯誤處理 **********************************/
 				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+			
+			if("menuAjax".equals(action)) {
+				String item_category_id = req.getParameter("itemCategoryId");
+				
+				try {
+					ItemService itSvc = new ItemService();
+					List<ItemVO> itVOList = itSvc.getByCat(item_category_id);
+					JSONObject itemList = new JSONObject();
+					itemList.put("itVOList", itVOList);
+					out.print(itemList);
+					
+				}catch(Exception e) {
 					e.printStackTrace();
 				}
 			}

@@ -32,14 +32,13 @@
 		<input class="title" id="tab-4" type="radio" name="tab-group" /> 
 		<label for="tab-4">查看商品照片</label>
 		
-		<div id="content">
+		<div id="content" style="height:40em; overflow:scroll;">
 			<jsp:include page="/back-end/item/listAllItem2.jsp" />
 			<jsp:include page="/back-end/item/addItemPhoto2.jsp" />
 			<jsp:include page="/back-end/item/addItem2.jsp" />
 			<jsp:include page="/back-end/item/showAllItemPhoto.jsp" />
 		</div>
 	</div>
-<%-- 	<%@ include file="/back-end/item/backIndex2.file"%> --%>
 </body>
 </html>
 <%@ include file="/back-end/back-template/backIndex2.file"%>

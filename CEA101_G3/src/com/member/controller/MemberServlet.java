@@ -274,7 +274,7 @@ public class MemberServlet extends HttpServlet {
 					}
 				}
 			}
-			session.invalidate();
+			session.removeAttribute("memVO");
 			RequestDispatcher tologin = req.getRequestDispatcher("/front-end/front-index.jsp");
 			tologin.forward(req, res);
 		}
