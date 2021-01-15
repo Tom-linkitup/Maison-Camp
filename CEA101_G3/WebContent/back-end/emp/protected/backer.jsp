@@ -24,6 +24,10 @@
 	
 	}
 
+    .toast-success {
+	  background-color: #3276b1;
+	}
+
 </style>
 </head> 
     <body class="hold-transition skin-blue sidebar-mini">

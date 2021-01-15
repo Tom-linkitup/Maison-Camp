@@ -70,7 +70,7 @@
 				    <div class="media-body mt-3">
 				      <h3 class="mt-0 mb-1"><%=order.getName() %></h3>				      
 				    </div>
-				   	<div class="btn-group paraGroup" role="group" aria-label="Basic example">
+				   	<div class="btn-group paraGroup" role="group" aria-label="Basic example" style=" position: absolute; right: 20%;">
 					  <button type="button" class="btn btn-secondary dec changeQuantity">-</button>
 					  <input type="text" class="sendQuantity" name="quantity" size="3" value="<%=order.getQuantity()%>" disabled> 
 					  <input type="hidden" class="price" name="price" value="<%=order.getPrice()%>">
