@@ -85,8 +85,8 @@ public class ItemPhotoJDBCDAO {
 //		// 新增
 		ItemPhotoVO ItemPhotoVO1 = new ItemPhotoVO();
 
-		
-		String path = "/Users/tomgu/desktop/shoppingImg/";
+		String path ="c:\\shoppingImg\\";
+//		String path = "/Users/tomgu/desktop/shoppingImg/";
 		
 		for(int i = 1 ; i < 55 ; i++) {
 			byte[] pic = getPictureByteArray(path + i + ".jpg");
