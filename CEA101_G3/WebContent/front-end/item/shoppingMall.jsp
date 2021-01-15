@@ -9,7 +9,7 @@
 	if(itemCategoryId == null) 
 		itemCategoryId = "I001";
     ItemService itemSvc = new ItemService();
-    List<ItemVO> list = itemSvc.getByCat(itemCategoryId);
+    List<ItemVO> list = itemSvc.getByCatSt(itemCategoryId);
     pageContext.setAttribute("list",list);
     
     ItemCategoryService itemCatSvc = new ItemCategoryService();
@@ -51,7 +51,7 @@
 			       		<h3 class="lightboxPrice mb-3"></h3>
 			        	<div class="btn-group" role="group" aria-label="Basic example">
 							  <button type="button" class="btn btn-secondary dec changeQuantity">-</button>
-							  <input type="text" id="sendQuantity" name="quantity" size="3" value="1">					  	  
+							  <input type="text" id="sendQuantity" name="quantity" size="3" value="1" disabled>					  	  
 							  <button type="button" class="btn btn-secondary inc changeQuantity">+</button>
 			       		 </div>
             		<button type="button" class="btn btn-info addtoCart">加入購物車</button>
@@ -271,10 +271,10 @@
 				   	if(btn.text() == "+"){
 				   		var newVal = parseInt(oldValue) + 1;
 				   	}else{
-				   		if(oldValue > 0){
+				   		if(oldValue > 1){
 				   			var newVal = parseInt(oldValue) - 1;
 				   		}else{
-				   			newVal = 0;
+				   			newVal = 1;
 				   		}
 				   	}
 				   	$("#sendQuantity").val(newVal);

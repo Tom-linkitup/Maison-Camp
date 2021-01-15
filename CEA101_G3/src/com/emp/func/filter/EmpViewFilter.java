@@ -21,7 +21,7 @@ import com.emp.model.EmpVO;
 import com.emp_func.model.EmpFuncService;
 
 
-@WebFilter("/EmpViewFilter")
+
 public class EmpViewFilter implements Filter {
 	private FilterConfig config;
 
