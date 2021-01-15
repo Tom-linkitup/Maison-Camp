@@ -18,7 +18,8 @@
 <script src="http://code.jquery.com/jquery-1.12.4.min.js"></script>
 </head>
 <body>
-	<a href="${pageContext.request.contextPath}/back-end/item/ItemInfo.jsp"><h2 style="text-decoration: underline; text-underline-position: under; color:#675157; padding:5px 20px 20px 20px;">商品管理</h2></a>
+	<a href="${pageContext.request.contextPath}/back-end/item/ItemInfo.jsp">
+	<h2 style="text-decoration: underline; text-underline-position: under; color:#675157; padding:5px 20px 20px 20px;">商品管理</h2></a>
 	<div id="container">
 		<input class="title" id="tab-1" type="radio" name="tab-group" checked="checked"/>
 		<label for="tab-1">查看所有商品</label> 
@@ -39,6 +40,10 @@
 			<jsp:include page="/back-end/item/showAllItemPhoto.jsp" />
 		</div>
 	</div>
+<<<<<<< HEAD
+=======
+<%@ include file="/back-end/back-template/backIndex2.file"%>
+>>>>>>> branch 'main' of https://github.com/Tom-linkitup/Maison-Camp.git
 </body>
 </html>
-<%@ include file="/back-end/back-template/backIndex2.file"%>
+	

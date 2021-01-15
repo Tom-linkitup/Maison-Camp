@@ -26,8 +26,7 @@
 		</ul>
 	</c:if>
 	<div id="content-2">
-		<FORM METHOD="post"
-			ACTION="<%=request.getContextPath()%>/activity/act.do" name="form1">
+		<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/activity/act.do" name="form1">
 			<table>
 				<jsp:useBean id="actCategoryService" scope="page"
 					class="com.actCategory.model.ActCategoryService" />

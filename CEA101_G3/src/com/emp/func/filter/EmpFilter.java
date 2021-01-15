@@ -19,7 +19,7 @@ import javax.servlet.http.HttpSession;
 import com.emp.model.EmpVO;
 import com.emp_func.model.EmpFuncService;
 
-@WebFilter("/EmpFilter")
+
 public class EmpFilter implements Filter {
 
 	private FilterConfig config;

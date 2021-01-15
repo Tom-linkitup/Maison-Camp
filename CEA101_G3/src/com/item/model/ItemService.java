@@ -52,7 +52,7 @@ public class ItemService {
 		return dao.getAll();
 	}
 	
-	public List<ItemVO> getByCat(String itemCategoryId){
-		return dao.getByCategory(itemCategoryId);
+	public List<ItemVO> getByCatSt(String itemCategoryId){
+		return dao.getByCategoryStOne(itemCategoryId);
 	}
  }

@@ -265,7 +265,7 @@ public class ItemJDBCDAO implements ItemDAO_interface {
 	}
 
 	@Override
-	public List<ItemVO> getByCategory(String itemCategoryId) {
+	public List<ItemVO> getByCategoryStOne(String itemCategoryId) {
 		List<ItemVO> list = new ArrayList<ItemVO>();
 		ItemVO ItemVO = null;
 
@@ -288,7 +288,9 @@ public class ItemJDBCDAO implements ItemDAO_interface {
 				ItemVO.setItemInfo(rs.getString("item_info"));
 				ItemVO.setItemPrice(rs.getInt("item_price"));
 				ItemVO.setItemStatus(rs.getInt("item_status"));
-				list.add(ItemVO);
+				if(ItemVO.getItemStatus() == 1) {
+					list.add(ItemVO);
+				}
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

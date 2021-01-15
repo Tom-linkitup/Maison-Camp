@@ -10,9 +10,8 @@
 	pageContext.setAttribute("list", list);
 %>
 
-<jsp:useBean id="ItemCategorySvc" scope="page" class="com.item_category.model.ItemCategoryService" />
 <jsp:useBean id="ItemSvc" scope="page" class="com.item.model.ItemService" />
-
+<jsp:useBean id="ItemCategorySvc" scope="page" class="com.item_category.model.ItemCategoryService" />
 <!DOCTYPE html>
 <html>
 <head>
@@ -20,7 +19,18 @@
 <title>Insert title here</title>
 </head>
 <body>
+<<<<<<< HEAD
 	<div id="content-1">
+=======
+	<div id="content-1" style="max-height:100% ;overflow: auto;">
+	<div style="position:relative;">
+	<select id="chooseCategory" name="chooseCategory" style="position: absolute;left: 0px; z-index:99;">
+	<c:forEach var="CategoryVO" items="${ItemCategorySvc.getAll()}">
+	<option value="${CategoryVO.itemCategoryId}">${CategoryVO.itemCategoryName}</option>
+	</c:forEach>
+	</select>
+	</div>
+>>>>>>> branch 'main' of https://github.com/Tom-linkitup/Maison-Camp.git
 		<h2 style="text-align:center; margin-bottom:20px;">商品資訊</h2>
 		<select id="chooseCategory" name="chooseCategory" style="position: absolute;left:22px; top:35px;">
 			<c:forEach var="CategoryVO" items="${ItemCategorySvc.getAll()}">
@@ -38,15 +48,24 @@
 				<th>商品修改</th>
 				<th>商品刪除</th>
 			</tr>
+<<<<<<< HEAD
 			<c:forEach var="itemVO" items="${list}" >			
+=======
+
+			<c:forEach var="itemVO" items="${list}">			
+>>>>>>> branch 'main' of https://github.com/Tom-linkitup/Maison-Camp.git
 			<tr class="disappear">
+<<<<<<< HEAD
+=======
+
+>>>>>>> branch 'main' of https://github.com/Tom-linkitup/Maison-Camp.git
 				<td>${itemVO.itemId}</td>
 				<td>${itemVO.itemCategoryId}</td>
 				<td>${itemVO.itemName}</td>
 				<td>${itemVO.itemInfo}</td>
 				<td>${itemVO.itemPrice}</td>
 				<td><c:choose>
-					<c:when test="${itemVO.itemStatus == '0'}">
+					<c:when test="${itemVO.itemStatus == '1'}">
 						上架
 					</c:when>
 					<c:otherwise>
@@ -81,8 +100,8 @@
 						<td>
 						<select id="itemStatus" class="input-beautify" type="number" name="itemStatus" required>
 							<option>請選擇狀態</option>
-							<option value="0">上架</option>
-							<option value="1">下架</option>
+							<option value="0">下架</option>
+							<option value="1">上架</option>
 						</select>
 						</td>
 					</tr>			
@@ -95,9 +114,14 @@
 			</form>
 		</div>
 	</div>
+<<<<<<< HEAD
 	<script src="http://code.jquery.com/jquery-1.12.4.min.js"></script>
 	<script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.20/datatables.min.js"></script>
 	<script>
+=======
+	<script>   
+	$(document).ready(function(){
+>>>>>>> branch 'main' of https://github.com/Tom-linkitup/Maison-Camp.git
 	$("#chooseCategory").change(function(){
 		$("#myTable").find(".disappear").html("");
 		let itemCategoryId= $('#chooseCategory').val();
@@ -114,8 +138,6 @@
          			for(j in data2[i]){
              			let tr = document.createElement("tr");
              			tr.classList.add("disappear");
-             			let thead = document.createElement("thead");
-             			let tbody = document.createElement("tbody");
              			let td1 = document.createElement("td");
              			let td2 = document.createElement("td");
              			let td3 = document.createElement("td");
@@ -167,6 +189,7 @@
              			$("#myTable").append(tr);			
          			}
          		}
+         		
          		$(".edit2").click(function() {
         			$("#lightBox").css("display","");
         			let tr = $(this).parents("tr");
@@ -177,6 +200,7 @@
         			$("#itemInfo").val(children.eq(3).text());
         			$("#itemPrice").val(children.eq(4).text());
         			$("#itemStatus").val("請選擇狀態");
+<<<<<<< HEAD
         		})       
 	      	}
 	    })
@@ -197,7 +221,43 @@
 	$("#btnEditCancel").click(function() {
 		$("#lightBox").css("display","none");
 	})
+=======
+        		})
+            }
+        }) 
+	 }) 
+>>>>>>> branch 'main' of https://github.com/Tom-linkitup/Maison-Camp.git
 
+<<<<<<< HEAD
+=======
+		$(".edit").click(function() {
+			$("#lightBox").css("display","");
+			let tr = $(this).parents("tr");
+			let children = tr.children();
+			$("#itemId").val(children.eq(0).text());
+			$("#itemCategoryId").val(children.eq(1).text());
+			$("#itemName").val(children.eq(2).text());
+			$("#itemInfo").val(children.eq(3).text());
+			$("#itemPrice").val(children.eq(4).text());
+			$("#itemStatus").val("請選擇狀態");
+		})
+		
+		$("#btnEditCancel").click(function() {
+			$("#lightBox").css("display","none");
+		})
+		
+			
+			
+			
+			
+			
+			
+		})
+		
+		
+		
+
+>>>>>>> branch 'main' of https://github.com/Tom-linkitup/Maison-Camp.git
 	</script>	
 </body>
 </html>

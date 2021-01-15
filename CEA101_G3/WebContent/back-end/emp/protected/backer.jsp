@@ -21,7 +21,13 @@
 <style type="text/css">
 	body {
 		font-size:1.4em !important;
+	
 	}
+
+    .toast-success {
+	  background-color: #3276b1;
+	}
+
 </style>
 </head> 
     <body class="hold-transition skin-blue sidebar-mini">
@@ -205,7 +211,7 @@
         		  "hideEasing": "linear",
         		  "showMethod": "fadeIn",
         		  "hideMethod": "fadeOut"
-        }
+        		}
 		</script>
     </body>
 </html>

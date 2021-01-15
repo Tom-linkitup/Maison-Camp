@@ -5,7 +5,7 @@
 <%-- 此頁暫練習採用 Script 的寫法取值 --%>
 
 <%
-	ActivityVO activityVO = (ActivityVO) request.getAttribute("activityVO"); //EmpServlet.java(Concroller), 存入req的empVO物件
+	ActivityVO activityVO = (ActivityVO) request.getAttribute("activityVO"); 
 %>
 
 <jsp:useBean id="actOrder" scope="page" class="com.activityOrder.model.ActivityOrderService" />

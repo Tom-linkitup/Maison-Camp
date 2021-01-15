@@ -9,7 +9,7 @@
 	if(itemCategoryId == null) 
 		itemCategoryId = "I001";
     ItemService itemSvc = new ItemService();
-    List<ItemVO> list = itemSvc.getByCat(itemCategoryId);
+    List<ItemVO> list = itemSvc.getByCatSt(itemCategoryId);
     pageContext.setAttribute("list",list);
     
     ItemCategoryService itemCatSvc = new ItemCategoryService();
@@ -27,8 +27,12 @@
     <link rel="shortcut icon" type="image/png" href="<%=request.getContextPath() %>/img/camplogo.png">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" rel="stylesheet" />
-
     <title>Maison Camp | 露營家</title>
+    <style>
+    .toast-success {
+	  background-color: #3276b1;
+	}
+    </style>
 </head>
 
 <body>
@@ -47,7 +51,7 @@
 			       		<h3 class="lightboxPrice mb-3"></h3>
 			        	<div class="btn-group" role="group" aria-label="Basic example">
 							  <button type="button" class="btn btn-secondary dec changeQuantity">-</button>
-							  <input type="text" id="sendQuantity" name="quantity" size="3" value="1">					  	  
+							  <input type="text" id="sendQuantity" name="quantity" size="3" value="1" disabled>					  	  
 							  <button type="button" class="btn btn-secondary inc changeQuantity">+</button>
 			       		 </div>
             		<button type="button" class="btn btn-info addtoCart">加入購物車</button>
@@ -267,10 +271,10 @@
 				   	if(btn.text() == "+"){
 				   		var newVal = parseInt(oldValue) + 1;
 				   	}else{
-				   		if(oldValue > 0){
+				   		if(oldValue > 1){
 				   			var newVal = parseInt(oldValue) - 1;
 				   		}else{
-				   			newVal = 0;
+				   			newVal = 1;
 				   		}
 				   	}
 				   	$("#sendQuantity").val(newVal);

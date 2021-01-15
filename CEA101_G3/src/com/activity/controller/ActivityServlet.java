@@ -480,6 +480,7 @@ public class ActivityServlet extends HttpServlet {
 				RequestDispatcher failureView = req.getRequestDispatcher("/"+req.getParameter("from")+"/activity/listSelectAct.jsp");
 				failureView.forward(req, res);
 			}
+<<<<<<< HEAD
 		}
 		
 		// 後端完成活動 訂單轉狀態
@@ -514,6 +515,42 @@ public class ActivityServlet extends HttpServlet {
 				failureView.forward(req, res);
 			}
 		}
+=======
+		}		
+		
+		// 後端完成活動 訂單轉狀態
+		if ("completeAct".equals(action)) { 
+			List<String> errorMsgs = new LinkedList<String>();
+			// Store this set in the request scope, in case we need to
+			// send the ErrorPage view.
+			req.setAttribute("errorMsgs", errorMsgs);
+			try {
+				
+				/*************************** 1.接收請求參數 ****************************************/
+				String actId = new String(req.getParameter("actId"));
+
+				/***************************2.開始資料查詢***************************************/
+				ActivityOrderService aos = new ActivityOrderService();
+				List<ActivityOrderVO> aoList = aos.findByActId(actId);
+				for (ActivityOrderVO ao : aoList) {
+					if(ao.getStatus() == 0) {
+					aos.updateByActOrderId(ao.getActOrderId(), ao.getActId(), ao.getMemId(), ao.getNote(), ao.getPeople(), ao.getActPrice(),ao.getPayment(), ao.getCreateTime(), 2);
+					}
+				}
+				
+				/***************************3.查詢完成,準備轉交(Send the Success view)************/
+				req.setAttribute("aoList", aoList); // 資料庫取出的list物件,存入request
+				RequestDispatcher successView = req.getRequestDispatcher("/back-end/activity/selectPage.jsp"); // 成功轉交listEmps_ByCompositeQuery.jsp
+				successView.forward(req, res);
+				
+				/***************************其他可能的錯誤處理**********************************/
+			} catch (Exception e) {
+				errorMsgs.add(e.getMessage());
+				RequestDispatcher failureView = req.getRequestDispatcher("/back-end/activity/selectPage.jsp");
+				failureView.forward(req, res);
+			}
+		}		
+>>>>>>> branch 'main' of https://github.com/Tom-linkitup/Maison-Camp.git
 
 	}
 }
