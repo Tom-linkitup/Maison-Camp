@@ -25,7 +25,7 @@ ShopOrderService ShopOrderSvc = new ShopOrderService();
 				<th>會員編號</th>
 				<th>付款</th>
 				<th>時間</th>
-				<th>商品總量</th>
+				<th>總金額</th>
 				<th>商品狀態</th>
 				<th>商品修改</th>
 			</tr>
