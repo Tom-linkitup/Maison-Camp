@@ -49,7 +49,7 @@
 				<td>${itemVO.itemInfo}</td>
 				<td>${itemVO.itemPrice}</td>
 				<td><c:choose>
-					<c:when test="${itemVO.itemStatus == '0'}">
+					<c:when test="${itemVO.itemStatus == '1'}">
 						上架
 					</c:when>
 					<c:otherwise>
@@ -84,8 +84,8 @@
 						<td>
 						<select id="itemStatus" class="input-beautify" type="number" name="itemStatus" required>
 							<option>請選擇狀態</option>
-							<option value="0">上架</option>
-							<option value="1">下架</option>
+							<option value="0">下架</option>
+							<option value="1">上架</option>
 						</select>
 						</td>
 					</tr>			

@@ -9,7 +9,7 @@
 	if(itemCategoryId == null) 
 		itemCategoryId = "I001";
     ItemService itemSvc = new ItemService();
-    List<ItemVO> list = itemSvc.getByCat(itemCategoryId);
+    List<ItemVO> list = itemSvc.getByCatSt(itemCategoryId);
     pageContext.setAttribute("list",list);
     
     ItemCategoryService itemCatSvc = new ItemCategoryService();
