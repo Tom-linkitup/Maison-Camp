@@ -321,6 +321,64 @@ public class ItemJDBCDAO implements ItemDAO_interface {
 		return list;
 	}
 
+	
+	@Override
+	public List<ItemVO> getByCategory(String itemCategoryId) {
+		List<ItemVO> list = new ArrayList<ItemVO>();
+		ItemVO ItemVO = null;
+
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(GET_BY_CAT);
+			pstmt.setString(1, itemCategoryId);
+			
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				ItemVO = new ItemVO();
+				ItemVO.setItemId(rs.getString("item_id"));
+				ItemVO.setItemCategoryId(rs.getString("item_category_id"));
+				ItemVO.setItemName(rs.getString("item_name"));
+				ItemVO.setItemInfo(rs.getString("item_info"));
+				ItemVO.setItemPrice(rs.getInt("item_price"));
+				ItemVO.setItemStatus(rs.getInt("item_status"));
+					list.add(ItemVO);
+				
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		return list;
+	}
+
+	
 	public static void main(String[] args) {
 
 		ItemJDBCDAO dao = new ItemJDBCDAO();

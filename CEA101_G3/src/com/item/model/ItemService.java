@@ -55,4 +55,7 @@ public class ItemService {
 	public List<ItemVO> getByCatSt(String itemCategoryId){
 		return dao.getByCategoryStOne(itemCategoryId);
 	}
+	public List<ItemVO> getByCat(String itemCategoryId){
+		return dao.getByCategory(itemCategoryId);
+	}
  }

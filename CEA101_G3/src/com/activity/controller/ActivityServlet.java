@@ -480,7 +480,6 @@ public class ActivityServlet extends HttpServlet {
 				RequestDispatcher failureView = req.getRequestDispatcher("/"+req.getParameter("from")+"/activity/listSelectAct.jsp");
 				failureView.forward(req, res);
 			}
-<<<<<<< HEAD
 		}
 		
 		// 後端完成活動 訂單轉狀態
@@ -514,9 +513,7 @@ public class ActivityServlet extends HttpServlet {
 				RequestDispatcher failureView = req.getRequestDispatcher("/back-end/activity/selectPage.jsp");
 				failureView.forward(req, res);
 			}
-		}
-=======
-		}		
+		}	
 		
 		// 後端完成活動 訂單轉狀態
 		if ("completeAct".equals(action)) { 
@@ -549,8 +546,7 @@ public class ActivityServlet extends HttpServlet {
 				RequestDispatcher failureView = req.getRequestDispatcher("/back-end/activity/selectPage.jsp");
 				failureView.forward(req, res);
 			}
-		}		
->>>>>>> branch 'main' of https://github.com/Tom-linkitup/Maison-Camp.git
+		}
 
 	}
 }

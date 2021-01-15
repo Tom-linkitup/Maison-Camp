@@ -9,6 +9,8 @@ public interface ItemDAO_interface {
         public ItemVO findByPrimaryKey(String ItemId);
         public List<ItemVO> getAll();
         public List<ItemVO> getByCategoryStOne(String itemCategoryId);
+        public List<ItemVO> getByCategory(String itemCategoryId);
+        
       //萬用複合查詢(傳入參數型態Map)(回傳 List)
 //      public List<EmpVO> getAll(Map<String, String[]> map); 
 	
