@@ -340,7 +340,7 @@
 	                    	<img src="<%=request.getContextPath()%>/img/shopOrderImg.jpg" style="width:300px; height:200px; margin-left:-12px;"/>              		
 				      	</div>
 				      	<div class="col-sm-4">
-					      	<h4 class="room-order-headline"><a href="<%=request.getContextPath()%>/findOrder?action=findOrderByOrderId&shopOrderId=${soVO.shop_order_id}">訂單資訊</a></h4>
+					      	<h4 class="room-order-headline"><a href="<%=request.getContextPath()%>/findOrder?action=findOrderByOrderId&shopOrderId=${soVO.shop_order_id}" target=_blank>訂單資訊</a></h4>
 							<ul style="list-style:none; padding:5px 0; line-height:2em; font-size: 15px;">
 								<li><i class="fa fa-chevron-circle-right"></i>付款方式: ${soVO.payment}</li>
 								<li><i class="fa fa-chevron-circle-right"></i>訂單金額: ${soVO.shop_total_amount} 元</li>

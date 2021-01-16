@@ -14,7 +14,7 @@ public class ShopOrderService {
 	}
 
 	public ShopOrderVO addShopOrder(String mem_id, String payment, Date time,
-			Integer shop_total_amount, Integer status) {
+			Float shop_total_amount, Integer status) {
 
 		ShopOrderVO shopOrderVO = new ShopOrderVO();
 
@@ -28,7 +28,7 @@ public class ShopOrderService {
 		return shopOrderVO;
 	}
 
-	public ShopOrderVO updateShopOrder(String mem_id, String payment, Date time, Integer shop_total_amount,
+	public ShopOrderVO updateShopOrder(String mem_id, String payment, Date time, Float shop_total_amount,
 			Integer status, String shop_order_id) {
 
 		ShopOrderVO shopOrderVO = new ShopOrderVO();

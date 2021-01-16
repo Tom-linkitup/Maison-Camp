@@ -20,6 +20,7 @@
     <link rel="stylesheet" href="<%=request.getContextPath() %>/css/back-end/admin.css">
     <link rel="stylesheet" href="<%=request.getContextPath() %>/css/back-end/context.css">
     <link rel="stylesheet" href="<%=request.getContextPath() %>/css/back-end/style.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" rel="stylesheet" />
 </head> 
     <body class="hold-transition skin-blue sidebar-mini">
             <header class="main-header">

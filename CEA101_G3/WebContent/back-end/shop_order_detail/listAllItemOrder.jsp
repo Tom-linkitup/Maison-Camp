@@ -15,6 +15,7 @@ ShopOrderService ShopOrderSvc = new ShopOrderService();
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+
 </head>
 <body>
 	<div id="content-1">
@@ -27,8 +28,9 @@ ShopOrderService ShopOrderSvc = new ShopOrderService();
 				<th>時間</th>
 				<th>總金額</th>
 				<th>商品狀態</th>
-				<th>商品修改</th>
-			</tr>
+				<th>狀態修改</th>
+				<th></th>
+				</tr>
 			<%@ include file="page1.file"%>
 			<c:forEach var="ShopOrderVO" items="${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">			
 			<tr>
@@ -38,11 +40,11 @@ ShopOrderService ShopOrderSvc = new ShopOrderService();
 				<td>${ShopOrderVO.time}</td>
 				<td>${ShopOrderVO.shop_total_amount}</td>
 				<td><c:choose>
-					<c:when test="${ShopOrderVO.status == '0'}">
-						正常
+					<c:when test="${ShopOrderVO.status == '1'}">
+						待出貨
 					</c:when>
 					<c:otherwise>
-						取消
+						已完成
 					</c:otherwise>
 					</c:choose></td>
 				<td>
@@ -50,12 +52,24 @@ ShopOrderService ShopOrderSvc = new ShopOrderService();
 				<input type="hidden" name="action" value="getOne_For_Update">	
 			    <button class="edit btn btn-info" type="submit">修改</button>
 				</td>
+				<td>
+					<form method="post" action="${pageContext.request.contextPath}/shop_order/shop_order.do">
+						<input type="hidden" name="shop_order_id" value="${ShopOrderVO.shop_order_id}">
+						<input type="hidden" name="mem_id" value="${ShopOrderVO.mem_id}">
+						<input type="hidden" name="payment" value="${ShopOrderVO.payment}">
+						<input type="hidden" name="time" value="${ShopOrderVO.time}">
+						<input type="hidden" name="shop_total_amount" value="${ShopOrderVO.shop_total_amount}">
+						<input type="hidden" name="status" value="2">	
+						<input type="hidden" name="action" value="update">			
+						<button class="btn btn-info" type="submit">完成訂單</button>
+					</form>
+				</td>
 			</tr>
 			</c:forEach>	
 		</table>
 		<%@ include file="page2.file"%>
 		<div id="lightBox" style="display:none;">
-			<form method="post" action="${pageContext.request.contextPath}/backOrder.do">
+			<form method="post" action="${pageContext.request.contextPath}/shop_order/shop_order.do">
 				<table align="center" id="tableLogin">
 					<tr style="font-size:20px; color:#c15c61;"><td>商品修改</td></tr>
 					<tr><td>訂單編號：</td><td><input style="background-color:#f9f9f9; border:none;" id="shop_order_id" class="input-noEdit" type="text" name="shop_order_id" readonly></td></tr>			
@@ -66,9 +80,8 @@ ShopOrderService ShopOrderSvc = new ShopOrderService();
 					<tr><td>訂單狀態：</td>
 						<td>
 						<select id="status" class="input-beautify" type="number" name="status" required>
-							<option>請選擇狀態</option>
-							<option value="0">正常</option>
-							<option value="1">取消</option>
+							<option value="1">未出貨</option>
+							<option value="2">已完成</option>
 						</select>
 						</td>
 					</tr>			
@@ -98,5 +111,6 @@ ShopOrderService ShopOrderSvc = new ShopOrderService();
 			$("#lightBox").css("display","none");
 		})
 	</script>	
+	
 </body>
 </html>
