@@ -29,7 +29,7 @@ ShopOrderService ShopOrderSvc = new ShopOrderService();
 				<th>總金額</th>
 				<th>商品狀態</th>
 				<th>狀態修改</th>
-				<th></th>
+				<th>完成訂單</th>
 				</tr>
 			<%@ include file="page1.file"%>
 			<c:forEach var="ShopOrderVO" items="${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">			
@@ -53,6 +53,7 @@ ShopOrderService ShopOrderSvc = new ShopOrderService();
 			    <button class="edit btn btn-info" type="submit">修改</button>
 				</td>
 				<td>
+				
 					<form method="post" action="${pageContext.request.contextPath}/shop_order/shop_order.do">
 						<input type="hidden" name="shop_order_id" value="${ShopOrderVO.shop_order_id}">
 						<input type="hidden" name="mem_id" value="${ShopOrderVO.mem_id}">
@@ -60,9 +61,12 @@ ShopOrderService ShopOrderSvc = new ShopOrderService();
 						<input type="hidden" name="time" value="${ShopOrderVO.time}">
 						<input type="hidden" name="shop_total_amount" value="${ShopOrderVO.shop_total_amount}">
 						<input type="hidden" name="status" value="2">	
-						<input type="hidden" name="action" value="update">			
+						<input type="hidden" name="action" value="update">	
+						<c:if test="${ShopOrderVO.status == 1}">	
 						<button class="btn btn-info" type="submit">完成訂單</button>
+						</c:if>
 					</form>
+					
 				</td>
 			</tr>
 			</c:forEach>	
