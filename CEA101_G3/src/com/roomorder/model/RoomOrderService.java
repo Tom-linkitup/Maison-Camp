@@ -67,4 +67,8 @@ public class RoomOrderService {
 	public void updateOrderCondition(Integer status, String current_room_id, String room_order_id) {
 		dao.updateOrderStatus(status, current_room_id, room_order_id);
 	}
+	
+	public List<RoomOrderVO> getAllInRoom(){
+		return dao.getAllInRoom();
+	}
 }

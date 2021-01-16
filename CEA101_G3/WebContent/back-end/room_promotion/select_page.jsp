@@ -47,6 +47,6 @@
 			<jsp:include page="addRoomPromotion.jsp" />
 		</div>
 	</div>
- <!--  <%@ include file="/back-end/back-template/backIndex2.file"%> -->
+<%@ include file="/back-end/back-template/backIndex2.file"%> 
 </body>
 </html>

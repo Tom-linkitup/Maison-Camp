@@ -11,6 +11,8 @@ public interface Extra_chargesDAO_interface {
     public Extra_chargesVO findByPrimaryKey(String extra_charges_id);
     public List<Extra_chargesVO> getAll();
     public List<Extra_chargesVO> getByRoomOrderId(String room_order_id);
+    public List<Extra_chargesVO> getAllCheckIn();
+    public List<Extra_chargesVO> getAllCheckOut();
     //�U�νƦX�d��(�ǤJ�Ѽƫ��AMap)(�^�� List)
 //  public List<Extra_chargesVO> getAll(Map<String, String[]> map); 
 	
