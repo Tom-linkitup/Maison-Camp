@@ -14,6 +14,8 @@ Tibame CEA101G3 專題
   
   前端：javaScript, jQuery, Ajax, HTML5, CSS3
   
+  後端框架：Hibernate
+  
   伺服端：Tomcat 9
   
   資料庫：Oracle, Redis
