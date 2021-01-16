@@ -273,7 +273,7 @@ public class EmpServlet extends HttpServlet {
 				}
 				
 				String emp_user_id = req.getParameter("emp_user_id");
-				String emp_user_idReg = "^(a-zA-Z0-9_){6,20}$";
+				String emp_user_idReg = "^[a-zA-Z0-9_]{6,20}$";
 				if (emp_user_id == null || emp_user_id.trim().length() == 0) {
 					errorMsgs.add("帳號: 請勿空白");
 				}else if(!emp_user_id.trim().matches(emp_user_idReg)) { //以下練習正則(規)表示式(regular-expression)
@@ -282,7 +282,7 @@ public class EmpServlet extends HttpServlet {
 				
 
 				String emp_user_pwd = req.getParameter("emp_user_pwd");
-				String emp_user_pwdReg = "^(a-zA-Z0-9_){6,20}$";
+				String emp_user_pwdReg = "^[a-zA-Z0-9_]{6,20}$";
 				if (emp_user_pwd == null || emp_user_pwd.trim().length() == 0) {
 					errorMsgs.add("密碼: 請勿空白");
 				}else if(!emp_user_id.trim().matches(emp_user_pwdReg)) { //以下練習正則(規)表示式(regular-expression)

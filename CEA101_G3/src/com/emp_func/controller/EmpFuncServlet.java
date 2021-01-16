@@ -33,19 +33,11 @@ public class EmpFuncServlet extends HttpServlet {
 			try {
 				
 				String emp_id = req.getParameter("emp_id");
-				String emp_idReg = "^E1[0-9]{4}$";
-				if(emp_id == null || emp_id.trim().length() == 0) {
-					errorMsgs.add("員工編號: 請勿空白");
-				}else if(!emp_id.trim().matches(emp_idReg)) {
-					errorMsgs.add("員工編號: 格式錯誤 須為(E1XXXX)");
-				}
 				String func_id = req.getParameter("func_id");
-				String func_idReg = "^[0-9]{4}$";
-				if(func_id == null || func_id.trim().length() == 0) {
-					errorMsgs.add("功能編號: 請勿空白");
-				}else if(!func_id.trim().matches(func_idReg)) {
-					errorMsgs.add("功能編號: 須為(0000~9999)");
-				}
+				System.out.println(emp_id);
+				System.out.println(func_id);
+				
+				
 				if (!errorMsgs.isEmpty()) {
 					RequestDispatcher failureView = req.getRequestDispatcher("/back-end/emp/protected/addEmpFunc.jsp");
 					failureView.forward(req, res);
