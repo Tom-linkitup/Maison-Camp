@@ -31,7 +31,7 @@ public class RepairDAO implements RepairDAO_interface {
 	private static final String INSERT_STMT = 
 		"INSERT INTO repair(repair_id,room_id,emp_id,repair_info,status,repair_photo) VALUES ('RE' || Repair_id_seq.NEXTVAL, ?, ?, ?,?,?)";
 	private static final String GET_ALL_STMT = 
-		"SELECT repair_id,room_id,emp_id,repair_info,status,repair_photo FROM repair order by repair_id";
+		"SELECT repair_id,room_id,emp_id,repair_info,status,repair_photo FROM repair order by repair_id desc";
 	private static final String GET_ONE_STMT = 
 		"SELECT repair_id,room_id,emp_id,repair_info,status,repair_photo FROM repair where repair_id = ?";
 	private static final String DELETE = 

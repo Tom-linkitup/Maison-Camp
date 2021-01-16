@@ -13,6 +13,7 @@ pageContext.setAttribute("list", list);
 <jsp:useBean id="empSvc" scope="page" class="com.emp.model.EmpService" />
 <html>
 <head>
+
 <script src="http://code.jquery.com/jquery-1.12.4.min.js"></script>
 <meta charset="UTF-8">
 <title>Insert title here</title>

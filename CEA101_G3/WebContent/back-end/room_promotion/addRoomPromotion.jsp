@@ -98,6 +98,7 @@
 
 
 <script>
+
 $(function() {
 	   var dateFormat = "mm/dd/yy",
 	     from = $("#f_date1")
@@ -152,6 +153,9 @@ $(function() {
 	       
 	   })
 	 });
+	 
+
 </script>
+<style> .ui-datepicker-month ,.ui-datepicker-year {color:#202baa;} </style>
 
 </html>
