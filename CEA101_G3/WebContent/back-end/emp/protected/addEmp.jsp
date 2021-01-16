@@ -15,8 +15,8 @@
 						ACTION="<%=request.getContextPath()%>/emp/emp.do">
 						<div class="form-group">
 							<div class="form-group">
-								<label for="formGroupExampleInput2">員工姓名:</label> <input
-									type="text" class="form-control" name="emp_name">
+								<label for="formGroupExampleInput2">員工姓名:</label> 
+								<input type="text" class="form-control" name="emp_name">
 							</div>
 							<label for="formGroupExampleInput">員工帳號:</label> <input
 								type="text" class="form-control" name="emp_user_id">
@@ -30,7 +30,6 @@
 							<select class="custom-select" name="emp_status">
 								<option value="0">0(已離職)</option>
 								<option value="1">1(在職)</option>
-								<option value="2">2(留職停薪)</option>
 							</select>
 						</div>
 						<button type="submit" class="btn btn-lg btn-block"

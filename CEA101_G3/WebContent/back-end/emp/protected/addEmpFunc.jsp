@@ -7,19 +7,27 @@
 <html lang="en">
 <head>
 <body>
+<jsp:useBean id="funcSvc" class="com.func.model.FuncService" scope="page" />
+<jsp:useBean id="empSvc" class="com.emp.model.EmpService" scope="page" />
 <%@ include file="/back-end/back-template/backIndex.file" %>
 				<div>
 					<FORM METHOD="post"
 						ACTION="<%=request.getContextPath()%>/emp_func/emp_func.do">
 						<div class="form-group">
-							<label for="formGroupExampleInput">員工編號:</label> <input
-								type="text" class="form-control" name="emp_id"
-								placeholder="員工編號">
+							<label for="formGroupExampleInput2">功能編號:</label> 
+								<select name="emp_id">
+									<c:forEach items="${empSvc.getAll()}" var="empVO">
+									<option  value="${empVO.emp_id}">${empVO.emp_id} ${empVO.emp_name}</option>
+									</c:forEach>
+								</select>
 						</div>
 						<div class="form-group">
-							<label for="formGroupExampleInput2">功能編號:</label> <input
-								type="text" class="form-control" name="func_id"
-								placeholder="功能編號">
+							<label for="formGroupExampleInput2">功能編號:</label> 
+								<select name="func_id">
+									<c:forEach items="${funcSvc.getAll()}" var="funcVO">
+									<option  value="${funcVO.func_id}">${funcVO.func_id} ${funcVO.func_name}</option>
+									</c:forEach>
+								</select>
 						</div>
 						<button type="submit" class="btn btn-lg btn-block" name="insert"
 							style="background-color: #c16c51; color: white; margin-top: 30px;">提交</button>
