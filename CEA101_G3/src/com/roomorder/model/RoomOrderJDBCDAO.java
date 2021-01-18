@@ -99,5 +99,14 @@ public class RoomOrderJDBCDAO implements RoomOrderDAO_Interface {
 		// TODO Auto-generated method stub
 		
 	}
+
+	@Override
+	public List<RoomOrderVO> getAllInRoom() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+	
+	
 	
 }

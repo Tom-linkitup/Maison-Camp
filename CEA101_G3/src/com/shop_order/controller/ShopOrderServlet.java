@@ -80,45 +80,19 @@ public class ShopOrderServlet extends HttpServlet {
 		}
 
 		if ("update".equals(action)) {
-
+			
 			List<String> errorMsgs = new LinkedList<String>();
 			req.setAttribute("errorMsgs", errorMsgs);
 			try {
 				/*************************** 1.接收請求參數 ****************************************/
-
 				String shop_order_id = req.getParameter("shop_order_id");
 				String mem_id = req.getParameter("mem_id");
-				String mem_idReg = "^M[1-9][0-9]{4}$";
-				if (mem_id == null || mem_id.trim().length() == 0) {
-					errorMsgs.add("員工編號: 請勿空白");
-				} else if (!mem_id.trim().matches(mem_idReg)) {
-					errorMsgs.add("員工編號: 必須為 M 開頭 + 五位數字");
-				}
 				String payment = req.getParameter("payment");
-				if (payment == null || payment.trim().length() == 0) {
-					errorMsgs.add("付款方式請勿空白");
-				}
-				java.sql.Date time = null;
-				try {
-					time = java.sql.Date.valueOf(req.getParameter("time").trim());
-				} catch (IllegalArgumentException e) {
-					time = new java.sql.Date(System.currentTimeMillis());
-					errorMsgs.add("請輸入日期!");
-				}
-				Integer shop_total_amount = null;
-				try {
-					shop_total_amount = new Integer(req.getParameter("shop_total_amount"));
-				} catch (NumberFormatException e) {
-					shop_total_amount = 0;
-					errorMsgs.add("薪水請填數字.");
-				}
-				Integer status = null;
-				try {
-					status = new Integer(req.getParameter("status"));
-				} catch (NumberFormatException e) {
-					status = 0;
-					errorMsgs.add("薪水請填數字.");
-				}
+				java.sql.Date time = java.sql.Date.valueOf(req.getParameter("time").trim());
+				String tmp = req.getParameter("shop_total_amount");
+				Float shop_total_amount = new Float(tmp);
+				Integer status = new Integer(req.getParameter("status"));
+				
 
 				ShopOrderVO shopOrderVO = new ShopOrderVO();
 				shopOrderVO.setShop_order_id(shop_order_id);
@@ -131,7 +105,7 @@ public class ShopOrderServlet extends HttpServlet {
 				if (!errorMsgs.isEmpty()) {
 					req.setAttribute("shopOrderVO", shopOrderVO);
 					RequestDispatcher failureView = req
-							.getRequestDispatcher("/front_end/shop_order/update_shop_order_input.jsp");
+							.getRequestDispatcher("/back-end/shop_order_detail/ItemOrderInfo.jsp");
 					failureView.forward(req, res);
 					return;
 				}
@@ -139,10 +113,11 @@ public class ShopOrderServlet extends HttpServlet {
 				ShopOrderService shopOrderSvc = new ShopOrderService();
 				shopOrderVO = shopOrderSvc.updateShopOrder(mem_id, payment, time, shop_total_amount, status,
 						shop_order_id);
+				System.out.println("00000");
 
 				/*************************** 3.修改完成,準備轉交(Send the Success view) *************/
 				req.setAttribute("shopOrderVO", shopOrderVO);
-				String url = "/front_end/shop_order/listOneShopOrder.jsp";
+				String url = "/back-end/shop_order_detail/ItemOrderInfo.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url);
 				successView.forward(req, res);
 
@@ -150,103 +125,12 @@ public class ShopOrderServlet extends HttpServlet {
 			} catch (Exception e) {
 				errorMsgs.add("資料修改失敗: " + e.getMessage());
 				RequestDispatcher failureView = req
-						.getRequestDispatcher("/front_end/shop_order/update_shop_order_input.jsp");
+						.getRequestDispatcher("/back-end/shop_order_detail/ItemOrderInfo.jsp");
 				failureView.forward(req, res);
 			}
 		}
 
-		if ("insert".equals(action)) {
 
-			List<String> errorMsgs = new LinkedList<String>();
-			req.setAttribute("errorMsgs", errorMsgs);
-			try {
-				/*************************** 1.接收請求參數 ****************************************/
-
-				String mem_id = req.getParameter("mem_id");
-				String mem_idReg = "^M[1-9][0-9]{4}$";
-				if (mem_id == null || mem_id.trim().length() == 0) {
-					errorMsgs.add("員工編號: 請勿空白");
-				} else if (!mem_id.trim().matches(mem_idReg)) {
-					errorMsgs.add("員工編號: 必須為 M 開頭 + 五位數字");
-				}
-				String payment = req.getParameter("payment");
-				if (payment == null || payment.trim().length() == 0) {
-					errorMsgs.add("付款方式請勿空白");
-				}
-
-				java.sql.Date time = null;
-				try {
-					time = java.sql.Date.valueOf(req.getParameter("time").trim());
-				} catch (IllegalArgumentException e) {
-					time = new java.sql.Date(System.currentTimeMillis());
-					errorMsgs.add("請輸入日期! 格式:YYYY-MM-DD");
-				}
-				Integer shop_total_amount = null;
-				try {
-					shop_total_amount = new Integer(req.getParameter("shop_total_amount"));
-				} catch (NumberFormatException e) {
-					shop_total_amount = 0;
-					errorMsgs.add("薪水請填數字.");
-				}
-				Integer status = null;
-				try {
-					status = new Integer(req.getParameter("status"));
-				} catch (NumberFormatException e) {
-					status = 0;
-					errorMsgs.add("薪水請填數字.");
-				}
-				
-				ShopOrderVO shopOrderVO = new ShopOrderVO();
-				shopOrderVO.setMem_id(mem_id);
-				shopOrderVO.setPayment(payment);
-				shopOrderVO.setTime(time);
-				shopOrderVO.setShop_total_amount(shop_total_amount);
-				shopOrderVO.setStatus(status);
-
-
-				if (!errorMsgs.isEmpty()) {
-					req.setAttribute("shopOrderVO", shopOrderVO);
-					RequestDispatcher failureView = req.getRequestDispatcher("/front_end/shop_order/addShopOrder.jsp");
-					failureView.forward(req, res);
-					return;
-				}
-
-				/*************************** 2.開始修改資料 *****************************************/
-				ShopOrderService shopOrderSvc = new ShopOrderService();
-				shopOrderVO = shopOrderSvc.addShopOrder(mem_id, payment, time, shop_total_amount, status);
-				/*************************** 3.新增完成,準備轉交(Send the Success view) ***********/
-				String url = "/front_end/shop_order/listAllShopOrder.jsp";
-				RequestDispatcher successView = req.getRequestDispatcher(url);
-				successView.forward(req, res);
-				/*************************** 其他可能的錯誤處理 **********************************/
-			} catch (Exception e) {
-				errorMsgs.add("資料修改失敗: " + e.getMessage());
-				RequestDispatcher failureView = req.getRequestDispatcher("/front_end/shop_order/addShopOrder.jsp");
-				failureView.forward(req, res);
-			}
-		}
-
-		if ("delete".equals(action)) {
-
-			List<String> errorMsgs = new LinkedList<String>();
-			req.setAttribute("errorMsgs", errorMsgs);
-
-			try {
-				/*************************** 1.接收請求參數 ***************************************/
-				String shop_order_id = req.getParameter("shop_order_id");
-				/*************************** 2.開始刪除資料 ***************************************/
-				ShopOrderService shopOrderSvc = new ShopOrderService();
-				shopOrderSvc.deleteShopOrder(shop_order_id);
-				/*************************** 3.刪除完成,準備轉交(Send the Success view) ***********/
-				String url = "/front_end/shop_order/listAllShopOrder.jsp";
-				RequestDispatcher successView = req.getRequestDispatcher(url);
-				successView.forward(req, res);
-			} catch (Exception e) {
-				errorMsgs.add("刪除資料失敗:" + e.getMessage());
-				RequestDispatcher failureView = req.getRequestDispatcher("/front_end/shop_order/listAllShopOrder.jsp");
-				failureView.forward(req, res);
-			}
-		}
 
 	}
 }

@@ -45,6 +45,8 @@ public class RoomOrderDAO implements RoomOrderDAO_Interface {
 	private static final String Get_Order_By_Status = "SELECT ROOM_ORDER_ID, MEM_ID, CHECK_IN_DATE, CHECK_OUT_DATE, STATUS, CURRENT_ROOM_ID FROM ROOM_ORDER WHERE STATUS=? ORDER BY ROOM_ORDER_ID";
 	private static final String Update_Order_Status = "UPDATE ROOM_ORDER SET STATUS=?, CURRENT_ROOM_ID=? WHERE ROOM_ORDER_ID=?";
 	
+	private static final String GETALLINROOM = "select room_order_id ,mem_id,status from room_order where status=2 ";
+	
 	@Override
 	public void addRoomOrder(RoomOrderVO roomOrderVO) {
 		Connection con = null;
@@ -671,6 +673,50 @@ public class RoomOrderDAO implements RoomOrderDAO_Interface {
 			}
 		}	
 		
+	}
+	
+	@Override
+	public List<RoomOrderVO> getAllInRoom() {
+		List<RoomOrderVO> list = new ArrayList<>();
+		RoomOrderVO roomOrderVO = null;
+		
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(GETALLINROOM);			
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				roomOrderVO = new RoomOrderVO();
+				roomOrderVO.setRoom_order_id(rs.getString("ROOM_ORDER_ID"));
+				roomOrderVO.setMem_id(rs.getString("MEM_ID"));
+				roomOrderVO.setStatus(rs.getInt("STATUS"));
+				list.add(roomOrderVO);
+			}		
+		}catch (SQLException se) {
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}	
+		return list;
 	}
 
 }

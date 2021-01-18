@@ -24,10 +24,6 @@
 	
 	}
 
-    .toast-success {
-	  background-color: #3276b1;
-	}
-
 </style>
 </head> 
     <body class="hold-transition skin-blue sidebar-mini">
@@ -176,42 +172,6 @@
         ${alert}   
         
         
-        <script>
-        $(document).ready(() => {
-		   	
-  		  //WS
-  	    	var MyPoint = "/NotifyShopWS";
-  	    	var host = window.location.host;
-  	    	var path = window.location.pathname;
-  	    	var webCtx = path.substring(0, path.indexOf('/', 1));
-  	    	var endPointURL = "ws://" + window.location.host + webCtx + MyPoint;
-  	    	var webSocket = new WebSocket(endPointURL);
-  	    	webSocket.onmessage = function(event) {
-  	    		var jsonObj = JSON.parse(event.data);
-  	    		let newOrder = jsonObj.newOrder;
-  	    		toastr["success"](newOrder);
-  	    	};
-        });
-        </script>
-        
-         <script>
-         toastr.options = {
-        		  "closeButton": false,
-        		  "debug": false,
-        		  "newestOnTop": false,
-        		  "progressBar": false,
-        		  "positionClass": "toast-top-right",
-        		  "preventDuplicates": false,
-        		  "onclick": null,
-        		  "showDuration": "300",
-        		  "hideDuration": "1000",
-        		  "timeOut": "5000",
-        		  "extendedTimeOut": "1000",
-        		  "showEasing": "swing",
-        		  "hideEasing": "linear",
-        		  "showMethod": "fadeIn",
-        		  "hideMethod": "fadeOut"
-        		}
-		</script>
+ 
     </body>
 </html>

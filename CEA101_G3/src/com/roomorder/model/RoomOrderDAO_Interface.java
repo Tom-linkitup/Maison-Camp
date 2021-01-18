@@ -29,4 +29,6 @@ public interface RoomOrderDAO_Interface {
     public List<RoomOrderVO> getAllByOrderStatus(Integer status);
     //改變訂單狀態
     public void updateOrderStatus(Integer status, String room_order_id, String current_room_id);
+    //抓取已入住的名單，用於新增額外消費
+    public List<RoomOrderVO> getAllInRoom();
 }

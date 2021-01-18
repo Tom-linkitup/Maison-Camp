@@ -9,6 +9,12 @@
 	pageContext.setAttribute("list", list);
 %>
 
+<c:if test="${updateSuccess == 'yes' }">
+		<script>
+			$("#tab-1").prop("checked",true);
+			swal("修改成功", "請再次查看修繕編號", "success");
+		</script>
+	</c:if>
 <!DOCTYPE html>
 <jsp:useBean id="empSvc" scope="page" class="com.extra_charges.model.Extra_chargesService" />
 <html>
@@ -53,7 +59,7 @@
 					<tr><td>額外消費編號：</td><td><input style="background-color:#f9f9f9; border:none;" id="extra_charges_id" class="input-beautify" type="text" name="extra_charges_id" readonly></td></tr>			
 					<tr><td>訂房訂單編號：</td><td><input style="background-color:#f9f9f9; border:none;" id="room_order_id" class="input-beautify" type="text" name="room_order_id" readonly ></td></tr>
 					<tr><td>消費內容：</td><td><input style="background-color:#FFE1AB; border:none;" id="item" class="input-beautify" type="text" name="item" required></td></tr>
-					<tr><td>價格：</td><td><input style="background-color:#FFE1AB; border:none;"id="price" class="input-beautify" type="text" name="price" required></td></tr>
+					<tr><td>價格：</td><td><input style="background-color:#FFE1AB; border:none;"id="price" class="input-beautify" type="NUMBER" name="price" required></td></tr>
 					
 					<td><input type="hidden" name="action" value="update">
 					<input class="btn btn-info" type="submit" id="btnEdit" value="送出修改">

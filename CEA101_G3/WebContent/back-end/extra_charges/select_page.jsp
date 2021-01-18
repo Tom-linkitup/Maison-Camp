@@ -21,10 +21,10 @@
 		<label for="tab-1">查看所有額外消費明細</label> 
 		
 	  	<input class="title" id="tab-3" type="radio" name="tab-group"  /> 
-		<label for="tab-3">未退房</label>
+		<label for="tab-3">已退房</label>
 		
 		<input class="title" id="tab-4" type="radio" name="tab-group"  /> 
-		<label for="tab-4">已退房</label>
+		<label for="tab-4">尚未退房</label>
 		
 		
 		<input class="title" id="tab-2" type="radio" name="tab-group"  /> 
@@ -33,8 +33,8 @@
 		
 		<div id="content">
 			<jsp:include page="listAllExtraCharges.jsp" />
-			
-			
+			<jsp:include page="listAllCheckInExtraCharges.jsp" />
+			<jsp:include page="listAllCheckOutExtraCharges.jsp" />			
 			<jsp:include page="addExtraCharges.jsp" />
 			
 		</div>

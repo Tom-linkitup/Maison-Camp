@@ -83,6 +83,7 @@
 			<%}}else { %>
 				<li>購物車為空</li>
 			<%}%>
+			<div class="cartListTotalPrice"></div>
 			<form class="photo-form bottom-button mb-3" method="post" action="<%=request.getContextPath()%>/ShoppingServlet">
 			<input type="hidden" name="action" value="CHECKOUT">
 			<button type="button" class="checkout">前往結帳</button>

@@ -281,6 +281,15 @@
 		<servlet-name>EmpFuncServlet</servlet-name>
 		<url-pattern>/emp_func/emp_func.do</url-pattern>
 	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>ShopOrderServlet</servlet-name>
+		<servlet-class>com.shop_order.controller.ShopOrderServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>ShopOrderServlet</servlet-name>
+		<url-pattern>/shop_order/shop_order.do</url-pattern>
+	</servlet-mapping>
 
 
 

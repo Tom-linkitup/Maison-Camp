@@ -1,4 +1,4 @@
-package com.shop_order.controller;
+ package com.shop_order.controller;
 
 import java.io.IOException;
 import java.util.List;
@@ -59,7 +59,7 @@ public class ShoppingServlet extends HttpServlet {
 				}else {
 					for(int i=0; i < buylist.size(); i++) {
 						Item item = buylist.get(i);
-						if(item.getName().equals(aItem.getName())){
+						if(item.getItemId().equals(aItem.getItemId())){
 							item.setQuantity(item.getQuantity() + aItem.getQuantity());
 							buylist.setElementAt(item, i);
 							match = true;			

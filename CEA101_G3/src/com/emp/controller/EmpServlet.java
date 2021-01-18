@@ -260,22 +260,20 @@ public class EmpServlet extends HttpServlet {
 		}
 		
 		if ("insert".equals(action)) {
-
+			System.out.println("安安");
 			List<String> errorMsgs = new LinkedList<String>();
 			req.setAttribute("errorMsgs", errorMsgs);
 
 			try {
 				/*********************** 1.接收請求參數 - 輸入格式的錯誤處理 *************************/		
 				String emp_name = req.getParameter("emp_name");
-				String emp_nameReg = "^[(\u4e00-\u9fa5)(a-zA-Z0-9_)]{2,10}$";
+				
 				if (emp_name == null || emp_name.trim().length() == 0) {
 					errorMsgs.add("員工姓名: 請勿空白");
-				} else if(!emp_name.trim().matches(emp_nameReg)) { //以下練習正則(規)表示式(regular-expression)
-					errorMsgs.add("員工姓名: 只能是中、英文字母、數字和_ , 且長度必需在2到10之間");
-	            }
+				}
 				
 				String emp_user_id = req.getParameter("emp_user_id");
-				String emp_user_idReg = "^(a-zA-Z0-9_){6,20}$";
+				String emp_user_idReg = "^[a-zA-Z0-9_]{6,20}$";
 				if (emp_user_id == null || emp_user_id.trim().length() == 0) {
 					errorMsgs.add("帳號: 請勿空白");
 				}else if(!emp_user_id.trim().matches(emp_user_idReg)) { //以下練習正則(規)表示式(regular-expression)
@@ -284,16 +282,14 @@ public class EmpServlet extends HttpServlet {
 				
 
 				String emp_user_pwd = req.getParameter("emp_user_pwd");
-				String emp_user_pwdReg = "^(a-zA-Z0-9_){6,20}$";
+				String emp_user_pwdReg = "^[a-zA-Z0-9_]{6,20}$";
 				if (emp_user_pwd == null || emp_user_pwd.trim().length() == 0) {
 					errorMsgs.add("密碼: 請勿空白");
 				}else if(!emp_user_id.trim().matches(emp_user_pwdReg)) { //以下練習正則(規)表示式(regular-expression)
 					errorMsgs.add("員工密碼: 只能是英文字母、數字 , 且長度必需在6到20之間");
 	            }
 				
-				Integer emp_status = null;
-				emp_status = new Integer(req.getParameter("emp_status"));
-
+				Integer emp_status = new Integer(req.getParameter("emp_status"));
 				EmpVO empVO = new EmpVO();
 				empVO.setEmp_user_id(emp_user_id);
 				empVO.setEmp_user_pwd(emp_user_pwd);

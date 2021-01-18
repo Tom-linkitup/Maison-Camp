@@ -6,7 +6,7 @@ padding: 0;
   height: 140px;
 }
 .entry .mybox {
-  margin-left: 110px;   
+  margin-left: 10px;   
   height:100%; 
   background-color:#f4f4f0;
   position:relative;
@@ -93,7 +93,7 @@ padding: 0;
   position: relative;
 }
 .mybox-middle {
-  margin-left: 110px;
+  margin-left: 10px;
   height: 100%;
   width:600px;
   background-color:#ffffff;
@@ -107,7 +107,7 @@ padding: 0;
   font-size: 12px;
 }
 .mybox-reply {
-  margin-left: 110px;
+  margin-left: 10px;
   min-width: 500px;
   background-color:#f4f4f0;
   position:relative;
@@ -197,7 +197,7 @@ div.post:nth-last-child(4) div {
 }
 .mybox-middle div.message {
   text-align: justify;
-  margin-left:120px;
+  margin-left:10px;
   margin-right:130px;
   word-wrap: break-word;
   color:#9c9ca5;

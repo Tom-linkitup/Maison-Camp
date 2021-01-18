@@ -93,10 +93,6 @@
 			        			<td><%=order.getPrice()*order.getQuantity()%></td>
 			        		</tr>
 			       			<%}}%>
-			        		
-			        		<tr>
-			        			<td colspan="5" class="align-rt" style="text-align:end;"><span style="color:#c15c61;">優惠折數：</span> 0.8</td>
-			        		</tr>
 			        		<tr>
 			        			<td colspan="5" class="align-rt" style="text-align:end;"><span style="color:#c15c61;">總計：</span>$<%=amount%></td>
 			        		</tr>
@@ -126,21 +122,7 @@
 		        		</tbody>
 		        	</table>
 		      </div>
-		    </div>
-		    
-		    <div class="accordin">
-		      <input type="checkbox" name="tab-4" id="tab-4" />
-		      <label for="tab-4" class="accordin_title"><i style="margin-right:5px;" class="far fa-info-circle"></i>取消預定須知</label>
-		      <div class="accordin_detail">
-		        	<div class="alert alert-warning">
-		        		<ul class="list-unstyled" style="line-height:1.7; padding-top:10px;">
-		        			<li><i class="fa fa-chevron-circle-right color-green margin-right-5" style="color:#e67e22;"></i> 顧客於使用日當日取消預訂扣總價總金額 100%。</li>
-		        			<li><i class="fa fa-chevron-circle-right color-green margin-right-5" style="color:#e67e22;"></i> 顧客於使用日前 7-9 日內取消預訂扣總價總金額 50%。</li>  
-		        			<li><i class="fa fa-chevron-circle-right color-green margin-right-5" style="color:#e67e22;"></i> 顧客於使用日前 14日(含14 日)取消預訂扣總價總金額 0%。</li>           		
-		        		</ul>      	
-		        	</div>
-		      </div>
-		    </div>	    
+		    </div>    
 		    <div class="accordin">
 		      <input type="checkbox" name="tab-5" id="tab-5" />
 		      <label for="tab-5" class="accordin_title"><i style="margin-right:5px;" class="far fa-money-bill-alt"></i>選擇付款方式</label>

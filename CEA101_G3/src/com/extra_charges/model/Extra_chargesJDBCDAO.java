@@ -22,6 +22,12 @@ public class Extra_chargesJDBCDAO implements Extra_chargesDAO_interface {
 		"DELETE FROM EXTRA_CHARGES where EXTRA_CHARGES_ID = ?";
 	private static final String UPDATE = 
 		"UPDATE EXTRA_CHARGES set ROOM_ORDER_ID=?, ITEM=?, PRICE=? where EXTRA_CHARGES_ID = ?";
+	
+	private static final String ALLCHECKIN = "SELECT EXTRA_CHARGES_ID  ,O.ROOM_ORDER_ID,ITEM,PRICE FROM EXTRA_CHARGES\r\n" + 
+			"C LEFT JOIN ROOM_ORDER O ON C.ROOM_ORDER_ID=O.ROOM_ORDER_ID  WHERE STATUS=2 ORDER BY  C.EXTRA_CHARGES_ID DESC; ";
+	
+	private static final String ALLCHECKOUT = "SELECT EXTRA_CHARGES_ID  ,O.ROOM_ORDER_ID,ITEM,PRICE FROM EXTRA_CHARGES\r\n" + 
+			"C LEFT JOIN ROOM_ORDER O ON C.ROOM_ORDER_ID=O.ROOM_ORDER_ID  WHERE STATUS=3 ORDER BY  C.EXTRA_CHARGES_ID DESC; ";
 
 	@Override
 	public void insert(Extra_chargesVO extra_chargesVO) {
@@ -282,6 +288,129 @@ public class Extra_chargesJDBCDAO implements Extra_chargesDAO_interface {
 		return list;
 	}
 
+	
+	@Override
+	public List<Extra_chargesVO> getAllCheckIn() {
+		List<Extra_chargesVO> list = new ArrayList<Extra_chargesVO>();
+		Extra_chargesVO extra_chargesVO = null;
+
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		try {
+
+			Class.forName(driver);
+			con = DriverManager.getConnection(url, userid, passwd);
+			pstmt = con.prepareStatement(ALLCHECKIN);
+			rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+				// extraChargesVO 也稱為 Domain objects
+				extra_chargesVO = new Extra_chargesVO();
+				extra_chargesVO.setExtra_charges_id(rs.getString("extra_charges_id"));
+				extra_chargesVO.setRoom_order_id(rs.getString("room_order_id"));
+				extra_chargesVO.setItem(rs.getString("item"));
+				extra_chargesVO.setPrice(rs.getInt("price"));
+				list.add(extra_chargesVO); // Store the row in the list
+			}
+
+			// Handle any driver errors
+		} catch (ClassNotFoundException e) {
+			throw new RuntimeException("Couldn't load database driver. "
+					+ e.getMessage());
+			// Handle any SQL errors
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		return list;
+	}
+	
+	
+	@Override
+	public List<Extra_chargesVO> getAllCheckOut() {
+		List<Extra_chargesVO> list = new ArrayList<Extra_chargesVO>();
+		Extra_chargesVO extra_chargesVO = null;
+
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		try {
+
+			Class.forName(driver);
+			con = DriverManager.getConnection(url, userid, passwd);
+			pstmt = con.prepareStatement(ALLCHECKOUT);
+			rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+				// extraChargesVO 也稱為 Domain objects
+				extra_chargesVO = new Extra_chargesVO();
+				extra_chargesVO.setExtra_charges_id(rs.getString("extra_charges_id"));
+				extra_chargesVO.setRoom_order_id(rs.getString("room_order_id"));
+				extra_chargesVO.setItem(rs.getString("item"));
+				extra_chargesVO.setPrice(rs.getInt("price"));
+				list.add(extra_chargesVO); // Store the row in the list
+			}
+
+			// Handle any driver errors
+		} catch (ClassNotFoundException e) {
+			throw new RuntimeException("Couldn't load database driver. "
+					+ e.getMessage());
+			// Handle any SQL errors
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		return list;
+	}
 	public static void main(String[] args) {
 
 		Extra_chargesJDBCDAO dao = new Extra_chargesJDBCDAO();

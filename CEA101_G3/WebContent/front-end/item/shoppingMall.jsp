@@ -41,7 +41,7 @@
     	<div class="row">
     		<div class="col-12">
 		    	<div class="lightboxImg">
-		        	<img class="boxImg"  >
+		        	<img style="border:gray 1px solid"class="boxImg"  >
 		        </div>   
 		    </div>
 		    <div class="col-8 mx-auto">
