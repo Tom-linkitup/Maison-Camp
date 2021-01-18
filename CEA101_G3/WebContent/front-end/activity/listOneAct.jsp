@@ -166,7 +166,9 @@ div.comment {
 	<!-- 左邊活動資訊 -->
 	<c:set value="0" var="sum" />
 		<c:forEach var="actOrderVO" items="${actOrder.findByActId(activityVO.actId)}">
+			<c:if test="${actOrderVO.status==0}">
 			<c:set value="${sum + actOrderVO.people}" var="sum" />
+			</c:if>
 		</c:forEach>
 	
 	<div class="justify-content-start demo">
