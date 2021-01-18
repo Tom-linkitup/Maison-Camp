@@ -21,7 +21,9 @@
 <body>
 	<div id="content-6">
 		<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/activity/act.do">
-			<h1>統一修改已完成的訂單的狀態</h1>
+			<h1>完成某場活動，將其所有訂單轉至評價
+			
+			</h1>
 			<select size="1" name="actId">
 			<c:forEach var="actVO" items="${actList}">
 				<option value="${actVO.actId}">${actVO.actName}</option>
