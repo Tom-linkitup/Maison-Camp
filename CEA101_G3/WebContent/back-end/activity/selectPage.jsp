@@ -1,4 +1,4 @@
-<%@ page contentType="text/html; charset=UTF-8" pageEncoding="Big5"%>
+ <%@ page contentType="text/html; charset=UTF-8" pageEncoding="Big5"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <%@ include file="/back-end/back-template/backIndex.file"%>
@@ -37,6 +37,9 @@
 		<label for="tab-4">新增活動圖片</label> 
 		<input class="title" id="tab-5"	type="radio" name="tab-group" /> 
 		<label for="tab-5">查看所有活動圖片</label> 
+		<input class="title" id="tab-6"	type="radio" name="tab-group" /> 
+		<label for="tab-6">完成活動，訂單待評論</label> 
+		
 		
 
 		<div id="content">
@@ -45,6 +48,7 @@
 			<jsp:include page="/back-end/activity/selectOne.jsp" />
 			<jsp:include page="/back-end/actPhoto/addActPhoto.jsp" />
 			<jsp:include page="/back-end/actPhoto/listAllActPhoto.jsp" />
+			<jsp:include page="/back-end/activity/completeAct.jsp" />
 		</div>
 	</div>
 		<%@ include file="/back-end/back-template/backIndex2.file"%>

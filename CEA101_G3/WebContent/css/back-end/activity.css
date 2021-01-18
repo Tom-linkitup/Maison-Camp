@@ -63,7 +63,7 @@ h1 {
 	/* z-index: 3; */
 }
 
-#content #content-1, #content #content-2, #content #content-3, #content #content-4, #content #content-5 {
+#content #content-1, #content #content-2, #content #content-3, #content #content-4, #content #content-5, #content #content-6 {
 	opacity: 0;
 	padding: 1.5em;
 	position: absolute;
@@ -75,7 +75,8 @@ h1 {
 #container input#tab-2:checked ~ #content #content-2,
 #container input#tab-3:checked ~ #content #content-3,
 #container input#tab-4:checked ~ #content #content-4,
-#container input#tab-5:checked ~ #content #content-5 {
+#container input#tab-5:checked ~ #content #content-5,
+#container input#tab-6:checked ~ #content #content-6 {
     opacity: 1;
     z-index: 100;
 }

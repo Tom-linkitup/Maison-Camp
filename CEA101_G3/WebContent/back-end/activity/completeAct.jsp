@@ -9,22 +9,29 @@
 %>
 <html>
 <head>
-<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-
+<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/css/back-end/activity.css" />
+<link rel="stylesheet" href="<%=request.getContextPath()%>/bootstrap/bootstrap.min.css">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script src="http://code.jquery.com/jquery-1.12.4.min.js"></script>
+<script>
+	
+</script>
 </head>
 <body>
-	<h1>備註:這個頁面 主要是將活動做完成的動作  完成的活動 會將對應的訂單轉換成待評價狀態</h1>
 	<div id="content-6">
 		<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/activity/act.do">
-			<h1>完成的活動</h1>
+			<h1>統一修改已完成的訂單的狀態</h1>
 			<select size="1" name="actId">
 			<c:forEach var="actVO" items="${actList}">
-				<option value=${actVO.actId}>${actVO.actName}</option>
+				<option value="${actVO.actId}">${actVO.actName}</option>
 			</c:forEach>
+			
+			</select>
 			<input type="hidden" name="action" value="completeAct">
 			<input type="submit" value="送出">
-			</select>
 		</FORM>
 	</div>
+	
 </body>
 </html>
