@@ -59,17 +59,17 @@
 			<c:choose>
 			<c:when test="${activityOrderVO.status == '1'}">
 			<td>
-			未確認
+			已取消
 			</td>
 			</c:when>
 			<c:when test="${activityOrderVO.status == '2'}">
 			<td>
-			延期
+			待評價
 			</td>
 			</c:when>
 			<c:when test="${activityOrderVO.status == '3'}">
 			<td>
-			已取消
+			已完成
 			</td>
 			</c:when>
 			<c:otherwise>

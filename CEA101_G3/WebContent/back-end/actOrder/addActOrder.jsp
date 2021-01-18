@@ -60,9 +60,9 @@
 		<td>
 		<select size="1" name="status">
 		<option value="0">已確認</option>
-		<option value="1">未確認</option>
-		<option value="2">延期</option>
-		<option value="3">取消</option>
+		<option value="1">已取消</option>
+		<option value="2">待評價</option>
+		<option value="3">已完成</option>
 		</select>
 		</td>
 	</tr>
