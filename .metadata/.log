@@ -5486,3 +5486,22 @@ CEA101_G3/src/com/activity/controller/ActivityServlet.java
 	... 3 more
 =======
 >>>>>>> branch 'main' of https://github.com/Tom-linkitup/Maison-Camp.git
+
+!ENTRY org.eclipse.egit.core 4 0 2021-01-18 10:51:06.893
+!MESSAGE Pulling 1 repository
+!SUBENTRY 1 org.eclipse.egit.core 4 0 2021-01-18 10:51:06.894
+!MESSAGE Checkout conflict with files: 
+CEA101_G3/WebContent/back-end/back-template/backIndex2.file
+!STACK 0
+org.eclipse.jgit.api.errors.CheckoutConflictException: Checkout conflict with files: 
+CEA101_G3/WebContent/back-end/back-template/backIndex2.file
+	at org.eclipse.jgit.api.MergeCommand.call(MergeCommand.java:434)
+	at org.eclipse.jgit.api.PullCommand.call(PullCommand.java:400)
+	at org.eclipse.egit.core.op.PullOperation$PullJob.run(PullOperation.java:256)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:63)
+Caused by: org.eclipse.jgit.errors.CheckoutConflictException: Checkout conflict with files: 
+CEA101_G3/WebContent/back-end/back-template/backIndex2.file
+	at org.eclipse.jgit.dircache.DirCacheCheckout.doCheckout(DirCacheCheckout.java:528)
+	at org.eclipse.jgit.dircache.DirCacheCheckout.checkout(DirCacheCheckout.java:493)
+	at org.eclipse.jgit.api.MergeCommand.call(MergeCommand.java:304)
+	... 3 more

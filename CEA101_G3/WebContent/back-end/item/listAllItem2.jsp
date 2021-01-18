@@ -19,7 +19,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-
 	<div id="content-1" style="max-height:100% ;overflow: auto;">
 		<h2 style="text-align:center; margin-bottom:20px;">商品資訊</h2>
 		<select id="chooseCategory" name="chooseCategory" style="position: absolute;left:22px; top:35px;">

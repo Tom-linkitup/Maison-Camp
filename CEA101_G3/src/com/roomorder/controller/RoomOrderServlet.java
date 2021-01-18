@@ -80,7 +80,8 @@ public class RoomOrderServlet extends HttpServlet {
 				String startDate = sdf.format(check_in_date);
 				String room_category_id = req.getParameter("room_category_id");
 				String room_promotion_id = req.getParameter("room_promotion_id");
-				Integer room_order_price = Integer.parseInt(req.getParameter("room_order_price"));
+				Float room_order_price_float = new Float(req.getParameter("room_order_price"));
+				Integer room_order_price = Math.round((room_order_price_float));
 				Integer quantity = new Integer(req.getParameter("quantity"));
 				LocalDate order_time = LocalDate.now();
 				String note = "you are ordering";

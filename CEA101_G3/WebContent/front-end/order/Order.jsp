@@ -218,7 +218,7 @@
 				    	<input type="hidden" name="room_category_id" value="${room_category_id}">
 				    	<input type="hidden" name="room_promotion_id" value="RP10002">
 				    	<input type="hidden" name="quantity" value="${qty}">
-				    	<input type="hidden" name="room_order_price" value="${roomTypeVO.room_price * qty * stay * 1}">
+				    	<input type="hidden" name="room_order_price" value="${roomTypeVO.room_price * qty * stay * 0.8}">
 				    	<input type="hidden" name="action" value="insert">
 				    	<button type="submit">付款</button>  	
 			    	</form>
