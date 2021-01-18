@@ -441,7 +441,7 @@
 				      				</div>
 				      			    <div>
 				      			    	<h3>您寶貴的評論</h3>
-				      			    	<input type="textarea" value="${actCommentSvc.getOneByActOrder(actOrderVO.actOrderId).actComment}" onpaste="return false" >
+				      			    	<input type="textarea" value="${actCommentSvc.getOneByActOrder(actOrderVO.actOrderId).actComment}" onpaste="return false" disabled readonly>
 				      			    	
 				      			    </div> 
 				      			</c:otherwise>
