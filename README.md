@@ -10,12 +10,14 @@ Tibame CEA101G3 專題
 
 開發使用到的技術：
 
-  後端：JavaEE, Servlet, JSP, 含 MVC 架構
+  後端：JavaEE, Servlet, JSP, DAO(DataSource) 含 MVC 架構
   
-  前端：javaScript, jQuery, Ajax, HTML5, CSS3
+  前端：javaScript, jQuery, Ajax, HTML5, CSS3, Bootstrap
   
   後端框架：Hibernate
   
-  伺服端：Tomcat 9
+  伺服端：Tomcat 9.038
   
   資料庫：Oracle, Redis
+  
+  整合：git
